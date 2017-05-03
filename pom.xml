@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.lsst.ocs</groupId>
+    <artifactId>OCSExecutive</artifactId>
+    <version>1.0</version>
+    <name>OCSExecutive</name>
+
+    <developers>
+        <developer>
+            <id>jbuffill</id>
+            <name>James Buffill</name>
+            <email>jbuffill@lsst.org</email>
+            <url>http://www.lsstcorp.org</url>
+            <organization>LSST</organization>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-7</timezone>
+        </developer>
+    </developers>
+    
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.7</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_processingcluster</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_ocs</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_sequencer</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_archiver</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_catchuparchiver</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_tcs</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_camera</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <build>
+        <finalName>ocsexec</finalName>
+        <plugins><!-- Maven Assembly Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.4</version>
+                <configuration>
+                    <!-- get all project dependencies -->
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <!-- MainClass in mainfest make a executable jar -->
+                    <archive>
+                        <manifest>
+                            <mainClass>org.lsst.ocs.Executive</mainClass>
+                        </manifest>
+                    </archive>
+
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <!-- bind to the packaging phase -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <shutdown>kill</shutdown>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>ocs-maven2-public</id>
+            <name>OCS Maven 2 central repository</name>
+            <url>http://dev.lsstcorp.org:8081/nexus/content/groups/ocs-maven2-public/</url>
+        </repository>
+    </repositories>
+    
+</project>
