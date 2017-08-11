@@ -27,9 +27,10 @@ public class FaultState implements EntityState {
     
     @Override public void exitControl(Entity entity) {
         
-        out.println(entity.etype_.toString() + "." + this.getName() + ".fault");
+        String salactor = entity._etype.toString();
+        out.println(salactor + "." + this.getName() + ".fault");
 
-        if ( EntityType.OCS.equals(entity.etype_) ) {
+        if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
             
             // 1. Publish SummaryState->FaultState if not previously pub'd
             //    a. Publish Topic->ErrorCode
@@ -38,5 +39,4 @@ public class FaultState implements EntityState {
             entity.setState(new OfflineState());
         }
     }
-    
 }

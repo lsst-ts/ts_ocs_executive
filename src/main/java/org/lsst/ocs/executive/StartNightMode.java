@@ -64,5 +64,4 @@ public class StartNightMode implements ModeState {
         // 1. Sequencer comms...
         // 2. 
     }
-    
 }

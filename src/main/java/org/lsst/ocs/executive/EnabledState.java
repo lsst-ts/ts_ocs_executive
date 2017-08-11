@@ -15,6 +15,9 @@
 package org.lsst.ocs.executive;
 
 import static java.lang.System.out;
+import org.lsst.ocs.executive.salconnect.SalConnect;
+import org.lsst.ocs.executive.salservice.SalCmd;
+import org.lsst.ocs.executive.salservice.SalEvent;
 
 /**
  *
@@ -30,12 +33,35 @@ public class EnabledState implements EntityState {
 
     @Override public void disable(Entity entity) {
 
-        // Cmd Sequencer, TCS, CCS or DMCS via SAL
-        // Send msg
-        String salactor = entity.etype_.toString();
+        String salactor = entity._etype.toString();
         out.println(salactor + "." + this.getName() + ".disable");
-        SalCmd salCmd = new SalCmd(salactor);
-        salCmd.disable();
+
+        // Cmd Sequencer, TCS, CCS or DMCS via SAL
+        // 1. SalComponent (Rcvr) reference is entity data member
+        
+        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+        SalCmd salCmdCamera = new SalCmd(entity._salComponent);
+
+        // 3. Also, assign topic & topic arguments
+        salCmdCamera.setTopic("enterControl");
+        
+        // 4. Define Invoker & set up command request
+        SalConnect salConnectCamera = new SalConnect();
+        salConnectCamera.setSalService(salCmdCamera);
+        
+        // 5. Invoker indirectly calls cmd->execute()
+        salConnectCamera.connect();
+
+        
+        if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
+            
+            // 1. Publish SummaryState if not previously pub'd
+            SalEvent salEventCamera = new SalEvent(entity._salComponent);
+            salEventCamera.setTopic("summaryState");
+            
+            salConnectCamera.setSalService(salEventCamera);
+            salConnectCamera.connect();
+        }        
 
         // Cmd local entity state from EnabledState to DisabledState 
         entity.setState(new DisabledState());
@@ -43,15 +69,15 @@ public class EnabledState implements EntityState {
 
     @Override public void fault(Entity entity) {
         
-        out.println(entity.etype_.toString() + "." + this.getName() + ".fault");
+        String salactor = entity._etype.toString();
+        out.println(salactor + "." + this.getName() + ".fault");
         
         // Can't set other entities to FaultState, only myself
-        if ( EntityType.OCS.equals(entity.etype_) ) {
+        if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
             
             // 1. Set error code
             // 2. Cmd local entity state from EnabledState to FaultState
             entity.setState(new FaultState());
         }
     }
-    
 }

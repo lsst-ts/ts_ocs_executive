@@ -31,16 +31,18 @@ public class StandbyState implements EntityState {
     
     @Override public void start(Entity entity) {
         
-        // Cmd Sequencer, TCS, CCS or DMCS via SAL
-        // Send msg
-        String salactor = entity.etype_.toString();
+        String salactor = entity._etype.toString();
         out.println(salactor + "." + this.getName() + ".start");
-        SalCmd salCmd = new SalCmd(salactor);
-        salCmd.start();
 
+        // Cmd the Sequencer, TCS, CCS or DMCS via SAL
+        // Send msg
+        entity._salComponent.start();
+        
         if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
             
             // 1. Publish SummaryState->StandbyState if not previously pub'd
+            entity._salComponent.summaryState(1);
+            
             // 2. Publishes heartbeat; some configuration settings applied
             //    a. Publish Topic->SettingsApplied
             //    b. Publish Topic->SettingsVersion
@@ -52,16 +54,18 @@ public class StandbyState implements EntityState {
 
     @Override public void exitControl(Entity entity) {
         
-        // Cmd Sequencer, TCS, CCS or DMCS via SAL
-        // Send msg
-        String salactor = entity.etype_.toString();
+        String salactor = entity._etype.toString();
         out.println(salactor + "." + this.getName() + ".exitControl");
-        SalCmd salCmd = new SalCmd(salactor);
-        salCmd.exitControl();
+
+        // Cmd the Sequencer, TCS, CCS or DMCS via SAL
+        // Send msg
+        entity._salComponent.exitControl();
 
         if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
             
             // 1. Publish SummaryState->StandbyState if not previously pub'd
+            entity._salComponent.summaryState(1);
+            
             // 2. Apply some settings
         }
         
@@ -71,16 +75,18 @@ public class StandbyState implements EntityState {
 
     @Override public void fault(Entity entity) {
         
-        out.println(entity.etype_.toString() + "." + this.getName() + ".fault");
+        String salactor = entity._etype.toString();
+        out.println(salactor + "." + this.getName() + ".fault");
 
         // Can't set other entities to FaultState, only myself
-        if ( EntityType.OCS.equals(entity.etype_) ) {
+        if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
             
             // 1. Publish SummaryState->StandbyState if not previously pub'd
+            entity._salComponent.summaryState(1);
+            
             // 2. Set error code
             // 3. Cmd local entity state from StandbyState to FaultState
             entity.setState(new FaultState());
         }
     }
-
 }

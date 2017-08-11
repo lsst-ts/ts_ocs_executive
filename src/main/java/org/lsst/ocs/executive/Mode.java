@@ -23,11 +23,6 @@ package org.lsst.ocs.executive;
 //public class Mode extends DomainObject {
 public class Mode implements DomainObject {
     
-    @Override public String getName() {
-        return "Entity->" + entity_.etype_.toString() +
-                     "->" + entity_.observingMode_.toString();
-    }
-
     private Entity entity_;
     public Entity Entity() { return this.entity_; }
     public void Entity(Entity entity) { this.entity_  = entity; }
@@ -49,10 +44,19 @@ public class Mode implements DomainObject {
 
     }
 
-    public void startNight() { entity_.Mode().ModeState().startNight(entity_); }
+    @Override public String getName() {
+        return "Entity->" + entity_.getEntityType() 
+                          + "->" 
+                          + entity_.getObservingMode();
+    }
+
+    public void startNight() { entity_.getMode().ModeState().startNight(entity_); }
+    //public void startNight() { entity_.Mode().ModeState().startNight(entity_); }
     //public void startNight() { modeState_.startNight(entity_); }
     //public void startNight() { modeState_.startNight(); }
-    public void endNight() { entity_.Mode().ModeState().endNight(entity_); }
+    
+    public void endNight() { entity_.getMode().ModeState().endNight(entity_); }
+    //public void endNight() { entity_.Mode().ModeState().endNight(entity_); }
     //public void endNight() { modeState_.endNight(entity_); }
     //public void endNight() { modeState_.endNight(); }
 

@@ -72,7 +72,19 @@
 
     <build>
         <finalName>ocsexec</finalName>
-        <plugins><!-- Maven Assembly Plugin -->
+        <plugins>
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <compilerArgs>
+                        <arg></arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <!-- Maven Assembly Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -85,7 +97,7 @@
                     <!-- MainClass in mainfest make a executable jar -->
                     <archive>
                         <manifest>
-                            <mainClass>org.lsst.ocs.Executive</mainClass>
+                            <mainClass>org.lsst.ocs.executive.ExecutiveFXApp</mainClass>
                         </manifest>
                     </archive>
 

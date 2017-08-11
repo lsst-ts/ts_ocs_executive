@@ -28,20 +28,20 @@ public class OfflineState implements EntityState {
     
     @Override public void enterControl(Entity entity) {
         
-        // Cmd Sequencer, TCS, CCS or DMCS via SAL
-        // Send msg
-        String salactor = entity.etype_.toString();
+        String salactor = entity._etype.toString();
         out.println(salactor + "." + this.getName() + ".enterControl");
-        SalCmd salCmd = new SalCmd(salactor);
-        salCmd.enterControl();
+
+        // Cmd the Sequencer, TCS, CCS or DMCS via SAL
+        // Send msg
+        entity._salComponent.enterControl();
 
         if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
             
-            // Publish SummaryState->OfflineState if not previously pub'd
+            // Publish SummaryState if not previously pub'd
+            entity._salComponent.summaryState(1);
         }
 
         // Cmd local entity state from OfflineState[AvailableState] to StandbyState
         entity.setState(new StandbyState());
     }
-
 }

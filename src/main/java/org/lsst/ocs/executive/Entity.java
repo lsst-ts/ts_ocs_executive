@@ -19,6 +19,14 @@
 
 package org.lsst.ocs.executive;
 
+import org.lsst.ocs.executive.salcomponent.CSCArchiver;
+import org.lsst.ocs.executive.salcomponent.CSCCamera;
+import org.lsst.ocs.executive.salcomponent.CSCCatchupArchiver;
+import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
+import org.lsst.ocs.executive.salcomponent.CSCProcessingCluster;
+import org.lsst.ocs.executive.salcomponent.CSCSequencer;
+import org.lsst.ocs.executive.salcomponent.CSCTcs;
+
 /**
  *
  * Entity is a Context class implementation
@@ -28,32 +36,52 @@ package org.lsst.ocs.executive;
 //public class Entity extends DomainObject {
 public class Entity implements DomainObject {
     
-    @Override public String getName() {return "Entity->" + this.etype_.toString(); }
-    
-    public Entity Entity() { return this; }
+    @Override public String getName() {return "Entity->" + this._etype.toString(); }
     
     /** The state/etype of Commandable Entity **/
-    protected EntityType etype_;
-    private EntityState state_;
-    public EntityState EntityState() { return this.state_; }
-    public void EntityState(EntityState state) { this.state_ = state; }
+    protected EntityType _etype;
+
+    private EntityState _state; // association via composition
     
-    protected ObservingMode observingMode_;
-    private Mode mode_;
-    public Mode Mode() { return this.mode_; }
-    public void Mode(Mode mode) { this.mode_ = mode; }
+    protected ObservingMode _observingMode;
+    private Mode _mode;
+    
+    // Command Receiver
+    protected CommandableSalComponent _salComponent;
     
     public Entity(EntityType etype) { 
 
         // Starting up & initial transition to OfflineState
-        this.etype_ = etype;
-        this.state_ = new OfflineState();
+        this._etype = etype;
         
-        //this.mode_ = new Mode(this); // mode_.modeState_ set in Mode Cstr
-        /* this.Name_ = "Entity->" + this.etype_.toString(); */
+        this._state = new OfflineState();
+        
+        switch(this._etype.toString()) {
+            case "SEQUENCER":
+                _salComponent = new CSCSequencer();
+                break;
+            case "CAMERA":
+                _salComponent = new CSCCamera();
+                break;
+            case "TCS":
+                _salComponent = new CSCTcs();
+                break;
+            case "ARCHIVER":
+                _salComponent = new CSCArchiver();
+                break;
+            case "CATCHUPARCHIVER":
+                _salComponent = new CSCCatchupArchiver();
+                break;
+            case "PROCESSINGCLUSTER":
+                _salComponent = new CSCProcessingCluster();
+                break;
+        }
+    
+        //this._mode = new Mode(this); // _mode.modeState_ set in Mode Cstr
+        /* this.Name_ = "Entity->" + this._etype.toString(); */
 
         // Can start here or in Main
-        // this.state_.start();
+        // this._state.start();
         
         // Publish SummaryState of 'StandbyState' if OCS
     }
@@ -63,11 +91,11 @@ public class Entity implements DomainObject {
         // Starting up & initial transition to OfflineState
         this(etype);
 
-        this.observingMode_ = observingMode;
-        this.mode_ = new Mode(this);
-        this.mode_.ModeState(new StartNightMode());
+        this._observingMode = observingMode;
+        this._mode = new Mode(this);
+        this._mode.ModeState(new StartNightMode());
         
-        /* this.Name_ = "Entity->" + this.etype_.toString(); */
+        /* this.Name_ = "Entity->" + this._etype.toString(); */
 
         // Publish SummaryState of 'StandbyState' if OCS
     }
@@ -75,25 +103,26 @@ public class Entity implements DomainObject {
     // The initial configuration setting for the device. 
     //_configurationState = new ProductionConfigurationState(this);
 
-    public String getEntityType() { return etype_.toString(); }
-    public EntityState getState() { return this.state_; }
-    public void setState(EntityState state) { this.state_ = state; }
+    public String getEntityType() { return _etype.toString(); }
+    
+    public void setState(EntityState state) { this._state = state; }
+    public EntityState getState()           { return this._state; }
 
     // Delegate to the entity state object & pass the this ptr
-    public void enterControl()  { this.state_.enterControl(this); }
-    public void exitControl()   { this.state_.exitControl(this); }
-    public void start()         { this.state_.start(this); }
-    public void standby()       { this.state_.standby(this); }
-    public void enable()        { this.state_.enable(this); }
-    public void disable()       { this.state_.disable(this); }
+    public void enterControl() { this._state.enterControl(this); }
+    public void start()        { this._state.start(this); }
+    public void enable()       { this._state.enable(this); }
+    public void disable()      { this._state.disable(this); }
+    public void standby()      { this._state.standby(this); }
+    public void exitControl()  { this._state.exitControl(this); }
 
-    public String getObservingMode() { return observingMode_.toString(); }
-    public Mode getMode() { return this.mode_; }
-    public void setMode(Mode mode) { this.mode_ = mode; }
+    public void setMode(Mode mode) { this._mode = mode; }
+    public Mode getMode() { return this._mode; }
+    public String getObservingMode() { return _observingMode.toString(); }
 
     // Delegate to the mode state object & pass the this ptr
-    public void startNight() { this.mode_.startNight(); }
-    public void endNight()   { this.mode_.endNight(); }
+    public void startNight() { this._mode.startNight(); }
+    public void endNight()   { this._mode.endNight(); }
 
     //public void startDay()   { out.println("error"); }
     //public void endDay()     { out.println("error"); }

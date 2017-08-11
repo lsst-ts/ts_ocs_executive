@@ -31,15 +31,17 @@ public class DisabledState implements EntityState {
     
     @Override public void enable(Entity entity) {
        
+        String salactor = entity._etype.toString();
+        out.println(salactor + "." + this.getName() + ".enable");
+
         // Cmd Sequencer, TCS, CCS or DMCS via SAL
         // Send msg
-        String salactor = entity.etype_.toString();
-        out.println(salactor + "." + this.getName() + ".enable");
-        SalCmd salCmd = new SalCmd(salactor);
-        salCmd.enable();
+        entity._salComponent.enable();
 
         if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
-            // 1. Publish SummaryState->EnabledState if not previously pub'd
+            // 1. Publish SummaryState if not previously pub'd
+            entity._salComponent.summaryState(1);
+            
             // 2. Check settings match (or differ) from start values
             //    a. Publish Topic->AppliedSettingsMatchStart (or they differ??)
             // 3. Full control features are allowed
@@ -52,15 +54,17 @@ public class DisabledState implements EntityState {
 
     @Override public void standby(Entity entity) {
 
+        String salactor = entity._etype.toString();
+        out.println(salactor + "." + this.getName() + ".standby");
+
         // Cmd Sequencer, TCS, CCS or DMCS via SAL
         // Send msg
-        String salactor = entity.etype_.toString();
-        out.println(salactor + "." + this.getName() + ".standby");
-        SalCmd salCmd = new SalCmd(salactor);
-        salCmd.standby();
+        entity._salComponent.standby();
 
         if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
-            // 1. Publish SummaryState->DisabledState if not previously pub'd
+            // 1. Publish SummaryState if not previously pub'd
+            entity._salComponent.summaryState(1);
+            
             // 2. Entity reads/loads & applies control settings
         }
 
@@ -70,15 +74,15 @@ public class DisabledState implements EntityState {
 
     @Override public void fault(Entity entity) {
 
-        out.println(entity.etype_.toString() + "." + this.getName() + ".fault");
+        String salactor = entity._etype.toString();
+        out.println(salactor + "." + this.getName() + ".fault");
 
         // Can't set other entities to FaultState, only myself
-        if ( EntityType.OCS.equals(entity.etype_) ) {
+        if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
             
             // 1. Set error code
             // 2. Cmd local entity state from DisabledState to FaultState
             entity.setState(new FaultState());
         }
     }
-    
 }
