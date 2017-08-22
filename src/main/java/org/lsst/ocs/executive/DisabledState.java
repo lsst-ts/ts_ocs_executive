@@ -17,20 +17,22 @@ package org.lsst.ocs.executive;
 import static java.lang.System.out;
 
 /**
- *
- * DisabledState is a Concrete State class implementation
- *
- * Transitions to: StandbyState, EnabledState or FaultState
- * 
+ * {@code DisabledState} is a Concrete State class implementation.
+ * <p>
+ * Transitions to: {@code StandbyState}, {@code EnabledState} or {@code FaultState}
+ * <p>
  */
-
 public class DisabledState implements EntityState {
 
     // Entity has applied settings & may acquire data
-    @Override public String getName() { return "DisabledState"; }
-    
-    @Override public void enable(Entity entity) {
-       
+    @Override
+    public String getName () {
+        return "DisabledState";
+    }
+
+    @Override
+    public void enable ( Entity entity ) {
+
         String salactor = entity._etype.toString();
         out.println(salactor + "." + this.getName() + ".enable");
 
@@ -41,7 +43,7 @@ public class DisabledState implements EntityState {
         if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
             // 1. Publish SummaryState if not previously pub'd
             entity._salComponent.summaryState(1);
-            
+
             // 2. Check settings match (or differ) from start values
             //    a. Publish Topic->AppliedSettingsMatchStart (or they differ??)
             // 3. Full control features are allowed
@@ -52,7 +54,8 @@ public class DisabledState implements EntityState {
         entity.setState(new EnabledState());
     }
 
-    @Override public void standby(Entity entity) {
+    @Override
+    public void standby ( Entity entity ) {
 
         String salactor = entity._etype.toString();
         out.println(salactor + "." + this.getName() + ".standby");
@@ -64,7 +67,7 @@ public class DisabledState implements EntityState {
         if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
             // 1. Publish SummaryState if not previously pub'd
             entity._salComponent.summaryState(1);
-            
+
             // 2. Entity reads/loads & applies control settings
         }
 
@@ -72,14 +75,15 @@ public class DisabledState implements EntityState {
         entity.setState(new StandbyState());
     }
 
-    @Override public void fault(Entity entity) {
+    @Override
+    public void fault ( Entity entity ) {
 
         String salactor = entity._etype.toString();
         out.println(salactor + "." + this.getName() + ".fault");
 
         // Can't set other entities to FaultState, only myself
         if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
-            
+
             // 1. Set error code
             // 2. Cmd local entity state from DisabledState to FaultState
             entity.setState(new FaultState());

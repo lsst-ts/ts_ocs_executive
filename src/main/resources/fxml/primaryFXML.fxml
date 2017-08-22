@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="guiPrimaryScene" fx:controller="org.lsst.ocs.executive.gui.primary.PrimaryController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane id="guiPrimaryScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lsst.ocs.executive.gui.primary.PrimaryController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -31,7 +31,16 @@
           </Menu>
           <Menu mnemonicParsing="false" text="CSC">
             <items>
-              <MenuItem mnemonicParsing="false" text="Create..." />
+                  <Menu mnemonicParsing="false" text="Create CSC...">
+                    <items>
+                        <MenuItem id="menuitemCreateTCS" fx:id="menuitemCreateTCS" mnemonicParsing="false" onAction="#createTCS" text="TCS" />
+                    <MenuItem mnemonicParsing="false" text="CAMERA" />
+                        <MenuItem mnemonicParsing="false" text="ARCHIVER" />
+                        <MenuItem mnemonicParsing="false" text="CATCHUP ARCHIVER" />
+                        <MenuItem mnemonicParsing="false" text="PROCESSING CLUSTER" />
+                    </items>
+                  </Menu>
+                  <MenuItem mnemonicParsing="false" text="Create All CSCs" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
