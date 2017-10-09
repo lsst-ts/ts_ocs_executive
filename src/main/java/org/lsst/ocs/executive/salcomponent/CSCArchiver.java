@@ -27,15 +27,15 @@ public class CSCArchiver extends CommandableSalComponent {
 
     @Override
     public String getName() {
-        return "SalCmdArchiver";
+        return "CSCArchiver";
     }
 
     @Override
     public void enterControl() {
 
         //out.println("SalCmdSequencer.enterControl");
-        SAL_archiver cmd = new SAL_archiver();
-        cmd.salCommand( "archiver_command_enterControl" );
+        SAL_archiver publisher = new SAL_archiver();
+        publisher.salCommand( "archiver_command_enterControl" );
 
         archiver.command_enterControl command = new archiver.command_enterControl();
         command.private_revCode = "LSST Archiver enterControl COMMAND";
@@ -44,7 +44,7 @@ public class CSCArchiver extends CommandableSalComponent {
         command.action = "allow";
         command.state = true;
 
-        int cmdId = cmd.issueCommand_enterControl( command );
+        int cmdId = publisher.issueCommand_enterControl( command );
 
         try {
             Thread.sleep( 250 );
@@ -52,18 +52,18 @@ public class CSCArchiver extends CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 6;
-        cmd.waitForCompletion_enterControl( cmdId, timeout );
+        int timeout = 3;
+        publisher.waitForCompletion_enterControl( cmdId, timeout );
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
 
     @Override
     public void start() {
 
-        SAL_archiver cmd = new SAL_archiver();
-        cmd.salCommand( "archiver_command_start" );
+        SAL_archiver publisher = new SAL_archiver();
+        publisher.salCommand( "archiver_command_start" );
 
         archiver.command_start command = new archiver.command_start();
         command.private_revCode = "LSST Archiver start COMMAND";
@@ -72,7 +72,7 @@ public class CSCArchiver extends CommandableSalComponent {
         command.action = "apply";
         command.configuration = "normal";
 
-        int cmdId = cmd.issueCommand_start( command );
+        int cmdId = publisher.issueCommand_start( command );
 
         try {
             Thread.sleep( 250 );
@@ -80,19 +80,19 @@ public class CSCArchiver extends CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 6;
-        cmd.waitForCompletion_start( cmdId, timeout );
+        int timeout = 3;
+        publisher.waitForCompletion_start( cmdId, timeout );
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
 
     }
 
     @Override
     public void enable() {
 
-        SAL_archiver cmd = new SAL_archiver();
-        cmd.salCommand( "archiver_command_enable" );
+        SAL_archiver publisher = new SAL_archiver();
+        publisher.salCommand( "archiver_command_enable" );
 
         archiver.command_enable command = new archiver.command_enable();
         command.private_revCode = "LSST Archiver enable COMMAND";
@@ -101,7 +101,7 @@ public class CSCArchiver extends CommandableSalComponent {
         command.action = "";
         command.state = true;
 
-        int cmdId = cmd.issueCommand_enable( command );
+        int cmdId = publisher.issueCommand_enable( command );
 
         try {
             Thread.sleep( 250 );
@@ -109,18 +109,18 @@ public class CSCArchiver extends CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 6;
-        cmd.waitForCompletion_enable( cmdId, timeout );
+        int timeout = 3;
+        publisher.waitForCompletion_enable( cmdId, timeout );
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
 
     @Override
     public void disable() {
 
-        SAL_archiver cmd = new SAL_archiver();
-        cmd.salCommand( "archiver_command_disable" );
+        SAL_archiver publisher = new SAL_archiver();
+        publisher.salCommand( "archiver_command_disable" );
 
         archiver.command_disable command = new archiver.command_disable();
         command.private_revCode = "LSST Archiver disable COMMAND";
@@ -129,7 +129,7 @@ public class CSCArchiver extends CommandableSalComponent {
         command.action = "";
         command.state = true;
 
-        int cmdId = cmd.issueCommand_disable( command );
+        int cmdId = publisher.issueCommand_disable( command );
 
         try {
             Thread.sleep( 250 );
@@ -137,18 +137,18 @@ public class CSCArchiver extends CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 6;
-        cmd.waitForCompletion_disable( cmdId, timeout );
+        int timeout = 3;
+        publisher.waitForCompletion_disable( cmdId, timeout );
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
 
     @Override
     public void standby() {
 
-        SAL_archiver cmd = new SAL_archiver();
-        cmd.salCommand( "archiver_command_standby" );
+        SAL_archiver publisher = new SAL_archiver();
+        publisher.salCommand( "archiver_command_standby" );
 
         archiver.command_standby command = new archiver.command_standby();
         command.private_revCode = "LSST Archiver standby COMMAND";
@@ -157,7 +157,7 @@ public class CSCArchiver extends CommandableSalComponent {
         command.action = "stop";
         command.state = true;
 
-        int cmdId = cmd.issueCommand_standby( command );
+        int cmdId = publisher.issueCommand_standby( command );
 
         try {
             Thread.sleep( 250 );
@@ -165,18 +165,18 @@ public class CSCArchiver extends CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 6;
-        cmd.waitForCompletion_standby( cmdId, timeout );
+        int timeout = 3;
+        publisher.waitForCompletion_standby( cmdId, timeout );
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
 
     @Override
     public void exitControl() {
 
-        SAL_archiver cmd = new SAL_archiver();
-        cmd.salCommand( "archiver_command_exitControl" );
+        SAL_archiver publisher = new SAL_archiver();
+        publisher.salCommand( "archiver_command_exitControl" );
 
         archiver.command_exitControl command = new archiver.command_exitControl();
         command.private_revCode = "LSST Archiver exitControl COMMAND";
@@ -185,7 +185,7 @@ public class CSCArchiver extends CommandableSalComponent {
         command.action = "exit";
         command.state = true;
 
-        int cmdId = cmd.issueCommand_exitControl( command );
+        int cmdId = publisher.issueCommand_exitControl( command );
 
         try {
             Thread.sleep( 250 );
@@ -193,26 +193,26 @@ public class CSCArchiver extends CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 6;
-        cmd.waitForCompletion_exitControl( cmdId, timeout );
+        int timeout = 3;
+        publisher.waitForCompletion_exitControl( cmdId, timeout );
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
 
     @Override
     public void summaryState() {
 
         // Initialize
-        SAL_archiver evt = new SAL_archiver();
-        evt.salEvent( "archiver_logevent_SummaryState" );
+        SAL_archiver subscriber = new SAL_archiver();
+        subscriber.salEvent( "archiver_logevent_SummaryState" );
 
         archiver.logevent_SummaryState event = new archiver.logevent_SummaryState();
-        out.println( "Archiver Event SummaryState logger ready " );
+//        out.println( "Archiver Event SummaryState logger ready " );
 
         int status;
         while ( Boolean.TRUE ) {
-            status = evt.getEvent_SummaryState( event );
+            status = subscriber.getEvent_SummaryState( event );
             if ( status == SAL_archiver.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }
@@ -225,22 +225,22 @@ public class CSCArchiver extends CommandableSalComponent {
         }
 
         /* Remove the DataWriters etc */
-        evt.salShutdown();
+        subscriber.salShutdown();
     }
 
     @Override
     public void settingsVersion() {
 
         // Initialize
-        SAL_archiver evt = new SAL_archiver();
-        evt.salEvent( "archiver_logevent_SettingVersions" );
+        SAL_archiver subscriber = new SAL_archiver();
+        subscriber.salEvent( "archiver_logevent_SettingVersions" );
 
         archiver.logevent_SettingVersions event = new archiver.logevent_SettingVersions();
-        out.println( "Archiver Event SettingVersions logger ready " );
+//        out.println( "Archiver Event SettingVersions logger ready " );
 
         int status;
         while ( Boolean.TRUE ) {
-            status = evt.getEvent_SettingVersions( event );
+            status = subscriber.getEvent_SettingVersions( event );
             if ( status == SAL_archiver.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }
@@ -253,22 +253,22 @@ public class CSCArchiver extends CommandableSalComponent {
         }
 
         /* Remove the DataWriters etc */
-        evt.salShutdown();
+        subscriber.salShutdown();
     }
 
     @Override
-    public void appliedSettingsMatchStartTest() {
+    public void appliedSettingsMatchStart() {
 
         // Initialize
-        SAL_archiver evt = new SAL_archiver();
-        evt.salEvent( "archiver_logevent_AppliedSettingsMatchStart" );
+        SAL_archiver subscriber = new SAL_archiver();
+        subscriber.salEvent( "archiver_logevent_AppliedSettingsMatchStart" );
 
         archiver.logevent_AppliedSettingsMatchStart event = new archiver.logevent_AppliedSettingsMatchStart();
-        out.println( "Archiver Event AppliedSettingsMatchStart logger ready " );
+//        out.println( "Archiver Event AppliedSettingsMatchStart logger ready " );
 
         int status;
         while ( Boolean.TRUE ) {
-            status = evt.getEvent_AppliedSettingsMatchStart( event );
+            status = subscriber.getEvent_AppliedSettingsMatchStart( event );
             if ( status == SAL_archiver.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }
@@ -281,7 +281,7 @@ public class CSCArchiver extends CommandableSalComponent {
         }
 
         /* Remove the DataWriters etc */
-        evt.salShutdown();
+        subscriber.salShutdown();
     }
 
 }

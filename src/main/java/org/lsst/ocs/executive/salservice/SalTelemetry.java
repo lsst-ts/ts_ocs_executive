@@ -26,6 +26,8 @@ import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 
 public class SalTelemetry extends SalService implements DomainObject {
     
+    @Override public String getName() { return "SalTelemetry"; }    
+    
     // Receiver (e.g. SalCamera)
     CommandableSalComponent _salComponent;
     

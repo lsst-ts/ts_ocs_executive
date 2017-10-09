@@ -25,7 +25,7 @@ import java.util.List;
 public abstract class SalService {
     
     protected String _topic;
-    protected List<String> _topicArgs;
+    protected Object _topicArgs;
     
     public void setTopic(String topic) {
         

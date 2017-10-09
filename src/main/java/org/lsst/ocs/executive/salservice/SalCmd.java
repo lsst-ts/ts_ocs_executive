@@ -19,33 +19,46 @@ import org.lsst.ocs.executive.DomainObject;
 import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 
 /**
- *
- * SalCmd is a Concrete Command class in the command pattern
+ * <h2>SAL Command</h2>
+ * <p>
+ * {@code SalCmd} is a Concrete Command class in the command pattern
  *
  */
 
 public class SalCmd extends SalService implements DomainObject {
 
+    @Override public String getName() { return "SalCmd"; }
+    
     // Receiver (e.g. SalCamera)
     CommandableSalComponent _salComponent;
     
-    public SalCmd(CommandableSalComponent salComponent) { this._salComponent = salComponent; }
+    public SalCmd( CommandableSalComponent salComponent ) { 
+    
+        this._salComponent = salComponent;
+        //super._topicArgs = new Object[]{};
+    }
     
 //    public void setCSC(CommandableSalComponent salComponent) {
 //        this._salComponent = salComponent;
 //    }
             
     @Override public void execute() { 
+
+        out.print( this.getName() + "::" + 
+                   super._topic + "::" +
+                   this._salComponent + "::" +
+                   Thread.currentThread().getStackTrace()[1].getMethodName() + "::" +
+                   "Threadid: " + 
+                   Thread.currentThread().getId() + "\n" );
         
         // receiver.action() (e.g. SalCamera.enterControl())
         try {
             _salComponent.getClass()
-                         .getMethod(super._topic, new Class[]{}) // method w/ null args
-                         .invoke(_salComponent, super._topicArgs);
-                         //.invoke(_salComponent, new Object[]{}); // invoke w/ null args
+                         .getMethod( super._topic, new Class[]{} ) // method w/ null args
+                         .invoke( _salComponent, new Object[]{} ); // invoke w/ null args
         }
-        catch (Exception e) {
-            e.printStackTrace(out.printf(this.getName() + "interrupted"));
+        catch ( Exception e ) {
+            e.printStackTrace( out.printf( this.getName() + "interrupted" ) );
         }
     }
 }

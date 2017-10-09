@@ -11,10 +11,11 @@
  * Version 3 (GPLv3) or later, as detailed below.  A copy of the GPLv3 is also 
  * available at <http://www.gnu.org/licenses/>.
  */
-
 package org.lsst.ocs.executive.salcomponent;
 
 import static java.lang.System.out;
+import java.util.Map;
+import java.util.HashMap;
 import org.lsst.ocs.executive.DomainObject;
 
 /**
@@ -22,21 +23,107 @@ import org.lsst.ocs.executive.DomainObject;
  * CommandableSalComponent is the Receiver base class in the command pattern
  *
  */
+public abstract class CommandableSalComponent implements DomainObject {
 
-public abstract class CommandableSalComponent  implements DomainObject {
-    
     // SAL middle-ware default Commands
+    ////////////////////////////////////////////////
     public abstract void enterControl();
+    public int enterControl(int status) {
+
+        out.println("SalCmd enterControl(status) error");
+        return 0;
+    }
     public abstract void start();
     public abstract void enable();
     public abstract void disable();
     public abstract void standby();
     public abstract void exitControl();
-    
+
     // SAL middle-ware default Events
+    ////////////////////////////////////////////////
     public abstract void settingsVersion();
-    public abstract void appliedSettingsMatchStartTest();
-    public void summaryState() { out.println("SalEvent summaryState() error"); };
-    public void summaryState(int summaryStateValue) { out.println("SalEvent summaryState(int) error"); }
+    public abstract void appliedSettingsMatchStart();
+    public void summaryState() { out.println("SalEvent summaryState() error"); }
+    public int summaryState(int summaryStateValue) { 
+        
+        out.println("SalEvent summaryState(int) error");
+        return -1;
+    }
     public void errorCode() { out.println("SalEvent errorCode() error"); }
+
+    /*****************************************************/
+    
+    public enum CSC_STATE {
+
+        OFFLINE, STANDBY, DISABLED, ENABLED, FAULT;
+        //@Override public String toString() { return this._cscState; }
+    }
+
+    public enum CSC_STATUS {
+
+        SAL__SLOWPOLL(1), 
+        SAL__LOG_ROUTINES(1),
+        SAL__OK(0), 
+        SAL__ERR(-1), 
+        SAL__ERROR(-1),
+        
+        SAL__NO_UPDATES(-100),
+        
+        SAL__CMD_ACK(300), 
+        SAL__CMD_INPROGRESS(301), 
+        SAL__CMD_STALLED(302), 
+        SAL__CMD_COMPLETE(303), 
+        SAL__CMD_NOPERM(-300), 
+        SAL__CMD_NOACK(-301), 
+        SAL__CMD_FAILED(-302), 
+        SAL__CMD_ABORTED(-303), 
+        SAL__CMD_TIMEOUT(-304),
+        
+        SAL__DATA_AVAIL(400), 
+        SAL__DEADLINE_MISS(401), 
+        SAL__INCOMPAT_QOS(402), 
+        SAL__SAMPLE_REJ(403),
+        SAL__LIVELINESS_CHG(404), 
+        SAL__SAMPLELOST(405), 
+        SAL__SUBSCR_MATCH(406),
+        
+        SAL__STANDBYSTATE(500), 
+        SAL__DISABLEDSTATE(510), 
+        SAL__ENABLEDSTATE(520),
+        SAL__OFFLINESTATE(530), 
+        SAL__PUBLISHONLYSTATE(531), 
+        SAL__AVAILABLESTATE(532),
+        SAL__FAULTSTATE(540);
+
+        // ENUM -> VALUE CONVERSION
+        ////////////////////////////////////////////////
+        private final Integer statusValue;
+
+        private CSC_STATUS(Integer value) {
+            
+            this.statusValue = value;
+        }
+
+        public int getValue() {
+
+            return statusValue;
+        }
+
+        // VALUE -> ENUM CONVERSION
+        ////////////////////////////////////////////////
+        public static final Map<Integer, CSC_STATUS> statusValues = new HashMap<>();
+
+        static {
+
+            for (CSC_STATUS status : CSC_STATUS.values()) {
+
+                statusValues.put(status.statusValue, status);
+            }
+        }
+
+        public static CSC_STATUS valueOf(Integer status) {
+
+            return statusValues.get(status);
+        }
+    }
 }

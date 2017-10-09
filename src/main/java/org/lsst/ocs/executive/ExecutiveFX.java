@@ -14,7 +14,9 @@
 
 package org.lsst.ocs.executive;
 
+import static java.lang.System.out;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -35,18 +37,27 @@ public class ExecutiveFX extends Application {
      * The data as an observable list of Persons.
      */
     private final ObservableList<CommandableSalComponent> cscList = FXCollections.observableArrayList();
-    private ObservableList<CommandableSalComponent> cscAList = FXCollections.observableArrayList();
-
+    
+    private final ObservableList<String> tcsCmdList = FXCollections.observableArrayList();
+    
+    private final ObservableList<String> cameraCmdList = FXCollections.observableArrayList();
+    
     /**
      * Constructor
      */
     public ExecutiveFX() {
-        // Add some sample data
+        
         cscList.add( Executive.cscTCS );
         cscList.add( Executive.cscCCS );
         cscList.add( Executive.cscARC );
         cscList.add( Executive.cscCAT );
         cscList.add( Executive.cscPRO );
+        
+        tcsCmdList.add( "filterChange" );
+        tcsCmdList.add( "target" );
+
+        cameraCmdList.add( "setFilter" );
+        cameraCmdList.add( "takeImage" );
     }
 
     /**
@@ -54,23 +65,36 @@ public class ExecutiveFX extends Application {
      * @return
      */
     public ObservableList<CommandableSalComponent> getCscList() {
+        
         return cscList;
+    }    
+    
+    public ObservableList<String> getTcsCmdList() {
+        
+        return tcsCmdList;
+    }    
+    
+    public ObservableList<String> getCameraCmdList() {
+        
+        return cameraCmdList;
     }    
     
     /**
      * Returns the observable list of active CSCs. 
      * @return
      */
-    public ObservableList<CommandableSalComponent> getCscAList() {
-        return cscAList;
-    }    
-    
+    private PrimaryController controller;
+
     /**
      * The {@code start()} method is the main entry point for all JavaFX
      * applications
      */
     @Override
     public void start( Stage primaryStage ) throws Exception { // Stage class is the top-level JavaFX container
+        
+//        out.print( Thread.currentThread().getStackTrace()[1].getMethodName() + "::" +
+//                   "Threadid: " + 
+//                   Thread.currentThread().getId() + "\n");
 
         ///////////////////////////////////////////////       
         /// Load fxml configuration file
@@ -83,7 +107,7 @@ public class ExecutiveFX extends Application {
         Parent rootBorderPane = (Parent) loader.load( getClass().getResourceAsStream( fxmlFile ) );
 
         // Give the controller access to the main app.
-        PrimaryController controller = loader.getController();
+        controller = loader.getController();
         controller.setExecFXApp( this );
         
         // OR
@@ -99,9 +123,29 @@ public class ExecutiveFX extends Application {
         primaryStage.setScene( scene );
         primaryStage.setTitle( "OCS Executive GUI" );
         primaryStage.show();
-
     }
 
+    /**
+     * Overriding {@code stop()} method to add {@code System.exit()} 
+     * so ALL threads (JavaFX & non Java-FX threads) will be terminated
+     * when clicking 'x' on the {@code primaryStage} window.
+     */ 
+    @Override
+    public void stop() throws Exception 
+    {
+        super.stop();
+        
+        if(controller != null)
+        {
+            //controller.startHousekeeping(); 
+        }
+
+        // Terminates the JavaFX Application & Launcher threads
+        Platform.exit();
+        // Terminates the current JVM (basically killing non-JavaFX threads)
+        System.exit(0);
+    } 
+    
     /**
      * This is the {@code main()} method which launches the application using
      * the {@code launch()} method.

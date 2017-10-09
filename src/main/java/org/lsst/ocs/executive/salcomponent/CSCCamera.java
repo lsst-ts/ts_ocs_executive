@@ -27,15 +27,14 @@ public class CSCCamera extends CommandableSalComponent {
 
     @Override
     public String getName() {
-        return "SalCmdCamera";
+        return "CSCCamera";
     }
 
     @Override
     public void enterControl() {
 
-        //out.println("SalCmdSequencer.enterControl");
-        SAL_camera cmd = new SAL_camera();
-        cmd.salCommand( "camera_command_enterControl" );
+        SAL_camera publisher = new SAL_camera();
+        publisher.salCommand( "camera_command_enterControl" );
 
         camera.command_enterControl command = new camera.command_enterControl();
         command.private_revCode = "LSST Camera enterControl COMMAND";
@@ -44,26 +43,28 @@ public class CSCCamera extends CommandableSalComponent {
         command.action = "allow";
         command.state = true;
 
-        int cmdId = cmd.issueCommand_enterControl( command );
+        int cmdId = publisher.issueCommand_enterControl( command );
 
+//        out.println("Camera Command enterControl ready ");
+        
         try {
             Thread.sleep( 250 );
         } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
-        int timeout = 6;
-        cmd.waitForCompletion_enterControl( cmdId, timeout );
+        int timeout = 3;
+        publisher.waitForCompletion_enterControl( cmdId, timeout );
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
 
     @Override
     public void start() {
 
-        SAL_camera cmd = new SAL_camera();
-        cmd.salCommand( "camera_command_start" );
+        SAL_camera publisher = new SAL_camera();
+        publisher.salCommand( "camera_command_start" );
 
         camera.command_start command = new camera.command_start();
         command.private_revCode = "LSST Camera start COMMAND";
@@ -72,7 +73,7 @@ public class CSCCamera extends CommandableSalComponent {
         command.action = "apply";
         command.configuration = "normal";
 
-        int cmdId = cmd.issueCommand_start( command );
+        int cmdId = publisher.issueCommand_start( command );
 
         try {
             Thread.sleep( 250 );
@@ -80,19 +81,19 @@ public class CSCCamera extends CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 6;
-        cmd.waitForCompletion_start( cmdId, timeout );
+        int timeout = 3;
+        publisher.waitForCompletion_start( cmdId, timeout );
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
 
     }
 
     @Override
     public void enable() {
 
-        SAL_camera cmd = new SAL_camera();
-        cmd.salCommand( "camera_command_enable" );
+        SAL_camera publisher = new SAL_camera();
+        publisher.salCommand( "camera_command_enable" );
 
         camera.command_enable command = new camera.command_enable();
         command.private_revCode = "LSST Camera enable COMMAND";
@@ -101,7 +102,7 @@ public class CSCCamera extends CommandableSalComponent {
         command.action = "";
         command.state = true;
 
-        int cmdId = cmd.issueCommand_enable( command );
+        int cmdId = publisher.issueCommand_enable( command );
 
         try {
             Thread.sleep( 250 );
@@ -109,18 +110,18 @@ public class CSCCamera extends CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 6;
-        cmd.waitForCompletion_enable( cmdId, timeout );
+        int timeout = 3;
+        publisher.waitForCompletion_enable( cmdId, timeout );
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
 
     @Override
     public void disable() {
 
-        SAL_camera cmd = new SAL_camera();
-        cmd.salCommand( "camera_command_disable" );
+        SAL_camera publisher = new SAL_camera();
+        publisher.salCommand( "camera_command_disable" );
 
         camera.command_disable command = new camera.command_disable();
         command.private_revCode = "LSST Camera disable COMMAND";
@@ -129,7 +130,7 @@ public class CSCCamera extends CommandableSalComponent {
         command.action = "";
         command.state = true;
 
-        int cmdId = cmd.issueCommand_disable( command );
+        int cmdId = publisher.issueCommand_disable( command );
 
         try {
             Thread.sleep( 250 );
@@ -137,18 +138,18 @@ public class CSCCamera extends CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 6;
-        cmd.waitForCompletion_disable( cmdId, timeout );
+        int timeout = 3;
+        publisher.waitForCompletion_disable( cmdId, timeout );
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
 
     @Override
     public void standby() {
 
-        SAL_camera cmd = new SAL_camera();
-        cmd.salCommand( "camera_command_standby" );
+        SAL_camera publisher = new SAL_camera();
+        publisher.salCommand( "camera_command_standby" );
 
         camera.command_standby command = new camera.command_standby();
         command.private_revCode = "LSST Camera standby COMMAND";
@@ -157,7 +158,7 @@ public class CSCCamera extends CommandableSalComponent {
         command.action = "stop";
         command.state = true;
 
-        int cmdId = cmd.issueCommand_standby( command );
+        int cmdId = publisher.issueCommand_standby( command );
 
         try {
             Thread.sleep( 250 );
@@ -165,18 +166,18 @@ public class CSCCamera extends CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 6;
-        cmd.waitForCompletion_standby( cmdId, timeout );
+        int timeout = 3;
+        publisher.waitForCompletion_standby( cmdId, timeout );
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
 
     @Override
     public void exitControl() {
 
-        SAL_camera cmd = new SAL_camera();
-        cmd.salCommand( "camera_command_exitControl" );
+        SAL_camera publisher = new SAL_camera();
+        publisher.salCommand( "camera_command_exitControl" );
 
         camera.command_exitControl command = new camera.command_exitControl();
         command.private_revCode = "LSST Camera exitControl COMMAND";
@@ -185,7 +186,7 @@ public class CSCCamera extends CommandableSalComponent {
         command.action = "exit";
         command.state = true;
 
-        int cmdId = cmd.issueCommand_exitControl( command );
+        int cmdId = publisher.issueCommand_exitControl( command );
 
         try {
             Thread.sleep( 250 );
@@ -193,35 +194,123 @@ public class CSCCamera extends CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 6;
-        cmd.waitForCompletion_exitControl( cmdId, timeout );
+        int timeout = 3;
+        publisher.waitForCompletion_exitControl( cmdId, timeout );
+
+        // Remove the DataWriters etc
+        publisher.salShutdown();
+    }
+
+    public void setFilter() {
+
+        SAL_camera cmd = new SAL_camera();
+        cmd.salCommand("camera_command_setFilter");
+
+        camera.command_setFilter command  = new camera.command_setFilter();
+        command.private_revCode = "LSST TEST COMMAND";
+        command.device   = "setFilter";
+        command.property = "";
+        command.action   = "";
+        command.name = "testing";
+
+        int cmdId = cmd.issueCommand_setFilter(command);
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        int timeout = 3;
+        cmd.waitForCompletion_setFilter(cmdId, timeout);
 
         // Remove the DataWriters etc
         cmd.salShutdown();
     }
+   
+    public void takeImage() {
 
+        SAL_camera cmd = new SAL_camera();
+        cmd.salCommand("camera_command_takeImages");
+
+        camera.command_takeImages command  = new camera.command_takeImages();
+        command.private_revCode = "LSST TEST COMMAND";
+        command.device   = "takeImages";
+        command.property = "";
+        command.action   = "";
+        command.numImages = (int) 2;
+        command.expTime = (double) 15.0;
+        command.shutter = true;
+        command.science = true;
+        command.guide = true;
+        command.wfs = true;
+        command.imageSequenceName = "testing";
+
+        int cmdId = cmd.issueCommand_takeImages(command);
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        int timeout = 3;
+        cmd.waitForCompletion_takeImages(cmdId, timeout);
+
+        // Remove the DataWriters etc
+        cmd.salShutdown();
+    }
+   
+    public void initImage() {
+
+        SAL_camera cmd = new SAL_camera();
+        cmd.salCommand("camera_command_takeImages");
+
+        camera.command_initImage command  = new camera.command_initImage();
+        command.private_revCode = "LSST TEST COMMAND";
+        command.device   = "initImage";
+        command.property = "";
+        command.action   = "";
+        command.deltaT = (double) 1.0;
+
+        int cmdId = cmd.issueCommand_initImage(command);
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        int timeout = 3;
+        cmd.waitForCompletion_initImage(cmdId, timeout);
+
+        // Remove the DataWriters etc
+        cmd.salShutdown();
+    }
+   
+        
     @Override
     public void summaryState() {
 
         // Initialize
-        SAL_camera evt = new SAL_camera();
-        evt.salEvent( "camera_logevent_SummaryState" );
+        SAL_camera subscriber = new SAL_camera();
+        subscriber.salEvent( "camera_logevent_SummaryState" );
 
         camera.logevent_SummaryState event = new camera.logevent_SummaryState();
 
-        out.print( this.getClass()
-            .getSimpleName() + "::"
-                   + Thread.currentThread().getStackTrace()[1].getMethodName()
-                   + "::" );
-        Thread.currentThread().setName( new String().concat( "CSCCameraSummaryStateThread" ) );
-        out.print( Thread.currentThread().getName() );
-        out.println( " " + "id: " + Thread.currentThread().getId() );
+//        out.print( this.getClass()
+//            .getSimpleName() + "::"
+//                   + Thread.currentThread().getStackTrace()[1].getMethodName()
+//                   + "::" );
+//        Thread.currentThread().setName( new String().concat( "CSCCameraSummaryStateThread" ) );
+//        out.print( Thread.currentThread().getName() );
+//        out.println( " " + "id: " + Thread.currentThread().getId() );
 
-        out.println( "Camera Event SummaryState logger ready " );
+//        out.println( "Camera Event SummaryState logger ready " );
 
         int status;
         while ( Boolean.TRUE ) {
-            status = evt.getEvent_SummaryState( event );
+            status = subscriber.getEvent_SummaryState( event );
             if ( status == SAL_camera.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }
@@ -234,22 +323,63 @@ public class CSCCamera extends CommandableSalComponent {
         }
 
         /* Remove the DataWriters etc */
-        evt.salShutdown();
+        subscriber.salShutdown();
     }
 
+    @Override
+    public int summaryState(int summaryStateValue) { 
+        
+        // Initialize
+        SAL_camera subscriber = new SAL_camera();
+        subscriber.salEvent( "camera_logevent_SummaryState" );
+
+        camera.logevent_SummaryState event = new camera.logevent_SummaryState();
+
+//        out.print( this.getClass()
+//            .getSimpleName() + "::"
+//                   + Thread.currentThread().getStackTrace()[1].getMethodName()
+//                   + "::" );
+//        Thread.currentThread().setName( new String().concat( "CSCCameraSummaryStateThread" ) );
+//        out.print( Thread.currentThread().getName() );
+//        out.println( " " + "id: " + Thread.currentThread().getId() );
+//
+//        out.println( "Camera Event SummaryState logger ready " );
+
+        int status;
+        while ( Boolean.TRUE ) {
+            status = subscriber.getEvent_SummaryState( event );
+            if ( status == SAL_camera.SAL__OK ) {
+                out.println( "=== Event Logged : " + event );
+            }
+
+            try {
+                Thread.sleep( 100 );
+            } catch ( InterruptedException e ) {
+                e.printStackTrace();
+            }
+        }
+
+        /* Remove the DataWriters etc */
+        subscriber.salShutdown();
+        
+        out.println("SalEvent summaryState(int) error");
+        
+        return -1;
+    }
+    
     @Override
     public void settingsVersion() {
 
         // Initialize
-        SAL_camera evt = new SAL_camera();
-        evt.salEvent( "camera_logevent_SettingVersions" );
+        SAL_camera subscriber = new SAL_camera();
+        subscriber.salEvent( "camera_logevent_SettingVersions" );
 
         camera.logevent_SettingVersions event = new camera.logevent_SettingVersions();
-        out.println( "Camera Event SettingVersions logger ready " );
+//        out.println( "Camera Event SettingVersions logger ready " );
 
         int status;
         while ( Boolean.TRUE ) {
-            status = evt.getEvent_SettingVersions( event );
+            status = subscriber.getEvent_SettingVersions( event );
             if ( status == SAL_camera.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }
@@ -262,22 +392,22 @@ public class CSCCamera extends CommandableSalComponent {
         }
 
         /* Remove the DataWriters etc */
-        evt.salShutdown();
+        subscriber.salShutdown();
     }
 
     @Override
-    public void appliedSettingsMatchStartTest() {
+    public void appliedSettingsMatchStart() {
 
         // Initialize
-        SAL_camera evt = new SAL_camera();
-        evt.salEvent( "camera_logevent_AppliedSettingsMatchStart" );
+        SAL_camera subscriber = new SAL_camera();
+        subscriber.salEvent( "camera_logevent_AppliedSettingsMatchStart" );
 
         camera.logevent_AppliedSettingsMatchStart event = new camera.logevent_AppliedSettingsMatchStart();
-        out.println( "Camera Event AppliedSettingsMatchStart logger ready " );
+//        out.println( "Camera Event AppliedSettingsMatchStart logger ready " );
 
         int status;
         while ( Boolean.TRUE ) {
-            status = evt.getEvent_AppliedSettingsMatchStart( event );
+            status = subscriber.getEvent_AppliedSettingsMatchStart( event );
             if ( status == SAL_camera.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }
@@ -290,6 +420,6 @@ public class CSCCamera extends CommandableSalComponent {
         }
 
         /* Remove the DataWriters etc */
-        evt.salShutdown();
+        subscriber.salShutdown();
     }
 }

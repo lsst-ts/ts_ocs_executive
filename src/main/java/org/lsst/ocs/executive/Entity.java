@@ -24,7 +24,6 @@ import org.lsst.ocs.executive.salcomponent.CSCCamera;
 import org.lsst.ocs.executive.salcomponent.CSCCatchupArchiver;
 import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 import org.lsst.ocs.executive.salcomponent.CSCProcessingCluster;
-import org.lsst.ocs.executive.salcomponent.CSCSequencer;
 import org.lsst.ocs.executive.salcomponent.CSCTcs;
 
 /**
@@ -57,9 +56,6 @@ public class Entity implements DomainObject {
         this._state = new OfflineState();
         
         switch(this._etype.toString()) {
-            case "SEQUENCER":
-                _salComponent = new CSCSequencer();
-                break;
             case "CAMERA":
                 _salComponent = new CSCCamera();
                 break;

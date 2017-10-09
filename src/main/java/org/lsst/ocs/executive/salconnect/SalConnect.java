@@ -14,24 +14,64 @@
 
 package org.lsst.ocs.executive.salconnect;
 
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 import org.lsst.ocs.executive.salservice.SalService;
+import javafx.concurrent.Task;
 
 /**
- *
- * SalConnect is the Invoker class in the command pattern
+ * <h2>SAL Connect</h2>
+ * <p>
+ * {@code SalConnect} is the Invoker class in the command pattern
  *
  */
 
 public class SalConnect {
     
     private SalService _salService;  // command infc object
-    
+    BlockingQueue<SalService> _salServiceQ;
+    Task<Void> [] _salServiceTasks;
+    int _numTasks;
+
     public void setSalService(SalService salService) {
         
-        this._salService = salService;
+        try {
+            _salServiceQ.put(salService);
+        } catch (Exception e) {
+            // TODO
+        }
     }
     
-    public void connect() { this._salService.execute(); }
+    public SalConnect(int n) {
+        
+        _salServiceQ = new LinkedBlockingQueue<>();
+        _salServiceTasks = new Task[n];
+        _numTasks = n;
+    }
+        
+    public void connect() { 
+        
+        for ( int i = 0; i < _numTasks; i++ ) {
+            
+            _salServiceTasks[i] = new Task<Void>()  {
+                
+                @Override protected Void call() throws Exception {
+                    
+                    while ( !(_salServiceQ.isEmpty()) ) {
+                        
+                        _salService = _salServiceQ.poll();
+                        _salService.execute();
+                    }
+                    
+                    return null;
+                }
+            };
+            
+            Executors.newFixedThreadPool( 1 )
+                     .submit( _salServiceTasks[i] );     
+        }
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////

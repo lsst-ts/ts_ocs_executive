@@ -46,7 +46,7 @@ public class EnabledState implements EntityState {
         salCmdCamera.setTopic("enterControl");
         
         // 4. Define Invoker & set up command request
-        SalConnect salConnectCamera = new SalConnect();
+        SalConnect salConnectCamera = new SalConnect(1);
         salConnectCamera.setSalService(salCmdCamera);
         
         // 5. Invoker indirectly calls cmd->execute()

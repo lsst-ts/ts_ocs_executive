@@ -19,19 +19,33 @@ import org.lsst.ocs.executive.DomainObject;
 import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 
 /**
- *
- * SalEvent is a Concrete Interface Command class in the command pattern
+ * <h2>SAL Event</h2>
+ * <p>
+ * {@code SalEvent} is a Concrete Interface Command class in the command pattern
  *
  */
 
 public class SalEvent extends SalService implements DomainObject {
+
+
+    @Override public String getName() { return "SalEvent"; }
     
     // Receiver (e.g. SalCamera)
     CommandableSalComponent _salComponent;
     
-    public SalEvent(CommandableSalComponent salComponent) { this._salComponent = salComponent; }
+    public SalEvent(CommandableSalComponent salComponent) {
+        
+        this._salComponent = salComponent;
+    }
 
     @Override public void execute() {
+        
+        out.print( this.getName() + "::" + 
+                   super._topic + "::" +
+                   this._salComponent + "::" +
+                   Thread.currentThread().getStackTrace()[1].getMethodName() + "::" +
+                   "Threadid: " + 
+                   Thread.currentThread().getId() + "\n" );
         
         // receiver.action() (e.g. SalCamera.summaryState())
         try {
