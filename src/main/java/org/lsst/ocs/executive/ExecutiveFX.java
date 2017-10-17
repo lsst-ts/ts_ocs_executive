@@ -52,6 +52,7 @@ public class ExecutiveFX extends Application {
         cscList.add( Executive.cscARC );
         cscList.add( Executive.cscCAT );
         cscList.add( Executive.cscPRO );
+        cscList.add( Executive.cscCCS2);
         
         tcsCmdList.add( "filterChange" );
         tcsCmdList.add( "target" );

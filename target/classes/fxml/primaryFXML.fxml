@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="guiPrimaryScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lsst.ocs.executive.gui.primary.PrimaryController">
+<BorderPane id="guiPrimaryScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="875.0" stylesheets="@/styles/caspian.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lsst.ocs.executive.gui.primary.PrimaryController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -169,12 +169,12 @@
                   </Label>
                   <MenuButton fx:id="menuCcsState" mnemonicParsing="false" prefHeight="22.0" prefWidth="178.0" text="StateTransition">
                      <items>
-                        <MenuItem fx:id="enterCcs" mnemonicParsing="false" onAction="#ccsState" text="EnterControl" />
-                        <MenuItem fx:id="startCcs" mnemonicParsing="false" onAction="#ccsState" text="Start" />
-                        <MenuItem fx:id="enableCcs" mnemonicParsing="false" onAction="#ccsState" text="Enable" />
-                        <MenuItem fx:id="disableCcs" mnemonicParsing="false" onAction="#ccsState" text="Disable" />
-                        <MenuItem fx:id="standbyCcs" mnemonicParsing="false" onAction="#ccsState" text="Standby" />
-                        <MenuItem fx:id="exitCcs" mnemonicParsing="false" onAction="#ccsState" text="ExitControl" />
+                        <MenuItem fx:id="enterCcs" mnemonicParsing="false" onAction="#ccsState" text="enterControl" />
+                        <MenuItem fx:id="startCcs" mnemonicParsing="false" onAction="#ccsState" text="start" />
+                        <MenuItem fx:id="enableCcs" mnemonicParsing="false" onAction="#ccsState" text="enable" />
+                        <MenuItem fx:id="disableCcs" mnemonicParsing="false" onAction="#ccsState" text="disable" />
+                        <MenuItem fx:id="standbyCcs" mnemonicParsing="false" onAction="#ccsState" text="standby" />
+                        <MenuItem fx:id="exitCcs" mnemonicParsing="false" onAction="#ccsState" text="exitControl" />
                      </items>
                      <font>
                         <Font size="11.0" />
@@ -229,12 +229,12 @@
                   </Label>
                   <MenuButton fx:id="menuArcState" mnemonicParsing="false" prefHeight="22.0" prefWidth="179.0" text="StateTransition">
                      <items>
-                        <MenuItem fx:id="enterArc" mnemonicParsing="false" onAction="#arcState" text="EnterControl" />
-                        <MenuItem fx:id="startArc" mnemonicParsing="false" onAction="#arcState" text="Start" />
-                        <MenuItem fx:id="enableArc" mnemonicParsing="false" onAction="#arcState" text="Enable" />
-                        <MenuItem fx:id="disableArc" mnemonicParsing="false" onAction="#arcState" text="Disable" />
-                        <MenuItem fx:id="standbyArc" mnemonicParsing="false" onAction="#arcState" text="Standby" />
-                        <MenuItem fx:id="exitArc" mnemonicParsing="false" onAction="#arcState" text="ExitControl" />
+                        <MenuItem fx:id="enterArc" mnemonicParsing="false" onAction="#arcState" text="enterControl" />
+                        <MenuItem fx:id="startArc" mnemonicParsing="false" onAction="#arcState" text="start" />
+                        <MenuItem fx:id="enableArc" mnemonicParsing="false" onAction="#arcState" text="enable" />
+                        <MenuItem fx:id="disableArc" mnemonicParsing="false" onAction="#arcState" text="disable" />
+                        <MenuItem fx:id="standbyArc" mnemonicParsing="false" onAction="#arcState" text="standby" />
+                        <MenuItem fx:id="exitArc" mnemonicParsing="false" onAction="#arcState" text="exitControl" />
                      </items>
                      <font>
                         <Font size="11.0" />

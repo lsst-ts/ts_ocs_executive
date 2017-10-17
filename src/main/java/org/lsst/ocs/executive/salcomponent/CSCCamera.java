@@ -211,7 +211,7 @@ public class CSCCamera extends CommandableSalComponent {
         command.device   = "setFilter";
         command.property = "";
         command.action   = "";
-        command.name = "testing";
+        command.name = "i-9";
 
         int cmdId = cmd.issueCommand_setFilter(command);
 
@@ -254,7 +254,7 @@ public class CSCCamera extends CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 20;
         cmd.waitForCompletion_takeImages(cmdId, timeout);
 
         // Remove the DataWriters etc
@@ -271,7 +271,7 @@ public class CSCCamera extends CommandableSalComponent {
         command.device   = "initImage";
         command.property = "";
         command.action   = "";
-        command.deltaT = (double) 1.0;
+        command.deltaT = (double) 5.0;
 
         int cmdId = cmd.issueCommand_initImage(command);
 

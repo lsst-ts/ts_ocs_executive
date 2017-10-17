@@ -21,6 +21,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import java.util.Arrays;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,7 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.ocs.executive.ExecutiveFX;
-import org.lsst.ocs.executive.salcomponent.CSCTcs;
+import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 import org.lsst.ocs.executive.salconnect.SalConnect;
 import org.lsst.ocs.executive.salservice.SalCmd;
 
@@ -54,8 +57,6 @@ public class PrimaryController implements Initializable {
     // Reference to ExecutiveFX, the main Application class
     private ExecutiveFX execFX;
     
-    @FXML
-    private BorderPane guiPrimaryScene;
     
     @FXML
     private Menu menuCSC;
@@ -86,6 +87,58 @@ public class PrimaryController implements Initializable {
         catStateText,
         proStateText
     );
+    @FXML
+    private MenuItem menuitemCreateTCS;
+    @FXML
+    private MenuItem menuitemCreateCamera;
+    @FXML
+    private MenuItem menuitemCreateArchiver;
+    @FXML
+    private MenuItem menuitemCreateCatchupArchiver;
+    @FXML
+    private MenuItem menuitemCreateProcessingCluster;
+    @FXML
+    private MenuItem menuitemCreateAll;
+    @FXML
+    private MenuItem enter;
+    @FXML
+    private MenuItem start;
+    @FXML
+    private MenuItem enable;
+    @FXML
+    private MenuItem disable;
+    @FXML
+    private MenuItem standby;
+    @FXML
+    private MenuItem exit;
+    @FXML
+    private TextField tcsStateText1;
+    @FXML
+    private MenuItem enterCcs;
+    @FXML
+    private MenuItem startCcs;
+    @FXML
+    private MenuItem enableCcs;
+    @FXML
+    private MenuItem disableCcs;
+    @FXML
+    private MenuItem standbyCcs;
+    @FXML
+    private MenuItem exitCcs;
+    @FXML
+    private TextField tcsStateText11;
+    @FXML
+    private MenuItem enterArc;
+    @FXML
+    private MenuItem startArc;
+    @FXML
+    private MenuItem enableArc;
+    @FXML
+    private MenuItem disableArc;
+    @FXML
+    private MenuItem standbyArc;
+    @FXML
+    private MenuItem exitArc;
     
     @FXML
     private void tcsCmd(ActionEvent event) {
@@ -117,19 +170,35 @@ public class PrimaryController implements Initializable {
         String cmdString = menuCameraCmd.getItems().get(cmdIndex).getText();
         
 //        Executors.newFixedThreadPool( 1 )
-//                 .submit( Executive.cEventTask_TCS.get( cmdIndex ) );
-                
+//                 .submit( Executive.cEventTask_CCS.get( cmdIndex ) );
+
         // 1. SalComponent (Receiver) previously defined: Executive.cscTCS
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         //    Also, assign topic & topic arguments
-        SalCmd salCmdCsc = new SalCmd( execFX.getCscList().get( 1 /* cscCCS */ ) );
-        salCmdCsc.setTopic( cmdString );
+        SalCmd salCmdCcs = new SalCmd( execFX.getCscList().get( 1 /* cscCCS */ ) );
+        salCmdCcs.setTopic( cmdString );
+
+        //int num = 2;
         // 3. Define Invoker w/ # of threads & set SalService request
-        SalConnect salConnectCsc = new SalConnect(1);
-        salConnectCsc.setSalService( salCmdCsc );
-        // 4. Invoker indirectly calls cmd->execute()
-        salConnectCsc.connect();
-    
+        SalConnect salConnectCcs = new SalConnect( 1 );
+        salConnectCcs.setSalService( salCmdCcs );
+        salConnectCcs.connect();
+        
+        try {
+            Thread.sleep( 10000 );
+        } catch ( InterruptedException e ) {
+            e.printStackTrace();
+        }
+
+        if ( cmdString.equalsIgnoreCase("initImage")  )  {
+            
+            SalCmd salCmdCcs2 = new SalCmd( execFX.getCscList().get( 5 /* cscCCS2 */ ) );
+            salCmdCcs2.setTopic( "takeImage" );
+            
+            SalConnect salConnectCcs2 = new SalConnect(1);
+            salConnectCcs2.setSalService( salCmdCcs2 );
+            salConnectCcs2.connect();
+        }
     }
     
     @FXML

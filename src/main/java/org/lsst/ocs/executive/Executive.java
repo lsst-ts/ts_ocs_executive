@@ -265,9 +265,11 @@ public class Executive {
     
     public static final CommandableSalComponent cscTCS = new CSCTcs();
     public static final CommandableSalComponent cscCCS = new CSCCamera();
+    public static final CommandableSalComponent cscCCS2 = new CSCCamera();
     public static final CommandableSalComponent cscARC = new CSCArchiver();
     public static final CommandableSalComponent cscCAT = new CSCCatchupArchiver();
     public static final CommandableSalComponent cscPRO = new CSCProcessingCluster();
+    
 
     public static final List<rCmdTask> rCmdTasks_TCS = Arrays.asList(
             

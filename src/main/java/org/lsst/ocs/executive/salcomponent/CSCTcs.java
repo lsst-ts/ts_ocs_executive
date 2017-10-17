@@ -71,7 +71,7 @@ public class CSCTcs extends CommandableSalComponent {
         command.device = "configuration";
         command.property = "set";
         command.action = "apply";
-        command.configuration = "normal";
+        command.configuration = "Default";
 
         int cmdId = cmd.issueCommand_start(command);
 
@@ -255,7 +255,7 @@ public class CSCTcs extends CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 10;
         cmd.waitForCompletion_target(cmdId, timeout);
 
         // Remove the DataWriters etc

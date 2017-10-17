@@ -70,7 +70,7 @@ public class CSCArchiver extends CommandableSalComponent {
         command.device = "configuration";
         command.property = "set";
         command.action = "apply";
-        command.configuration = "normal";
+        command.configuration = "Normal";
 
         int cmdId = publisher.issueCommand_start( command );
 
