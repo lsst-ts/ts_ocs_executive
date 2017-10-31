@@ -18,6 +18,6 @@ Any value defined here will override the pom.xml file value but is only applicab
 -->
         <netbeans.hint.license>default</netbeans.hint.license>
         <org-netbeans-modules-javascript2-requirejs.enabled>true</org-netbeans-modules-javascript2-requirejs.enabled>
-        <netbeans.hint.jdkPlatform>JDK_1.8.0</netbeans.hint.jdkPlatform>
+        <netbeans.hint.jdkPlatform>default_platform</netbeans.hint.jdkPlatform>
     </properties>
 </project-shared-configuration>

@@ -49,6 +49,9 @@
             </items>
           </Menu>
         </menus>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </MenuBar>
    </top>
    <bottom>
@@ -100,12 +103,15 @@
          <children>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="175.0" style="-fx-border-width: 0 1 0 0; -fx-border-style: solid;">
                <children>
-                  <Label alignment="CENTER" prefHeight="28.0" prefWidth="171.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="TCS">
+                  <Label id="tcsLabel" fx:id="tcsLabel" alignment="CENTER" graphicTextGap="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="179.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="TCS" VBox.vgrow="NEVER">
                      <tooltip>
-                        <Tooltip text="TCS Offline" />
+                        <Tooltip id="tcsToolTip" fx:id="tcsToolTip" text="TCS Offline" />
                      </tooltip>
+                     <opaqueInsets>
+                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                     </opaqueInsets>
                   </Label>
-                  <MenuButton fx:id="menuTcsState" mnemonicParsing="false" prefHeight="22.0" prefWidth="176.0" text="StateTransition">
+                  <MenuButton fx:id="menuTcsState" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
                     <items>
                       <MenuItem fx:id="enter" mnemonicParsing="false" onAction="#tcsState" text="enterControl" />
                       <MenuItem fx:id="start" mnemonicParsing="false" onAction="#tcsState" text="start" />

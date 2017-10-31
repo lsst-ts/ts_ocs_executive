@@ -19,22 +19,33 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.effect.Glow;
+import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.ocs.executive.ExecutiveFX;
 import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
+import org.lsst.ocs.executive.salcomponent.CommandableSalComponent.CSC_STATUS;
 import org.lsst.ocs.executive.salconnect.SalConnect;
 import org.lsst.ocs.executive.salservice.SalCmd;
 
@@ -57,6 +68,11 @@ public class PrimaryController implements Initializable {
     // Reference to ExecutiveFX, the main Application class
     private ExecutiveFX execFX;
     
+    @FXML
+    private Label tcsLabel, ccsLabel, arcLabel, catLabel, proLabel;
+    
+    @FXML
+    private Tooltip tcsToolTip;
     
     @FXML
     private Menu menuCSC;
@@ -77,12 +93,15 @@ public class PrimaryController implements Initializable {
     private MenuButton menuArcState;
 
     @FXML
-    private TextField tcsStateText, camStateText, arcStateText, catStateText, proStateText;
+    private TextField tcsStateText, ccsStateText, arcStateText, catStateText, proStateText;
+
+    @FXML
+    private TextField tcsCmdText, ccsCmdText;
 
     public final List<TextField> stateTextList = Arrays.asList(
             
         tcsStateText,
-        camStateText,
+        ccsStateText,
         arcStateText,
         catStateText,
         proStateText
@@ -112,8 +131,6 @@ public class PrimaryController implements Initializable {
     @FXML
     private MenuItem exit;
     @FXML
-    private TextField tcsStateText1;
-    @FXML
     private MenuItem enterCcs;
     @FXML
     private MenuItem startCcs;
@@ -125,8 +142,6 @@ public class PrimaryController implements Initializable {
     private MenuItem standbyCcs;
     @FXML
     private MenuItem exitCcs;
-    @FXML
-    private TextField tcsStateText11;
     @FXML
     private MenuItem enterArc;
     @FXML
@@ -143,7 +158,7 @@ public class PrimaryController implements Initializable {
     @FXML
     private void tcsCmd(ActionEvent event) {
 
-        // Grab the index of the selected menu item cmd
+        // Grab the index & string of the selected CSC menu item
         int cmdIndex = menuTcsCmd.getItems().indexOf( event.getSource() );
         String cmdString = menuTcsCmd.getItems().get(cmdIndex).getText();
         
@@ -165,7 +180,7 @@ public class PrimaryController implements Initializable {
     @FXML
     private void cameraCmd(ActionEvent event) {
     
-        // Grab the index of the selected menu item cmd
+        // Grab the index & string of the selected CSC menu item
         int cmdIndex = menuCameraCmd.getItems().indexOf( event.getSource() );
         String cmdString = menuCameraCmd.getItems().get(cmdIndex).getText();
         
@@ -208,12 +223,10 @@ public class PrimaryController implements Initializable {
                    "Threadid: " + 
                    Thread.currentThread().getId() + "\n");
         
-        // Grab the index of the selected CSC menu item
+        // Grab the index & string of the selected CSC menu item
         int cscIndex = menuCSC.getItems().indexOf( event.getSource() );
+        String cmdString = menuCSC.getItems().get(cscIndex).getText();
         
-        Executors.newFixedThreadPool( 1 )
-                 .submit( Executive.cEventTask_SUMSTATE.get( cscIndex ) );
-                
         // 1. SalComponent (Receiver) previously defined: Executive.cscTCS
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         //    Also, assign topic & topic arguments
@@ -225,6 +238,28 @@ public class PrimaryController implements Initializable {
         //salConnectCamera.setSalCmd(new SalCmd(rCCS), "enterControl");
         // 4. Invoker indirectly calls cmd->execute()
         salConnectCsc.connect();
+
+        Future<Integer> futureSumState = 
+                Executors.newFixedThreadPool( 1 )
+                         .submit( Executive.cEventTask_SUMSTATE.get( cscIndex ) );
+
+//        try {
+//            //Integer result = futureSumState.get(5, TimeUnit.SECONDS);
+//            if (futureSumState.get(5, TimeUnit.SECONDS) == 
+//                    CSC_STATUS.SAL__OK.getValue()) {
+//                
+//                // Set text of tcsStateText to a GREEN "cmdString"
+//                tcsStateText.setText(cmdString);
+//                tcsStateText.setStyle("-fx-text-fill: green");
+//                
+//            }
+//        } catch (InterruptedException|ExecutionException|TimeoutException ex) {
+//            Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+        tcsStateText.setText(cmdString);
+        tcsStateText.setStyle("-fx-text-fill: green; -fx-font-size: 12;");
+        
     }
     
     @FXML
@@ -244,6 +279,29 @@ public class PrimaryController implements Initializable {
         salConnectCsc.setSalService( salCmdCsc );
         // 4. Invoker indirectly calls cmd->execute()
         salConnectCsc.connect();    
+        
+        tcsStateText.setText( cmdString );
+        tcsStateText.setStyle( "-fx-text-fill: darkcyan;" +
+                               "-fx-font-size: 11;" );
+        
+        if ( cmdString.matches("enterControl") ) {
+            
+            tcsLabel.setStyle( "-fx-text-fill: green;"  + 
+                               "-fx-font-size: 15;"     +
+                               "-fx-font-weight: bold;" +
+                               "-fx-border-width: 1 1 1 1;"  );
+            tcsLabel.setEffect(new Glow(0.9));
+            tcsToolTip.setText("TCS Online");
+        }
+        
+        if ( cmdString.matches("exitControl") ) {
+            
+            tcsLabel.setStyle( "-fx-text-fill: gainsboro;" +
+                               "-fx-font-size: 13;"        +
+                               "-fx-font-weight: normal;" );
+            tcsLabel.setEffect(new Glow());
+            tcsToolTip.setText("TCS Offline");
+        }
     }
     
     @FXML
