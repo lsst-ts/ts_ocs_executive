@@ -48,5 +48,4 @@ public interface EntityState extends DomainObject {
     
     // cmd OCS entity from [StandbyState,EnabledState,DisabledState] to FaultState
     default public void fault(Entity entity) { out.println("state transition error"); }
-    
 }

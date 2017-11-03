@@ -23,7 +23,8 @@ import org.lsst.sal.SAL_catchuparchiver;
  *
  */
 
-public class CSCCatchupArchiver extends CommandableSalComponent {
+//public class CSCCatchupArchiver extends CommandableSalComponent {
+public class CSCCatchupArchiver implements CommandableSalComponent {
     
     @Override public String getName() { return "CSCCatchupArchiver"; }
     

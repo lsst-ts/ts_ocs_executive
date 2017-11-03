@@ -15,6 +15,9 @@
 package org.lsst.ocs.executive;
 
 import static java.lang.System.out;
+import org.lsst.ocs.executive.salconnect.SalConnect;
+import org.lsst.ocs.executive.salservice.SalCmd;
+import org.lsst.ocs.executive.salservice.SalEvent;
 
 /**
  *
@@ -28,17 +31,40 @@ public class OfflineState implements EntityState {
     
     @Override public void enterControl(Entity entity) {
         
-        String salactor = entity._etype.toString();
+        //String salactor = entity._etype.toString();
+        String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
         out.println(salactor + "." + this.getName() + ".enterControl");
 
-        // Cmd the Sequencer, TCS, CCS or DMCS via SAL
-        // Send msg
-        entity._salComponent.enterControl();
+        // Cmd Sequencer, TCS, CCS or DMCS via SAL
+        // 1. SalComponent (Rcvr) reference is entity data member
+        
+        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+        SalCmd salCmd = new SalCmd(entity._salComponent);
 
+        // 3. Also, assign topic & topic arguments
+        salCmd.setTopic("enterControl");
+        
+        // 4. Define Invoker & set up command request
+        SalConnect salConnect = new SalConnect(1);
+        salConnect.setSalService(salCmd);
+        
+        // 5. Invoker indirectly calls cmd->execute()
+        salConnect.connect();
+        
         if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
             
-            // Publish SummaryState if not previously pub'd
-            entity._salComponent.summaryState(1);
+            // 1. Publish SummaryState if not previously pub'd
+            SalEvent salEvent = new SalEvent(entity._salComponent);
+            salEvent.setTopic("summaryState");
+            
+            salConnect.setSalService(salEvent);
+            salConnect.connect();
+
+            // 2. Check settings match (or differ) from start values
+            //    a. Publish Topic->AppliedSettingsMatchStart (or they differ??)
+            
+            // 3. Full control features are allowed
+            //    a. Entity reads/loads & applies control settings
         }
 
         // Cmd local entity state from OfflineState[AvailableState] to StandbyState

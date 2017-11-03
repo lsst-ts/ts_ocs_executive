@@ -6,7 +6,6 @@ org/lsst/ocs/executive/salcomponent/CommandableSalComponent$CSC_STATUS.class
 org/lsst/ocs/executive/salcomponent/CSCProcessingCluster.class
 org/lsst/ocs/executive/salservice/SalService.class
 org/lsst/ocs/executive/DisabledState.class
-org/lsst/ocs/executive/salconnect/SalConnect$1.class
 org/lsst/ocs/executive/salservice/SalEvent.class
 org/lsst/ocs/executive/Mode.class
 org/lsst/ocs/executive/salcomponent/CSCArchiver.class
@@ -15,7 +14,6 @@ org/lsst/ocs/executive/StartNightMode.class
 org/lsst/ocs/executive/salservice/SalTelemetry.class
 org/lsst/ocs/executive/salcomponent/CommandableSalComponent$CSC_STATE.class
 org/lsst/ocs/executive/ObservingMode.class
-org/lsst/ocs/executive/salcomponent/CSCCamera.class
 org/lsst/ocs/executive/cEventTask.class
 org/lsst/ocs/executive/ModeState.class
 org/lsst/ocs/executive/EntityState.class
@@ -26,6 +24,7 @@ org/lsst/ocs/executive/ExecutiveFX.class
 org/lsst/ocs/executive/rEventTask.class
 org/lsst/ocs/executive/EnabledState.class
 org/lsst/ocs/executive/salconnect/SalConnect.class
+org/lsst/ocs/executive/salcomponent/CSCCcs.class
 org/lsst/ocs/executive/rCmdTask.class
 org/lsst/ocs/executive/salcomponent/CSCCatchupArchiver.class
 org/lsst/ocs/executive/StandbyState.class

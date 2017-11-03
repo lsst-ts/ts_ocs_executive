@@ -33,13 +33,12 @@ public class rEventTask implements Runnable  {
 
     private final CommandableSalComponent _csc;
     private final String _event;
-    private final String _name;
+    private final String _name = "rEventTask";
 
     public rEventTask( CommandableSalComponent csc, String event ) {
         
         this._csc = csc;
         this._event = event;
-        this._name = "rEventTask";
     }
 
     public String getName() {
@@ -50,7 +49,7 @@ public class rEventTask implements Runnable  {
     @Override
     public void run() {
 
-        Thread.currentThread().setName("rEventTaskThread");
+        Thread.currentThread().setName( getName() );
         out.print( this.getName() + "::"
                                   + Thread.currentThread().getStackTrace()[1]
                                                           .getMethodName()
@@ -64,8 +63,10 @@ public class rEventTask implements Runnable  {
 
         try {
             _csc.getClass()
-                .getMethod( this._event, new Class[] {} ) // invoke w/ null args
-                .invoke( _csc, new Object[] {} ); // invoke w/ null args
+                 // invoke w/ null args
+                .getMethod( this._event, new Class[] {} )
+                 // invoke w/ null args
+                .invoke( _csc, new Object[] {} );
         } catch ( Exception e ) {
             e.printStackTrace( out.printf( this.getName() + "interrupted" ) );
         }

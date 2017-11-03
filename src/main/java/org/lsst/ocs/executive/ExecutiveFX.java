@@ -38,6 +38,8 @@ public class ExecutiveFX extends Application {
      */
     private final ObservableList<CommandableSalComponent> cscList = FXCollections.observableArrayList();
     
+    private final ObservableList<Entity> entityList = FXCollections.observableArrayList();
+    
     private final ObservableList<String> tcsCmdList = FXCollections.observableArrayList();
     
     private final ObservableList<String> cameraCmdList = FXCollections.observableArrayList();
@@ -54,6 +56,12 @@ public class ExecutiveFX extends Application {
         cscList.add( Executive.cscPRO );
         cscList.add( Executive.cscCCS2);
         
+        entityList.add( Executive.entityTCS );
+        entityList.add( Executive.entityCCS );
+        entityList.add( Executive.entityARC );
+        entityList.add( Executive.entityCAT );
+        entityList.add( Executive.entityPRO );
+        
         tcsCmdList.add( "filterChange" );
         tcsCmdList.add( "target" );
 
@@ -68,6 +76,11 @@ public class ExecutiveFX extends Application {
     public ObservableList<CommandableSalComponent> getCscList() {
         
         return cscList;
+    }    
+    
+    public ObservableList<Entity> getEntityList() {
+        
+        return entityList;
     }    
     
     public ObservableList<String> getTcsCmdList() {

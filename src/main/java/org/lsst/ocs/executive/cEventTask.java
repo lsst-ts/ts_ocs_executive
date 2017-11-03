@@ -36,13 +36,12 @@ public class cEventTask implements Callable<Integer> {
 
     private final CommandableSalComponent _csc;
     private final String _event;
-    private final String _name;
+    private final String _name = "cEventTask";
 
-    public cEventTask(CommandableSalComponent csc, String event) {
+    public cEventTask ( CommandableSalComponent csc, String event ) {
 
         this._csc = csc;
         this._event = event;
-        this._name = "cEventTask";
     }
 
     public String getName() {
@@ -54,7 +53,7 @@ public class cEventTask implements Callable<Integer> {
     //public CommandableSalComponent call() {
     public Integer call() {
         
-        Thread.currentThread().setName("cEventTaskThread");
+        Thread.currentThread().setName( getName() );
         out.print( this.getName() + "::"
                                   + Thread.currentThread().getStackTrace()[1]
                                                           .getMethodName()
@@ -71,8 +70,10 @@ public class cEventTask implements Callable<Integer> {
         try {
             
             status = ( Integer ) _csc.getClass()
-                .getMethod( this._event, new Class[] {} ) // invoke w/ null args
-                .invoke( _csc, new Object[] {} ); // invoke w/ null args
+                                      // invoke w/ null args
+                                     .getMethod( this._event, new Class[] {} ) 
+                                      // invoke w/ null args
+                                     .invoke( _csc, new Object[] {} ); 
         } catch ( Exception e ) {
             
             e.printStackTrace( out.printf( this.getName() + "interrupted" ) );

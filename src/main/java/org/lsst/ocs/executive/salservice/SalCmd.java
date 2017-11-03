@@ -51,7 +51,7 @@ public class SalCmd extends SalService implements DomainObject {
                    "Threadid: " + 
                    Thread.currentThread().getId() + "\n" );
         
-        // receiver.action() (e.g. SalCamera.enterControl())
+        // receiver.action() (e.g. cscTcs.enterControl())
         try {
             _salComponent.getClass()
                          .getMethod( super._topic, new Class[]{} ) // method w/ null args

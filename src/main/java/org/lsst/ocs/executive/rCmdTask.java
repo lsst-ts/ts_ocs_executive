@@ -14,8 +14,9 @@
 
 package org.lsst.ocs.executive;
 
-import static java.lang.System.out;
+import javafx.concurrent.Task;
 import org.lsst.ocs.executive.salcomponent.*;
+import static java.lang.System.out;
 
 /**
  * <h2>[Runnable] Command Task</h2>
@@ -29,17 +30,28 @@ import org.lsst.ocs.executive.salcomponent.*;
  * it only defines an entry point for threads. It allows you to pass the 
  * object to the {@link Thread}.
  */
-public class rCmdTask implements Runnable {
+//public class rCmdTask implements Runnable {
+public class rCmdTask extends Task<Void> {
 
     private final CommandableSalComponent _csc;
+    private final Entity _entity;
     private final String _cmd;
-    private final String _name;
+    private final String _name = "rCmdTask";
 
     public rCmdTask( CommandableSalComponent csc, String cmd ) {
         
         this._csc = csc;
         this._cmd = cmd;
-        this._name = "rCmdTask";
+
+        this._entity = null;
+    }
+
+    public rCmdTask( Entity entity, String cmd ) {
+        
+        this._entity = entity;
+        this._cmd = cmd;
+        
+        this._csc = entity.getCSC();
     }
 
     public String getName() {
@@ -48,9 +60,10 @@ public class rCmdTask implements Runnable {
     }
 
     @Override
-    public void run() {
+    //public void run() {
+    public Void call() {
 
-        Thread.currentThread().setName("rCmdTaskThread");
+        Thread.currentThread().setName( getName() );
         out.print( this.getName() + "::"
                                   + Thread.currentThread().getStackTrace()[1]
                                                           .getMethodName()
@@ -63,11 +76,18 @@ public class rCmdTask implements Runnable {
                                   + Thread.currentThread().getId() + "\n");
 
         try {
-            _csc.getClass()
-                .getMethod( this._cmd, new Class[] {} ) // invoke w/ null args
-                .invoke( this._csc, new Object[] {} ); // invoke w/ null args
+//            _csc.getClass()
+//                .getMethod( this._cmd, new Class[] {} ) // invoke w/ null args
+//                .invoke( this._csc, new Object[] {} ); // invoke w/ null args
+            _entity.getClass()
+                    // invoke w/ null args
+                   .getMethod( this._cmd, new Class[] {} )
+                    // invoke w/ null args
+                   .invoke( this._entity, new Object[] {} );
         } catch ( Exception e ) {
             e.printStackTrace( out.printf( this.getName() + "interrupted" ) );
         }
+        
+        return null;
     }
 }

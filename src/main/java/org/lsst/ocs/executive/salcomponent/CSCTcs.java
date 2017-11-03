@@ -14,8 +14,8 @@
 
 package org.lsst.ocs.executive.salcomponent;
 
-import static java.lang.System.out;
 import org.lsst.sal.SAL_tcs;
+import static java.lang.System.out;
 
 /**
  *
@@ -23,7 +23,10 @@ import org.lsst.sal.SAL_tcs;
  *
  */
 
-public class CSCTcs extends CommandableSalComponent {
+//public class CSCTcs extends CommandableSalComponent {
+public class CSCTcs implements CommandableSalComponent {
+    
+    //Entity tcsEntity = new Entity(EntityType.TCS);
     
     @Override public String getName() { return "CSCTcs"; }
     
@@ -34,8 +37,8 @@ public class CSCTcs extends CommandableSalComponent {
 //                   "Threadid: " + 
 //                   Thread.currentThread().getId() + "\n" );
         
-        SAL_tcs cmd = new SAL_tcs();
-        cmd.salCommand("tcs_command_enterControl");
+        SAL_tcs publisher = new SAL_tcs();
+        publisher.salCommand("tcs_command_enterControl");
 
         tcs.command_enterControl command = new tcs.command_enterControl();
         command.private_revCode = "LSST TCS enterControl COMMAND";
@@ -44,7 +47,7 @@ public class CSCTcs extends CommandableSalComponent {
         command.action = "allow";
         command.state = true;
 
-        int cmdId = cmd.issueCommand_enterControl(command);
+        int cmdId = publisher.issueCommand_enterControl(command);
 
 //        out.println("TCS Command enterControl ready ");
 
@@ -55,16 +58,16 @@ public class CSCTcs extends CommandableSalComponent {
         }
 
         int timeout = 3;
-        cmd.waitForCompletion_enterControl(cmdId, timeout);
+        publisher.waitForCompletion_enterControl(cmdId, timeout);
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
 
     @Override public void start() { 
         
-        SAL_tcs cmd = new SAL_tcs();
-        cmd.salCommand("tcs_command_start");
+        SAL_tcs publisher = new SAL_tcs();
+        publisher.salCommand("tcs_command_start");
 
         tcs.command_start command = new tcs.command_start();
         command.private_revCode = "LSST TCS start COMMAND";
@@ -73,7 +76,7 @@ public class CSCTcs extends CommandableSalComponent {
         command.action = "apply";
         command.configuration = "Default";
 
-        int cmdId = cmd.issueCommand_start(command);
+        int cmdId = publisher.issueCommand_start(command);
 
         try {
             Thread.sleep(250);
@@ -82,17 +85,17 @@ public class CSCTcs extends CommandableSalComponent {
         }
 
         int timeout = 3;
-        cmd.waitForCompletion_start(cmdId, timeout);
+        publisher.waitForCompletion_start(cmdId, timeout);
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     
     }
 
     @Override public void enable() {
 
-        SAL_tcs cmd = new SAL_tcs();
-        cmd.salCommand("tcs_command_enable");
+        SAL_tcs publisher = new SAL_tcs();
+        publisher.salCommand("tcs_command_enable");
 
         tcs.command_enable command = new tcs.command_enable();
         command.private_revCode = "LSST TCS enable COMMAND";
@@ -101,7 +104,7 @@ public class CSCTcs extends CommandableSalComponent {
         command.action = "";
         command.state = true;
 
-        int cmdId = cmd.issueCommand_enable(command);
+        int cmdId = publisher.issueCommand_enable(command);
 
         try {
             Thread.sleep(250);
@@ -110,16 +113,16 @@ public class CSCTcs extends CommandableSalComponent {
         }
 
         int timeout = 3;
-        cmd.waitForCompletion_enable(cmdId, timeout);
+        publisher.waitForCompletion_enable(cmdId, timeout);
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
 
     @Override public void disable() {
 
-        SAL_tcs cmd = new SAL_tcs();
-        cmd.salCommand("tcs_command_disable");
+        SAL_tcs publisher = new SAL_tcs();
+        publisher.salCommand("tcs_command_disable");
 
         tcs.command_disable command = new tcs.command_disable();
         command.private_revCode = "LSST TCS disable COMMAND";
@@ -128,7 +131,7 @@ public class CSCTcs extends CommandableSalComponent {
         command.action = "";
         command.state = true;
 
-        int cmdId = cmd.issueCommand_disable(command);
+        int cmdId = publisher.issueCommand_disable(command);
 
         try {
             Thread.sleep(250);
@@ -137,16 +140,16 @@ public class CSCTcs extends CommandableSalComponent {
         }
 
         int timeout = 3;
-        cmd.waitForCompletion_disable(cmdId, timeout);
+        publisher.waitForCompletion_disable(cmdId, timeout);
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
 
     @Override public void standby() {
 
-        SAL_tcs cmd = new SAL_tcs();
-        cmd.salCommand("tcs_command_standby");
+        SAL_tcs publisher = new SAL_tcs();
+        publisher.salCommand("tcs_command_standby");
 
         tcs.command_standby command = new tcs.command_standby();
         command.private_revCode = "LSST TCS standby COMMAND";
@@ -155,7 +158,7 @@ public class CSCTcs extends CommandableSalComponent {
         command.action = "stop";
         command.state = true;
 
-        int cmdId = cmd.issueCommand_standby(command);
+        int cmdId = publisher.issueCommand_standby(command);
 
         try {
             Thread.sleep(250);
@@ -164,16 +167,16 @@ public class CSCTcs extends CommandableSalComponent {
         }
 
         int timeout = 3;
-        cmd.waitForCompletion_standby(cmdId, timeout);
+        publisher.waitForCompletion_standby(cmdId, timeout);
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
 
     @Override public void exitControl() {
 
-        SAL_tcs cmd = new SAL_tcs();
-        cmd.salCommand("tcs_command_exitControl");
+        SAL_tcs publisher = new SAL_tcs();
+        publisher.salCommand("tcs_command_exitControl");
 
         tcs.command_exitControl command = new tcs.command_exitControl();
         command.private_revCode = "LSST TCS exitControl COMMAND";
@@ -182,7 +185,7 @@ public class CSCTcs extends CommandableSalComponent {
         command.action = "exit";
         command.state = true;
 
-        int cmdId = cmd.issueCommand_exitControl(command);
+        int cmdId = publisher.issueCommand_exitControl(command);
 
         try {
             Thread.sleep(250);
@@ -191,16 +194,16 @@ public class CSCTcs extends CommandableSalComponent {
         }
 
         int timeout = 3;
-        cmd.waitForCompletion_exitControl(cmdId, timeout);
+        publisher.waitForCompletion_exitControl(cmdId, timeout);
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
 
     public void filterChange() {
 
-        SAL_tcs cmd = new SAL_tcs();
-        cmd.salCommand("tcs_command_filterChangeRequest");
+        SAL_tcs publisher = new SAL_tcs();
+        publisher.salCommand("tcs_command_filterChangeRequest");
 
         tcs.command_filterChangeRequest command = new tcs.command_filterChangeRequest();
         command.private_revCode = "LSST TCS filterChangeRequest COMMAND";
@@ -209,7 +212,7 @@ public class CSCTcs extends CommandableSalComponent {
         command.action = "exit";
         command.filterChangeRequest = "g";
 
-        int cmdId = cmd.issueCommand_filterChangeRequest(command);
+        int cmdId = publisher.issueCommand_filterChangeRequest(command);
 
         try {
             Thread.sleep(250);
@@ -218,16 +221,16 @@ public class CSCTcs extends CommandableSalComponent {
         }
 
         int timeout = 3;
-        cmd.waitForCompletion_filterChangeRequest(cmdId, timeout);
+        publisher.waitForCompletion_filterChangeRequest(cmdId, timeout);
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
 
     public void target() {
 
-        SAL_tcs cmd = new SAL_tcs();
-        cmd.salCommand("tcs_command_target");
+        SAL_tcs publisher = new SAL_tcs();
+        publisher.salCommand("tcs_command_target");
 
         tcs.command_target command = new tcs.command_target();
         command.private_revCode = "LSST TCS target COMMAND";
@@ -247,7 +250,7 @@ public class CSCTcs extends CommandableSalComponent {
         command.exposure_times = (int) 15;
         command.slew_time = (double) 41.717;
             
-        int cmdId = cmd.issueCommand_target(command);
+        int cmdId = publisher.issueCommand_target(command);
 
         try {
             Thread.sleep(250);
@@ -256,25 +259,25 @@ public class CSCTcs extends CommandableSalComponent {
         }
 
         int timeout = 10;
-        cmd.waitForCompletion_target(cmdId, timeout);
+        publisher.waitForCompletion_target(cmdId, timeout);
 
         // Remove the DataWriters etc
-        cmd.salShutdown();
+        publisher.salShutdown();
     }
     
     
     @Override public void summaryState() {
     
         // Initialize
-        SAL_tcs evt = new SAL_tcs();
-        evt.salEvent("tcs_logevent_SummaryState");
+        SAL_tcs subscriber = new SAL_tcs();
+        subscriber.salEvent("tcs_logevent_SummaryState");
 
         tcs.logevent_SummaryState event = new tcs.logevent_SummaryState();
 //        out.println("TCS Event SummaryState logger ready ");
 
         int status;
         while (Boolean.TRUE) {
-            status = evt.getEvent_SummaryState(event);
+            status = subscriber.getEvent_SummaryState(event);
             if (status == SAL_tcs.SAL__OK) {
                 out.println("=== Event Logged : " + event);
             }
@@ -283,21 +286,21 @@ public class CSCTcs extends CommandableSalComponent {
         }
 
         /* Remove the DataWriters etc */
-        evt.salShutdown();
+        subscriber.salShutdown();
     }
     
     @Override public void settingsVersion() {
     
         // Initialize
-        SAL_tcs evt = new SAL_tcs();
-        evt.salEvent("tcs_logevent_SettingVersions");
+        SAL_tcs subscriber = new SAL_tcs();
+        subscriber.salEvent("tcs_logevent_SettingVersions");
         
         tcs.logevent_SettingVersions event = new tcs.logevent_SettingVersions();
 //        out.println("TCS Event SettingVersions logger ready ");
 
         int status;
         while (Boolean.TRUE) {
-            status = evt.getEvent_SettingVersions(event);
+            status = subscriber.getEvent_SettingVersions(event);
             if (status == SAL_tcs.SAL__OK) {
                 out.println("=== Event Logged : " + event);
             }
@@ -306,21 +309,21 @@ public class CSCTcs extends CommandableSalComponent {
         }
 
         /* Remove the DataWriters etc */
-        evt.salShutdown();
+        subscriber.salShutdown();
     }
     
     @Override public void appliedSettingsMatchStart() {
     
         // Initialize
-        SAL_tcs evt = new SAL_tcs();
-        evt.salEvent("tcs_logevent_AppliedSettingsMatchStart");
+        SAL_tcs subscriber = new SAL_tcs();
+        subscriber.salEvent("tcs_logevent_AppliedSettingsMatchStart");
         
         tcs.logevent_AppliedSettingsMatchStart event = new tcs.logevent_AppliedSettingsMatchStart();
 //        out.println("TCS Event AppliedSettingsMatchStart logger ready ");
 
         int status;
         while (Boolean.TRUE) {
-            status = evt.getEvent_AppliedSettingsMatchStart(event);
+            status = subscriber.getEvent_AppliedSettingsMatchStart(event);
             if (status == SAL_tcs.SAL__OK) {
                 out.println("=== Event Logged : " + event);
             }
@@ -329,21 +332,21 @@ public class CSCTcs extends CommandableSalComponent {
         }
 
         /* Remove the DataWriters etc */
-	  evt.salShutdown();
+	  subscriber.salShutdown();
     }
     
     public void filterChangeInPosition() {
     
         // Initialize
-        SAL_tcs evt = new SAL_tcs();
-        evt.salEvent("tcs_logevent_FilterChangeInPosition");
+        SAL_tcs subscriber = new SAL_tcs();
+        subscriber.salEvent("tcs_logevent_FilterChangeInPosition");
         
         tcs.logevent_FilterChangeInPosition event = new tcs.logevent_FilterChangeInPosition();
 //        out.println("Event FilterChangeInPosition logger ready ");
 
         int status;
         while (Boolean.TRUE) {
-            status = evt.getEvent_FilterChangeInPosition(event);
+            status = subscriber.getEvent_FilterChangeInPosition(event);
             if (status == SAL_tcs.SAL__OK) {
                 out.println("=== Event Logged : " + event);
             }
@@ -352,21 +355,21 @@ public class CSCTcs extends CommandableSalComponent {
         }
 
         /* Remove the DataWriters etc */
-	  evt.salShutdown();
+	  subscriber.salShutdown();
     }
     
     public void targetInPosition() {
     
         // Initialize
-        SAL_tcs evt = new SAL_tcs();
-        evt.salEvent("tcs_logevent_TargetInPosition");
+        SAL_tcs subscriber = new SAL_tcs();
+        subscriber.salEvent("tcs_logevent_TargetInPosition");
         
         tcs.logevent_TargetInPosition event = new tcs.logevent_TargetInPosition();
 //        out.println("Event TargetInPosition logger ready ");
 
         int status;
         while (Boolean.TRUE) {
-            status = evt.getEvent_TargetInPosition(event);
+            status = subscriber.getEvent_TargetInPosition(event);
             if (status == SAL_tcs.SAL__OK) {
                 out.println("=== Event Logged : " + event);
             }
@@ -375,7 +378,7 @@ public class CSCTcs extends CommandableSalComponent {
         }
 
         /* Remove the DataWriters etc */
-	  evt.salShutdown();
+	  subscriber.salShutdown();
     }
 }
 

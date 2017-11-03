@@ -23,7 +23,8 @@ import static java.lang.System.out;
  * SalCmd is OCS Executive's interface to SAL middle-ware
  * <p>
  */
-public class CSCArchiver extends CommandableSalComponent {
+//public class CSCArchiver extends CommandableSalComponent {
+public class CSCArchiver implements CommandableSalComponent {
 
     @Override
     public String getName() {

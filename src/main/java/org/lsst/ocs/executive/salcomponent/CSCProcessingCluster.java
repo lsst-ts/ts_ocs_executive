@@ -23,7 +23,8 @@ import org.lsst.sal.SAL_processingcluster;
  *
  */
 
-public class CSCProcessingCluster extends CommandableSalComponent {
+//public class CSCProcessingCluster extends CommandableSalComponent {
+public class CSCProcessingCluster implements CommandableSalComponent {
     
     @Override public String getName() { return "CSCProcessingCluster"; }
 

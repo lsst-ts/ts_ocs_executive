@@ -40,27 +40,33 @@ public class EnabledState implements EntityState {
         // 1. SalComponent (Rcvr) reference is entity data member
         
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-        SalCmd salCmdCamera = new SalCmd(entity._salComponent);
+        SalCmd salCmd = new SalCmd(entity._salComponent);
 
         // 3. Also, assign topic & topic arguments
-        salCmdCamera.setTopic("enterControl");
+        salCmd.setTopic("disable");
         
         // 4. Define Invoker & set up command request
-        SalConnect salConnectCamera = new SalConnect(1);
-        salConnectCamera.setSalService(salCmdCamera);
+        SalConnect salConnect = new SalConnect(1);
+        salConnect.setSalService(salCmd);
         
         // 5. Invoker indirectly calls cmd->execute()
-        salConnectCamera.connect();
+        salConnect.connect();
 
         
         if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
             
             // 1. Publish SummaryState if not previously pub'd
-            SalEvent salEventCamera = new SalEvent(entity._salComponent);
-            salEventCamera.setTopic("summaryState");
+            SalEvent salEvent = new SalEvent(entity._salComponent);
+            salEvent.setTopic("summaryState");
             
-            salConnectCamera.setSalService(salEventCamera);
-            salConnectCamera.connect();
+            salConnect.setSalService(salEvent);
+            salConnect.connect();
+            
+            // 2. Check settings match (or differ) from start values
+            //    a. Publish Topic->AppliedSettingsMatchStart (or they differ??)
+            
+            // 3. Full control features are allowed
+            //    a. Entity reads/loads & applies control settings            
         }        
 
         // Cmd local entity state from EnabledState to DisabledState 
@@ -75,8 +81,18 @@ public class EnabledState implements EntityState {
         // Can't set other entities to FaultState, only myself
         if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
             
-            // 1. Set error code
-            // 2. Cmd local entity state from EnabledState to FaultState
+            // 1. Publish SummaryState == fault if not previously pub'd
+            SalEvent salEvent = new SalEvent(entity._salComponent);
+            salEvent.setTopic("summaryState");
+            
+            SalConnect salConnect = new SalConnect(1);
+            salConnect.setSalService(salEvent);
+            salConnect.connect();
+            
+            // 2. Set error code
+            // Via Detailed State event ???
+
+            // 3. Cmd local entity state from EnabledState to FaultState
             entity.setState(new FaultState());
         }
     }

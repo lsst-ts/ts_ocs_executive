@@ -24,16 +24,16 @@ public enum EntityType {
     
     OCS("OCS"),
     SEQUENCER("SEQUENCER"),
-    CAMERA("CAMERA"),
+    CCS("CCS"),
     TCS("TCS"),
     ARCHIVER("ARCHIVER"),
     CATCHUPARCHIVER("CATCHUPARCHIVER"),
     PROCESSINGCLUSTER("PROCESSINGCLUSTER");
     
-    private final String etype_;
+    private final String _etype;
     
     // private constructor
-    private EntityType(String etype) { this.etype_ = etype; }
+    private EntityType(String etype) { this._etype = etype; }
     
-    @Override public String toString() { return this.etype_; }
+    @Override public String toString() { return this._etype; }
 }

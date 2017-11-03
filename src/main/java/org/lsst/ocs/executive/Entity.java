@@ -20,7 +20,7 @@
 package org.lsst.ocs.executive;
 
 import org.lsst.ocs.executive.salcomponent.CSCArchiver;
-import org.lsst.ocs.executive.salcomponent.CSCCamera;
+import org.lsst.ocs.executive.salcomponent.CSCCcs;
 import org.lsst.ocs.executive.salcomponent.CSCCatchupArchiver;
 import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 import org.lsst.ocs.executive.salcomponent.CSCProcessingCluster;
@@ -48,6 +48,23 @@ public class Entity implements DomainObject {
     // Command Receiver
     protected CommandableSalComponent _salComponent;
     
+    public Entity(CommandableSalComponent csc) {
+        
+        this._salComponent = csc;
+        
+        this._state = new OfflineState();
+    }
+
+    public CommandableSalComponent getCSC () {
+        
+        return _salComponent;
+    }
+
+    public void setCSC ( CommandableSalComponent csc ) {
+        
+        this._salComponent = csc;
+    }
+    
     public Entity(EntityType etype) { 
 
         // Starting up & initial transition to OfflineState
@@ -57,7 +74,7 @@ public class Entity implements DomainObject {
         
         switch(this._etype.toString()) {
             case "CAMERA":
-                _salComponent = new CSCCamera();
+                _salComponent = new CSCCcs();
                 break;
             case "TCS":
                 _salComponent = new CSCTcs();

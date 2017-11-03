@@ -64,7 +64,7 @@ import static javafx.geometry.Pos.CENTER;
 //        return csc_;
 //    }
 //
-//    static final CommandableSalComponent CCS = new CSCCamera();
+//    static final CommandableSalComponent CCS = new CSCCcs();
 //    static final CommandableSalComponent TCS = new CSCTcs();
 //    static final CommandableSalComponent ARC = new CSCArchiver();
 //    static final CommandableSalComponent CAT = new CSCCatchupArchiver();
@@ -124,7 +124,7 @@ import static javafx.geometry.Pos.CENTER;
 //    }
 //
 //    public static final CommandableSalComponent rTCS = new CSCTcs();
-//    public static final CommandableSalComponent rCCS = new CSCCamera();
+//    public static final CommandableSalComponent rCCS = new CSCCcs();
 //    public static final CommandableSalComponent rARC = new CSCArchiver();
 //    public static final CommandableSalComponent rCAT = new CSCCatchupArchiver();
 //    public static final CommandableSalComponent rPRO = new CSCProcessingCluster();
@@ -184,7 +184,7 @@ import static javafx.geometry.Pos.CENTER;
 //        return command_;
 //    }
 //
-//    public static final CommandableSalComponent CCS = new CSCCamera();
+//    public static final CommandableSalComponent CCS = new CSCCcs();
 //    public static final CommandableSalComponent TCS = new CSCTcs();
 //    public static final CommandableSalComponent ARC = new CSCArchiver();
 //    public static final CommandableSalComponent CAT = new CSCCatchupArchiver();
@@ -244,7 +244,7 @@ import static javafx.geometry.Pos.CENTER;
 //    }
 //
 //    public static final CommandableSalComponent rTCS = new CSCTcs();
-//    public static final CommandableSalComponent rCCS = new CSCCamera();
+//    public static final CommandableSalComponent rCCS = new CSCCcs();
 //    public static final CommandableSalComponent rARC = new CSCArchiver();
 //    public static final CommandableSalComponent rCAT = new CSCCatchupArchiver();
 //    public static final CommandableSalComponent rPRO = new CSCProcessingCluster();
@@ -263,12 +263,24 @@ import static javafx.geometry.Pos.CENTER;
  */
 public class Executive {
     
-    public static final CommandableSalComponent cscTCS = new CSCTcs();
-    public static final CommandableSalComponent cscCCS = new CSCCamera();
-    public static final CommandableSalComponent cscCCS2 = new CSCCamera();
-    public static final CommandableSalComponent cscARC = new CSCArchiver();
-    public static final CommandableSalComponent cscCAT = new CSCCatchupArchiver();
-    public static final CommandableSalComponent cscPRO = new CSCProcessingCluster();
+    public static final CommandableSalComponent cscTCS  = new CSCTcs();
+    public static final CommandableSalComponent cscCCS  = new CSCCcs();
+    public static final CommandableSalComponent cscCCS2 = new CSCCcs();
+    public static final CommandableSalComponent cscARC  = new CSCArchiver();
+    public static final CommandableSalComponent cscCAT  = new CSCCatchupArchiver();
+    public static final CommandableSalComponent cscPRO  = new CSCProcessingCluster();
+    
+//    public static final Entity entityTCS = new Entity(EntityType.TCS);
+//    public static final Entity entityCCS = new Entity(EntityType.CCS);
+//    public static final Entity entityARC = new Entity(EntityType.ARCHIVER);
+//    public static final Entity entityCAT = new Entity(EntityType.CATCHUPARCHIVER);
+//    public static final Entity entityPRO = new Entity(EntityType.PROCESSINGCLUSTER);
+    
+    public static final Entity entityTCS = new Entity( cscTCS );
+    public static final Entity entityCCS = new Entity( cscCCS );
+    public static final Entity entityARC = new Entity( cscARC );
+    public static final Entity entityCAT = new Entity( cscCAT );
+    public static final Entity entityPRO = new Entity( cscPRO );
     
 
     public static final List<rCmdTask> rCmdTasks_TCS = Arrays.asList(
@@ -701,7 +713,7 @@ public class Executive {
             // 1. Verify SummaryState of 'OfflineState[AvailableState]'
             // --- Add code ---
             // 2. cmd CCS to 'StandbyState'
-            out.print( "\n" + EntityType.CAMERA.toString() + " sequence cmd enterControl..." );
+            out.print( "\n" + EntityType.CCS.toString() + " sequence cmd enterControl..." );
             br.readLine();
 
             // [A.]
@@ -711,7 +723,7 @@ public class Executive {
             //rCmdTask.rENTERCTRL_TASKS.get( 0 ).run();
 
             // [B.]
-            // Receiver previously defined: rCCS = new CSCCamera();
+            // Receiver previously defined: rCCS = new CSCCcs();
             //rCmdTask.rCCS.enterControl();
 
             // [C.]
@@ -732,9 +744,9 @@ public class Executive {
             // 2b. Determine a 'RecommendedSettingsVersion'
             // --- Add code ---
             // 3. cmd CCS to 'DisabledState'
-            out.print( "\n" + EntityType.CAMERA.toString() + " sequence cmd start..." );
+            out.print( "\n" + EntityType.CCS.toString() + " sequence cmd start..." );
             br.readLine();
-            Executive.cscCCS.start();
+            //Executive.cscCCS.start();
 
             salCmdCamera.setTopic( "start" );
             salConnectCamera.connect();
@@ -746,9 +758,9 @@ public class Executive {
             // 3c. Verify 'AppliedSettingsMatchStart'
             // --- Add code ---
             // 4. cmd CCS to 'EnabledState'
-            out.print( "\n" + EntityType.CAMERA.toString() + " sequence cmd enable..." );
+            out.print( "\n" + EntityType.CCS.toString() + " sequence cmd enable..." );
             br.readLine();
-            Executive.cscCCS.enable();
+            //Executive.cscCCS.enable();
 
             salCmdCamera.setTopic( "start" );
             salConnectCamera.connect();
@@ -766,7 +778,7 @@ public class Executive {
              */
             out.print( "\n" + EntityType.TCS.toString() + " sequence cmd enterControl..." );
             br.readLine();
-            Executive.cscTCS.enterControl();
+            //Executive.cscTCS.enterControl();
 
             SalCmd salCmdTcs = new SalCmd( Executive.cscTCS );
             salCmdTcs.setTopic( "enterControl" );
@@ -776,14 +788,14 @@ public class Executive {
 
             out.print( "\n" + EntityType.TCS.toString() + " sequence cmd start..." );
             br.readLine();
-            Executive.cscTCS.start();
+            //Executive.cscTCS.start();
 
             salCmdTcs.setTopic( "start" );
             salConnectTcs.connect();
 
             out.print( "\n" + EntityType.TCS.toString() + " sequence cmd enable..." );
             br.readLine();
-            Executive.cscTCS.enable();
+            //Executive.cscTCS.enable();
 
             salCmdTcs.setTopic( "enable" );
             salConnectTcs.connect();
@@ -802,7 +814,7 @@ public class Executive {
             // 2. cmd CCS to 'StandbyState'
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd enterControl..." );
             br.readLine();
-            Executive.cscARC.enterControl();
+            //Executive.cscARC.enterControl();
 
             // 2a. Verify SummaryState of 'StandbyState'
             // --- Add code ---
@@ -811,7 +823,7 @@ public class Executive {
             // 3. cmd CCS to 'DisabledState'
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd start..." );
             br.readLine();
-            Executive.cscARC.start();
+            //Executive.cscARC.start();
 
             // 3a. Verify SummaryState of 'DisabledState'
             // --- Add code ---
@@ -822,29 +834,29 @@ public class Executive {
             // 4. cmd CCS to 'EnabledState'
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd enable..." );
             br.readLine();
-            Executive.cscARC.enable();
+            //Executive.cscARC.enable();
 
             // 4a. Verify SummaryState of 'EnabledState'
             // --- Add code ---
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd enterControl..." );
             br.readLine();
-            Executive.cscCAT.enterControl();
+            //Executive.cscCAT.enterControl();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd start..." );
             br.readLine();
-            Executive.cscCAT.start();
+            //Executive.cscCAT.start();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd enable..." );
             br.readLine();
-            Executive.cscCAT.enable();
+            //Executive.cscCAT.enable();
 
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd enterControl..." );
             br.readLine();
-            Executive.cscPRO.enterControl();
+            //Executive.cscPRO.enterControl();
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd start..." );
             br.readLine();
-            Executive.cscPRO.start();
+            //Executive.cscPRO.start();
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd enable..." );
             br.readLine();
-            Executive.cscPRO.enable();
+            //Executive.cscPRO.enable();
 
             /**
              * ***********************
@@ -857,33 +869,33 @@ public class Executive {
              */
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd disable..." );
             br.readLine();
-            Executive.cscPRO.disable();
+            //Executive.cscPRO.disable();
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd standby..." );
             br.readLine();
-            Executive.cscPRO.standby();
+            //Executive.cscPRO.standby();
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd exitControl..." );
             br.readLine();
-            Executive.cscPRO.exitControl();
+            //Executive.cscPRO.exitControl();
 
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd disable..." );
             br.readLine();
-            Executive.cscCAT.disable();
+            //Executive.cscCAT.disable();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd standby..." );
             br.readLine();
-            Executive.cscCAT.standby();
+            //Executive.cscCAT.standby();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd exitControl..." );
             br.readLine();
-            Executive.cscCAT.exitControl();
+            //Executive.cscCAT.exitControl();
 
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd disable..." );
             br.readLine();
-            Executive.cscARC.disable();
+            //Executive.cscARC.disable();
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd standby..." );
             br.readLine();
-            Executive.cscARC.standby();
+            //Executive.cscARC.standby();
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd exitControl..." );
             br.readLine();
-            Executive.cscARC.exitControl();
+            //Executive.cscARC.exitControl();
 
             /**
              * ***********************
@@ -896,15 +908,15 @@ public class Executive {
              */
             out.print( "\n" + EntityType.TCS.toString() + " sequence cmd disable..." );
             br.readLine();
-            Executive.cscTCS.disable();
+            //Executive.cscTCS.disable();
 
             out.print( "\n" + EntityType.TCS.toString() + " sequence cmd standby..." );
             br.readLine();
-            Executive.cscTCS.standby();
+            //Executive.cscTCS.standby();
 
             out.print( "\n" + EntityType.TCS.toString() + " sequence cmd exitControl..." );
             br.readLine();
-            Executive.cscTCS.exitControl();
+            //Executive.cscTCS.exitControl();
 
             /**
              * ***********************
@@ -915,17 +927,17 @@ public class Executive {
             /**
              * ***********************
              */
-            out.print( "\n" + EntityType.CAMERA.toString() + " sequence cmd disable..." );
+            out.print( "\n" + EntityType.CCS.toString() + " sequence cmd disable..." );
             br.readLine();
-            Executive.cscCCS.disable();
+            //Executive.cscCCS.disable();
 
-            out.print( "\n" + EntityType.CAMERA.toString() + " sequence cmd standby..." );
+            out.print( "\n" + EntityType.CCS.toString() + " sequence cmd standby..." );
             br.readLine();
-            Executive.cscCCS.standby();
+            //Executive.cscCCS.standby();
 
-            out.print( "\n" + EntityType.CAMERA.toString() + " sequence cmd exitControl..." );
+            out.print( "\n" + EntityType.CCS.toString() + " sequence cmd exitControl..." );
             br.readLine();
-            Executive.cscCCS.exitControl();
+            //Executive.cscCCS.exitControl();
 
             /**
              * ***********************

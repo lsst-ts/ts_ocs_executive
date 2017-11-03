@@ -42,8 +42,11 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.effect.Glow;
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
+import org.lsst.ocs.executive.Entity;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.ocs.executive.ExecutiveFX;
+import org.lsst.ocs.executive.cEventTask;
+import org.lsst.ocs.executive.rCmdTask;
 import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 import org.lsst.ocs.executive.salcomponent.CommandableSalComponent.CSC_STATUS;
 import org.lsst.ocs.executive.salconnect.SalConnect;
@@ -156,6 +159,62 @@ public class PrimaryController implements Initializable {
     private MenuItem exitArc;
     
     @FXML
+    private void tcsState(ActionEvent event) {
+
+        // Grab the index of the selected menu item cmd
+        int cmdIndex = menuTcsState.getItems().indexOf( event.getSource() );
+        String cmdString = menuTcsState.getItems().get(cmdIndex).getText();
+
+//        Future<Integer> futureSumState = 
+//            Executors.newFixedThreadPool( 1 )
+//                     .submit( Executive.cEventTask_SUMSTATE.get( cscIndex ) );
+
+        Entity entity = execFX.getEntityList().get( 0 /* cscTCS */ );
+
+        Future<Integer> futureSumState =
+            Executors.newFixedThreadPool( 1 )
+                     .submit( new cEventTask( entity.getCSC(), "summaryState" ));
+
+        // State Pattern: context.request() [e.g. entityTcs.enterControl()]
+        Executors.newFixedThreadPool( 1 )
+                 .submit( new rCmdTask( entity, cmdString ) );
+        
+//        // 1. SalComponent (Receiver) previously defined: Executive.cscTCS
+//        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+//        //    Also, assign topic & topic arguments
+//        SalCmd salCmdCsc = new SalCmd( execFX.getCscList().get( 0 /* cscCCS */ ) );
+//        salCmdCsc.setTopic( cmdString );
+//        // 3. Define Invoker w/ # of threads & set SalService request
+//        SalConnect salConnectCsc = new SalConnect(1);
+//        salConnectCsc.setSalService( salCmdCsc );
+//        // 4. Invoker indirectly calls cmd->execute()
+//        salConnectCsc.connect();    
+        
+        tcsStateText.setText( cmdString );
+        tcsStateText.setStyle( "-fx-text-fill: darkcyan;" +
+                               "-fx-font-size: 11;" );
+        
+        if ( cmdString.matches("enterControl") ) {
+            
+            tcsLabel.setStyle( "-fx-text-fill: green;"  + 
+                               "-fx-font-size: 15;"     +
+                               "-fx-font-weight: bold;" +
+                               "-fx-border-width: 1 1 1 1;"  );
+            tcsLabel.setEffect(new Glow(0.9));
+            tcsToolTip.setText("TCS Online");
+        }
+        
+        if ( cmdString.matches("exitControl") ) {
+            
+            tcsLabel.setStyle( "-fx-text-fill: gainsboro;" +
+                               "-fx-font-size: 13;"        +
+                               "-fx-font-weight: normal;" );
+            tcsLabel.setEffect(new Glow());
+            tcsToolTip.setText("TCS Offline");
+        }
+    }
+    
+    @FXML
     private void tcsCmd(ActionEvent event) {
 
         // Grab the index & string of the selected CSC menu item
@@ -164,17 +223,32 @@ public class PrimaryController implements Initializable {
         
         Executors.newFixedThreadPool( 1 )
                  .submit( Executive.cEventTask_TCS.get( cmdIndex ) );
-                
-        // 1. SalComponent (Receiver) previously defined: Executive.cscTCS
-        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-        //    Also, assign topic & topic arguments
-        SalCmd salCmdCsc = new SalCmd( execFX.getCscList().get( 0 /* cscTCS */ ) );
-        salCmdCsc.setTopic( cmdString );
-        // 3. Define Invoker w/ # of threads & set SalService request
-        SalConnect salConnectCsc = new SalConnect(1);
-        salConnectCsc.setSalService( salCmdCsc );
-        // 4. Invoker indirectly calls cmd->execute()
-        salConnectCsc.connect();
+
+        // State Pattern: context.request() [e.g. entityTcs.enterControl()]
+        Entity entity = execFX.getEntityList().get( 0 /* cscTCS */ );
+        Executors.newFixedThreadPool( 1 )
+                 .submit( new rCmdTask( entity, cmdString ) );
+        
+//        // 1. SalComponent (Receiver) previously defined: Executive.cscTCS
+//        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+//        //    Also, assign topic & topic arguments
+//        SalCmd salCmdCsc = new SalCmd( execFX.getCscList().get( 0 /* cscTCS */ ) );
+//        salCmdCsc.setTopic( cmdString );
+//        // 3. Define Invoker w/ # of threads & set SalService request
+//        SalConnect salConnectCsc = new SalConnect(1);
+//        salConnectCsc.setSalService( salCmdCsc );
+//        // 4. Invoker indirectly calls cmd->execute()
+//        salConnectCsc.connect();
+        
+        // OR
+        
+//        Entity entity = execFX.getEntityList().get( 0 /* cscTCS */ );
+//        SalCmd salCmd = new SalCmd( entity.getCSC() );
+//        salCmd.setTopic( cmdString );
+//
+//        SalConnect salConnect = new SalConnect(1);
+//        salConnect.setSalService( salCmd );
+//        salConnect.connect();
     }
 
     @FXML
@@ -260,48 +334,6 @@ public class PrimaryController implements Initializable {
         tcsStateText.setText(cmdString);
         tcsStateText.setStyle("-fx-text-fill: green; -fx-font-size: 12;");
         
-    }
-    
-    @FXML
-    private void tcsState(ActionEvent event) {
-
-        // Grab the index of the selected menu item cmd
-        int cmdIndex = menuTcsState.getItems().indexOf( event.getSource() );
-        String cmdString = menuTcsState.getItems().get(cmdIndex).getText();
-        
-        // 1. SalComponent (Receiver) previously defined: Executive.cscTCS
-        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-        //    Also, assign topic & topic arguments
-        SalCmd salCmdCsc = new SalCmd( execFX.getCscList().get( 0 /* cscCCS */ ) );
-        salCmdCsc.setTopic( cmdString );
-        // 3. Define Invoker w/ # of threads & set SalService request
-        SalConnect salConnectCsc = new SalConnect(1);
-        salConnectCsc.setSalService( salCmdCsc );
-        // 4. Invoker indirectly calls cmd->execute()
-        salConnectCsc.connect();    
-        
-        tcsStateText.setText( cmdString );
-        tcsStateText.setStyle( "-fx-text-fill: darkcyan;" +
-                               "-fx-font-size: 11;" );
-        
-        if ( cmdString.matches("enterControl") ) {
-            
-            tcsLabel.setStyle( "-fx-text-fill: green;"  + 
-                               "-fx-font-size: 15;"     +
-                               "-fx-font-weight: bold;" +
-                               "-fx-border-width: 1 1 1 1;"  );
-            tcsLabel.setEffect(new Glow(0.9));
-            tcsToolTip.setText("TCS Online");
-        }
-        
-        if ( cmdString.matches("exitControl") ) {
-            
-            tcsLabel.setStyle( "-fx-text-fill: gainsboro;" +
-                               "-fx-font-size: 13;"        +
-                               "-fx-font-weight: normal;" );
-            tcsLabel.setEffect(new Glow());
-            tcsToolTip.setText("TCS Offline");
-        }
     }
     
     @FXML
