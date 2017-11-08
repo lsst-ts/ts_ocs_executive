@@ -30,7 +30,7 @@
         <dependency>
             <groupId>org.lsst.lsst-tsvm</groupId>
             <artifactId>sal_tcs</artifactId>
-            <version>3.5.1</version>
+            <version>3.5.1.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>opensplice.dds</groupId>
