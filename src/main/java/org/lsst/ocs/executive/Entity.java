@@ -19,12 +19,7 @@
 
 package org.lsst.ocs.executive;
 
-import org.lsst.ocs.executive.salcomponent.CSCArchiver;
-import org.lsst.ocs.executive.salcomponent.CSCCcs;
-import org.lsst.ocs.executive.salcomponent.CSCCatchupArchiver;
-import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
-import org.lsst.ocs.executive.salcomponent.CSCProcessingCluster;
-import org.lsst.ocs.executive.salcomponent.CSCTcs;
+import org.lsst.ocs.executive.salcomponent.*;
 
 /**
  *
@@ -87,6 +82,9 @@ public class Entity implements DomainObject {
                 break;
             case "PROCESSINGCLUSTER":
                 _salComponent = new CSCProcessingCluster();
+                break;
+            case "HEADERSERVICE":
+                _salComponent = new CSCHeaderService();
                 break;
         }
     

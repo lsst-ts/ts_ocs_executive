@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="guiPrimaryScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="875.0" stylesheets="@/styles/caspian.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lsst.ocs.executive.gui.primary.PrimaryController">
+<BorderPane id="guiPrimaryScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="1064.0" stylesheets="@/styles/caspian.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lsst.ocs.executive.gui.primary.PrimaryController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -38,6 +38,7 @@
                         <MenuItem id="menuitemCreateCamera" fx:id="menuitemCreateArchiver" mnemonicParsing="false" onAction="#createCSC" text="ARCHIVER" />
                         <MenuItem id="menuitemCreateCatchupArchiver" fx:id="menuitemCreateCatchupArchiver" mnemonicParsing="false" onAction="#createCSC" text="CATCHUP ARCHIVER" />
                         <MenuItem id="menuitemCreateProcessingCluster" fx:id="menuitemCreateProcessingCluster" mnemonicParsing="false" onAction="#createCSC" text="PROCESSING CLUSTER" />
+                        <MenuItem id="menuitemHeaderService" fx:id="menuitemHeaderService" mnemonicParsing="false" onAction="#createCSC" text="HEADER SERVICE" />
                     </items>
                   </Menu>
                   <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll" mnemonicParsing="false" onAction="#createAllCSC" text="Create All CSCs" />
@@ -64,7 +65,7 @@
             <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Separator minHeight="-Infinity" minWidth="-Infinity" prefHeight="3.0" prefWidth="875.0" valignment="BOTTOM">
+            <Separator minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="1063.0" valignment="BOTTOM">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
@@ -99,7 +100,7 @@
       </GridPane>
    </bottom>
    <center>
-      <HBox fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="880.0" BorderPane.alignment="CENTER">
+      <HBox fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="1062.0" BorderPane.alignment="CENTER">
          <children>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="175.0" style="-fx-border-width: 0 1 0 0; -fx-border-style: solid;">
                <children>
@@ -296,7 +297,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox prefHeight="473.0" prefWidth="182.0">
+            <VBox prefHeight="473.0" prefWidth="182.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="199.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="PROCESSING CLUSTER">
                      <tooltip>
@@ -327,6 +328,44 @@
                            </font>
                         </Label>
                         <TextField id="proStateText" fx:id="proStateText" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" prefHeight="21.0" prefWidth="120.0">
+                           <HBox.margin>
+                              <Insets left="4.0" />
+                           </HBox.margin></TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="473.0" prefWidth="182.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="199.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="HEADER SERVICE">
+                     <tooltip>
+                        <Tooltip text="HEADER SERVICE Offline" />
+                     </tooltip>
+                  </Label>
+                  <MenuButton minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="180.0" text="StateTransition">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="EnterControl" />
+                        <MenuItem mnemonicParsing="false" text="Start" />
+                        <MenuItem mnemonicParsing="false" text="Enable" />
+                        <MenuItem mnemonicParsing="false" text="Disable" />
+                        <MenuItem mnemonicParsing="false" text="Standby" />
+                        <MenuItem mnemonicParsing="false" text="ExitControl" />
+                     </items>
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </MenuButton>
+                  <HBox prefHeight="24.0" prefWidth="170.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="State">
+                           <font>
+                              <Font name="System Italic" size="11.0" />
+                           </font>
+                        </Label>
+                        <TextField id="hdrStateText" fx:id="hdrStateText" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" prefHeight="21.0" prefWidth="120.0">
                            <HBox.margin>
                               <Insets left="4.0" />
                            </HBox.margin></TextField>

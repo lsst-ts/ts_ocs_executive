@@ -14,7 +14,6 @@
 
 package org.lsst.ocs.executive;
 
-import static java.lang.System.out;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -54,13 +53,14 @@ public class ExecutiveFX extends Application {
         cscList.add( Executive.cscARC );
         cscList.add( Executive.cscCAT );
         cscList.add( Executive.cscPRO );
-        cscList.add( Executive.cscCCS2);
+        cscList.add( Executive.cscHDR);
         
         entityList.add( Executive.entityTCS );
         entityList.add( Executive.entityCCS );
         entityList.add( Executive.entityARC );
         entityList.add( Executive.entityCAT );
         entityList.add( Executive.entityPRO );
+        entityList.add( Executive.entityHDR );
         
         tcsCmdList.add( "filterChange" );
         tcsCmdList.add( "target" );

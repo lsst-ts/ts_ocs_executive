@@ -269,6 +269,7 @@ public class Executive {
     public static final CommandableSalComponent cscARC  = new CSCArchiver();
     public static final CommandableSalComponent cscCAT  = new CSCCatchupArchiver();
     public static final CommandableSalComponent cscPRO  = new CSCProcessingCluster();
+    public static final CommandableSalComponent cscHDR  = new CSCHeaderService();
     
 //    public static final Entity entityTCS = new Entity(EntityType.TCS);
 //    public static final Entity entityCCS = new Entity(EntityType.CCS);
@@ -281,6 +282,7 @@ public class Executive {
     public static final Entity entityARC = new Entity( cscARC );
     public static final Entity entityCAT = new Entity( cscCAT );
     public static final Entity entityPRO = new Entity( cscPRO );
+    public static final Entity entityHDR = new Entity( cscHDR );
     
 
     public static final List<rCmdTask> rCmdTasks_TCS = Arrays.asList(
@@ -301,7 +303,8 @@ public class Executive {
         new rCmdTask( cscCCS, "enterControl" ),
         new rCmdTask( cscARC, "enterControl" ),
         new rCmdTask( cscCAT, "enterControl" ),
-        new rCmdTask( cscPRO, "enterControl" )
+        new rCmdTask( cscPRO, "enterControl" ),
+        new rCmdTask( cscHDR, "enterControl" )
     );
     
     public static final List<rCmdTask> rCmdTasks_START = Arrays.asList(
@@ -310,7 +313,8 @@ public class Executive {
         new rCmdTask( cscCCS, "start" ),
         new rCmdTask( cscARC, "start" ),
         new rCmdTask( cscCAT, "start" ),
-        new rCmdTask( cscPRO, "start" )
+        new rCmdTask( cscPRO, "start" ),
+        new rCmdTask( cscHDR, "start" )        
     );
 
     public static final List<rCmdTask> rCmdTasks_ENABLE = Arrays.asList(
@@ -319,7 +323,8 @@ public class Executive {
         new rCmdTask( cscCCS, "enable" ),
         new rCmdTask( cscARC, "enable" ),
         new rCmdTask( cscCAT, "enable" ),
-        new rCmdTask( cscPRO, "enable" )
+        new rCmdTask( cscPRO, "enable" ),
+        new rCmdTask( cscHDR, "enable" )                
     );
     
     public static final List<cEventTask> cEventTask_TCS = Arrays.asList(
@@ -340,7 +345,8 @@ public class Executive {
         new cEventTask( cscCCS, "summaryState" ),
         new cEventTask( cscARC, "summaryState" ),
         new cEventTask( cscCAT, "summaryState" ),
-        new cEventTask( cscPRO, "summaryState" )
+        new cEventTask( cscPRO, "summaryState" ),
+        new cEventTask( cscHDR, "summaryState" )
     );
 
     public static final List<cEventTask> cEventTask_SETTINGS = Arrays.asList(
@@ -349,8 +355,9 @@ public class Executive {
         new cEventTask( cscCCS, "settingsVersion" ),
         new cEventTask( cscARC, "settingsVersion" ),
         new cEventTask( cscCAT, "settingsVersion" ),
-        new cEventTask( cscPRO, "settingsVersion" )
-    );
+        new cEventTask( cscPRO, "settingsVersion" ),
+        new cEventTask( cscHDR, "settingsVersion" )
+);
 
     public static final List<cEventTask> cEventTask_APPLIEDSETTINGS = Arrays.asList(
             
@@ -358,7 +365,8 @@ public class Executive {
         new cEventTask( cscCCS, "appliedSettingsMatchStartTest" ),
         new cEventTask( cscARC, "appliedSettingsMatchStartTest" ),
         new cEventTask( cscCAT, "appliedSettingsMatchStartTest" ),
-        new cEventTask( cscPRO, "appliedSettingsMatchStartTest" )
+        new cEventTask( cscPRO, "appliedSettingsMatchStartTest" ),
+        new cEventTask( cscHDR, "appliedSettingsMatchStartTest" )
     );
 
 //public class Executive extends Application {
