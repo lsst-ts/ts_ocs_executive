@@ -33,7 +33,7 @@ public class EnabledState implements EntityState {
 
     @Override public void disable(Entity entity) {
 
-        String salactor = entity._etype.toString();
+        String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
         out.println(salactor + "." + this.getName() + ".disable");
 
         // Cmd Sequencer, TCS, CCS or DMCS via SAL
@@ -75,7 +75,7 @@ public class EnabledState implements EntityState {
 
     @Override public void fault(Entity entity) {
         
-        String salactor = entity._etype.toString();
+        String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
         out.println(salactor + "." + this.getName() + ".fault");
         
         // Can't set other entities to FaultState, only myself

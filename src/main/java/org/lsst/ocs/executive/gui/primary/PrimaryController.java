@@ -22,14 +22,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,15 +34,11 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.Glow;
-import javafx.geometry.Insets;
-import javafx.scene.layout.BorderPane;
 import org.lsst.ocs.executive.Entity;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.ocs.executive.ExecutiveFX;
 import org.lsst.ocs.executive.cEventTask;
 import org.lsst.ocs.executive.rCmdTask;
-import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
-import org.lsst.ocs.executive.salcomponent.CommandableSalComponent.CSC_STATUS;
 import org.lsst.ocs.executive.salconnect.SalConnect;
 import org.lsst.ocs.executive.salservice.SalCmd;
 
@@ -72,34 +62,28 @@ public class PrimaryController implements Initializable {
     private ExecutiveFX execFX;
     
     @FXML
-    private Label tcsLabel, ccsLabel, arcLabel, catLabel, proLabel;
+    private Label tcsLabel, ccsLabel, arcLabel, catLabel, proLabel, hdrLabel;
     
     @FXML
-    private Tooltip tcsToolTip;
+    private Tooltip tcsTooltip, ccsTooltip, arcTooltip, catTooltip, proTooltip, hdrTooltip;
     
     @FXML
-    private Menu menuCSC;
+    private MenuButton tcsStateMenu, ccsStateMenu, arcStateMenu, catStateMenu, proStateMenu, hdrStateMenu;
 
     @FXML
-    private MenuButton menuTcsCmd;
+    private TextField tcsStateText, ccsStateText, arcStateText, catStateText, proStateText, hdrStateText;
 
-    @FXML
-    private MenuButton menuTcsState;
-
-    @FXML
-    private MenuButton menuCameraCmd;
-
-    @FXML
-    private MenuButton menuCcsState;
-
-    @FXML
-    private MenuButton menuArcState;
-
-    @FXML
-    private TextField tcsStateText, ccsStateText, arcStateText, catStateText, proStateText;
-
-    @FXML
-    private TextField tcsCmdText, ccsCmdText;
+    static final Map<String, String> STATE_TEXT_MAP = 
+        new HashMap<String, String>() {
+        {
+            put("enterControl", "STANDBY");
+            put("start"       , "DISABLED");
+            put("enable"      , "ENABLED");
+            put("disable"     , "DISABLED");
+            put("standby"     , "STANDBY");
+            put("exitControl" , "OFFLINE");
+        }
+    };
 
     public final List<TextField> stateTextList = Arrays.asList(
             
@@ -109,6 +93,28 @@ public class PrimaryController implements Initializable {
         catStateText,
         proStateText
     );
+
+    @FXML
+    private MenuItem enter, start, enable, disable, standby, exit;
+
+    @FXML
+    private MenuItem ccsEnter, ccsStart, ccsEnable, ccsDisable, ccsStandby, ccsExit;
+    
+    @FXML
+    private MenuItem arcEnter, arcStart, arcEnable, arcDisable, arcStandby, arcExit;
+    
+    @FXML
+    private MenuItem hdrEnter, hdrStart, hdrEnable, hdrDisable, hdrStandby, hdrExit;
+    
+    @FXML
+    private MenuButton tcsCmdMenu, ccsCmdMenu;
+
+    @FXML
+    private TextField tcsCmdText, ccsCmdText;
+
+    @FXML
+    private Menu menuCSC;
+
     @FXML
     private MenuItem menuitemCreateTCS;
     @FXML
@@ -121,62 +127,27 @@ public class PrimaryController implements Initializable {
     private MenuItem menuitemCreateProcessingCluster;
     @FXML
     private MenuItem menuitemCreateAll;
-    @FXML
-    private MenuItem enter;
-    @FXML
-    private MenuItem start;
-    @FXML
-    private MenuItem enable;
-    @FXML
-    private MenuItem disable;
-    @FXML
-    private MenuItem standby;
-    @FXML
-    private MenuItem exit;
-    @FXML
-    private MenuItem enterCcs;
-    @FXML
-    private MenuItem startCcs;
-    @FXML
-    private MenuItem enableCcs;
-    @FXML
-    private MenuItem disableCcs;
-    @FXML
-    private MenuItem standbyCcs;
-    @FXML
-    private MenuItem exitCcs;
-    @FXML
-    private MenuItem enterArc;
-    @FXML
-    private MenuItem startArc;
-    @FXML
-    private MenuItem enableArc;
-    @FXML
-    private MenuItem disableArc;
-    @FXML
-    private MenuItem standbyArc;
-    @FXML
-    private MenuItem exitArc;
-    
+
     @FXML
     private void tcsState(ActionEvent event) {
 
         // Grab the index of the selected menu item cmd
-        int cmdIndex = menuTcsState.getItems().indexOf( event.getSource() );
-        String cmdString = menuTcsState.getItems().get(cmdIndex).getText();
+        int cmdIndex = tcsStateMenu.getItems().indexOf( event.getSource() );
+        String cmdString = tcsStateMenu.getItems().get(cmdIndex).getText();
 
         Entity entity = execFX.getEntityList().get( 0 /* cscTCS */ );
 
-        Future<Integer> futureSumState =
-            Executors.newFixedThreadPool( 1 )
-                     .submit( new cEventTask( entity.getCSC(), "summaryState" ));
+        //Future<Integer> futureSumState =
+        //    Executors.newFixedThreadPool( 1 )
+        //             .submit( new cEventTask( entity.getCSC(), "summaryState" ));
 
         // State Pattern: context.request() [e.g. entityTcs.enterControl()]
         Executors.newFixedThreadPool( 1 )
                  .submit( new rCmdTask( entity, cmdString ) );
         
-        tcsStateText.setText( cmdString );
+        tcsStateText.setText( STATE_TEXT_MAP.get( cmdString ) );
         tcsStateText.setStyle( "-fx-text-fill: darkcyan;" +
+                               "-fx-font-weight: bold;" +   
                                "-fx-font-size: 11;" );
         
         if ( cmdString.matches("enterControl") ) {
@@ -186,7 +157,7 @@ public class PrimaryController implements Initializable {
                                "-fx-font-weight: bold;" +
                                "-fx-border-width: 1 1 1 1;"  );
             tcsLabel.setEffect(new Glow(0.9));
-            tcsToolTip.setText("TCS Online");
+            tcsTooltip.setText("TCS Online");
         }
         
         if ( cmdString.matches("exitControl") ) {
@@ -195,7 +166,7 @@ public class PrimaryController implements Initializable {
                                "-fx-font-size: 13;"        +
                                "-fx-font-weight: normal;" );
             tcsLabel.setEffect(new Glow());
-            tcsToolTip.setText("TCS Offline");
+            tcsTooltip.setText("TCS Offline");
         }
     }
     
@@ -203,24 +174,24 @@ public class PrimaryController implements Initializable {
     private void tcsCmd(ActionEvent event) {
 
         // Grab the index & string of the selected CSC menu item
-        int cmdIndex = menuTcsCmd.getItems().indexOf( event.getSource() );
-        String cmdString = menuTcsCmd.getItems().get(cmdIndex).getText();
+        int cmdIndex = tcsCmdMenu.getItems().indexOf( event.getSource() );
+        String cmdString = tcsCmdMenu.getItems().get(cmdIndex).getText();
         
         Executors.newFixedThreadPool( 1 )
                  .submit( Executive.cEventTask_TCS.get( cmdIndex ) );
 
         // State Pattern: context.request() [e.g. entityTcs.enterControl()]
-        Entity entity = execFX.getEntityList().get( 0 /* cscTCS */ );
-        Executors.newFixedThreadPool( 1 )
-                 .submit( new rCmdTask( entity, cmdString ) );
+        //Entity entity = execFX.getEntityList().get( 0 /* cscTCS */ );
+        //Executors.newFixedThreadPool( 1 )
+        //         .submit( new rCmdTask( entity, cmdString ) );
     }
 
     @FXML
     private void ccsState(ActionEvent event) {
 
         // Grab the index of the selected menu item cmd
-        int cmdIndex = menuTcsState.getItems().indexOf( event.getSource() );
-        String cmdString = menuTcsState.getItems().get(cmdIndex).getText();
+        int cmdIndex = ccsStateMenu.getItems().indexOf( event.getSource() );
+        String cmdString = ccsStateMenu.getItems().get(cmdIndex).getText();
 
         Entity entity = execFX.getEntityList().get( 1 /* cscCCS */ );
 
@@ -232,37 +203,38 @@ public class PrimaryController implements Initializable {
         Executors.newFixedThreadPool( 1 )
                  .submit( new rCmdTask( entity, cmdString ) );
         
-        tcsStateText.setText( cmdString );
-        tcsStateText.setStyle( "-fx-text-fill: darkcyan;" +
+        ccsStateText.setText( STATE_TEXT_MAP.get( cmdString ) );
+        ccsStateText.setStyle( "-fx-text-fill: darkcyan;" +
+                               "-fx-font-weight: bold;" +
                                "-fx-font-size: 11;" );
         
         if ( cmdString.matches("enterControl") ) {
             
-            tcsLabel.setStyle( "-fx-text-fill: green;"  + 
+            ccsLabel.setStyle( "-fx-text-fill: green;"  + 
                                "-fx-font-size: 15;"     +
                                "-fx-font-weight: bold;" +
                                "-fx-border-width: 1 1 1 1;"  );
-            tcsLabel.setEffect(new Glow(0.9));
-            tcsToolTip.setText("TCS Online");
+            ccsLabel.setEffect(new Glow(0.9));
+            ccsTooltip.setText("CCS Online");
         }
         
         if ( cmdString.matches("exitControl") ) {
             
-            tcsLabel.setStyle( "-fx-text-fill: gainsboro;" +
+            ccsLabel.setStyle( "-fx-text-fill: gainsboro;" +
                                "-fx-font-size: 13;"        +
                                "-fx-font-weight: normal;" );
-            tcsLabel.setEffect(new Glow());
-            tcsToolTip.setText("TCS Offline");
+            ccsLabel.setEffect(new Glow());
+            ccsTooltip.setText("CCS Offline");
         }
         
     }
     
     @FXML
-    private void cameraCmd(ActionEvent event) {
+    private void ccsCmd(ActionEvent event) {
     
         // Grab the index & string of the selected CSC menu item
-        int cmdIndex = menuCameraCmd.getItems().indexOf( event.getSource() );
-        String cmdString = menuCameraCmd.getItems().get(cmdIndex).getText();
+        int cmdIndex = ccsCmdMenu.getItems().indexOf( event.getSource() );
+        String cmdString = ccsCmdMenu.getItems().get(cmdIndex).getText();
         
 //        Executors.newFixedThreadPool( 1 )
 //                 .submit( Executive.cEventTask_CCS.get( cmdIndex ) );
@@ -345,20 +317,168 @@ public class PrimaryController implements Initializable {
     @FXML
     private void arcState(ActionEvent event) {
 
-        // Grab the index of the selected menu item cmd
-        int cmdIndex = menuArcState.getItems().indexOf( event.getSource() );
-        String cmdString = menuArcState.getItems().get(cmdIndex).getText();
+       // Grab the index of the selected menu item cmd
+        int cmdIndex = arcStateMenu.getItems().indexOf( event.getSource() );
+        String cmdString = arcStateMenu.getItems().get(cmdIndex).getText();
+
+        Entity entity = execFX.getEntityList().get( 2 /* cscARC */ );
+
+        //Future<Integer> futureSumState =
+        //    Executors.newFixedThreadPool( 1 )
+        //             .submit( new cEventTask( entity.getCSC(), "summaryState" ));
+
+        // State Pattern: context.request() [e.g. entityArc.enterControl()]
+        Executors.newFixedThreadPool( 1 )
+                 .submit( new rCmdTask( entity, cmdString ) );
         
-        // 1. SalComponent (Receiver) previously defined: Executive.cscTCS
-        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-        //    Also, assign topic & topic arguments
-        SalCmd salCmdCsc = new SalCmd( execFX.getCscList().get( 2 /* cscCCS */ ) );
-        salCmdCsc.setTopic( cmdString );
-        // 3. Define Invoker w/ # of threads & set SalService request
-        SalConnect salConnectCsc = new SalConnect(1);
-        salConnectCsc.setSalService( salCmdCsc );
-        // 4. Invoker indirectly calls cmd->execute()
-        salConnectCsc.connect();    
+        arcStateText.setText( STATE_TEXT_MAP.get( cmdString ) );
+        arcStateText.setStyle( "-fx-text-fill: darkcyan;" +
+                               "-fx-font-weight: bold;" +
+                               "-fx-font-size: 11;" );
+        
+        if ( cmdString.matches("enterControl") ) {
+            
+            arcLabel.setStyle( "-fx-text-fill: green;"  + 
+                               "-fx-font-size: 15;"     +
+                               "-fx-font-weight: bold;" +
+                               "-fx-border-width: 1 1 1 1;"  );
+            arcLabel.setEffect(new Glow(0.9));
+            arcTooltip.setText("ARCHIVER Online");
+        }
+        
+        if ( cmdString.matches("exitControl") ) {
+            
+            arcLabel.setStyle( "-fx-text-fill: gainsboro;" +
+                               "-fx-font-size: 13;"        +
+                               "-fx-font-weight: normal;" );
+            arcLabel.setEffect(new Glow());
+            arcTooltip.setText("ARCHIVER Offline");
+        }
+    }
+    
+    @FXML
+    private void catState(ActionEvent event) {
+
+       // Grab the index of the selected menu item cmd
+        int cmdIndex = catStateMenu.getItems().indexOf( event.getSource() );
+        String cmdString = catStateMenu.getItems().get(cmdIndex).getText();
+
+        Entity entity = execFX.getEntityList().get( 3 /* cscCAT */ );
+
+        //Future<Integer> futureSumState =
+        //    Executors.newFixedThreadPool( 1 )
+        //             .submit( new cEventTask( entity.getCSC(), "summaryState" ));
+
+        // State Pattern: context.request() [e.g. entityCat.enterControl()]
+        Executors.newFixedThreadPool( 1 )
+                 .submit( new rCmdTask( entity, cmdString ) );
+        
+        catStateText.setText( STATE_TEXT_MAP.get( cmdString ) );
+        catStateText.setStyle( "-fx-text-fill: darkcyan;" +
+                               "-fx-font-weight: bold;" +
+                               "-fx-font-size: 11;" );
+        
+        if ( cmdString.matches("enterControl") ) {
+            
+            catLabel.setStyle( "-fx-text-fill: green;"  + 
+                               "-fx-font-size: 15;"     +
+                               "-fx-font-weight: bold;" +
+                               "-fx-border-width: 1 1 1 1;"  );
+            catLabel.setEffect(new Glow(0.9));
+            catTooltip.setText("CATCHUP ARCHIVER Online");
+        }
+        
+        if ( cmdString.matches("exitControl") ) {
+            
+            catLabel.setStyle( "-fx-text-fill: gainsboro;" +
+                               "-fx-font-size: 13;"        +
+                               "-fx-font-weight: normal;" );
+            catLabel.setEffect(new Glow());
+            catTooltip.setText("CATCHUP ARCHIVER Offline");
+        }
+    }
+    
+    @FXML
+    private void proState(ActionEvent event) {
+
+       // Grab the index of the selected menu item cmd
+        int cmdIndex = proStateMenu.getItems().indexOf( event.getSource() );
+        String cmdString = proStateMenu.getItems().get(cmdIndex).getText();
+
+        Entity entity = execFX.getEntityList().get( 4 /* cscPRO */ );
+
+        //Future<Integer> futureSumState =
+        //    Executors.newFixedThreadPool( 1 )
+        //             .submit( new cEventTask( entity.getCSC(), "summaryState" ));
+
+        // State Pattern: context.request() [e.g. entityPro.enterControl()]
+        Executors.newFixedThreadPool( 1 )
+                 .submit( new rCmdTask( entity, cmdString ) );
+        
+        proStateText.setText( STATE_TEXT_MAP.get( cmdString ) );
+        proStateText.setStyle( "-fx-text-fill: darkcyan;" +
+                               "-fx-font-weight: bold;" +
+                               "-fx-font-size: 11;" );
+        
+        if ( cmdString.matches("enterControl") ) {
+            
+            proLabel.setStyle( "-fx-text-fill: green;"  + 
+                               "-fx-font-size: 15;"     +
+                               "-fx-font-weight: bold;" +
+                               "-fx-border-width: 1 1 1 1;"  );
+            proLabel.setEffect(new Glow(0.9));
+            proTooltip.setText("PROCESSING CLUSTER Online");
+        }
+        
+        if ( cmdString.matches("exitControl") ) {
+            
+            proLabel.setStyle( "-fx-text-fill: gainsboro;" +
+                               "-fx-font-size: 13;"        +
+                               "-fx-font-weight: normal;" );
+            proLabel.setEffect(new Glow());
+            proTooltip.setText("PROCESSING CLUSTER Offline");
+        }
+    }
+    
+    @FXML
+    private void hdrState(ActionEvent event) {
+
+       // Grab the index of the selected menu item cmd
+        int cmdIndex = hdrStateMenu.getItems().indexOf( event.getSource() );
+        String cmdString = hdrStateMenu.getItems().get(cmdIndex).getText();
+
+        Entity entity = execFX.getEntityList().get( 5 /* cscHDR */ );
+
+        //Future<Integer> futureSumState =
+        //    Executors.newFixedThreadPool( 1 )
+        //             .submit( new cEventTask( entity.getCSC(), "summaryState" ));
+
+        // State Pattern: context.request() [e.g. entityHdr.enterControl()]
+        Executors.newFixedThreadPool( 1 )
+                 .submit( new rCmdTask( entity, cmdString ) );
+        
+        hdrStateText.setText( cmdString );
+        hdrStateText.setStyle( "-fx-text-fill: darkcyan;" +
+                               "-fx-font-size: 11;" );
+        
+        if ( cmdString.matches("enterControl") ) {
+            
+            hdrLabel.setStyle( "-fx-text-fill: green;"  + 
+                               "-fx-font-size: 15;"     +
+                               "-fx-font-weight: bold;" +
+                               "-fx-border-width: 1 1 1 1;"  );
+            hdrLabel.setEffect(new Glow(0.9));
+            hdrTooltip.setText("HEADRER SERVICE Online");
+        }
+        
+        if ( cmdString.matches("exitControl") ) {
+            
+            hdrLabel.setStyle( "-fx-text-fill: gainsboro;" +
+                               "-fx-font-size: 13;"        +
+                               "-fx-font-weight: normal;" );
+            hdrLabel.setEffect(new Glow());
+            hdrTooltip.setText("HEADRER SERVICE Offline");
+        }
     }
     
     @FXML

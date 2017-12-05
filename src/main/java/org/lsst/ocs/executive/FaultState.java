@@ -27,7 +27,7 @@ public class FaultState implements EntityState {
     
     @Override public void exitControl(Entity entity) {
         
-        String salactor = entity._etype.toString();
+        String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
         out.println(salactor + "." + this.getName() + ".fault");
 
         if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {

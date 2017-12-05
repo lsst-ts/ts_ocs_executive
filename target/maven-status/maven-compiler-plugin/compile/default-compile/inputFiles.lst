@@ -21,6 +21,7 @@
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/DomainObject.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salcomponent/CSCProcessingCluster.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/DisabledState.java
+/home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salcomponent/CSCHeaderService.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/Entity.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/EntityType.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salcomponent/CSCCcs.java

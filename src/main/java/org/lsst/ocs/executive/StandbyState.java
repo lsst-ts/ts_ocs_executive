@@ -34,7 +34,7 @@ public class StandbyState implements EntityState {
     
     @Override public void start(Entity entity) {
         
-        String salactor = entity._etype.toString();
+        String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
         out.println(salactor + "." + this.getName() + ".start");
 
         // Cmd Sequencer, TCS, CCS or DMCS via SAL
@@ -73,7 +73,7 @@ public class StandbyState implements EntityState {
 
     @Override public void exitControl(Entity entity) {
         
-        String salactor = entity._etype.toString();
+        String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
         out.println(salactor + "." + this.getName() + ".exitControl");
 
         // Cmd Sequencer, TCS, CCS or DMCS via SAL
@@ -110,7 +110,7 @@ public class StandbyState implements EntityState {
 
     @Override public void fault(Entity entity) {
         
-        String salactor = entity._etype.toString();
+        String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
         out.println(salactor + "." + this.getName() + ".fault");
 
         // Can't set other entities to FaultState, only myself

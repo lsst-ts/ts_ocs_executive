@@ -106,13 +106,13 @@
                <children>
                   <Label id="tcsLabel" fx:id="tcsLabel" alignment="CENTER" graphicTextGap="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="179.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="TCS" VBox.vgrow="NEVER">
                      <tooltip>
-                        <Tooltip id="tcsToolTip" fx:id="tcsToolTip" text="TCS Offline" />
+                        <Tooltip id="tcsTooltip" fx:id="tcsTooltip" text="TCS Offline" />
                      </tooltip>
                      <opaqueInsets>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                      </opaqueInsets>
                   </Label>
-                  <MenuButton fx:id="menuTcsState" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
+                  <MenuButton fx:id="tcsStateMenu" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
                     <items>
                       <MenuItem fx:id="enter" mnemonicParsing="false" onAction="#tcsState" text="enterControl" />
                       <MenuItem fx:id="start" mnemonicParsing="false" onAction="#tcsState" text="start" />
@@ -130,9 +130,9 @@
                   </MenuButton>
                   <HBox prefHeight="24.0" prefWidth="170.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="State">
+                        <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
                            <font>
-                              <Font name="System Italic" size="10.0" />
+                              <Font name="System Italic" size="11.0" />
                            </font>
                         </Label>
                         <TextField id="tcsStateText" fx:id="tcsStateText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="117.0" />
@@ -143,7 +143,7 @@
                         <Insets top="50.0" />
                      </VBox.margin>
                   </Separator>
-                  <MenuButton fx:id="menuTcsCmd" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="TCS Commands">
+                  <MenuButton fx:id="tcsCmdMenu" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="TCS Commands">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#tcsCmd" text="filterChange" />
                       <MenuItem mnemonicParsing="false" onAction="#tcsCmd" text="target" />
@@ -162,26 +162,26 @@
                               <Font name="System Italic" size="10.0" />
                            </font>
                         </Label>
-                        <TextField id="tcsStateText" fx:id="tcsStateText1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="107.0" />
+                        <TextField id="tcsCmdText" fx:id="tcsCmdText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="107.0" />
                      </children>
                   </HBox>
                </children>
             </VBox>
             <VBox prefHeight="475.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="180.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="CAMERA">
+                  <Label id="ccsLabel" fx:id="ccsLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="180.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="CAMERA">
                      <tooltip>
-                        <Tooltip text="CAMERA Offline" />
+                        <Tooltip id="ccsTooltip" fx:id="ccsTooltip" text="CAMERA Offline" />
                      </tooltip>
                   </Label>
-                  <MenuButton fx:id="menuCcsState" mnemonicParsing="false" prefHeight="22.0" prefWidth="178.0" text="StateTransition">
+                  <MenuButton fx:id="ccsStateMenu" mnemonicParsing="false" prefHeight="22.0" prefWidth="178.0" text="StateTransition">
                      <items>
-                        <MenuItem fx:id="enterCcs" mnemonicParsing="false" onAction="#ccsState" text="enterControl" />
-                        <MenuItem fx:id="startCcs" mnemonicParsing="false" onAction="#ccsState" text="start" />
-                        <MenuItem fx:id="enableCcs" mnemonicParsing="false" onAction="#ccsState" text="enable" />
-                        <MenuItem fx:id="disableCcs" mnemonicParsing="false" onAction="#ccsState" text="disable" />
-                        <MenuItem fx:id="standbyCcs" mnemonicParsing="false" onAction="#ccsState" text="standby" />
-                        <MenuItem fx:id="exitCcs" mnemonicParsing="false" onAction="#ccsState" text="exitControl" />
+                        <MenuItem fx:id="ccsEnter" mnemonicParsing="false" onAction="#ccsState" text="enterControl" />
+                        <MenuItem fx:id="ccsStart" mnemonicParsing="false" onAction="#ccsState" text="start" />
+                        <MenuItem fx:id="ccsEnable" mnemonicParsing="false" onAction="#ccsState" text="enable" />
+                        <MenuItem fx:id="ccsDisable" mnemonicParsing="false" onAction="#ccsState" text="disable" />
+                        <MenuItem fx:id="ccsStandby" mnemonicParsing="false" onAction="#ccsState" text="standby" />
+                        <MenuItem fx:id="ccsExit" mnemonicParsing="false" onAction="#ccsState" text="exitControl" />
                      </items>
                      <font>
                         <Font size="11.0" />
@@ -192,12 +192,12 @@
                   </MenuButton>
                   <HBox prefHeight="24.0" prefWidth="170.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="State">
+                        <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
                            <font>
-                              <Font name="System Italic" size="10.0" />
+                              <Font name="System Italic" size="11.0" />
                            </font>
                         </Label>
-                        <TextField id="camStateText" fx:id="camStateText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="121.0" />
+                        <TextField id="ccsStateText" fx:id="ccsStateText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="121.0" />
                      </children>
                   </HBox>
                   <Separator prefHeight="24.0" prefWidth="171.0">
@@ -205,11 +205,11 @@
                         <Insets top="50.0" />
                      </VBox.margin>
                   </Separator>
-                  <MenuButton fx:id="menuCameraCmd" mnemonicParsing="false" prefHeight="22.0" prefWidth="177.0" text="Camera Commands">
+                  <MenuButton fx:id="ccsCmdMenu" mnemonicParsing="false" prefHeight="22.0" prefWidth="177.0" text="Camera Commands">
                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#cameraCmd" text="setFilter" />
-                      <MenuItem mnemonicParsing="false" onAction="#cameraCmd" text="takeImage" />
-                      <MenuItem mnemonicParsing="false" onAction="#cameraCmd" text="initImage" />
+                      <MenuItem mnemonicParsing="false" onAction="#ccsCmd" text="setFilter" />
+                      <MenuItem mnemonicParsing="false" onAction="#ccsCmd" text="takeImage" />
+                      <MenuItem mnemonicParsing="false" onAction="#ccsCmd" text="initImage" />
                     </items>
                      <font>
                         <Font size="11.0" />
@@ -222,26 +222,26 @@
                               <Font name="System Italic" size="10.0" />
                            </font>
                         </Label>
-                        <TextField id="tcsStateText" fx:id="tcsStateText11" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0" />
+                        <TextField id="ccsCmdText" fx:id="ccsCmdText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0" />
                      </children>
                   </HBox>
                </children>
             </VBox>
             <VBox prefHeight="472.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="183.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="ARCHIVER">
+                  <Label id="arcLabel" fx:id="arcLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="183.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="ARCHIVER">
                      <tooltip>
-                        <Tooltip text="ARCHIVER Offline" />
+                        <Tooltip id="arcTooltip" fx:id="arcTooltip" text="ARCHIVER Offline" />
                      </tooltip>
                   </Label>
-                  <MenuButton fx:id="menuArcState" mnemonicParsing="false" prefHeight="22.0" prefWidth="179.0" text="StateTransition">
+                  <MenuButton fx:id="arcStateMenu" mnemonicParsing="false" prefHeight="22.0" prefWidth="179.0" text="StateTransition">
                      <items>
-                        <MenuItem fx:id="enterArc" mnemonicParsing="false" onAction="#arcState" text="enterControl" />
-                        <MenuItem fx:id="startArc" mnemonicParsing="false" onAction="#arcState" text="start" />
-                        <MenuItem fx:id="enableArc" mnemonicParsing="false" onAction="#arcState" text="enable" />
-                        <MenuItem fx:id="disableArc" mnemonicParsing="false" onAction="#arcState" text="disable" />
-                        <MenuItem fx:id="standbyArc" mnemonicParsing="false" onAction="#arcState" text="standby" />
-                        <MenuItem fx:id="exitArc" mnemonicParsing="false" onAction="#arcState" text="exitControl" />
+                        <MenuItem fx:id="arcEnter" mnemonicParsing="false" onAction="#arcState" text="enterControl" />
+                        <MenuItem fx:id="arcStart" mnemonicParsing="false" onAction="#arcState" text="start" />
+                        <MenuItem fx:id="arcEnable" mnemonicParsing="false" onAction="#arcState" text="enable" />
+                        <MenuItem fx:id="arcDisable" mnemonicParsing="false" onAction="#arcState" text="disable" />
+                        <MenuItem fx:id="arcStandby" mnemonicParsing="false" onAction="#arcState" text="standby" />
+                        <MenuItem fx:id="arcExit" mnemonicParsing="false" onAction="#arcState" text="exitControl" />
                      </items>
                      <font>
                         <Font size="11.0" />
@@ -252,7 +252,7 @@
                   </MenuButton>
                   <HBox prefHeight="24.0" prefWidth="170.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="State">
+                        <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
                            <font>
                               <Font name="System Italic" size="11.0" />
                            </font>
@@ -264,7 +264,7 @@
             </VBox>
             <VBox prefHeight="471.0" prefWidth="172.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="186.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="CATCHUP ARCHIVER">
+                  <Label id="catLabel" fx:id="catLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="186.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="CATCHUP ARCHIVER">
                      <tooltip>
                         <Tooltip text="CATCHUP ARCHIVER Offline" />
                      </tooltip>
@@ -287,7 +287,7 @@
                   </MenuButton>
                   <HBox prefHeight="24.0" prefWidth="170.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="State">
+                        <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
                            <font>
                               <Font name="System Italic" size="11.0" />
                            </font>
@@ -299,7 +299,7 @@
             </VBox>
             <VBox prefHeight="473.0" prefWidth="182.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="199.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="PROCESSING CLUSTER">
+                  <Label id="proLabel" fx:id="proLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="199.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="PROCESSING CLUSTER">
                      <tooltip>
                         <Tooltip text="PROCESSING CLUSTER Offline" />
                      </tooltip>
@@ -322,7 +322,7 @@
                   </MenuButton>
                   <HBox prefHeight="24.0" prefWidth="170.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="State">
+                        <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
                            <font>
                               <Font name="System Italic" size="11.0" />
                            </font>
@@ -335,21 +335,21 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox prefHeight="473.0" prefWidth="182.0">
+            <VBox prefHeight="472.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="199.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="HEADER SERVICE">
+                  <Label id="hdrLabel" fx:id="hdrLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="199.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="HEADER SERVICE">
                      <tooltip>
-                        <Tooltip text="HEADER SERVICE Offline" />
+                        <Tooltip id="hdrTooltip" fx:id="hdrTooltip" text="HEADER SERVICE Offline" />
                      </tooltip>
                   </Label>
-                  <MenuButton minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="180.0" text="StateTransition">
+                  <MenuButton fx:id="hdrStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="180.0" text="StateTransition">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="EnterControl" />
-                        <MenuItem mnemonicParsing="false" text="Start" />
-                        <MenuItem mnemonicParsing="false" text="Enable" />
-                        <MenuItem mnemonicParsing="false" text="Disable" />
-                        <MenuItem mnemonicParsing="false" text="Standby" />
-                        <MenuItem mnemonicParsing="false" text="ExitControl" />
+                        <MenuItem fx:id="hdrEnter" mnemonicParsing="false" onAction="#hdrState" text="enterControl" />
+                        <MenuItem fx:id="hdrStart" mnemonicParsing="false" onAction="#hdrState" text="start" />
+                        <MenuItem fx:id="hdrEnable" mnemonicParsing="false" onAction="#hdrState" text="enable" />
+                        <MenuItem fx:id="hdrDisable" mnemonicParsing="false" onAction="#hdrState" text="disable" />
+                        <MenuItem fx:id="hdrStandby" mnemonicParsing="false" onAction="#hdrState" text="standby" />
+                        <MenuItem fx:id="hdrExit" mnemonicParsing="false" onAction="#hdrState" text="exitControl" />
                      </items>
                      <font>
                         <Font size="11.0" />
@@ -360,7 +360,7 @@
                   </MenuButton>
                   <HBox prefHeight="24.0" prefWidth="170.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="State">
+                        <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
                            <font>
                               <Font name="System Italic" size="11.0" />
                            </font>
