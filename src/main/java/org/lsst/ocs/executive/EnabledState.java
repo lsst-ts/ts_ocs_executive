@@ -33,7 +33,7 @@ public class EnabledState implements EntityState {
 
     @Override public void disable(Entity entity) {
 
-        String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
+        String salactor = entity.getClass().getSimpleName() + "." + entity.getCSC().getClass().getSimpleName();
         out.println(salactor + "." + this.getName() + ".disable");
 
         // Cmd Sequencer, TCS, CCS or DMCS via SAL
@@ -52,7 +52,6 @@ public class EnabledState implements EntityState {
         // 5. Invoker indirectly calls cmd->execute()
         salConnect.connect();
 
-        
         if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
             
             // 1. Publish SummaryState if not previously pub'd

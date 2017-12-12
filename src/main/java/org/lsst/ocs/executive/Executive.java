@@ -515,8 +515,8 @@ public class Executive {
         //new Thread(() -> invokeWindow(primaryStage) ).start();
         //ExecutorService ex_sumstate = Executors.newWorkStealingPool();
         //List<Future<SalEvent>> sumStateFutures  = ex_sumstate.invokeAll(EventTask.SUMSTATE_TASKS);
-        ExecutorService ex_sumstate = Executors.newFixedThreadPool( 1 );
-        ex_sumstate.submit( Executive.cEventTask_SUMSTATE.get( 0 ) );
+        //ExecutorService ex_sumstate = Executors.newFixedThreadPool( 1 );
+        //ex_sumstate.submit( Executive.cEventTask_SUMSTATE.get( 0 ) );
 //        ex_sumstate.submit(rEventTask.rSUMSTATE_TASKS.get(1));
 //        ex_sumstate.submit(rEventTask.rSUMSTATE_TASKS.get(2));
 //        ex_sumstate.submit(rEventTask.rSUMSTATE_TASKS.get(3));
@@ -551,12 +551,12 @@ public class Executive {
                         .forEach(event -> event.getName());
          */
         
-        BufferedReader buffReader = new BufferedReader( new InputStreamReader( System.in ) );
-        out.println( "\n" + " Event Subscribers invoking..." );
-        buffReader.readLine();
+        // buffReader = new BufferedReader( new InputStreamReader( System.in ) );
+        //out.println( "\n" + " Event Subscribers invoking..." );
+        //buffReader.readLine();
 
-        out.print( "\n" + EntityType.TCS.toString() + " sequence cmd enterControl..." );
-        buffReader.readLine();
+        //out.print( "\n" + EntityType.TCS.toString() + " sequence cmd enterControl..." );
+        //buffReader.readLine();
 
         // [C.]
         // 1. SalComponent (Receiver) previously defined: rCCS
@@ -573,9 +573,9 @@ public class Executive {
         
         if ( false ) {
 
-            BufferedReader ss1 = new BufferedReader( new InputStreamReader( System.in ) );
-            out.println( "\n" + " Event Subscribers done..." );
-            ss1.readLine();
+            //BufferedReader ss1 = new BufferedReader( new InputStreamReader( System.in ) );
+            //out.println( "\n" + " Event Subscribers done..." );
+            //ss1.readLine();
 
             /**
              * *******************************************************************
@@ -631,7 +631,7 @@ public class Executive {
             //Entity seqEntity = new Entity(EntityType.SEQUENCER);
             // 2. Transition to 'StandbyState'
             //    Verify OCS SummaryState of 'StandbyState'
-            BufferedReader br = new BufferedReader( new InputStreamReader( System.in ) );
+            //BufferedReader br = new BufferedReader( new InputStreamReader( System.in ) );
 
             /*
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -722,7 +722,7 @@ public class Executive {
             // --- Add code ---
             // 2. cmd CCS to 'StandbyState'
             out.print( "\n" + EntityType.CCS.toString() + " sequence cmd enterControl..." );
-            br.readLine();
+            //br.readLine();
 
             // [A.]
             // The rENTERCTRL_TASKS list has defin ed rcvr(rCCS) & cmd(enterControl)
@@ -753,7 +753,7 @@ public class Executive {
             // --- Add code ---
             // 3. cmd CCS to 'DisabledState'
             out.print( "\n" + EntityType.CCS.toString() + " sequence cmd start..." );
-            br.readLine();
+            //br.readLine();
             //Executive.cscCCS.start();
 
             salCmdCamera.setTopic( "start" );
@@ -767,7 +767,7 @@ public class Executive {
             // --- Add code ---
             // 4. cmd CCS to 'EnabledState'
             out.print( "\n" + EntityType.CCS.toString() + " sequence cmd enable..." );
-            br.readLine();
+            //br.readLine();
             //Executive.cscCCS.enable();
 
             salCmdCamera.setTopic( "start" );
@@ -785,7 +785,7 @@ public class Executive {
              * ***********************
              */
             out.print( "\n" + EntityType.TCS.toString() + " sequence cmd enterControl..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscTCS.enterControl();
 
             SalCmd salCmdTcs = new SalCmd( Executive.cscTCS );
@@ -795,14 +795,14 @@ public class Executive {
             salConnectTcs.connect();
 
             out.print( "\n" + EntityType.TCS.toString() + " sequence cmd start..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscTCS.start();
 
             salCmdTcs.setTopic( "start" );
             salConnectTcs.connect();
 
             out.print( "\n" + EntityType.TCS.toString() + " sequence cmd enable..." );
-            br.readLine();
+            //br.readLine();
             //Executive.cscTCS.enable();
 
             salCmdTcs.setTopic( "enable" );
@@ -821,7 +821,7 @@ public class Executive {
             // --- Add code ---
             // 2. cmd CCS to 'StandbyState'
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd enterControl..." );
-            br.readLine();
+            //br.readLine();
             //Executive.cscARC.enterControl();
 
             // 2a. Verify SummaryState of 'StandbyState'
@@ -830,7 +830,7 @@ public class Executive {
             // --- Add code ---
             // 3. cmd CCS to 'DisabledState'
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd start..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscARC.start();
 
             // 3a. Verify SummaryState of 'DisabledState'
@@ -841,29 +841,29 @@ public class Executive {
             // --- Add code ---
             // 4. cmd CCS to 'EnabledState'
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd enable..." );
-            br.readLine();
+            //br.readLine();
             //Executive.cscARC.enable();
 
             // 4a. Verify SummaryState of 'EnabledState'
             // --- Add code ---
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd enterControl..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscCAT.enterControl();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd start..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscCAT.start();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd enable..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscCAT.enable();
 
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd enterControl..." );
-            br.readLine();
+            //br.readLine();
             //Executive.cscPRO.enterControl();
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd start..." );
-            br.readLine();
+            //br.readLine();
             //Executive.cscPRO.start();
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd enable..." );
-            br.readLine();
+            //br.readLine();
             //Executive.cscPRO.enable();
 
             /**
@@ -876,33 +876,33 @@ public class Executive {
              * ***********************
              */
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd disable..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscPRO.disable();
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd standby..." );
-            br.readLine();
+            //br.readLine();
             //Executive.cscPRO.standby();
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd exitControl..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscPRO.exitControl();
 
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd disable..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscCAT.disable();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd standby..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscCAT.standby();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd exitControl..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscCAT.exitControl();
 
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd disable..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscARC.disable();
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd standby..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscARC.standby();
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd exitControl..." );
-            br.readLine();
+            //br.readLine();
             //Executive.cscARC.exitControl();
 
             /**
@@ -915,15 +915,15 @@ public class Executive {
              * ***********************
              */
             out.print( "\n" + EntityType.TCS.toString() + " sequence cmd disable..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscTCS.disable();
 
             out.print( "\n" + EntityType.TCS.toString() + " sequence cmd standby..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscTCS.standby();
 
             out.print( "\n" + EntityType.TCS.toString() + " sequence cmd exitControl..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscTCS.exitControl();
 
             /**
@@ -936,15 +936,15 @@ public class Executive {
              * ***********************
              */
             out.print( "\n" + EntityType.CCS.toString() + " sequence cmd disable..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscCCS.disable();
 
             out.print( "\n" + EntityType.CCS.toString() + " sequence cmd standby..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscCCS.standby();
 
             out.print( "\n" + EntityType.CCS.toString() + " sequence cmd exitControl..." );
-            br.readLine();
+           // br.readLine();
             //Executive.cscCCS.exitControl();
 
             /**

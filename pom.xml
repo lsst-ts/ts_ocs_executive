@@ -28,64 +28,39 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_tcs</artifactId>
-            <version>3.5.1.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>opensplice.dds</groupId>
-                    <artifactId>dcpssaj</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>opensplice.dds</groupId>
+            <artifactId>dcpssaj</artifactId>
+            <version>6.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.lsst.lsst-tsvm</groupId>
             <artifactId>sal_camera</artifactId>
-            <version>3.5.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>opensplice.dds</groupId>
-                    <artifactId>dcpssaj</artifactId>
-                </exclusion>
-            </exclusions>
+            <version>3.6.0</version>
         </dependency>
         <dependency>
             <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_catchuparchiver</artifactId>
-            <version>3.5.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>opensplice.dds</groupId>
-                    <artifactId>dcpssaj</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_processingcluster</artifactId>
-            <version>3.5.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>opensplice.dds</groupId>
-                    <artifactId>dcpssaj</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>sal_tcs</artifactId>
+            <version>3.6.0</version>
         </dependency>
         <dependency>
             <groupId>org.lsst.lsst-tsvm</groupId>
             <artifactId>sal_archiver</artifactId>
-            <version>3.5.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>opensplice.dds</groupId>
-                    <artifactId>dcpssaj</artifactId>
-                </exclusion>
-            </exclusions>
+            <version>3.6.0</version>
         </dependency>
         <dependency>
-            <groupId>opensplice.dds</groupId>
-            <artifactId>dcpssaj</artifactId>
-            <version>6.4.1</version>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_catchuparchiver</artifactId>
+            <version>3.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_processingcluster</artifactId>
+            <version>3.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_dmHeaderService</artifactId>
+            <version>3.6.0</version>
         </dependency>
     </dependencies>
 

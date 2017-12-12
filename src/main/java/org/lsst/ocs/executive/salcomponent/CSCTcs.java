@@ -42,9 +42,9 @@ public class CSCTcs implements CommandableSalComponent {
 
         tcs.command_enterControl command = new tcs.command_enterControl();
         command.private_revCode = "LSST TCS enterControl COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "allow";
+        command.device = "tcs";
+        command.property = "enterControl";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_enterControl(command);
@@ -71,9 +71,9 @@ public class CSCTcs implements CommandableSalComponent {
 
         tcs.command_start command = new tcs.command_start();
         command.private_revCode = "LSST TCS start COMMAND";
-        command.device = "configuration";
-        command.property = "set";
-        command.action = "apply";
+        command.device = "tcs";
+        command.property = "start";
+        command.action = "set";
         command.configuration = "Default";
 
         int cmdId = publisher.issueCommand_start(command);
@@ -99,9 +99,9 @@ public class CSCTcs implements CommandableSalComponent {
 
         tcs.command_enable command = new tcs.command_enable();
         command.private_revCode = "LSST TCS enable COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "";
+        command.device = "tcs";
+        command.property = "enable";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_enable(command);
@@ -126,9 +126,9 @@ public class CSCTcs implements CommandableSalComponent {
 
         tcs.command_disable command = new tcs.command_disable();
         command.private_revCode = "LSST TCS disable COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "";
+        command.device = "tcs";
+        command.property = "disable";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_disable(command);
@@ -153,9 +153,9 @@ public class CSCTcs implements CommandableSalComponent {
 
         tcs.command_standby command = new tcs.command_standby();
         command.private_revCode = "LSST TCS standby COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "stop";
+        command.device = "tcs";
+        command.property = "standby";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_standby(command);
@@ -180,9 +180,9 @@ public class CSCTcs implements CommandableSalComponent {
 
         tcs.command_exitControl command = new tcs.command_exitControl();
         command.private_revCode = "LSST TCS exitControl COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "exit";
+        command.device = "tcs";
+        command.property = "exitControl";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_exitControl(command);
@@ -207,9 +207,9 @@ public class CSCTcs implements CommandableSalComponent {
 
         tcs.command_filterChangeRequest command = new tcs.command_filterChangeRequest();
         command.private_revCode = "LSST TCS filterChangeRequest COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "exit";
+        command.device = "tcs";
+        command.property = "filterChangeRequest";
+        command.action = "apply";
         command.filterChangeRequest = "g";
 
         int cmdId = publisher.issueCommand_filterChangeRequest(command);
@@ -234,9 +234,9 @@ public class CSCTcs implements CommandableSalComponent {
 
         tcs.command_target command = new tcs.command_target();
         command.private_revCode = "LSST TCS target COMMAND";
-        command.device   = "";
-        command.property = "";
-        command.action   = "";
+        command.device   = "tcs";
+        command.property = "target";
+        command.action   = "apply";
         
         command.targetId = (int) 2;
         command.fieldId = (int) 2653;
@@ -258,7 +258,7 @@ public class CSCTcs implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 10;
+        int timeout = 4;
         publisher.waitForCompletion_target(cmdId, timeout);
 
         // Remove the DataWriters etc

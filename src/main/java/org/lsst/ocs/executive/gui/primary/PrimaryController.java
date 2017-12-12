@@ -37,7 +37,6 @@ import javafx.scene.effect.Glow;
 import org.lsst.ocs.executive.Entity;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.ocs.executive.ExecutiveFX;
-import org.lsst.ocs.executive.cEventTask;
 import org.lsst.ocs.executive.rCmdTask;
 import org.lsst.ocs.executive.salconnect.SalConnect;
 import org.lsst.ocs.executive.salservice.SalCmd;
@@ -104,6 +103,12 @@ public class PrimaryController implements Initializable {
     private MenuItem arcEnter, arcStart, arcEnable, arcDisable, arcStandby, arcExit;
     
     @FXML
+    private MenuItem catEnter, catStart, catEnable, catDisable, catStandby, catExit;
+    
+    @FXML
+    private MenuItem proEnter, proStart, proEnable, proDisable, proStandby, proExit;
+    
+    @FXML
     private MenuItem hdrEnter, hdrStart, hdrEnable, hdrDisable, hdrStandby, hdrExit;
     
     @FXML
@@ -142,8 +147,10 @@ public class PrimaryController implements Initializable {
         //             .submit( new cEventTask( entity.getCSC(), "summaryState" ));
 
         // State Pattern: context.request() [e.g. entityTcs.enterControl()]
-        Executors.newFixedThreadPool( 1 )
-                 .submit( new rCmdTask( entity, cmdString ) );
+        rCmdTask task = new rCmdTask( entity, cmdString );
+        task.call();
+        //Executors.newFixedThreadPool( 1 )
+        //         .submit( new rCmdTask( entity, cmdString ) );
         
         tcsStateText.setText( STATE_TEXT_MAP.get( cmdString ) );
         tcsStateText.setStyle( "-fx-text-fill: darkcyan;" +
@@ -153,9 +160,9 @@ public class PrimaryController implements Initializable {
         if ( cmdString.matches("enterControl") ) {
             
             tcsLabel.setStyle( "-fx-text-fill: green;"  + 
-                               "-fx-font-size: 15;"     +
+                               "-fx-font-size: 13;"     +
                                "-fx-font-weight: bold;" +
-                               "-fx-border-width: 1 1 1 1;"  );
+                               "-fx-border-width: 0 1 0 0;"  );
             tcsLabel.setEffect(new Glow(0.9));
             tcsTooltip.setText("TCS Online");
         }
@@ -172,13 +179,33 @@ public class PrimaryController implements Initializable {
     
     @FXML
     private void tcsCmd(ActionEvent event) {
-
+        
         // Grab the index & string of the selected CSC menu item
         int cmdIndex = tcsCmdMenu.getItems().indexOf( event.getSource() );
         String cmdString = tcsCmdMenu.getItems().get(cmdIndex).getText();
         
-        Executors.newFixedThreadPool( 1 )
-                 .submit( Executive.cEventTask_TCS.get( cmdIndex ) );
+        // 1. SalComponent (Receiver) previously defined: Executive.cscTCS
+        
+        // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+        // 2b. Also, assign topic & topic arguments
+        SalCmd salCmdTcs = new SalCmd( execFX.getCscList().get( 0 /* cscTCS */ ) );
+        salCmdTcs.setTopic( cmdString );
+
+        // 3a. Define Invoker w/ # of threads
+        // 3b. Set SalService request (a cmd in this case)
+        SalConnect salConnectTcs = new SalConnect( 1 );
+        salConnectTcs.setSalService( salCmdTcs );
+        
+        // 4. Invoker indirectly calls cmd->execute()
+        salConnectTcs.connect();
+        
+
+//        // Grab the index & string of the selected CSC menu item
+//        int cmdIndex = tcsCmdMenu.getItems().indexOf( event.getSource() );
+//        String cmdString = tcsCmdMenu.getItems().get(cmdIndex).getText();
+//        
+//        Executors.newFixedThreadPool( 1 )
+//                 .submit( Executive.cEventTask_TCS.get( cmdIndex ) );
 
         // State Pattern: context.request() [e.g. entityTcs.enterControl()]
         //Entity entity = execFX.getEntityList().get( 0 /* cscTCS */ );
@@ -195,13 +222,15 @@ public class PrimaryController implements Initializable {
 
         Entity entity = execFX.getEntityList().get( 1 /* cscCCS */ );
 
-        Future<Integer> futureSumState =
-            Executors.newFixedThreadPool( 1 )
-                     .submit( new cEventTask( entity.getCSC(), "summaryState" ));
+        //Future<Integer> futureSumState =
+        //    Executors.newFixedThreadPool( 1 )
+        //             .submit( new cEventTask( entity.getCSC(), "summaryState" ));
 
         // State Pattern: context.request() [e.g. entityCcs.enterControl()]
-        Executors.newFixedThreadPool( 1 )
-                 .submit( new rCmdTask( entity, cmdString ) );
+        rCmdTask task = new rCmdTask( entity, cmdString );
+        task.call();
+        //Executors.newFixedThreadPool( 1 )
+        //         .submit( new rCmdTask( entity, cmdString ) );
         
         ccsStateText.setText( STATE_TEXT_MAP.get( cmdString ) );
         ccsStateText.setStyle( "-fx-text-fill: darkcyan;" +
@@ -211,7 +240,7 @@ public class PrimaryController implements Initializable {
         if ( cmdString.matches("enterControl") ) {
             
             ccsLabel.setStyle( "-fx-text-fill: green;"  + 
-                               "-fx-font-size: 15;"     +
+                               "-fx-font-size: 13;"     +
                                "-fx-font-weight: bold;" +
                                "-fx-border-width: 1 1 1 1;"  );
             ccsLabel.setEffect(new Glow(0.9));
@@ -226,7 +255,6 @@ public class PrimaryController implements Initializable {
             ccsLabel.setEffect(new Glow());
             ccsTooltip.setText("CCS Offline");
         }
-        
     }
     
     @FXML
@@ -245,27 +273,48 @@ public class PrimaryController implements Initializable {
         SalCmd salCmdCcs = new SalCmd( execFX.getCscList().get( 1 /* cscCCS */ ) );
         salCmdCcs.setTopic( cmdString );
 
-        //int num = 2;
-        // 3. Define Invoker w/ # of threads & set SalService request
-        SalConnect salConnectCcs = new SalConnect( 1 );
+        /**********************************/
+        
+        SalConnect salConnectCcs = new SalConnect( 2 );
         salConnectCcs.setSalService( salCmdCcs );
         salConnectCcs.connect();
-        
-        try {
-            Thread.sleep( 10000 );
-        } catch ( InterruptedException e ) {
-            e.printStackTrace();
-        }
-
+       
         if ( cmdString.equalsIgnoreCase("initImage")  )  {
             
-            SalCmd salCmdCcs2 = new SalCmd( execFX.getCscList().get( 5 /* cscCCS2 */ ) );
-            salCmdCcs2.setTopic( "takeImage" );
+            try {
+                Thread.sleep( 4000 );
+            } catch ( InterruptedException e ) {
+                e.printStackTrace();
+            }
             
-            SalConnect salConnectCcs2 = new SalConnect(1);
-            salConnectCcs2.setSalService( salCmdCcs2 );
-            salConnectCcs2.connect();
+            SalCmd salCmdCcs2 = new SalCmd( execFX.getCscList().get( 1 /* cscCCS */ ) );
+            salCmdCcs2.setTopic( "takeImage" );
+            salConnectCcs.setSalService( salCmdCcs2 );
+
+            salConnectCcs.connect();
         }
+
+        //int num = 2;
+        // 3. Define Invoker w/ # of threads & set SalService request
+//        SalConnect salConnectCcs = new SalConnect( 1 );
+//        salConnectCcs.setSalService( salCmdCcs );
+//        salConnectCcs.connect();
+
+//        try {
+//            Thread.sleep( 10000 );
+//        } catch ( InterruptedException e ) {
+//            e.printStackTrace();
+//        }
+//
+//        if ( cmdString.equalsIgnoreCase("initImage")  )  {
+//            
+//            SalCmd salCmdCcs2 = new SalCmd( execFX.getCscList().get( 5 /* cscCCS2 */ ) );
+//            salCmdCcs2.setTopic( "takeImage" );
+//            
+//            SalConnect salConnectCcs2 = new SalConnect(1);
+//            salConnectCcs2.setSalService( salCmdCcs2 );
+//            salConnectCcs2.connect();
+//        }
     }
     
     @FXML
@@ -328,8 +377,10 @@ public class PrimaryController implements Initializable {
         //             .submit( new cEventTask( entity.getCSC(), "summaryState" ));
 
         // State Pattern: context.request() [e.g. entityArc.enterControl()]
-        Executors.newFixedThreadPool( 1 )
-                 .submit( new rCmdTask( entity, cmdString ) );
+        rCmdTask task = new rCmdTask( entity, cmdString );
+        task.call();
+        //Executors.newFixedThreadPool( 1 )
+        //         .submit( new rCmdTask( entity, cmdString ) );
         
         arcStateText.setText( STATE_TEXT_MAP.get( cmdString ) );
         arcStateText.setStyle( "-fx-text-fill: darkcyan;" +
@@ -339,11 +390,11 @@ public class PrimaryController implements Initializable {
         if ( cmdString.matches("enterControl") ) {
             
             arcLabel.setStyle( "-fx-text-fill: green;"  + 
-                               "-fx-font-size: 15;"     +
+                               "-fx-font-size: 13;"     +
                                "-fx-font-weight: bold;" +
                                "-fx-border-width: 1 1 1 1;"  );
             arcLabel.setEffect(new Glow(0.9));
-            arcTooltip.setText("ARCHIVER Online");
+            arcTooltip.setText("DM ARCHIVER Online");
         }
         
         if ( cmdString.matches("exitControl") ) {
@@ -352,7 +403,7 @@ public class PrimaryController implements Initializable {
                                "-fx-font-size: 13;"        +
                                "-fx-font-weight: normal;" );
             arcLabel.setEffect(new Glow());
-            arcTooltip.setText("ARCHIVER Offline");
+            arcTooltip.setText("DM ARCHIVER Offline");
         }
     }
     
@@ -370,8 +421,10 @@ public class PrimaryController implements Initializable {
         //             .submit( new cEventTask( entity.getCSC(), "summaryState" ));
 
         // State Pattern: context.request() [e.g. entityCat.enterControl()]
-        Executors.newFixedThreadPool( 1 )
-                 .submit( new rCmdTask( entity, cmdString ) );
+        rCmdTask task = new rCmdTask( entity, cmdString );
+        task.call();
+        //Executors.newFixedThreadPool( 1 )
+        //         .submit( new rCmdTask( entity, cmdString ) );
         
         catStateText.setText( STATE_TEXT_MAP.get( cmdString ) );
         catStateText.setStyle( "-fx-text-fill: darkcyan;" +
@@ -381,11 +434,11 @@ public class PrimaryController implements Initializable {
         if ( cmdString.matches("enterControl") ) {
             
             catLabel.setStyle( "-fx-text-fill: green;"  + 
-                               "-fx-font-size: 15;"     +
+                               "-fx-font-size: 13;"     +
                                "-fx-font-weight: bold;" +
                                "-fx-border-width: 1 1 1 1;"  );
             catLabel.setEffect(new Glow(0.9));
-            catTooltip.setText("CATCHUP ARCHIVER Online");
+            catTooltip.setText("DM CATCHUP ARCHIVER Online");
         }
         
         if ( cmdString.matches("exitControl") ) {
@@ -394,7 +447,7 @@ public class PrimaryController implements Initializable {
                                "-fx-font-size: 13;"        +
                                "-fx-font-weight: normal;" );
             catLabel.setEffect(new Glow());
-            catTooltip.setText("CATCHUP ARCHIVER Offline");
+            catTooltip.setText("DM CATCHUP ARCHIVER Offline");
         }
     }
     
@@ -412,8 +465,10 @@ public class PrimaryController implements Initializable {
         //             .submit( new cEventTask( entity.getCSC(), "summaryState" ));
 
         // State Pattern: context.request() [e.g. entityPro.enterControl()]
-        Executors.newFixedThreadPool( 1 )
-                 .submit( new rCmdTask( entity, cmdString ) );
+        rCmdTask task = new rCmdTask( entity, cmdString );
+        task.call();
+        //Executors.newFixedThreadPool( 1 )
+        //         .submit( new rCmdTask( entity, cmdString ) );
         
         proStateText.setText( STATE_TEXT_MAP.get( cmdString ) );
         proStateText.setStyle( "-fx-text-fill: darkcyan;" +
@@ -423,11 +478,11 @@ public class PrimaryController implements Initializable {
         if ( cmdString.matches("enterControl") ) {
             
             proLabel.setStyle( "-fx-text-fill: green;"  + 
-                               "-fx-font-size: 15;"     +
+                               "-fx-font-size: 13;"     +
                                "-fx-font-weight: bold;" +
                                "-fx-border-width: 1 1 1 1;"  );
             proLabel.setEffect(new Glow(0.9));
-            proTooltip.setText("PROCESSING CLUSTER Online");
+            proTooltip.setText("DM PROCESSING CLUSTER Online");
         }
         
         if ( cmdString.matches("exitControl") ) {
@@ -436,7 +491,7 @@ public class PrimaryController implements Initializable {
                                "-fx-font-size: 13;"        +
                                "-fx-font-weight: normal;" );
             proLabel.setEffect(new Glow());
-            proTooltip.setText("PROCESSING CLUSTER Offline");
+            proTooltip.setText("DM PROCESSING CLUSTER Offline");
         }
     }
     
@@ -454,21 +509,24 @@ public class PrimaryController implements Initializable {
         //             .submit( new cEventTask( entity.getCSC(), "summaryState" ));
 
         // State Pattern: context.request() [e.g. entityHdr.enterControl()]
-        Executors.newFixedThreadPool( 1 )
-                 .submit( new rCmdTask( entity, cmdString ) );
+        rCmdTask task = new rCmdTask( entity, cmdString );
+        task.call();
+        //Executors.newFixedThreadPool( 1 )
+        //         .submit( new rCmdTask( entity, cmdString ) );
         
-        hdrStateText.setText( cmdString );
+        hdrStateText.setText( STATE_TEXT_MAP.get( cmdString ) );
         hdrStateText.setStyle( "-fx-text-fill: darkcyan;" +
+                               "-fx-font-weight: bold;" +
                                "-fx-font-size: 11;" );
         
         if ( cmdString.matches("enterControl") ) {
             
             hdrLabel.setStyle( "-fx-text-fill: green;"  + 
-                               "-fx-font-size: 15;"     +
+                               "-fx-font-size: 13;"     +
                                "-fx-font-weight: bold;" +
                                "-fx-border-width: 1 1 1 1;"  );
             hdrLabel.setEffect(new Glow(0.9));
-            hdrTooltip.setText("HEADRER SERVICE Online");
+            hdrTooltip.setText("DM HEADER SERVICE Online");
         }
         
         if ( cmdString.matches("exitControl") ) {
@@ -477,7 +535,7 @@ public class PrimaryController implements Initializable {
                                "-fx-font-size: 13;"        +
                                "-fx-font-weight: normal;" );
             hdrLabel.setEffect(new Glow());
-            hdrTooltip.setText("HEADRER SERVICE Offline");
+            hdrTooltip.setText("DM HEADER SERVICE Offline");
         }
     }
     

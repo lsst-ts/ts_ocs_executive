@@ -32,7 +32,7 @@ public class OfflineState implements EntityState {
     @Override public void enterControl(Entity entity) {
         
         //String salactor = entity._etype.toString();
-        String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
+        String salactor = entity.getClass().getSimpleName() + "." + entity.getCSC().getClass().getSimpleName();
         out.println(salactor + "." + this.getName() + ".enterControl");
 
         // Cmd Sequencer, TCS, CCS or DMCS via SAL

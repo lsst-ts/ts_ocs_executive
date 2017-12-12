@@ -80,7 +80,7 @@ public class rCmdTask extends Task<Void> {
 //                .getMethod( this._cmd, new Class[] {} ) // invoke w/ null args
 //                .invoke( this._csc, new Object[] {} ); // invoke w/ null args
             _entity.getClass()
-                    // invoke w/ null args
+                    // specify method & that it takes no (i.e. null) args
                    .getMethod( this._cmd, new Class[] {} )
                     // invoke w/ null args
                    .invoke( this._entity, new Object[] {} );

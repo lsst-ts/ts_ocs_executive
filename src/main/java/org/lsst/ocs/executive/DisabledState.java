@@ -36,7 +36,7 @@ public class DisabledState implements EntityState {
     @Override
     public void enable ( Entity entity ) {
 
-        String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
+        String salactor = entity.getClass().getSimpleName() + "." + entity.getCSC().getClass().getSimpleName();
         out.println(salactor + "." + this.getName() + ".enable");
 
         // Cmd Sequencer, TCS, CCS or DMCS via SAL

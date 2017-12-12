@@ -36,9 +36,9 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
 
         catchuparchiver.command_enterControl command = new catchuparchiver.command_enterControl();
         command.private_revCode = "LSST CatchupArchiver enterControl COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "allow";
+        command.device = "catchuparchiver";
+        command.property = "enterControl";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_enterControl(command);
@@ -63,9 +63,9 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
 
         catchuparchiver.command_start command = new catchuparchiver.command_start();
         command.private_revCode = "LSST CatchupArchiver start COMMAND";
-        command.device = "configuration";
-        command.property = "set";
-        command.action = "apply";
+        command.device = "catchuparchiver";
+        command.property = "start";
+        command.action = "set";
         command.configuration = "normal";
 
         int cmdId = publisher.issueCommand_start(command);
@@ -91,9 +91,9 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
 
         catchuparchiver.command_enable command = new catchuparchiver.command_enable();
         command.private_revCode = "LSST CatchupArchiver enable COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "";
+        command.device = "catchuparchiver";
+        command.property = "enable";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_enable(command);
@@ -118,9 +118,9 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
 
         catchuparchiver.command_disable command = new catchuparchiver.command_disable();
         command.private_revCode = "LSST CatchupArchiver disable COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "";
+        command.device = "catchuparchiver";
+        command.property = "disable";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_disable(command);
@@ -145,9 +145,9 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
 
         catchuparchiver.command_standby command = new catchuparchiver.command_standby();
         command.private_revCode = "LSST CatchupArchiver standby COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "stop";
+        command.device = "catchuparchiver";
+        command.property = "standby";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_standby(command);
@@ -172,9 +172,9 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
 
         catchuparchiver.command_exitControl command = new catchuparchiver.command_exitControl();
         command.private_revCode = "LSST CatchupArchiver exitControl COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "exit";
+        command.device = "catchuparchiver";
+        command.property = "exitControl";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_exitControl(command);

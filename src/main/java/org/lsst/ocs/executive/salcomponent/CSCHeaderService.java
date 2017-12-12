@@ -14,9 +14,8 @@
 
 package org.lsst.ocs.executive.salcomponent;
 
-import org.lsst.sal.SAL_processingcluster;
-
 import static java.lang.System.out;
+import org.lsst.sal.SAL_dmHeaderService;
 
 /**
  *
@@ -31,17 +30,17 @@ public class CSCHeaderService implements CommandableSalComponent {
     @Override public void enterControl() { 
     
         //out.println("SalCmdSequencer.enterControl");
-        SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand("headerservice_command_enterControl");
+        SAL_dmHeaderService publisher = new SAL_dmHeaderService();
+        publisher.salCommand("dmHeaderService_command_EnterControl");
 
-        processingcluster.command_enterControl command = new processingcluster.command_enterControl();
-        command.private_revCode = "LSST HeaderService enterControl COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "allow";
-        command.state = true;
+        dmHeaderService.command_EnterControl command = new dmHeaderService.command_EnterControl();
+        command.private_revCode = "LSST DM HeaderService enterControl COMMAND";
+        command.device = "dmHeaderService";
+        command.property = "enterControl";
+        command.action = "set";
+        //command.state = true;
 
-        int cmdId = publisher.issueCommand_enterControl(command);
+        int cmdId = publisher.issueCommand_EnterControl(command);
 
         try {
             Thread.sleep(250);
@@ -50,7 +49,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_enterControl(cmdId, timeout);
+        publisher.waitForCompletion_EnterControl(cmdId, timeout);
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -58,17 +57,17 @@ public class CSCHeaderService implements CommandableSalComponent {
 
     @Override public void start() { 
         
-        SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand("headerservice_command_start");
+        SAL_dmHeaderService publisher = new SAL_dmHeaderService();
+        publisher.salCommand("dmHeaderService_command_Start");
 
-        processingcluster.command_start command = new processingcluster.command_start();
-        command.private_revCode = "LSST HeaderService start COMMAND";
-        command.device = "configuration";
-        command.property = "set";
-        command.action = "apply";
-        command.configuration = "normal";
+        dmHeaderService.command_Start command = new dmHeaderService.command_Start();
+        command.private_revCode = "LSST DM HeaderService start COMMAND";
+        command.device = "dmHeaderService";
+        command.property = "start";
+        command.action = "set";
+        //command.configuration = "normal";
 
-        int cmdId = publisher.issueCommand_start(command);
+        int cmdId = publisher.issueCommand_Start(command);
 
         try {
             Thread.sleep(250);
@@ -77,7 +76,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_start(cmdId, timeout);
+        publisher.waitForCompletion_Start(cmdId, timeout);
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -86,17 +85,17 @@ public class CSCHeaderService implements CommandableSalComponent {
 
     @Override public void enable() {
 
-        SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand("headerservice_command_enable");
+        SAL_dmHeaderService publisher = new SAL_dmHeaderService();
+        publisher.salCommand("dmHeaderService_command_Enable");
 
-        processingcluster.command_enable command = new processingcluster.command_enable();
-        command.private_revCode = "LSST HeaderService enable COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "";
-        command.state = true;
+        dmHeaderService.command_Enable command = new dmHeaderService.command_Enable();
+        command.private_revCode = "LSST DM HeaderService enable COMMAND";
+        command.device = "dmHeaderService";
+        command.property = "enable";
+        command.action = "set";
+        //command.state = true;
 
-        int cmdId = publisher.issueCommand_enable(command);
+        int cmdId = publisher.issueCommand_Enable(command);
 
         try {
             Thread.sleep(250);
@@ -105,7 +104,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_enable(cmdId, timeout);
+        publisher.waitForCompletion_Enable(cmdId, timeout);
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -113,17 +112,17 @@ public class CSCHeaderService implements CommandableSalComponent {
 
     @Override public void disable() {
 
-        SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand("headerservice_command_disable");
+        SAL_dmHeaderService publisher = new SAL_dmHeaderService();
+        publisher.salCommand("dmHeaderService_command_Disable");
 
-        processingcluster.command_disable command = new processingcluster.command_disable();
-        command.private_revCode = "LSST HeaderService disable COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "";
-        command.state = true;
+        dmHeaderService.command_Disable command = new dmHeaderService.command_Disable();
+        command.private_revCode = "LSST DM HeaderService disable COMMAND";
+        command.device = "dmHeaderService";
+        command.property = "disable";
+        command.action = "set";
+        //command.state = true;
 
-        int cmdId = publisher.issueCommand_disable(command);
+        int cmdId = publisher.issueCommand_Disable(command);
 
         try {
             Thread.sleep(250);
@@ -132,7 +131,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_disable(cmdId, timeout);
+        publisher.waitForCompletion_Disable(cmdId, timeout);
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -140,17 +139,17 @@ public class CSCHeaderService implements CommandableSalComponent {
 
     @Override public void standby() {
 
-        SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand("headerservice_command_standby");
+        SAL_dmHeaderService publisher = new SAL_dmHeaderService();
+        publisher.salCommand("dmHeaderService_command_Standby");
 
-        processingcluster.command_standby command = new processingcluster.command_standby();
-        command.private_revCode = "LSST HeaderService standby COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "stop";
-        command.state = true;
+        dmHeaderService.command_Standby command = new dmHeaderService.command_Standby();
+        command.private_revCode = "LSST DM HeaderService standby COMMAND";
+        command.device = "dmHeaderService";
+        command.property = "standby";
+        command.action = "set";
+        //command.state = true;
 
-        int cmdId = publisher.issueCommand_standby(command);
+        int cmdId = publisher.issueCommand_Standby(command);
 
         try {
             Thread.sleep(250);
@@ -159,7 +158,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_standby(cmdId, timeout);
+        publisher.waitForCompletion_Standby(cmdId, timeout);
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -167,17 +166,17 @@ public class CSCHeaderService implements CommandableSalComponent {
 
     @Override public void exitControl() {
 
-        SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand("headerservice_command_exitControl");
+        SAL_dmHeaderService publisher = new SAL_dmHeaderService();
+        publisher.salCommand("dmHeaderService_command_ExitControl");
 
-        processingcluster.command_exitControl command = new processingcluster.command_exitControl();
-        command.private_revCode = "LSST HeaderService exitControl COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "exit";
-        command.state = true;
+        dmHeaderService.command_ExitControl command = new dmHeaderService.command_ExitControl();
+        command.private_revCode = "LSST DM HeaderService exitControl COMMAND";
+        command.device = "dmHeaderService";
+        command.property = "exitControl";
+        command.action = "set";
+        //command.state = true;
 
-        int cmdId = publisher.issueCommand_exitControl(command);
+        int cmdId = publisher.issueCommand_ExitControl(command);
 
         try {
             Thread.sleep(250);
@@ -186,7 +185,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_exitControl(cmdId, timeout);
+        publisher.waitForCompletion_ExitControl(cmdId, timeout);
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -195,16 +194,16 @@ public class CSCHeaderService implements CommandableSalComponent {
     @Override public void summaryState() {
     
         // Initialize
-        SAL_processingcluster subscriber = new SAL_processingcluster();
-        subscriber.salEvent("headerservice_logevent_SummaryState");
+        SAL_dmHeaderService subscriber = new SAL_dmHeaderService();
+        subscriber.salEvent("dmHeaderService_logevent_SummaryState");
 
-        processingcluster.logevent_SummaryState event = new processingcluster.logevent_SummaryState();
-//        out.println("HeaderService Event SummaryState logger ready ");
+        dmHeaderService.logevent_SummaryState event = new dmHeaderService.logevent_SummaryState();
+//        out.println("DM HeaderService Event SummaryState logger ready ");
 
         int status;
         while (Boolean.TRUE) {
             status = subscriber.getEvent_SummaryState(event);
-            if (status == SAL_processingcluster.SAL__OK) {
+            if (status == SAL_dmHeaderService.SAL__OK) {
                 out.println("=== Event Logged : " + event);
             }
 
@@ -218,16 +217,16 @@ public class CSCHeaderService implements CommandableSalComponent {
     @Override public void settingsVersion() {
     
         // Initialize
-        SAL_processingcluster subscriber = new SAL_processingcluster();
-        subscriber.salEvent("headerservice_logevent_SettingVersions");
+        SAL_dmHeaderService subscriber = new SAL_dmHeaderService();
+        subscriber.salEvent("dmHeaderService_logevent_SettingVersions");
         
-        processingcluster.logevent_SettingVersions event = new processingcluster.logevent_SettingVersions();
-//        out.println("HeaderService Event SettingVersions logger ready ");
+        dmHeaderService.logevent_SettingVersions event = new dmHeaderService.logevent_SettingVersions();
+//        out.println("DM HeaderService Event SettingVersions logger ready ");
 
         int status;
         while (Boolean.TRUE) {
             status = subscriber.getEvent_SettingVersions(event);
-            if (status == SAL_processingcluster.SAL__OK) {
+            if (status == SAL_dmHeaderService.SAL__OK) {
                 out.println("=== Event Logged : " + event);
             }
             
@@ -241,16 +240,16 @@ public class CSCHeaderService implements CommandableSalComponent {
     @Override public void appliedSettingsMatchStart() {
     
         // Initialize
-        SAL_processingcluster subscriber = new SAL_processingcluster();
-        subscriber.salEvent("headerservice_logevent_AppliedSettingsMatchStart");
+        SAL_dmHeaderService subscriber = new SAL_dmHeaderService();
+        subscriber.salEvent("dmHeaderService_logevent_AppliedSettingsMatchStart");
         
-        processingcluster.logevent_AppliedSettingsMatchStart event = new processingcluster.logevent_AppliedSettingsMatchStart();
-//        out.println("HeaderService Event AppliedSettingsMatchStart logger ready ");
+        dmHeaderService.logevent_AppliedSettingsMatchStart event = new dmHeaderService.logevent_AppliedSettingsMatchStart();
+//        out.println("DM HeaderService Event AppliedSettingsMatchStart logger ready ");
 
         int status;
         while (Boolean.TRUE) {
             status = subscriber.getEvent_AppliedSettingsMatchStart(event);
-            if (status == SAL_processingcluster.SAL__OK) {
+            if (status == SAL_dmHeaderService.SAL__OK) {
                 out.println("=== Event Logged : " + event);
             }
             

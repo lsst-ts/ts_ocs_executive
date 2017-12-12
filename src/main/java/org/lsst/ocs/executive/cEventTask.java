@@ -70,7 +70,7 @@ public class cEventTask implements Callable<Integer> {
         try {
             
             status = ( Integer ) _csc.getClass()
-                                      // invoke w/ null args
+                                      // specify method & that it takes no (i.e. null) args
                                      .getMethod( this._event, new Class[] {} ) 
                                       // invoke w/ null args
                                      .invoke( _csc, new Object[] {} ); 

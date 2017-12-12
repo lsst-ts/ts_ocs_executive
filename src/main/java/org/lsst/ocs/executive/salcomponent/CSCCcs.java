@@ -38,9 +38,9 @@ public class CSCCcs implements CommandableSalComponent {
 
         camera.command_enterControl command = new camera.command_enterControl();
         command.private_revCode = "LSST Camera enterControl COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "allow";
+        command.device = "ccs";
+        command.property = "enterControl";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_enterControl( command );
@@ -68,9 +68,9 @@ public class CSCCcs implements CommandableSalComponent {
 
         camera.command_start command = new camera.command_start();
         command.private_revCode = "LSST Camera start COMMAND";
-        command.device = "configuration";
-        command.property = "set";
-        command.action = "apply";
+        command.device = "ccs";
+        command.property = "start";
+        command.action = "set";
         command.configuration = "normal";
 
         int cmdId = publisher.issueCommand_start( command );
@@ -97,9 +97,9 @@ public class CSCCcs implements CommandableSalComponent {
 
         camera.command_enable command = new camera.command_enable();
         command.private_revCode = "LSST Camera enable COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "";
+        command.device = "ccs";
+        command.property = "enable";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_enable( command );
@@ -125,9 +125,9 @@ public class CSCCcs implements CommandableSalComponent {
 
         camera.command_disable command = new camera.command_disable();
         command.private_revCode = "LSST Camera disable COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "";
+        command.device = "ccs";
+        command.property = "disable";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_disable( command );
@@ -153,9 +153,9 @@ public class CSCCcs implements CommandableSalComponent {
 
         camera.command_standby command = new camera.command_standby();
         command.private_revCode = "LSST Camera standby COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "stop";
+        command.device = "ccs";
+        command.property = "standby";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_standby( command );
@@ -181,9 +181,9 @@ public class CSCCcs implements CommandableSalComponent {
 
         camera.command_exitControl command = new camera.command_exitControl();
         command.private_revCode = "LSST Camera exitControl COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "exit";
+        command.device = "ccs";
+        command.property = "exitControl";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_exitControl( command );
@@ -208,9 +208,9 @@ public class CSCCcs implements CommandableSalComponent {
 
         camera.command_setFilter command  = new camera.command_setFilter();
         command.private_revCode = "LSST TEST COMMAND";
-        command.device   = "setFilter";
-        command.property = "";
-        command.action   = "";
+        command.device   = "ccs";
+        command.property = "setFilter";
+        command.action   = "apply";
         command.name = "i-9";
 
         int cmdId = publisher.issueCommand_setFilter(command);
@@ -235,9 +235,9 @@ public class CSCCcs implements CommandableSalComponent {
 
         camera.command_takeImages command  = new camera.command_takeImages();
         command.private_revCode = "LSST TEST COMMAND";
-        command.device   = "takeImages";
-        command.property = "";
-        command.action   = "";
+        command.device   = "ccs";
+        command.property = "takeImages";
+        command.action   = "set";
         command.numImages = (int) 2;
         command.expTime = (double) 15.0;
         command.shutter = true;
@@ -268,9 +268,9 @@ public class CSCCcs implements CommandableSalComponent {
 
         camera.command_initImage command  = new camera.command_initImage();
         command.private_revCode = "LSST TEST COMMAND";
-        command.device   = "initImage";
-        command.property = "";
-        command.action   = "";
+        command.device   = "ccs";
+        command.property = "initImage";
+        command.action   = "apply";
         command.deltaT = (double) 5.0;
 
         int cmdId = publisher.issueCommand_initImage(command);

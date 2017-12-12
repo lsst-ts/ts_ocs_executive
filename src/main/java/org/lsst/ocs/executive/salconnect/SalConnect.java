@@ -14,7 +14,9 @@
 
 package org.lsst.ocs.executive.salconnect;
 
+import java.util.concurrent.Executors;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import org.lsst.ocs.executive.salservice.SalService;
 import javafx.concurrent.Task;
@@ -49,41 +51,39 @@ public class SalConnect {
         _numTasks = n;
     }
         
-//    public void connect() { 
-//        
-//        for ( int i = 0; i < _numTasks; i++ ) {
-//            
-//            _salServiceTasks[i] = new Task<Void>()  {
-//                
-//                @Override protected Void call() throws Exception {
-//                    
-//                    while ( !(_salServiceQ.isEmpty()) ) {
-//                        
-//                        _salService = _salServiceQ.poll();
-//                        _salService.execute();
-//                    }
-//                    
-//                    return null;
-//                }
-//            };
-//            
-//            Executors.newFixedThreadPool( 1 )
-//                     .submit( _salServiceTasks[i] );     
-//        }
-//    }
-    
     public void connect() { 
         
-        for ( int i = 0; i < _numTasks; i++ ) {
+        ExecutorService es = Executors.newFixedThreadPool( _numTasks );
+        int i;
+        //for ( int i = 0; i < _numTasks; i++ ) {
+        for ( i = 0; i < _numTasks; i++ ) {
             
+            _salServiceTasks[i] = new Task<Void>()  {
+                
+                @Override protected Void call() {
                     while ( !(_salServiceQ.isEmpty()) ) {
                         
                         _salService = _salServiceQ.poll();
                         _salService.execute();
                     }
+
+                    return null;
+                }
+            };
+            
+            es.submit( _salServiceTasks[i] );
+            //Executors.newFixedThreadPool( 1 )
+            //         .submit( _salServiceTasks[i] );
         }
-    }    
+        
+        while ( _salServiceTasks[_numTasks-1].isRunning() ) {
+                        
+        }
+        es.shutdown();
+    }
 }
+
+
 
 ////////////////////////////////////////////////////////////////////////////
 //    

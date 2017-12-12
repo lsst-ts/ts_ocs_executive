@@ -36,9 +36,9 @@ public class CSCProcessingCluster implements CommandableSalComponent {
 
         processingcluster.command_enterControl command = new processingcluster.command_enterControl();
         command.private_revCode = "LSST ProcessingCluster enterControl COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "allow";
+        command.device = "processingcluster";
+        command.property = "enterControl";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_enterControl(command);
@@ -63,9 +63,9 @@ public class CSCProcessingCluster implements CommandableSalComponent {
 
         processingcluster.command_start command = new processingcluster.command_start();
         command.private_revCode = "LSST ProcessingCluster start COMMAND";
-        command.device = "configuration";
-        command.property = "set";
-        command.action = "apply";
+        command.device = "processingcluster";
+        command.property = "start";
+        command.action = "set";
         command.configuration = "normal";
 
         int cmdId = publisher.issueCommand_start(command);
@@ -91,9 +91,9 @@ public class CSCProcessingCluster implements CommandableSalComponent {
 
         processingcluster.command_enable command = new processingcluster.command_enable();
         command.private_revCode = "LSST ProcessingCluster enable COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "";
+        command.device = "processingcluster";
+        command.property = "enable";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_enable(command);
@@ -118,9 +118,9 @@ public class CSCProcessingCluster implements CommandableSalComponent {
 
         processingcluster.command_disable command = new processingcluster.command_disable();
         command.private_revCode = "LSST ProcessingCluster disable COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "";
+        command.device = "processingcluster";
+        command.property = "disable";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_disable(command);
@@ -145,9 +145,9 @@ public class CSCProcessingCluster implements CommandableSalComponent {
 
         processingcluster.command_standby command = new processingcluster.command_standby();
         command.private_revCode = "LSST ProcessingCluster standby COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "stop";
+        command.device = "processingcluster";
+        command.property = "standby";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_standby(command);
@@ -172,9 +172,9 @@ public class CSCProcessingCluster implements CommandableSalComponent {
 
         processingcluster.command_exitControl command = new processingcluster.command_exitControl();
         command.private_revCode = "LSST ProcessingCluster exitControl COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "exit";
+        command.device = "processingcluster";
+        command.property = "exitControl";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_exitControl(command);

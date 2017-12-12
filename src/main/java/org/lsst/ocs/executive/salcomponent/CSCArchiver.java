@@ -40,9 +40,9 @@ public class CSCArchiver implements CommandableSalComponent {
 
         archiver.command_enterControl command = new archiver.command_enterControl();
         command.private_revCode = "LSST Archiver enterControl COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "allow";
+        command.device = "archiver";
+        command.property = "enterControl";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_enterControl( command );
@@ -69,8 +69,8 @@ public class CSCArchiver implements CommandableSalComponent {
         archiver.command_start command = new archiver.command_start();
         command.private_revCode = "LSST Archiver start COMMAND";
         command.device = "configuration";
-        command.property = "set";
-        command.action = "apply";
+        command.property = "start";
+        command.action = "set";
         command.configuration = "Normal";
 
         int cmdId = publisher.issueCommand_start( command );
@@ -97,9 +97,9 @@ public class CSCArchiver implements CommandableSalComponent {
 
         archiver.command_enable command = new archiver.command_enable();
         command.private_revCode = "LSST Archiver enable COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "";
+        command.device = "archiver";
+        command.property = "enable";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_enable( command );
@@ -125,9 +125,9 @@ public class CSCArchiver implements CommandableSalComponent {
 
         archiver.command_disable command = new archiver.command_disable();
         command.private_revCode = "LSST Archiver disable COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "";
+        command.device = "archiver";
+        command.property = "disable";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_disable( command );
@@ -153,9 +153,9 @@ public class CSCArchiver implements CommandableSalComponent {
 
         archiver.command_standby command = new archiver.command_standby();
         command.private_revCode = "LSST Archiver standby COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "stop";
+        command.device = "archiver";
+        command.property = "standby";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_standby( command );
@@ -181,9 +181,9 @@ public class CSCArchiver implements CommandableSalComponent {
 
         archiver.command_exitControl command = new archiver.command_exitControl();
         command.private_revCode = "LSST Archiver exitControl COMMAND";
-        command.device = "controller";
-        command.property = "command";
-        command.action = "exit";
+        command.device = "archiver";
+        command.property = "exitControl";
+        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_exitControl( command );

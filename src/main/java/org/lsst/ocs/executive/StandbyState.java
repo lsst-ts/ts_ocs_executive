@@ -34,7 +34,7 @@ public class StandbyState implements EntityState {
     
     @Override public void start(Entity entity) {
         
-        String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
+        String salactor = entity.getClass().getSimpleName() + "." + entity.getCSC().getClass().getSimpleName();
         out.println(salactor + "." + this.getName() + ".start");
 
         // Cmd Sequencer, TCS, CCS or DMCS via SAL

@@ -14,6 +14,8 @@
 
 package org.lsst.ocs.executive;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -46,7 +48,7 @@ public class ExecutiveFX extends Application {
     /**
      * Constructor
      */
-    public ExecutiveFX() {
+    public ExecutiveFX() throws InterruptedException {
         
         cscList.add( Executive.cscTCS );
         cscList.add( Executive.cscCCS );
@@ -137,6 +139,14 @@ public class ExecutiveFX extends Application {
         primaryStage.setScene( scene );
         primaryStage.setTitle( "OCS Executive GUI" );
         primaryStage.show();
+        
+        ExecutorService es = Executors.newFixedThreadPool( 6 );
+        es.submit( new cEventTask( Executive.cscTCS, "summaryState" ));
+        es.submit( new cEventTask( Executive.cscCCS, "summaryState" ));
+        es.submit( new cEventTask( Executive.cscARC, "summaryState" ));
+        es.submit( new cEventTask( Executive.cscCAT, "summaryState" ));
+        es.submit( new cEventTask( Executive.cscPRO, "summaryState" ));
+        es.submit( new cEventTask( Executive.cscHDR, "summaryState" ));
     }
 
     /**
