@@ -47,6 +47,8 @@ public class ExecutiveFX extends Application {
     
     /**
      * Constructor
+     * 
+     * @throws InterruptedException
      */
     public ExecutiveFX() throws InterruptedException {
         
@@ -73,7 +75,7 @@ public class ExecutiveFX extends Application {
 
     /**
      * Returns the observable list of non-active CSCs. 
-     * @return
+     * @return List of pre-instantiated CSCs
      */
     public ObservableList<CommandableSalComponent> getCscList() {
         
@@ -121,7 +123,7 @@ public class ExecutiveFX extends Application {
         String fxmlFile = "/fxml/primaryFXML.fxml";
         FXMLLoader loader = new FXMLLoader();
         Parent rootBorderPane = (Parent) loader.load( getClass().getResourceAsStream( fxmlFile ) );
-
+        
         // Give the controller access to the main app.
         controller = loader.getController();
         controller.setExecFXApp( this );
@@ -139,19 +141,11 @@ public class ExecutiveFX extends Application {
         primaryStage.setScene( scene );
         primaryStage.setTitle( "OCS Executive GUI" );
         primaryStage.show();
-        
-        ExecutorService es = Executors.newFixedThreadPool( 6 );
-        es.submit( new cEventTask( Executive.cscTCS, "summaryState" ));
-        es.submit( new cEventTask( Executive.cscCCS, "summaryState" ));
-        es.submit( new cEventTask( Executive.cscARC, "summaryState" ));
-        es.submit( new cEventTask( Executive.cscCAT, "summaryState" ));
-        es.submit( new cEventTask( Executive.cscPRO, "summaryState" ));
-        es.submit( new cEventTask( Executive.cscHDR, "summaryState" ));
     }
 
     /**
      * Overriding {@code stop()} method to add {@code System.exit()} 
-     * so ALL threads (JavaFX & non Java-FX threads) will be terminated
+     * so ALL threads (JavaFX and non Java-FX threads) will be terminated
      * when clicking 'x' on the {@code primaryStage} window.
      */ 
     @Override
@@ -176,6 +170,8 @@ public class ExecutiveFX extends Application {
      * <p>
      * The {@code launch()} method internally calls the {@code start()} method
      * of the {@link Application} class.
+     * 
+     * @param args n/a
      */
     public static void main( String[] args ) {
 

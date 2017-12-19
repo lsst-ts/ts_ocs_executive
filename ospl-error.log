@@ -2816,3 +2816,123 @@ Node        : jormungand
 Process     : java <19641>
 Thread      : OSPL Kernel Manager 7fa7680f0700
 Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/495/0/1513035872.134944119
+========================================================================================
+Report      : ERROR
+Date        : Wed Dec 13 13:24:04 MST 2017
+Description : c_metaBind failed for Struct <v_readerLifecyclePolicy> in scope <kernelModule>.
+Node        : jormungand
+Process     : java <27982>
+Thread      : OSPL Kernel Manager 7fe86c08d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/sd_deserXmlStructure/sd_serializerXMLTypeinfo.c/2436/0/1513196644.124192721
+========================================================================================
+Report      : ERROR
+Date        : Wed Dec 13 13:24:04 MST 2017
+Description : Deserialize failed
+Node        : jormungand
+Process     : java <27982>
+Thread      : OSPL Kernel Manager 7fe86c08d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/Type deserialize/sd_serializerXMLTypeinfo.c/3016/0/1513196644.124285750
+========================================================================================
+Report      : ERROR
+Date        : Wed Dec 13 13:24:04 MST 2017
+Description : Deserialization remote topic failed: (null) at <unknown>
+Node        : jormungand
+Process     : java <27982>
+Thread      : OSPL Kernel Manager 7fe86c08d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/495/0/1513196644.124307750
+========================================================================================
+Report      : ERROR
+Date        : Fri Dec 15 10:52:32 MST 2017
+Description : c_metaBind failed for Struct <v_readerLifecyclePolicy> in scope <kernelModule>.
+Node        : jormungand
+Process     : java <10758>
+Thread      : OSPL Kernel Manager 7f60f8137700
+Internals   : V6.4.140320OSS/24b1387/24b1387/sd_deserXmlStructure/sd_serializerXMLTypeinfo.c/2436/0/1513360352.762299461
+========================================================================================
+Report      : ERROR
+Date        : Fri Dec 15 10:52:32 MST 2017
+Description : Deserialize failed
+Node        : jormungand
+Process     : java <10758>
+Thread      : OSPL Kernel Manager 7f60f8137700
+Internals   : V6.4.140320OSS/24b1387/24b1387/Type deserialize/sd_serializerXMLTypeinfo.c/3016/0/1513360352.762410579
+========================================================================================
+Report      : ERROR
+Date        : Fri Dec 15 10:52:32 MST 2017
+Description : Deserialization remote topic failed: (null) at <unknown>
+Node        : jormungand
+Process     : java <10758>
+Thread      : OSPL Kernel Manager 7f60f8137700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/495/0/1513360352.762434604
+========================================================================================
+Report      : ERROR
+Date        : Fri Dec 15 14:14:35 MST 2017
+Description : c_metaBind failed for Struct <v_readerLifecyclePolicy> in scope <kernelModule>.
+Node        : jormungand
+Process     : java <28166>
+Thread      : OSPL Kernel Manager 7f5e65d76700
+Internals   : V6.4.140320OSS/24b1387/24b1387/sd_deserXmlStructure/sd_serializerXMLTypeinfo.c/2436/0/1513372475.369408690
+========================================================================================
+Report      : ERROR
+Date        : Fri Dec 15 14:14:35 MST 2017
+Description : Deserialize failed
+Node        : jormungand
+Process     : java <28166>
+Thread      : OSPL Kernel Manager 7f5e65d76700
+Internals   : V6.4.140320OSS/24b1387/24b1387/Type deserialize/sd_serializerXMLTypeinfo.c/3016/0/1513372475.369510030
+========================================================================================
+Report      : ERROR
+Date        : Fri Dec 15 14:14:35 MST 2017
+Description : Deserialization remote topic failed: (null) at <unknown>
+Node        : jormungand
+Process     : java <28166>
+Thread      : OSPL Kernel Manager 7f5e65d76700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/495/0/1513372475.369533566
+========================================================================================
+Report      : ERROR
+Date        : Fri Dec 15 14:33:09 MST 2017
+Description : c_metaBind failed for Struct <v_readerLifecyclePolicy> in scope <kernelModule>.
+Node        : jormungand
+Process     : java <30370>
+Thread      : OSPL Kernel Manager 7f9268a6a700
+Internals   : V6.4.140320OSS/24b1387/24b1387/sd_deserXmlStructure/sd_serializerXMLTypeinfo.c/2436/0/1513373589.737056219
+========================================================================================
+Report      : ERROR
+Date        : Fri Dec 15 14:33:09 MST 2017
+Description : Deserialize failed
+Node        : jormungand
+Process     : java <30370>
+Thread      : OSPL Kernel Manager 7f9268a6a700
+Internals   : V6.4.140320OSS/24b1387/24b1387/Type deserialize/sd_serializerXMLTypeinfo.c/3016/0/1513373589.737124664
+========================================================================================
+Report      : ERROR
+Date        : Fri Dec 15 14:33:09 MST 2017
+Description : Deserialization remote topic failed: (null) at <unknown>
+Node        : jormungand
+Process     : java <30370>
+Thread      : OSPL Kernel Manager 7f9268a6a700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/495/0/1513373589.737147712
+========================================================================================
+Report      : ERROR
+Date        : Fri Dec 15 15:50:04 MST 2017
+Description : c_metaBind failed for Struct <v_readerLifecyclePolicy> in scope <kernelModule>.
+Node        : jormungand
+Process     : java <5181>
+Thread      : OSPL Kernel Manager 7f9340124700
+Internals   : V6.4.140320OSS/24b1387/24b1387/sd_deserXmlStructure/sd_serializerXMLTypeinfo.c/2436/0/1513378204.190897350
+========================================================================================
+Report      : ERROR
+Date        : Fri Dec 15 15:50:04 MST 2017
+Description : Deserialize failed
+Node        : jormungand
+Process     : java <5181>
+Thread      : OSPL Kernel Manager 7f9340124700
+Internals   : V6.4.140320OSS/24b1387/24b1387/Type deserialize/sd_serializerXMLTypeinfo.c/3016/0/1513378204.191127129
+========================================================================================
+Report      : ERROR
+Date        : Fri Dec 15 15:50:04 MST 2017
+Description : Deserialization remote topic failed: (null) at <unknown>
+Node        : jormungand
+Process     : java <5181>
+Thread      : OSPL Kernel Manager 7f9340124700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/495/0/1513378204.191150177

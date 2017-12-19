@@ -19,11 +19,9 @@ import org.lsst.sal.SAL_processingcluster;
 
 /**
  *
- * SalCmd is OCS Executive's interface to SAL middle-ware
+ * CSCProcessingCluster is a Receiver class in the command pattern
  *
  */
-
-//public class CSCProcessingCluster extends CommandableSalComponent {
 public class CSCProcessingCluster implements CommandableSalComponent {
     
     @Override public String getName() { return "CSCProcessingCluster"; }
@@ -192,29 +190,36 @@ public class CSCProcessingCluster implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override public void summaryState() {
+    @Override public Integer summaryState() {
     
         // Initialize
         SAL_processingcluster subscriber = new SAL_processingcluster();
-        subscriber.salEvent("processingcluster_logevent_SummaryState");
+        subscriber.salEvent( "dmHeaderService_logevent_SummaryState" );
 
         processingcluster.logevent_SummaryState event = new processingcluster.logevent_SummaryState();
-//        out.println("ProcessingCluster Event SummaryState logger ready ");
 
-        int status;
+        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while (Boolean.TRUE) {
+            
             status = subscriber.getEvent_SummaryState(event);
             if (status == SAL_processingcluster.SAL__OK) {
+                
                 out.println("=== Event Logged : " + event);
+
+                /* Remove the DataWriters etc */
+                subscriber.salShutdown();
+                return status;
             }
 
-            try {Thread.sleep(100);} catch (InterruptedException e) { e.printStackTrace(); }
+            try { Thread.sleep(100); } catch (InterruptedException e) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */
         subscriber.salShutdown();
+        //return i;
+        return status;
     }
-    
+
     @Override public void settingsVersion() {
     
         // Initialize

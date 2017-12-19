@@ -19,10 +19,9 @@ import org.lsst.sal.SAL_dmHeaderService;
 
 /**
  *
- * SalCmd is OCS Executive's interface to SAL middle-ware
+ * CSCHeaderService is a Receiver class in the command pattern
  *
  */
-
 public class CSCHeaderService implements CommandableSalComponent {
     
     @Override public String getName() { return "CSCHeaderService"; }
@@ -191,29 +190,36 @@ public class CSCHeaderService implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override public void summaryState() {
+    @Override public Integer summaryState() {
     
         // Initialize
         SAL_dmHeaderService subscriber = new SAL_dmHeaderService();
-        subscriber.salEvent("dmHeaderService_logevent_SummaryState");
+        subscriber.salEvent( "dmHeaderService_logevent_SummaryState" );
 
         dmHeaderService.logevent_SummaryState event = new dmHeaderService.logevent_SummaryState();
-//        out.println("DM HeaderService Event SummaryState logger ready ");
 
-        int status;
+        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while (Boolean.TRUE) {
+            
             status = subscriber.getEvent_SummaryState(event);
             if (status == SAL_dmHeaderService.SAL__OK) {
+                
                 out.println("=== Event Logged : " + event);
+
+                /* Remove the DataWriters etc */
+                subscriber.salShutdown();
+                return status;
             }
 
-            try {Thread.sleep(100);} catch (InterruptedException e) { e.printStackTrace(); }
+            try { Thread.sleep(100); } catch (InterruptedException e) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */
         subscriber.salShutdown();
+        //return i;
+        return status;
     }
-    
+
     @Override public void settingsVersion() {
     
         // Initialize

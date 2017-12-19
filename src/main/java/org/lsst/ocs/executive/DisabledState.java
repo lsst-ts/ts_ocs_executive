@@ -23,7 +23,6 @@ import org.lsst.ocs.executive.salservice.SalEvent;
  * {@code DisabledState} is a Concrete State class implementation.
  * <p>
  * Transitions to: {@code StandbyState}, {@code EnabledState} or {@code FaultState}
- * <p>
  */
 public class DisabledState implements EntityState {
 

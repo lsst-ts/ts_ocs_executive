@@ -17,13 +17,19 @@ package org.lsst.ocs.executive.gui.primary;
 import static java.lang.System.out;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
 import java.util.Arrays;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+import javafx.concurrent.Service;
+import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,8 +44,13 @@ import org.lsst.ocs.executive.Entity;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.ocs.executive.ExecutiveFX;
 import org.lsst.ocs.executive.rCmdTask;
+import org.lsst.ocs.executive.cEventTask;
+import org.lsst.ocs.executive.cEventTask2;
+import org.lsst.ocs.executive.cEventTask3;
+import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 import org.lsst.ocs.executive.salconnect.SalConnect;
 import org.lsst.ocs.executive.salservice.SalCmd;
+import javafx.collections.ObservableList;
 
 /**
  * <h2>FXML Primary Controller</h2>
@@ -61,37 +72,20 @@ public class PrimaryController implements Initializable {
     private ExecutiveFX execFX;
     
     @FXML
-    private Label tcsLabel, ccsLabel, arcLabel, catLabel, proLabel, hdrLabel;
-    
-    @FXML
-    private Tooltip tcsTooltip, ccsTooltip, arcTooltip, catTooltip, proTooltip, hdrTooltip;
-    
-    @FXML
     private MenuButton tcsStateMenu, ccsStateMenu, arcStateMenu, catStateMenu, proStateMenu, hdrStateMenu;
 
     @FXML
+    private Label tcsLabel, ccsLabel, arcLabel, catLabel, proLabel, hdrLabel;
+    private ObservableList<Label> stateLabelList;
+
+    @FXML
+    private Tooltip tcsTooltip, ccsTooltip, arcTooltip, catTooltip, proTooltip, hdrTooltip;
+    private ObservableList<Tooltip> stateTooltipList;
+    
+    @FXML
     private TextField tcsStateText, ccsStateText, arcStateText, catStateText, proStateText, hdrStateText;
-
-    static final Map<String, String> STATE_TEXT_MAP = 
-        new HashMap<String, String>() {
-        {
-            put("enterControl", "STANDBY");
-            put("start"       , "DISABLED");
-            put("enable"      , "ENABLED");
-            put("disable"     , "DISABLED");
-            put("standby"     , "STANDBY");
-            put("exitControl" , "OFFLINE");
-        }
-    };
-
-    public final List<TextField> stateTextList = Arrays.asList(
-            
-        tcsStateText,
-        ccsStateText,
-        arcStateText,
-        catStateText,
-        proStateText
-    );
+    private ObservableList<TextField> stateTextList;
+    private Map<String, String> STATE_TEXT_MAP;
 
     @FXML
     private MenuItem enter, start, enable, disable, standby, exit;
@@ -133,8 +127,50 @@ public class PrimaryController implements Initializable {
     @FXML
     private MenuItem menuitemCreateAll;
 
+    
+    /**
+     * Initializes the controller class. This method is automatically called
+     * after the fxml file has been loaded.
+     */
+    @Override
+    public void initialize(URL locationUrl, ResourceBundle resourceBundle) {
+        
+        stateLabelList = FXCollections.observableArrayList( 
+            tcsLabel, ccsLabel, arcLabel, catLabel, proLabel
+        );
+
+        stateTooltipList = FXCollections.observableArrayList( 
+            tcsTooltip, ccsTooltip, arcTooltip, catTooltip, proTooltip
+        );
+
+        stateTextList = FXCollections.observableArrayList( 
+            tcsStateText, ccsStateText, arcStateText, catStateText, proStateText
+        );
+
+        STATE_TEXT_MAP = new HashMap<String, String>() {
+            {
+                put("enterControl", "STANDBY");
+                put("start"       , "DISABLED");
+                put("enable"      , "ENABLED");
+                put("disable"     , "DISABLED");
+                put("standby"     , "STANDBY");
+                put("exitControl" , "OFFLINE");
+            }
+        };
+    }
+    
+    /**
+     * Is called by the main FX application to give a reference back to itself.
+     * 
+     * @param refExecFX class which holds {@code main()}
+     */
+    public void setExecFXApp(ExecutiveFX refExecFX) {
+
+        this.execFX = refExecFX;
+    }
+
     @FXML
-    private void tcsState(ActionEvent event) {
+    private void tcsState(ActionEvent event) throws Exception {
 
         // Grab the index of the selected menu item cmd
         int cmdIndex = tcsStateMenu.getItems().indexOf( event.getSource() );
@@ -142,41 +178,135 @@ public class PrimaryController implements Initializable {
 
         Entity entity = execFX.getEntityList().get( 0 /* cscTCS */ );
 
-        //Future<Integer> futureSumState =
-        //    Executors.newFixedThreadPool( 1 )
-        //             .submit( new cEventTask( entity.getCSC(), "summaryState" ));
-
         // State Pattern: context.request() [e.g. entityTcs.enterControl()]
-        rCmdTask task = new rCmdTask( entity, cmdString );
-        task.call();
-        //Executors.newFixedThreadPool( 1 )
-        //         .submit( new rCmdTask( entity, cmdString ) );
+        //rCmdTask task = new rCmdTask( entity, cmdString );
+        //task.call();
+        (new rCmdTask( entity, cmdString )).call();
         
-        tcsStateText.setText( STATE_TEXT_MAP.get( cmdString ) );
-        tcsStateText.setStyle( "-fx-text-fill: darkcyan;" +
-                               "-fx-font-weight: bold;" +   
-                               "-fx-font-size: 11;" );
-        
-        if ( cmdString.matches("enterControl") ) {
-            
-            tcsLabel.setStyle( "-fx-text-fill: green;"  + 
-                               "-fx-font-size: 13;"     +
-                               "-fx-font-weight: bold;" +
-                               "-fx-border-width: 0 1 0 0;"  );
-            tcsLabel.setEffect(new Glow(0.9));
-            tcsTooltip.setText("TCS Online");
-        }
-        
-        if ( cmdString.matches("exitControl") ) {
-            
-            tcsLabel.setStyle( "-fx-text-fill: gainsboro;" +
-                               "-fx-font-size: 13;"        +
-                               "-fx-font-weight: normal;" );
-            tcsLabel.setEffect(new Glow());
-            tcsTooltip.setText("TCS Offline");
-        }
+        checkStatus( entity, cmdString );
     }
     
+//    void checkStatus( Entity entity, String cmdString) throws InterruptedException, ExecutionException {
+//        
+//        Service service = new Service() {
+//
+//            @Override protected Task createTask () {
+//                
+//                return new Task<Void>() {
+//                    
+//                    @Override protected Void call() throws Exception {
+//                        
+//                        out.print( "ServiceTaskcall:"+ Thread.currentThread().getId());
+//                        
+//                        Future<Integer> futureSumState = 
+//                                ( new cEventTask2( entity.getCSC(), "summaryState" ) ).call();
+//
+//                        Integer result = CommandableSalComponent.CSC_STATUS.SAL__OK.getValue();
+//                        result = futureSumState.get();
+//
+//                        if ( result.equals( CommandableSalComponent.CSC_STATUS.SAL__OK.getValue() ) ) {
+//
+//                            tcsStateText.setText( STATE_TEXT_MAP.get( cmdString ) );
+//                            tcsStateText.setStyle( "-fx-text-fill: darkcyan;" +
+//                                                   "-fx-font-weight: bold;" +   
+//                                                   "-fx-font-size: 11;" );
+//
+//                            if ( cmdString.matches("enterControl") ) {
+//
+//                                tcsLabel.setStyle( "-fx-text-fill: green;"  + 
+//                                                   "-fx-font-size: 13;"     +
+//                                                   "-fx-font-weight: bold;" +
+//                                                   "-fx-border-width: 0 1 0 0;"  );
+//                                tcsLabel.setEffect(new Glow(0.9));
+//                                tcsTooltip.setText("TCS Online");
+//                            }
+//
+//                            if ( cmdString.matches("exitControl") ) {
+//
+//                                tcsLabel.setStyle( "-fx-text-fill: gainsboro;" +
+//                                                   "-fx-font-size: 13;"        +
+//                                                   "-fx-font-weight: normal;" );
+//                                tcsLabel.setEffect(new Glow());
+//                                tcsTooltip.setText("TCS Offline");
+//                            }
+//                        }
+//                        
+//                        return null;
+//                    } // end call()
+//                }; // end Task()
+//            } // end createTask()
+//        }; // end new Service()
+//        
+//       service.start();
+//    }
+    
+    /**
+     * The {@code checkStatus()} method subscribes to the SummaryState topic
+     * of a specific CSC on a background JavaFX thread.
+     * 
+     * A {@code Service} class creates & manages a Task that performs the work 
+     * on a background (daemon) thread. {@code Service} implements {@code Worker}.
+     * 
+     * <p>Similar to doing: Thread th = new Thread(new Runnable task)
+     * <p>Similar to doing: Executors.newWorkStealingPool().execute(new Runnable task);
+     *
+     * @see <li>https://docs.oracle.com/javase/8/javafx/api/toc.htm
+     * @see <li>https://docs.oracle.com/javase/8/javafx/concurrent/Service.html
+     */
+    void checkStatus( Entity entity, String cmdString ) throws Exception {
+
+        Service service = new Service() {
+
+            @Override protected Task createTask () {
+                
+                return new Task<Void>() {
+                    
+                    @Override protected Void call() throws Exception {
+                        
+                        Integer sumState = 
+                                ( new cEventTask3( entity.getCSC(), "summaryState" ) ).call();
+
+                        if ( sumState.equals( CommandableSalComponent.CSC_STATUS.SAL__OK.getValue() ) ) {
+                            
+                            int ndx = execFX.getEntityList().indexOf( entity );
+
+                            stateTextList.get(ndx).setText( STATE_TEXT_MAP.get( cmdString ) );
+                            stateTextList.get(ndx)
+                                         .setStyle( "-fx-text-fill: darkcyan;" +
+                                                    "-fx-font-weight: bold;" +   
+                                                    "-fx-font-size: 11;" );
+
+                            if ( cmdString.matches( "enterControl" ) ) {
+
+                                stateLabelList.get(ndx)
+                                              .setStyle( "-fx-text-fill: green;"  + 
+                                                         "-fx-font-size: 13;"     +
+                                                         "-fx-font-weight: bold;" +
+                                                         "-fx-border-width: 0 1 0 0;"  );
+                                stateLabelList.get(ndx).setEffect(new Glow(0.9));
+                                stateTooltipList.get(ndx).setText( stateLabelList.get(ndx).getText() + " Online");
+                            }
+
+                            if ( cmdString.matches( "exitControl" ) ) {
+
+                                stateLabelList.get(ndx)
+                                              .setStyle( "-fx-text-fill: gainsboro;" +
+                                                         "-fx-font-size: 13;"        +
+                                                         "-fx-font-weight: normal;" );
+                                stateLabelList.get(ndx).setEffect(new Glow());
+                                stateTooltipList.get(ndx).setText( stateLabelList.get(ndx).getText() + " Offline");
+                            }
+                        }
+                        
+                        return null;
+                    } // end call()
+                }; // end Task()
+            } // end createTask()
+        }; // end new Service()
+        
+       service.start();
+    }
+
     @FXML
     private void tcsCmd(ActionEvent event) {
         
@@ -214,7 +344,7 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void ccsState(ActionEvent event) {
+    private void ccsState(ActionEvent event) throws Exception {
 
         // Grab the index of the selected menu item cmd
         int cmdIndex = ccsStateMenu.getItems().indexOf( event.getSource() );
@@ -222,39 +352,11 @@ public class PrimaryController implements Initializable {
 
         Entity entity = execFX.getEntityList().get( 1 /* cscCCS */ );
 
-        //Future<Integer> futureSumState =
-        //    Executors.newFixedThreadPool( 1 )
-        //             .submit( new cEventTask( entity.getCSC(), "summaryState" ));
-
         // State Pattern: context.request() [e.g. entityCcs.enterControl()]
         rCmdTask task = new rCmdTask( entity, cmdString );
         task.call();
-        //Executors.newFixedThreadPool( 1 )
-        //         .submit( new rCmdTask( entity, cmdString ) );
         
-        ccsStateText.setText( STATE_TEXT_MAP.get( cmdString ) );
-        ccsStateText.setStyle( "-fx-text-fill: darkcyan;" +
-                               "-fx-font-weight: bold;" +
-                               "-fx-font-size: 11;" );
-        
-        if ( cmdString.matches("enterControl") ) {
-            
-            ccsLabel.setStyle( "-fx-text-fill: green;"  + 
-                               "-fx-font-size: 13;"     +
-                               "-fx-font-weight: bold;" +
-                               "-fx-border-width: 1 1 1 1;"  );
-            ccsLabel.setEffect(new Glow(0.9));
-            ccsTooltip.setText("CCS Online");
-        }
-        
-        if ( cmdString.matches("exitControl") ) {
-            
-            ccsLabel.setStyle( "-fx-text-fill: gainsboro;" +
-                               "-fx-font-size: 13;"        +
-                               "-fx-font-weight: normal;" );
-            ccsLabel.setEffect(new Glow());
-            ccsTooltip.setText("CCS Offline");
-        }
+        checkStatus( entity, cmdString );
     }
     
     @FXML
@@ -566,24 +668,4 @@ public class PrimaryController implements Initializable {
         
         salConnectCsc.connect();
     }
-    
-    /**
-     * Is called by the main FX application to give a reference back to itself.
-     * 
-     * @param refExecFX
-     */
-    public void setExecFXApp(ExecutiveFX refExecFX) {
-
-        this.execFX = refExecFX;
-    }
-    
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
-    @Override
-    public void initialize( URL url, ResourceBundle rb ) {
-        // TODO
-    }
-
 }

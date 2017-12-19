@@ -15,15 +15,13 @@
 package org.lsst.ocs.executive.salcomponent;
 
 import org.lsst.sal.SAL_archiver;
-
 import static java.lang.System.out;
 
 /**
  *
- * SalCmd is OCS Executive's interface to SAL middle-ware
- * <p>
+ * CSCArchiver is a Receiver class in the command pattern
+ * 
  */
-//public class CSCArchiver extends CommandableSalComponent {
 public class CSCArchiver implements CommandableSalComponent {
 
     @Override
@@ -201,32 +199,34 @@ public class CSCArchiver implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override
-    public void summaryState() {
-
+    @Override public Integer summaryState() {
+    
         // Initialize
         SAL_archiver subscriber = new SAL_archiver();
         subscriber.salEvent( "archiver_logevent_SummaryState" );
 
         archiver.logevent_SummaryState event = new archiver.logevent_SummaryState();
-//        out.println( "Archiver Event SummaryState logger ready " );
 
-        int status;
-        while ( Boolean.TRUE ) {
-            status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_archiver.SAL__OK ) {
-                out.println( "=== Event Logged : " + event );
+        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
+        while (Boolean.TRUE) {
+            
+            status = subscriber.getEvent_SummaryState(event);
+            if (status == SAL_archiver.SAL__OK) {
+                
+                out.println("=== Event Logged : " + event);
+
+                /* Remove the DataWriters etc */
+                subscriber.salShutdown();
+                return status;
             }
 
-            try {
-                Thread.sleep( 100 );
-            } catch ( InterruptedException e ) {
-                e.printStackTrace();
-            }
+            try { Thread.sleep(100); } catch (InterruptedException e) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */
         subscriber.salShutdown();
+        //return i;
+        return status;
     }
 
     @Override

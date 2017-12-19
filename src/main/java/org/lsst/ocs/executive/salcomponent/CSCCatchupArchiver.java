@@ -19,11 +19,9 @@ import org.lsst.sal.SAL_catchuparchiver;
 
 /**
  *
- * SalCmd is OCS Executive's interface to SAL middle-ware
+ * CSCCatchupArchiver is a Receiver class in the command pattern
  *
  */
-
-//public class CSCCatchupArchiver extends CommandableSalComponent {
 public class CSCCatchupArchiver implements CommandableSalComponent {
     
     @Override public String getName() { return "CSCCatchupArchiver"; }
@@ -192,29 +190,36 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override public void summaryState() {
+    @Override public Integer summaryState() {
     
         // Initialize
         SAL_catchuparchiver subscriber = new SAL_catchuparchiver();
-        subscriber.salEvent("catchuparchiver_logevent_SummaryState");
+        subscriber.salEvent( "catchuparchiver_logevent_SummaryState" );
 
         catchuparchiver.logevent_SummaryState event = new catchuparchiver.logevent_SummaryState();
-//        out.println("CatchupArchiver Event SummaryState logger ready ");
 
-        int status;
+        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while (Boolean.TRUE) {
+            
             status = subscriber.getEvent_SummaryState(event);
             if (status == SAL_catchuparchiver.SAL__OK) {
+                
                 out.println("=== Event Logged : " + event);
+
+                /* Remove the DataWriters etc */
+                subscriber.salShutdown();
+                return status;
             }
 
-            try {Thread.sleep(100);} catch (InterruptedException e) { e.printStackTrace(); }
+            try { Thread.sleep(100); } catch (InterruptedException e) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */
         subscriber.salShutdown();
+        //return i;
+        return status;
     }
-    
+
     @Override public void settingsVersion() {
     
         // Initialize

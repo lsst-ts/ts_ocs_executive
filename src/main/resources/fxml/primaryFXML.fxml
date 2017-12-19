@@ -103,7 +103,7 @@
       </GridPane>
    </bottom>
    <center>
-      <HBox fillHeight="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="1050.0" BorderPane.alignment="CENTER">
+      <HBox id="mainHBox" fx:id="mainHBox" fillHeight="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="1050.0" BorderPane.alignment="CENTER">
          <children>
             <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="175.0" style="-fx-border-width: 0 1 0 0; -fx-border-style: solid;">
                <children>

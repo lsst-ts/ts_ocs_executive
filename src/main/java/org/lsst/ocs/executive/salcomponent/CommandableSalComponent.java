@@ -14,9 +14,9 @@
 package org.lsst.ocs.executive.salcomponent;
 
 import static java.lang.System.out;
+import org.lsst.ocs.executive.DomainObject;
 import java.util.Map;
 import java.util.HashMap;
-import org.lsst.ocs.executive.DomainObject;
 
 /**
  *
@@ -61,7 +61,8 @@ public interface CommandableSalComponent extends DomainObject {
 
     default public void settingsVersion() { out.println("CSC event error: settingsVersion"); }
     default public void appliedSettingsMatchStart() { out.println("CSC event error: appliedSettingsMatchStart"); }
-    default public void summaryState() { out.println("CSC event error: summaryState"); }
+    //default public void summaryState() { out.println("CSC event error: summaryState"); }
+    default public Integer summaryState() { out.println("CSC event error: summaryState"); return -1; }
 
     /*****************************************************/
     

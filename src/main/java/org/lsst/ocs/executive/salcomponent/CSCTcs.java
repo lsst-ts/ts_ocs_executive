@@ -19,11 +19,9 @@ import static java.lang.System.out;
 
 /**
  *
- * SalCmd is OCS Executive's interface to SAL middle-ware
+ * CSCTcs is a Receiver class in the command pattern
  *
  */
-
-//public class CSCTcs extends CommandableSalComponent {
 public class CSCTcs implements CommandableSalComponent {
     
     //Entity tcsEntity = new Entity(EntityType.TCS);
@@ -266,27 +264,58 @@ public class CSCTcs implements CommandableSalComponent {
     }
     
     
-    @Override public void summaryState() {
+//    @Override public void summaryState() {
+//    
+//        // Initialize
+//        SAL_tcs subscriber = new SAL_tcs();
+//        subscriber.salEvent("tcs_logevent_SummaryState");
+//
+//        tcs.logevent_SummaryState event = new tcs.logevent_SummaryState();
+////        out.println("TCS Event SummaryState logger ready ");
+//
+//        int status;
+//        while (Boolean.TRUE) {
+//            status = subscriber.getEvent_SummaryState(event);
+//            if (status == SAL_tcs.SAL__OK) {
+//                
+//                out.println("=== Event Logged : " + event);
+//            }
+//
+//            try {Thread.sleep(100);} catch (InterruptedException e) { e.printStackTrace(); }
+//        }
+//
+//        /* Remove the DataWriters etc */
+//        subscriber.salShutdown();
+//    }
+    
+    @Override public Integer summaryState() {
     
         // Initialize
         SAL_tcs subscriber = new SAL_tcs();
         subscriber.salEvent("tcs_logevent_SummaryState");
 
         tcs.logevent_SummaryState event = new tcs.logevent_SummaryState();
-//        out.println("TCS Event SummaryState logger ready ");
 
-        int status;
+        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while (Boolean.TRUE) {
+            
             status = subscriber.getEvent_SummaryState(event);
             if (status == SAL_tcs.SAL__OK) {
+                
                 out.println("=== Event Logged : " + event);
+
+                /* Remove the DataWriters etc */
+                subscriber.salShutdown();
+                return status;
             }
 
-            try {Thread.sleep(100);} catch (InterruptedException e) { e.printStackTrace(); }
+            try { Thread.sleep(100); } catch (InterruptedException e) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */
         subscriber.salShutdown();
+        //return i;
+        return status;
     }
     
     @Override public void settingsVersion() {

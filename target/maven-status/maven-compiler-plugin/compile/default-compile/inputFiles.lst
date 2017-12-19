@@ -10,6 +10,7 @@
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/ObservingMode.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/rCmdTask.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salcomponent/CommandableSalComponent.java
+/home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/cEventTask2.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/EndNightMode.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/cEventTask.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salservice/SalEvent.java
@@ -22,6 +23,7 @@
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salcomponent/CSCProcessingCluster.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/DisabledState.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salcomponent/CSCHeaderService.java
+/home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/cEventTask3.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/Entity.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/EntityType.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salcomponent/CSCCcs.java

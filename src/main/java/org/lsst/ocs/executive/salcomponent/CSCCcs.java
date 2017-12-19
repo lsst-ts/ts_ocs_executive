@@ -20,9 +20,8 @@ import static java.lang.System.out;
 /**
  *
  * CSCCcs is a Receiver class in the command pattern
- * <p>
+ * 
  */
-//public class CSCCcs extends CommandableSalComponent {
 public class CSCCcs implements CommandableSalComponent {
 
     @Override
@@ -289,8 +288,44 @@ public class CSCCcs implements CommandableSalComponent {
     }
    
         
-    @Override
-    public void summaryState() {
+//    @Override
+//    public void summaryState() {
+//
+//        // Initialize
+//        SAL_camera subscriber = new SAL_camera();
+//        subscriber.salEvent( "camera_logevent_SummaryState" );
+//
+//        camera.logevent_SummaryState event = new camera.logevent_SummaryState();
+//
+////        out.print( this.getClass()
+////            .getSimpleName() + "::"
+////                   + Thread.currentThread().getStackTrace()[1].getMethodName()
+////                   + "::" );
+////        Thread.currentThread().setName( new String().concat( "CSCCameraSummaryStateThread" ) );
+////        out.print( Thread.currentThread().getName() );
+////        out.println( " " + "id: " + Thread.currentThread().getId() );
+//
+////        out.println( "Camera Event SummaryState logger ready " );
+//
+//        int status;
+//        while ( Boolean.TRUE ) {
+//            status = subscriber.getEvent_SummaryState( event );
+//            if ( status == SAL_camera.SAL__OK ) {
+//                out.println( "=== Event Logged : " + event );
+//            }
+//
+//            try {
+//                Thread.sleep( 100 );
+//            } catch ( InterruptedException e ) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        /* Remove the DataWriters etc */
+//        subscriber.salShutdown();
+//    }
+
+    @Override public Integer summaryState() {
 
         // Initialize
         SAL_camera subscriber = new SAL_camera();
@@ -308,11 +343,15 @@ public class CSCCcs implements CommandableSalComponent {
 
 //        out.println( "Camera Event SummaryState logger ready " );
 
-        int status;
+        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while ( Boolean.TRUE ) {
             status = subscriber.getEvent_SummaryState( event );
             if ( status == SAL_camera.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
+                
+                /* Remove the DataWriters etc */
+                subscriber.salShutdown();
+                return status;
             }
 
             try {
@@ -324,6 +363,7 @@ public class CSCCcs implements CommandableSalComponent {
 
         /* Remove the DataWriters etc */
         subscriber.salShutdown();
+        return status;
     }
 
     /*@Override*/
