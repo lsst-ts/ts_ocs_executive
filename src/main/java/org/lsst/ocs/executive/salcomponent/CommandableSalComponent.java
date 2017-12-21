@@ -23,46 +23,25 @@ import java.util.HashMap;
  * CommandableSalComponent is the Receiver base class in the command pattern
  *
  */
-//public abstract class CommandableSalComponent implements DomainObject {
+
 public interface CommandableSalComponent extends DomainObject {
     
     // SAL middle-ware default Commands
     ////////////////////////////////////////////////
-//    public abstract void enterControl();
-//    public abstract void start();
-//    public abstract void enable();
-//    public abstract void disable();
-//    public abstract void standby();
-//    public abstract void exitControl();
-//    public int enterControl(int status) {
-//
-//        out.println("SalCmd enterControl(status) error");
-//        return 0;
-//    }
-
-    default public void enterControl() { out.println("CSC cmd error: enterControl"); }
-    default public void start() { out.println("CSC cmd error: start"); }
-    default public void enable() { out.println("CSC cmd error: enable"); }
-    default public void disable() { out.println("CSC cmd error: disable"); }
-    default public void standby() { out.println("CSC cmd error: standby"); }
-    default public void exitControl() { out.println("CSC cmd error: exitControl"); }
+    default public void enterControl() { out.println( "CSC cmd error: enterControl" ); }
+    default public void start()        { out.println( "CSC cmd error: start" ); }
+    default public void enable()       { out.println( "CSC cmd error: enable" ); }
+    default public void disable()      { out.println( "CSC cmd error: disable" ); }
+    default public void standby()      { out.println( "CSC cmd error: standby" ); }
+    default public void exitControl()  { out.println( "CSC cmd error: exitControl" ); }
 
     // SAL middle-ware default Events
     ////////////////////////////////////////////////
-//    public abstract void settingsVersion();
-//    public abstract void appliedSettingsMatchStart();
-//    public void summaryState() { out.println("SalEvent summaryState() error"); }
-//    public int summaryState(int summaryStateValue) { 
-//        
-//        out.println("SalEvent summaryState(int) error");
-//        return -1;
-//    }
-//    public void errorCode() { out.println("SalEvent errorCode() error"); }
-
-    default public void settingsVersion() { out.println("CSC event error: settingsVersion"); }
-    default public void appliedSettingsMatchStart() { out.println("CSC event error: appliedSettingsMatchStart"); }
+    default public void settingsVersion()           { out.println( "CSC event error: settingsVersion" ); }
+    default public void appliedSettingsMatchStart() { out.println( "CSC event error: appliedSettingsMatchStart" ); }
+    default public Integer summaryState()           { out.println( "CSC event error: summaryState" ); return -1; }
     //default public void summaryState() { out.println("CSC event error: summaryState"); }
-    default public Integer summaryState() { out.println("CSC event error: summaryState"); return -1; }
+    //public void errorCode() { out.println("SalEvent errorCode() error"); }
 
     /*****************************************************/
     

@@ -14,8 +14,6 @@
 
 package org.lsst.ocs.executive;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -24,6 +22,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import org.lsst.ocs.executive.gui.primary.PrimaryController;
 import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 
@@ -32,6 +31,7 @@ import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
  * <p>
  * The {@code ExecutiveFX} class is the entry point of this JavaFX application.
  */
+
 public class ExecutiveFX extends Application {
 
     /**
@@ -48,9 +48,9 @@ public class ExecutiveFX extends Application {
     /**
      * Constructor
      * 
-     * @throws InterruptedException
+     * @throws InterruptedException A few of the methods throw exceptions
      */
-    public ExecutiveFX() throws InterruptedException {
+    public ExecutiveFX() throws Exception {
         
         cscList.add( Executive.cscTCS );
         cscList.add( Executive.cscCCS );

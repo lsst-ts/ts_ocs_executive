@@ -22,17 +22,13 @@ import static java.lang.System.out;
  * CSCArchiver is a Receiver class in the command pattern
  * 
  */
+
 public class CSCArchiver implements CommandableSalComponent {
 
-    @Override
-    public String getName() {
-        return "CSCArchiver";
-    }
+    @Override public String getName() { return "CSCArchiver"; }
 
-    @Override
-    public void enterControl() {
+    @Override public void enterControl() {
 
-        //out.println("SalCmdSequencer.enterControl");
         SAL_archiver publisher = new SAL_archiver();
         publisher.salCommand( "archiver_command_enterControl" );
 
@@ -58,8 +54,7 @@ public class CSCArchiver implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override
-    public void start() {
+    @Override public void start() {
 
         SAL_archiver publisher = new SAL_archiver();
         publisher.salCommand( "archiver_command_start" );
@@ -87,8 +82,7 @@ public class CSCArchiver implements CommandableSalComponent {
 
     }
 
-    @Override
-    public void enable() {
+    @Override public void enable() {
 
         SAL_archiver publisher = new SAL_archiver();
         publisher.salCommand( "archiver_command_enable" );
@@ -115,8 +109,7 @@ public class CSCArchiver implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override
-    public void disable() {
+    @Override public void disable() {
 
         SAL_archiver publisher = new SAL_archiver();
         publisher.salCommand( "archiver_command_disable" );
@@ -143,8 +136,7 @@ public class CSCArchiver implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override
-    public void standby() {
+    @Override public void standby() {
 
         SAL_archiver publisher = new SAL_archiver();
         publisher.salCommand( "archiver_command_standby" );
@@ -171,8 +163,7 @@ public class CSCArchiver implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override
-    public void exitControl() {
+    @Override public void exitControl() {
 
         SAL_archiver publisher = new SAL_archiver();
         publisher.salCommand( "archiver_command_exitControl" );
@@ -225,24 +216,24 @@ public class CSCArchiver implements CommandableSalComponent {
 
         /* Remove the DataWriters etc */
         subscriber.salShutdown();
-        //return i;
+
         return status;
     }
 
-    @Override
-    public void settingsVersion() {
+    @Override public void settingsVersion() {
 
         // Initialize
         SAL_archiver subscriber = new SAL_archiver();
         subscriber.salEvent( "archiver_logevent_SettingVersions" );
 
         archiver.logevent_SettingVersions event = new archiver.logevent_SettingVersions();
-//        out.println( "Archiver Event SettingVersions logger ready " );
 
         int status;
         while ( Boolean.TRUE ) {
+            
             status = subscriber.getEvent_SettingVersions( event );
             if ( status == SAL_archiver.SAL__OK ) {
+                
                 out.println( "=== Event Logged : " + event );
             }
 
@@ -257,20 +248,20 @@ public class CSCArchiver implements CommandableSalComponent {
         subscriber.salShutdown();
     }
 
-    @Override
-    public void appliedSettingsMatchStart() {
+    @Override public void appliedSettingsMatchStart() {
 
         // Initialize
         SAL_archiver subscriber = new SAL_archiver();
         subscriber.salEvent( "archiver_logevent_AppliedSettingsMatchStart" );
 
         archiver.logevent_AppliedSettingsMatchStart event = new archiver.logevent_AppliedSettingsMatchStart();
-//        out.println( "Archiver Event AppliedSettingsMatchStart logger ready " );
 
         int status;
         while ( Boolean.TRUE ) {
+            
             status = subscriber.getEvent_AppliedSettingsMatchStart( event );
             if ( status == SAL_archiver.SAL__OK ) {
+                
                 out.println( "=== Event Logged : " + event );
             }
 

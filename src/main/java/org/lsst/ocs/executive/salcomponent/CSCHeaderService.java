@@ -22,13 +22,13 @@ import org.lsst.sal.SAL_dmHeaderService;
  * CSCHeaderService is a Receiver class in the command pattern
  *
  */
+
 public class CSCHeaderService implements CommandableSalComponent {
     
     @Override public String getName() { return "CSCHeaderService"; }
 
     @Override public void enterControl() { 
     
-        //out.println("SalCmdSequencer.enterControl");
         SAL_dmHeaderService publisher = new SAL_dmHeaderService();
         publisher.salCommand("dmHeaderService_command_EnterControl");
 
@@ -37,7 +37,6 @@ public class CSCHeaderService implements CommandableSalComponent {
         command.device = "dmHeaderService";
         command.property = "enterControl";
         command.action = "set";
-        //command.state = true;
 
         int cmdId = publisher.issueCommand_EnterControl(command);
 
@@ -64,7 +63,6 @@ public class CSCHeaderService implements CommandableSalComponent {
         command.device = "dmHeaderService";
         command.property = "start";
         command.action = "set";
-        //command.configuration = "normal";
 
         int cmdId = publisher.issueCommand_Start(command);
 
@@ -92,7 +90,6 @@ public class CSCHeaderService implements CommandableSalComponent {
         command.device = "dmHeaderService";
         command.property = "enable";
         command.action = "set";
-        //command.state = true;
 
         int cmdId = publisher.issueCommand_Enable(command);
 
@@ -119,7 +116,6 @@ public class CSCHeaderService implements CommandableSalComponent {
         command.device = "dmHeaderService";
         command.property = "disable";
         command.action = "set";
-        //command.state = true;
 
         int cmdId = publisher.issueCommand_Disable(command);
 
@@ -146,7 +142,6 @@ public class CSCHeaderService implements CommandableSalComponent {
         command.device = "dmHeaderService";
         command.property = "standby";
         command.action = "set";
-        //command.state = true;
 
         int cmdId = publisher.issueCommand_Standby(command);
 
@@ -173,7 +168,6 @@ public class CSCHeaderService implements CommandableSalComponent {
         command.device = "dmHeaderService";
         command.property = "exitControl";
         command.action = "set";
-        //command.state = true;
 
         int cmdId = publisher.issueCommand_ExitControl(command);
 
@@ -216,7 +210,7 @@ public class CSCHeaderService implements CommandableSalComponent {
 
         /* Remove the DataWriters etc */
         subscriber.salShutdown();
-        //return i;
+
         return status;
     }
 
@@ -227,12 +221,13 @@ public class CSCHeaderService implements CommandableSalComponent {
         subscriber.salEvent("dmHeaderService_logevent_SettingVersions");
         
         dmHeaderService.logevent_SettingVersions event = new dmHeaderService.logevent_SettingVersions();
-//        out.println("DM HeaderService Event SettingVersions logger ready ");
 
         int status;
         while (Boolean.TRUE) {
+            
             status = subscriber.getEvent_SettingVersions(event);
             if (status == SAL_dmHeaderService.SAL__OK) {
+                
                 out.println("=== Event Logged : " + event);
             }
             
@@ -250,12 +245,13 @@ public class CSCHeaderService implements CommandableSalComponent {
         subscriber.salEvent("dmHeaderService_logevent_AppliedSettingsMatchStart");
         
         dmHeaderService.logevent_AppliedSettingsMatchStart event = new dmHeaderService.logevent_AppliedSettingsMatchStart();
-//        out.println("DM HeaderService Event AppliedSettingsMatchStart logger ready ");
 
         int status;
         while (Boolean.TRUE) {
+            
             status = subscriber.getEvent_AppliedSettingsMatchStart(event);
             if (status == SAL_dmHeaderService.SAL__OK) {
+                
                 out.println("=== Event Logged : " + event);
             }
             

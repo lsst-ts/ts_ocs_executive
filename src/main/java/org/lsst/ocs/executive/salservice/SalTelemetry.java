@@ -47,30 +47,3 @@ public class SalTelemetry extends SalService implements DomainObject {
         }
     }
 }
-
-//public class SalTelemetry implements SalService {
-//    
-//    // Receiver (e.g. SalCamera)
-//    CommandableSalComponent _salComponent;
-//    
-//    // Telemetry (e.g. heartBeat)
-//    public String _topic;
-//    
-//    // Topic Arg list
-//    public List<String> _topicArgs;
-//    
-//    public SalTelemetry(CommandableSalComponent salComponent) { this._salComponent = salComponent; }
-//
-//    @Override public void execute() {
-//        
-//        // receiver.action() (e.g. SalCamera.heartBeat())
-//        try {
-//            _salComponent.getClass()
-//                         .getMethod(this._topic, new Class[]{}) // method w/ null args
-//                         .invoke(_salComponent, new Object[]{}); // invoke w/ null args
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace(out.printf(this.getName() + "interrupted"));
-//        }
-//    }
-//}

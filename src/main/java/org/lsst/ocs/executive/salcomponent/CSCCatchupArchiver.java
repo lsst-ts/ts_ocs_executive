@@ -22,13 +22,13 @@ import org.lsst.sal.SAL_catchuparchiver;
  * CSCCatchupArchiver is a Receiver class in the command pattern
  *
  */
+
 public class CSCCatchupArchiver implements CommandableSalComponent {
     
     @Override public String getName() { return "CSCCatchupArchiver"; }
     
     @Override public void enterControl() { 
     
-        //out.println("SalCmdSequencer.enterControl");
         SAL_catchuparchiver publisher = new SAL_catchuparchiver();
         publisher.salCommand("catchuparchiver_command_enterControl");
 
@@ -216,7 +216,7 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
 
         /* Remove the DataWriters etc */
         subscriber.salShutdown();
-        //return i;
+
         return status;
     }
 
@@ -227,12 +227,13 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         subscriber.salEvent("catchuparchiver_logevent_SettingVersions");
         
         catchuparchiver.logevent_SettingVersions event = new catchuparchiver.logevent_SettingVersions();
-//        out.println("CatchupArchiver Event SettingVersions logger ready ");
 
         int status;
         while (Boolean.TRUE) {
+            
             status = subscriber.getEvent_SettingVersions(event);
             if (status == SAL_catchuparchiver.SAL__OK) {
+                
                 out.println("=== Event Logged : " + event);
             }
             
@@ -250,12 +251,13 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         subscriber.salEvent("catchuparchiver_logevent_AppliedSettingsMatchStart");
         
         catchuparchiver.logevent_AppliedSettingsMatchStart event = new catchuparchiver.logevent_AppliedSettingsMatchStart();
-//        out.println("CatchupArchiver Event AppliedSettingsMatchStart logger ready ");
 
         int status;
         while (Boolean.TRUE) {
+            
             status = subscriber.getEvent_AppliedSettingsMatchStart(event);
             if (status == SAL_catchuparchiver.SAL__OK) {
+                
                 out.println("=== Event Logged : " + event);
             }
             

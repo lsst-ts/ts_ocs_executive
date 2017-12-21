@@ -39,10 +39,3 @@ public abstract class SalService {
     
     public abstract void execute();
 }
-
-//public interface SalService extends DomainObject {
-//    
-//    @Override default public String getName() {return "SalService NONAME"; }
-//    
-//    default public void execute() { out.println("SalService execute error"); } 
-//}

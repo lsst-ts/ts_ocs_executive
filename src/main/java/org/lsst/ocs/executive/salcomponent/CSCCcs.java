@@ -22,15 +22,12 @@ import static java.lang.System.out;
  * CSCCcs is a Receiver class in the command pattern
  * 
  */
+
 public class CSCCcs implements CommandableSalComponent {
 
-    @Override
-    public String getName() {
-        return "CSCCamera";
-    }
+    @Override public String getName() { return "CSCCamera"; }
 
-    @Override
-    public void enterControl() {
+    @Override public void enterControl() {
 
         SAL_camera publisher = new SAL_camera();
         publisher.salCommand( "camera_command_enterControl" );
@@ -44,8 +41,6 @@ public class CSCCcs implements CommandableSalComponent {
 
         int cmdId = publisher.issueCommand_enterControl( command );
 
-//        out.println("Camera Command enterControl ready ");
-        
         try {
             Thread.sleep( 250 );
         } catch ( InterruptedException e ) {
@@ -59,8 +54,7 @@ public class CSCCcs implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override
-    public void start() {
+    @Override public void start() {
 
         SAL_camera publisher = new SAL_camera();
         publisher.salCommand( "camera_command_start" );
@@ -88,8 +82,7 @@ public class CSCCcs implements CommandableSalComponent {
 
     }
 
-    @Override
-    public void enable() {
+    @Override public void enable() {
 
         SAL_camera publisher = new SAL_camera();
         publisher.salCommand( "camera_command_enable" );
@@ -116,8 +109,7 @@ public class CSCCcs implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override
-    public void disable() {
+    @Override public void disable() {
 
         SAL_camera publisher = new SAL_camera();
         publisher.salCommand( "camera_command_disable" );
@@ -144,8 +136,7 @@ public class CSCCcs implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override
-    public void standby() {
+    @Override public void standby() {
 
         SAL_camera publisher = new SAL_camera();
         publisher.salCommand( "camera_command_standby" );
@@ -172,8 +163,7 @@ public class CSCCcs implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override
-    public void exitControl() {
+    @Override public void exitControl() {
 
         SAL_camera publisher = new SAL_camera();
         publisher.salCommand( "camera_command_exitControl" );
@@ -287,44 +277,6 @@ public class CSCCcs implements CommandableSalComponent {
         publisher.salShutdown();
     }
    
-        
-//    @Override
-//    public void summaryState() {
-//
-//        // Initialize
-//        SAL_camera subscriber = new SAL_camera();
-//        subscriber.salEvent( "camera_logevent_SummaryState" );
-//
-//        camera.logevent_SummaryState event = new camera.logevent_SummaryState();
-//
-////        out.print( this.getClass()
-////            .getSimpleName() + "::"
-////                   + Thread.currentThread().getStackTrace()[1].getMethodName()
-////                   + "::" );
-////        Thread.currentThread().setName( new String().concat( "CSCCameraSummaryStateThread" ) );
-////        out.print( Thread.currentThread().getName() );
-////        out.println( " " + "id: " + Thread.currentThread().getId() );
-//
-////        out.println( "Camera Event SummaryState logger ready " );
-//
-//        int status;
-//        while ( Boolean.TRUE ) {
-//            status = subscriber.getEvent_SummaryState( event );
-//            if ( status == SAL_camera.SAL__OK ) {
-//                out.println( "=== Event Logged : " + event );
-//            }
-//
-//            try {
-//                Thread.sleep( 100 );
-//            } catch ( InterruptedException e ) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        /* Remove the DataWriters etc */
-//        subscriber.salShutdown();
-//    }
-
     @Override public Integer summaryState() {
 
         // Initialize
@@ -345,8 +297,10 @@ public class CSCCcs implements CommandableSalComponent {
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while ( Boolean.TRUE ) {
+            
             status = subscriber.getEvent_SummaryState( event );
             if ( status == SAL_camera.SAL__OK ) {
+                
                 out.println( "=== Event Logged : " + event );
                 
                 /* Remove the DataWriters etc */
@@ -363,64 +317,24 @@ public class CSCCcs implements CommandableSalComponent {
 
         /* Remove the DataWriters etc */
         subscriber.salShutdown();
+        
         return status;
     }
 
-    /*@Override*/
-    public int summaryState(int summaryStateValue) { 
-        
-        // Initialize
-        SAL_camera subscriber = new SAL_camera();
-        subscriber.salEvent( "camera_logevent_SummaryState" );
-
-        camera.logevent_SummaryState event = new camera.logevent_SummaryState();
-
-//        out.print( this.getClass()
-//            .getSimpleName() + "::"
-//                   + Thread.currentThread().getStackTrace()[1].getMethodName()
-//                   + "::" );
-//        Thread.currentThread().setName( new String().concat( "CSCCameraSummaryStateThread" ) );
-//        out.print( Thread.currentThread().getName() );
-//        out.println( " " + "id: " + Thread.currentThread().getId() );
-//
-//        out.println( "Camera Event SummaryState logger ready " );
-
-        int status;
-        while ( Boolean.TRUE ) {
-            status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_camera.SAL__OK ) {
-                out.println( "=== Event Logged : " + event );
-            }
-
-            try {
-                Thread.sleep( 100 );
-            } catch ( InterruptedException e ) {
-                e.printStackTrace();
-            }
-        }
-
-        /* Remove the DataWriters etc */
-        subscriber.salShutdown();
-        
-        out.println("SalEvent summaryState(int) error");
-        
-        return -1;
-    }
-    
-    @Override
-    public void settingsVersion() {
+    @Override public void settingsVersion() {
 
         // Initialize
         SAL_camera subscriber = new SAL_camera();
         subscriber.salEvent( "camera_logevent_SettingVersions" );
 
         camera.logevent_SettingVersions event = new camera.logevent_SettingVersions();
-//        out.println( "Camera Event SettingVersions logger ready " );
 
         int status;
         while ( Boolean.TRUE ) {
+            
             status = subscriber.getEvent_SettingVersions( event );
             if ( status == SAL_camera.SAL__OK ) {
+                
                 out.println( "=== Event Logged : " + event );
             }
 
@@ -435,20 +349,20 @@ public class CSCCcs implements CommandableSalComponent {
         subscriber.salShutdown();
     }
 
-    @Override
-    public void appliedSettingsMatchStart() {
+    @Override public void appliedSettingsMatchStart() {
 
         // Initialize
         SAL_camera subscriber = new SAL_camera();
         subscriber.salEvent( "camera_logevent_AppliedSettingsMatchStart" );
 
         camera.logevent_AppliedSettingsMatchStart event = new camera.logevent_AppliedSettingsMatchStart();
-//        out.println( "Camera Event AppliedSettingsMatchStart logger ready " );
 
         int status;
         while ( Boolean.TRUE ) {
+            
             status = subscriber.getEvent_AppliedSettingsMatchStart( event );
             if ( status == SAL_camera.SAL__OK ) {
+                
                 out.println( "=== Event Logged : " + event );
             }
 

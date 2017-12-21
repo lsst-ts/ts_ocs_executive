@@ -18,8 +18,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
-import org.lsst.ocs.executive.salservice.SalService;
+
 import javafx.concurrent.Task;
+
+import org.lsst.ocs.executive.salservice.SalService;
 
 /**
  * <h2>SAL Connect</h2>
@@ -72,8 +74,6 @@ public class SalConnect {
             };
             
             es.submit( _salServiceTasks[i] );
-            //Executors.newFixedThreadPool( 1 )
-            //         .submit( _salServiceTasks[i] );
         }
         
         while ( _salServiceTasks[_numTasks-1].isRunning() ) {
@@ -82,49 +82,3 @@ public class SalConnect {
         es.shutdown();
     }
 }
-
-
-
-////////////////////////////////////////////////////////////////////////////
-//    
-//    private SalCmd _salCmd;  // command infc object
-//    private SalEvent _salEvent;  // command infc object
-//    private SalTelemetry _salTelemetry;  // command infc object
-    
-
-//    //public void setSalCmd(SalCmd salCmd, String topicString) { 
-//    public void setSalCmd(SalService salService, String topicString) { 
-//
-//        //this._salCmd = salCmd;
-//        //this._salCmd._cmdTopic = topicString;
-//        SalCmd salCmd = (SalCmd) salService;
-//        salCmd._topic = topicString;
-//    }
-    
-//    //public void setSalEvent(SalEvent salEvent, String topicString) {
-//    public void setSalEvent(SalService salService, String topicString) { 
-//
-//        //this._salEvent = salEvent;
-//        //this._salEvent._eventTopic = topicString;
-//        SalEvent salEvent = (SalEvent) salService;
-//        salEvent._topic = topicString;
-//    }
-
-//    //public void setSalTelemetry(SalTelemetry salTelemetry, String topicString) {
-//    public void setSalTelemetry(SalService salService, String topicString) { 
-//
-//        //this._salTelemetry = salTelemetry;
-//        //this._salTelemetry._telemetryTopic = topicString;
-//        SalTelemetry salTelemetry = (SalTelemetry) salService;
-//        salTelemetry._topic = topicString;
-//    }
-
-    
-//    public void connectCmd() { this._salCmd.execute(); }
-//    public void connectEvent() { this._salEvent.listen(); }
-//    public void connectTelemetry() { this._salTelemetry.issue(); }
-
-//    public void connectCmd() { this._salService.execute(); }
-//    public void connectEvent() { this._salService.listen();}
-//    public void connectlEvent() { this._salService.listen();}
-//    public void connectTelemetry() { this._salService.trigger();}

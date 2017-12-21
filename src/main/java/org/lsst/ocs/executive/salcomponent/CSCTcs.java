@@ -22,9 +22,8 @@ import static java.lang.System.out;
  * CSCTcs is a Receiver class in the command pattern
  *
  */
+
 public class CSCTcs implements CommandableSalComponent {
-    
-    //Entity tcsEntity = new Entity(EntityType.TCS);
     
     @Override public String getName() { return "CSCTcs"; }
     
@@ -46,8 +45,6 @@ public class CSCTcs implements CommandableSalComponent {
         command.state = true;
 
         int cmdId = publisher.issueCommand_enterControl(command);
-
-//        out.println("TCS Command enterControl ready ");
 
         try {
             Thread.sleep(250);
@@ -263,31 +260,6 @@ public class CSCTcs implements CommandableSalComponent {
         publisher.salShutdown();
     }
     
-    
-//    @Override public void summaryState() {
-//    
-//        // Initialize
-//        SAL_tcs subscriber = new SAL_tcs();
-//        subscriber.salEvent("tcs_logevent_SummaryState");
-//
-//        tcs.logevent_SummaryState event = new tcs.logevent_SummaryState();
-////        out.println("TCS Event SummaryState logger ready ");
-//
-//        int status;
-//        while (Boolean.TRUE) {
-//            status = subscriber.getEvent_SummaryState(event);
-//            if (status == SAL_tcs.SAL__OK) {
-//                
-//                out.println("=== Event Logged : " + event);
-//            }
-//
-//            try {Thread.sleep(100);} catch (InterruptedException e) { e.printStackTrace(); }
-//        }
-//
-//        /* Remove the DataWriters etc */
-//        subscriber.salShutdown();
-//    }
-    
     @Override public Integer summaryState() {
     
         // Initialize
@@ -314,7 +286,7 @@ public class CSCTcs implements CommandableSalComponent {
 
         /* Remove the DataWriters etc */
         subscriber.salShutdown();
-        //return i;
+
         return status;
     }
     
@@ -325,12 +297,13 @@ public class CSCTcs implements CommandableSalComponent {
         subscriber.salEvent("tcs_logevent_SettingVersions");
         
         tcs.logevent_SettingVersions event = new tcs.logevent_SettingVersions();
-//        out.println("TCS Event SettingVersions logger ready ");
 
         int status;
         while (Boolean.TRUE) {
+            
             status = subscriber.getEvent_SettingVersions(event);
             if (status == SAL_tcs.SAL__OK) {
+                
                 out.println("=== Event Logged : " + event);
             }
             
@@ -348,12 +321,13 @@ public class CSCTcs implements CommandableSalComponent {
         subscriber.salEvent("tcs_logevent_AppliedSettingsMatchStart");
         
         tcs.logevent_AppliedSettingsMatchStart event = new tcs.logevent_AppliedSettingsMatchStart();
-//        out.println("TCS Event AppliedSettingsMatchStart logger ready ");
 
         int status;
         while (Boolean.TRUE) {
+            
             status = subscriber.getEvent_AppliedSettingsMatchStart(event);
             if (status == SAL_tcs.SAL__OK) {
+                
                 out.println("=== Event Logged : " + event);
             }
             
@@ -371,12 +345,13 @@ public class CSCTcs implements CommandableSalComponent {
         subscriber.salEvent("tcs_logevent_FilterChangeInPosition");
         
         tcs.logevent_FilterChangeInPosition event = new tcs.logevent_FilterChangeInPosition();
-//        out.println("Event FilterChangeInPosition logger ready ");
 
         int status;
         while (Boolean.TRUE) {
+            
             status = subscriber.getEvent_FilterChangeInPosition(event);
             if (status == SAL_tcs.SAL__OK) {
+                
                 out.println("=== Event Logged : " + event);
             }
             
@@ -394,12 +369,13 @@ public class CSCTcs implements CommandableSalComponent {
         subscriber.salEvent("tcs_logevent_TargetInPosition");
         
         tcs.logevent_TargetInPosition event = new tcs.logevent_TargetInPosition();
-//        out.println("Event TargetInPosition logger ready ");
 
         int status;
         while (Boolean.TRUE) {
+            
             status = subscriber.getEvent_TargetInPosition(event);
             if (status == SAL_tcs.SAL__OK) {
+                
                 out.println("=== Event Logged : " + event);
             }
             

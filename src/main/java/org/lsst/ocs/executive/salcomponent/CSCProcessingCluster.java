@@ -22,13 +22,13 @@ import org.lsst.sal.SAL_processingcluster;
  * CSCProcessingCluster is a Receiver class in the command pattern
  *
  */
+
 public class CSCProcessingCluster implements CommandableSalComponent {
     
     @Override public String getName() { return "CSCProcessingCluster"; }
 
     @Override public void enterControl() { 
     
-        //out.println("SalCmdSequencer.enterControl");
         SAL_processingcluster publisher = new SAL_processingcluster();
         publisher.salCommand("processingcluster_command_enterControl");
 
@@ -216,7 +216,7 @@ public class CSCProcessingCluster implements CommandableSalComponent {
 
         /* Remove the DataWriters etc */
         subscriber.salShutdown();
-        //return i;
+
         return status;
     }
 
@@ -227,12 +227,13 @@ public class CSCProcessingCluster implements CommandableSalComponent {
         subscriber.salEvent("processingcluster_logevent_SettingVersions");
         
         processingcluster.logevent_SettingVersions event = new processingcluster.logevent_SettingVersions();
-//        out.println("ProcessingCluster Event SettingVersions logger ready ");
 
         int status;
         while (Boolean.TRUE) {
+            
             status = subscriber.getEvent_SettingVersions(event);
             if (status == SAL_processingcluster.SAL__OK) {
+                
                 out.println("=== Event Logged : " + event);
             }
             
@@ -250,12 +251,13 @@ public class CSCProcessingCluster implements CommandableSalComponent {
         subscriber.salEvent("processingcluster_logevent_AppliedSettingsMatchStart");
         
         processingcluster.logevent_AppliedSettingsMatchStart event = new processingcluster.logevent_AppliedSettingsMatchStart();
-//        out.println("ProcessingCluster Event AppliedSettingsMatchStart logger ready ");
 
         int status;
         while (Boolean.TRUE) {
+            
             status = subscriber.getEvent_AppliedSettingsMatchStart(event);
             if (status == SAL_processingcluster.SAL__OK) {
+                
                 out.println("=== Event Logged : " + event);
             }
             

@@ -38,10 +38,6 @@ public class SalCmd extends SalService implements DomainObject {
         //super._topicArgs = new Object[]{};
     }
     
-//    public void setCSC(CommandableSalComponent salComponent) {
-//        this._salComponent = salComponent;
-//    }
-            
     @Override public void execute() { 
 
         out.print( this.getName() + "::" + 
@@ -62,33 +58,3 @@ public class SalCmd extends SalService implements DomainObject {
         }
     }
 }
-
-//public class SalCmd implements SalService {
-//
-//    // Receiver (e.g. SalCamera)
-//    CommandableSalComponent _salComponent;
-//    
-//    // Cmd (e.g. enterControl)
-//    public String _topic;
-//    
-//    // Topic Arg list
-//    public List<String> _topicArgs = null;
-//    
-//    public SalCmd(CommandableSalComponent salComponent) { this._salComponent = salComponent; }
-//    
-//    @Override public void execute() { 
-//        
-//        // receiver.action() (e.g. SalCamera.enterControl())
-//        try {
-//            _salComponent.getClass()
-//                         .getMethod(this._topic, new Class[]{}) // method w/ null args
-//                         .invoke(_salComponent, _topicArgs);
-//                         //.invoke(_salComponent, new Object[]{}); // invoke w/ null args
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace(out.printf(this.getName() + "interrupted"));
-//        }
-//    }
-//}
-
-
