@@ -21,37 +21,37 @@ import static java.lang.System.out;
 /**
  * <h2>[Runnable] Command Task</h2>
  * <p>
- * The {@code rCmdTask} class implements the {@link Runnable} interface and 
- * overrides the {@code run()} method defined in it. The {@code rCmdTask} 
+ * The {@code CmdTask} class implements the {@link Task} interface and 
+ * overrides the {@code call()} method defined in it. The {@code CmdTask} 
  * class wraps a SAL command topic and is intended to be run in a 
  * separate {@link Thread}.
  * <p>
- * NOTE: The {@code rCmdTask} class does not create a {@link Thread} object,
+ * NOTE: The {@code CmdTask} class does not create a {@link Thread} object,
  * it only defines an entry point for threads. It allows you to pass the 
  * object to the {@link Thread}.
  */
-//public class rCmdTask implements Runnable {
-public class rCmdTask extends Task<Void> {
+
+public class CmdTask extends Task<Void> {
 
     private final CommandableSalComponent _csc;
     private final Entity _entity;
     private final String _cmd;
-    private final String _name = "rCmdTask";
+    private String _name;
 
-    public rCmdTask( CommandableSalComponent csc, String cmd ) {
+    public CmdTask( CommandableSalComponent csc, String cmd ) {
         
         this._csc = csc;
         this._cmd = cmd;
-
         this._entity = null;
+        this._name = "CmdTask" +"::" + this._csc.getName();
     }
 
-    public rCmdTask( Entity entity, String cmd ) {
+    public CmdTask( Entity entity, String cmd ) {
         
         this._entity = entity;
         this._cmd = cmd;
-        
         this._csc = entity.getCSC();
+        this._name = "CmdTask" +"::" + this._csc.getName();
     }
 
     public String getName() {
@@ -59,16 +59,12 @@ public class rCmdTask extends Task<Void> {
         return _name;
     }
 
-    @Override
-    //public void run() {
-    public Void call() {
+    @Override public Void call() {
 
         Thread.currentThread().setName( getName() );
         out.print( this.getName() + "::"
                                   + Thread.currentThread().getStackTrace()[1]
                                                           .getMethodName()
-                                  + "::" 
-                                  + this._csc.getName()
                                   + "::"
                                   + this._cmd 
                                   + "::"
@@ -76,9 +72,6 @@ public class rCmdTask extends Task<Void> {
                                   + Thread.currentThread().getId() + "\n");
 
         try {
-//            _csc.getClass()
-//                .getMethod( this._cmd, new Class[] {} ) // invoke w/ null args
-//                .invoke( this._csc, new Object[] {} ); // invoke w/ null args
             _entity.getClass()
                     // specify method & that it takes no (i.e. null) args
                    .getMethod( this._cmd, new Class[] {} )

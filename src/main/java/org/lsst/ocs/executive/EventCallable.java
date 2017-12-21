@@ -20,25 +20,25 @@ import org.lsst.ocs.executive.salcomponent.*;
 import org.lsst.ocs.executive.salcomponent.CommandableSalComponent.*;
 
 /**
- * <h2>[Callable] Event Task</h2>
+ * <h2>Event Callable</h2>
  * <p>
- * The {@code cEventTask} class implements the {@link Callable} interface and 
- * overrides the {@code call()} method defined in it. The {@code cEventTask} 
+ * The {@code EventCallable} class implements the {@link Callable} interface and 
+ * overrides the {@code call()} method defined in it. The {@code EventCallable} 
  * class wraps a SAL event topic and is intended to be run in a 
  * separate {@link Thread}.
  * <p>
- * NOTE: The {@code cEventTask} class does not create a {@link Thread} object,
+ * NOTE: The {@code EventCallable} class does not create a {@link Thread} object,
  * it only defines an entry point for threads. It allows you to pass the 
  * object to the {@link Thread}.
  */
-//public class cEventTask implements Callable<CommandableSalComponent> {
-public class cEventTask implements Callable<Integer> {
+
+public class EventCallable implements Callable<Integer> {
 
     private final CommandableSalComponent _csc;
     private final String _event;
-    private final String _name = "cEventTask";
+    private final String _name = "EventCallable";
 
-    public cEventTask ( CommandableSalComponent csc, String event ) {
+    public EventCallable ( CommandableSalComponent csc, String event ) {
 
         this._csc = csc;
         this._event = event;
@@ -49,9 +49,7 @@ public class cEventTask implements Callable<Integer> {
         return _name;
     }
 
-    @Override
-    //public CommandableSalComponent call() {
-    public Integer call() {
+    @Override public Integer call() {
         
         Thread.currentThread().setName( getName() );
         out.print( this.getName() + "::"
@@ -79,7 +77,6 @@ public class cEventTask implements Callable<Integer> {
             e.printStackTrace( out.printf( this.getName() + "interrupted" ) );
         }
 
-        //return _csc;
         return status;
     }
 }
