@@ -17,8 +17,6 @@ package org.lsst.ocs.executive.gui.primary;
 import static java.lang.System.out;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,6 +34,14 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.Glow;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import org.lsst.ocs.executive.Entity;
 import org.lsst.ocs.executive.ExecutiveFX;
@@ -65,23 +71,29 @@ public class PrimaryController implements Initializable {
     // Reference to ExecutiveFX, the main Application class
     private ExecutiveFX execFX;
     
-    @FXML private MenuButton tcsStateMenu, ccsStateMenu, arcStateMenu, catStateMenu, proStateMenu, hdrStateMenu;
+    @FXML private MenuButton tcsStateMenu, ccsStateMenu, arcStateMenu, catStateMenu, proStateMenu, hdrStateMenu,
+                             atcsStateMenu, accsStateMenu, admStateMenu, ahdrStateMenu;
 
-    @FXML private MenuItem enter, start, enable, disable, standby, exit;
+    @FXML private MenuItem enter, start, enable, disable, standby, exit,
+                           aenter, astart, aenable, adisable, astandby, aexit;
 
-    @FXML private MenuItem ccsEnter, ccsStart, ccsEnable, ccsDisable, ccsStandby, ccsExit;
+    @FXML private MenuItem ccsEnter, ccsStart, ccsEnable, ccsDisable, ccsStandby, ccsExit,
+                           accsEnter, accsStart, accsEnable, accsDisable, accsStandby, accsExit;
     
     @FXML private MenuItem arcEnter, arcStart, arcEnable, arcDisable, arcStandby, arcExit;
+
+    @FXML private MenuItem admEnter, admStart, admEnable, admDisable, admStandby, admExit;
     
     @FXML private MenuItem catEnter, catStart, catEnable, catDisable, catStandby, catExit;
     
     @FXML private MenuItem proEnter, proStart, proEnable, proDisable, proStandby, proExit;
     
-    @FXML private MenuItem hdrEnter, hdrStart, hdrEnable, hdrDisable, hdrStandby, hdrExit;
+    @FXML private MenuItem hdrEnter, hdrStart, hdrEnable, hdrDisable, hdrStandby, hdrExit,
+                           ahdrEnter, ahdrStart, ahdrEnable, ahdrDisable, ahdrStandby, ahdrExit;
     
-    @FXML private MenuButton tcsCmdMenu, ccsCmdMenu;
+    @FXML private MenuButton tcsCmdMenu, ccsCmdMenu, atcsCmdMenu, accsCmdMenu;
 
-    @FXML private TextField tcsCmdText, ccsCmdText;
+    @FXML private TextField tcsCmdText, ccsCmdText, atcsCmdText, accsCmdText;
 
     @FXML private Menu menuCSC;
 
@@ -89,15 +101,17 @@ public class PrimaryController implements Initializable {
                            menuitemCreateArchiver, menuitemCreateCatchupArchiver, 
                            menuitemCreateProcessingCluster, menuitemCreateAll;
 
-    @FXML private Label tcsLabel, ccsLabel, arcLabel, catLabel, proLabel, hdrLabel;
+    @FXML private Label tcsLabel, ccsLabel, arcLabel, catLabel, proLabel, hdrLabel,
+                        atcsLabel, accsLabel, admLabel, ahdrLabel;
     private ObservableList<Label> stateLabelList;
 
-    @FXML private Tooltip tcsTooltip, ccsTooltip, arcTooltip, catTooltip, proTooltip, hdrTooltip;
+    @FXML private Tooltip tcsTooltip, ccsTooltip, arcTooltip, catTooltip, proTooltip, hdrTooltip,
+                          atcsTooltip, accsTooltip, admTooltip, ahdrTooltip;
     private ObservableList<Tooltip> stateTooltipList;
     
-    @FXML private TextField tcsStateText, ccsStateText, arcStateText, catStateText, proStateText, hdrStateText;
+    @FXML private TextField tcsStateText, ccsStateText, arcStateText, catStateText, proStateText, hdrStateText,
+                            atcsStateText, accsStateText, admStateText, ahdrStateText;
     private ObservableList<TextField> stateTextList;
-    private Map<String, String> STATE_TEXT_MAP;
     
     /**
      * Initializes the controller class. This method is automatically called
@@ -117,17 +131,6 @@ public class PrimaryController implements Initializable {
         stateTextList = FXCollections.observableArrayList( 
             tcsStateText, ccsStateText, arcStateText, catStateText, proStateText
         );
-
-        STATE_TEXT_MAP = new HashMap<String, String>() {
-            {
-                put("enterControl", "STANDBY");
-                put("start"       , "DISABLED");
-                put("enable"      , "ENABLED");
-                put("disable"     , "DISABLED");
-                put("standby"     , "STANDBY");
-                put("exitControl" , "OFFLINE");
-            }
-        };
     }
     
     /**
@@ -165,36 +168,40 @@ public class PrimaryController implements Initializable {
                         
                         Integer sumState = 
                                 ( new EventTask( entity.getCSC(), "summaryState" ) ).call();
+                        
+                        int ndx = execFX.getEntityList().indexOf( entity );
+                        TextField stateText = stateTextList.get(ndx);
+                        Label stateLabel = stateLabelList.get(ndx);
+                        Tooltip stateTooltip = stateTooltipList.get(ndx);
 
                         if ( sumState.equals( CommandableSalComponent.CSC_STATUS.SAL__OK.getValue() ) ) {
                             
-                            int ndx = execFX.getEntityList().indexOf( entity );
-
-                            stateTextList.get(ndx).setText( STATE_TEXT_MAP.get( cmdString ) );
-                            stateTextList.get(ndx)
-                                         .setStyle( "-fx-text-fill: darkcyan;" +
-                                                    "-fx-font-weight: bold;" +   
-                                                    "-fx-font-size: 11;" );
+                            stateText.setText( execFX.STATE_TEXT_MAP.get( cmdString ) );
+                            stateText.setStyle( "-fx-text-fill: darkcyan;" );
+                            stateLabel.setFont( Font.font( "System", FontWeight.BOLD, 11 ) );
 
                             if ( cmdString.matches( "enterControl" ) ) {
 
-                                stateLabelList.get(ndx)
-                                              .setStyle( "-fx-text-fill: green;"  + 
-                                                         "-fx-font-size: 13;"     +
-                                                         "-fx-font-weight: bold;" +
-                                                         "-fx-border-width: 0 1 0 0;"  );
-                                stateLabelList.get(ndx).setEffect(new Glow(0.9));
-                                stateTooltipList.get(ndx).setText( stateLabelList.get(ndx).getText() + " Online");
+                                stateLabel.setStyle( "-fx-text-fill: green;" );
+                                stateLabel.setEffect( new Glow( 0.9 ) );
+                                stateLabel.setFont( Font.font( "System", FontWeight.BOLD, 13 ) );
+                                stateLabel.setBorder( new Border( new BorderStroke( Color.BLACK,
+                                                                                    BorderStrokeStyle.SOLID,
+                                                                                    CornerRadii.EMPTY,
+                                                                                    new BorderWidths( 1, 1, 1, 0 ))));
+                                stateTooltip.setText( stateLabel.getText() + " Online");
                             }
 
                             if ( cmdString.matches( "exitControl" ) ) {
 
-                                stateLabelList.get(ndx)
-                                              .setStyle( "-fx-text-fill: gainsboro;" +
-                                                         "-fx-font-size: 13;"        +
-                                                         "-fx-font-weight: normal;" );
-                                stateLabelList.get(ndx).setEffect(new Glow());
-                                stateTooltipList.get(ndx).setText( stateLabelList.get(ndx).getText() + " Offline");
+                                stateLabel.setStyle( "-fx-text-fill: gainsboro;" );
+                                stateLabel.setEffect( new Glow() );
+                                stateLabel.setFont( Font.font( "System", FontWeight.NORMAL, 11 ) );
+                                stateLabel.setBorder( new Border( new BorderStroke( Color.BLACK,
+                                                                                    BorderStrokeStyle.SOLID,
+                                                                                    CornerRadii.EMPTY,
+                                                                                    new BorderWidths( 1, 1, 1, 0 ))));
+                                stateTooltip.setText( stateLabel.getText() + " Offline");
                             }
                         }
                         
@@ -214,9 +221,8 @@ public class PrimaryController implements Initializable {
     
     @FXML private void tcsState(ActionEvent event) throws Exception {
 
-        // Grab the index of the selected menu item cmd
-        int cmdIndex = tcsStateMenu.getItems().indexOf( event.getSource() );
-        String cmdString = tcsStateMenu.getItems().get(cmdIndex).getText();
+        MenuItem mi = (MenuItem) event.getSource();
+        String cmdString = mi.getText();
 
         Entity entity = execFX.getEntityList().get( 0 /* cscTCS */ );
 
@@ -228,9 +234,8 @@ public class PrimaryController implements Initializable {
     
     @FXML private void tcsCmd(ActionEvent event) {
         
-        // Grab the index & string of the selected CSC menu item
-        int cmdIndex = tcsCmdMenu.getItems().indexOf( event.getSource() );
-        String cmdString = tcsCmdMenu.getItems().get(cmdIndex).getText();
+        MenuItem mi = (MenuItem) event.getSource();
+        String cmdString = mi.getText();
         
         // 1. SalComponent (Receiver) previously defined: Executive.cscTCS
         
@@ -250,9 +255,8 @@ public class PrimaryController implements Initializable {
 
     @FXML private void ccsState(ActionEvent event) throws Exception {
 
-        // Grab the index of the selected menu item cmd
-        int cmdIndex = ccsStateMenu.getItems().indexOf( event.getSource() );
-        String cmdString = ccsStateMenu.getItems().get(cmdIndex).getText();
+        MenuItem mi = (MenuItem) event.getSource();
+        String cmdString = mi.getText();
 
         Entity entity = execFX.getEntityList().get( 1 /* cscCCS */ );
 
@@ -264,9 +268,8 @@ public class PrimaryController implements Initializable {
     
     @FXML private void ccsCmd(ActionEvent event) {
     
-        // Grab the index & string of the selected CSC menu item
-        int cmdIndex = ccsCmdMenu.getItems().indexOf( event.getSource() );
-        String cmdString = ccsCmdMenu.getItems().get(cmdIndex).getText();
+        MenuItem mi = (MenuItem) event.getSource();
+        String cmdString = mi.getText();
         
         // 1. SalComponent (Receiver) previously defined: Executive.cscTCS
 
@@ -354,7 +357,118 @@ public class PrimaryController implements Initializable {
         
         checkSummaryState( entity, cmdString );
     }
+
+    @FXML private void atcsState(ActionEvent event) throws Exception {
+
+        MenuItem mi = (MenuItem) event.getSource();
+        String cmdString = mi.getText();
+
+        Entity entity = execFX.getEntityList().get( 0 /* cscTCS */ );
+
+        // State Pattern: context.request() [e.g. entityTcs.enterControl()]
+        (new CmdTask( entity, cmdString )).call();
+        
+        checkSummaryState( entity, cmdString );
+    }
     
+    @FXML private void atcsCmd(ActionEvent event) {
+        
+        MenuItem mi = (MenuItem) event.getSource();
+        String cmdString = mi.getText();
+        
+        // 1. SalComponent (Receiver) previously defined: Executive.cscTCS
+        
+        // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+        // 2b. Also, assign topic & topic arguments
+        SalCmd salCmdTcs = new SalCmd( execFX.getCscList().get( 0 /* cscTCS */ ) );
+        salCmdTcs.setTopic( cmdString );
+
+        // 3a. Define Invoker w/ # of threads
+        // 3b. Set SalService request (a cmd in this case)
+        SalConnect salConnectTcs = new SalConnect( 1 );
+        salConnectTcs.setSalService( salCmdTcs );
+        
+        // 4. Invoker indirectly calls cmd->execute()
+        salConnectTcs.connect();
+    }
+
+    @FXML private void accsState(ActionEvent event) throws Exception {
+
+        MenuItem mi = (MenuItem) event.getSource();
+        String cmdString = mi.getText();
+
+        Entity entity = execFX.getEntityList().get( 1 /* cscCCS */ );
+
+        // State Pattern: context.request() [e.g. entityCcs.enterControl()]
+        (new CmdTask( entity, cmdString )).call();
+        
+        checkSummaryState( entity, cmdString );
+    }
+    
+    @FXML private void accsCmd(ActionEvent event) {
+    
+        MenuItem mi = (MenuItem) event.getSource();
+        String cmdString = mi.getText();
+        
+        // 1. SalComponent (Receiver) previously defined: Executive.cscTCS
+
+        // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+        // 2b. Also, assign topic & topic arguments
+        SalCmd salCmdCcs = new SalCmd( execFX.getCscList().get( 1 /* cscCCS */ ) );
+        salCmdCcs.setTopic( cmdString );
+
+        // 3a. Define Invoker w/ # of threads
+        // 3b. Set SalService request (a cmd in this case)
+        SalConnect salConnectCcs = new SalConnect( 2 );
+        salConnectCcs.setSalService( salCmdCcs );
+
+        // 4. Invoker indirectly calls cmd->execute()
+        salConnectCcs.connect();
+       
+        if ( cmdString.equalsIgnoreCase( "initImage" )  )  {
+            
+            try {
+                Thread.sleep( 4000 );
+            } catch ( InterruptedException e ) {
+                e.printStackTrace();
+            }
+            
+            SalCmd salCmdCcs2 = new SalCmd( execFX.getCscList().get( 1 /* cscCCS */ ) );
+            salCmdCcs2.setTopic( "takeImage" );
+            salConnectCcs.setSalService( salCmdCcs2 );
+
+            salConnectCcs.connect();
+        }
+    }
+    
+    @FXML private void admState(ActionEvent event) throws Exception {
+
+       // Grab the index of the selected menu item cmd
+        int cmdIndex = arcStateMenu.getItems().indexOf( event.getSource() );
+        String cmdString = arcStateMenu.getItems().get(cmdIndex).getText();
+
+        Entity entity = execFX.getEntityList().get( 2 /* cscARC */ );
+
+        // State Pattern: context.request() [e.g. entityArc.enterControl()]
+        (new CmdTask( entity, cmdString )).call();
+        
+        checkSummaryState( entity, cmdString );
+    }
+    
+    @FXML private void ahdrState(ActionEvent event) throws Exception {
+
+       // Grab the index of the selected menu item cmd
+        int cmdIndex = hdrStateMenu.getItems().indexOf( event.getSource() );
+        String cmdString = hdrStateMenu.getItems().get(cmdIndex).getText();
+
+        Entity entity = execFX.getEntityList().get( 5 /* cscHDR */ );
+
+        // State Pattern: context.request() [e.g. entityHdr.enterControl()]
+        (new CmdTask( entity, cmdString )).call();
+        
+        checkSummaryState( entity, cmdString );
+    }
+
     @FXML private void createCSC(ActionEvent event) throws Exception {
 
         out.print( Thread.currentThread().getStackTrace()[1].getMethodName() + "::" +

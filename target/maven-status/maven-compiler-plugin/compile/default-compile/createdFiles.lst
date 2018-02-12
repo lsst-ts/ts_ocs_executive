@@ -2,7 +2,6 @@ org/lsst/ocs/executive/EntityType.class
 org/lsst/ocs/executive/DomainObject.class
 org/lsst/ocs/executive/Executive.class
 org/lsst/ocs/executive/salcomponent/CSCHeaderService.class
-org/lsst/ocs/executive/gui/primary/PrimaryController$2.class
 org/lsst/ocs/executive/EndNightMode.class
 org/lsst/ocs/executive/salcomponent/CommandableSalComponent$CSC_STATUS.class
 org/lsst/ocs/executive/salcomponent/CSCProcessingCluster.class
@@ -12,9 +11,9 @@ org/lsst/ocs/executive/salconnect/SalConnect$1.class
 org/lsst/ocs/executive/salservice/SalEvent.class
 org/lsst/ocs/executive/Mode.class
 org/lsst/ocs/executive/salcomponent/CSCArchiver.class
-org/lsst/ocs/executive/gui/primary/PrimaryController$2$1.class
 org/lsst/ocs/executive/OfflineState.class
 org/lsst/ocs/executive/StartNightMode.class
+org/lsst/ocs/executive/gui/primary/PrimaryController$1$1.class
 org/lsst/ocs/executive/salservice/SalTelemetry.class
 org/lsst/ocs/executive/salcomponent/CommandableSalComponent$CSC_STATE.class
 org/lsst/ocs/executive/gui/primary/PrimaryController$1.class
@@ -30,6 +29,7 @@ org/lsst/ocs/executive/EnabledState.class
 org/lsst/ocs/executive/salconnect/SalConnect.class
 org/lsst/ocs/executive/EventCallable.class
 org/lsst/ocs/executive/salcomponent/CSCCcs.class
+org/lsst/ocs/executive/ExecutiveFX$1.class
 org/lsst/ocs/executive/salcomponent/CSCCatchupArchiver.class
 org/lsst/ocs/executive/StandbyState.class
 org/lsst/ocs/executive/EventTask.class

@@ -14,6 +14,8 @@
 
 package org.lsst.ocs.executive;
 
+import java.util.HashMap;
+import java.util.Map;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -35,7 +37,7 @@ import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 public class ExecutiveFX extends Application {
 
     /**
-     * The data as an observable list of Persons.
+     * The data as observable lists.
      */
     private final ObservableList<CommandableSalComponent> cscList = FXCollections.observableArrayList();
     
@@ -45,6 +47,18 @@ public class ExecutiveFX extends Application {
     
     private final ObservableList<String> cameraCmdList = FXCollections.observableArrayList();
     
+    public static final 
+        Map<String, String> STATE_TEXT_MAP = new HashMap<String, String>() {
+            {
+                put("enterControl", "STANDBY");
+                put("start"       , "DISABLED");
+                put("enable"      , "ENABLED");
+                put("disable"     , "DISABLED");
+                put("standby"     , "STANDBY");
+                put("exitControl" , "OFFLINE");
+            }
+    };
+    
     /**
      * Constructor
      * 
@@ -53,18 +67,24 @@ public class ExecutiveFX extends Application {
     public ExecutiveFX() throws Exception {
         
         cscList.add( Executive.cscTCS );
+        cscList.add( Executive.cscATCS );
         cscList.add( Executive.cscCCS );
+        cscList.add( Executive.cscACCS );
         cscList.add( Executive.cscARC );
         cscList.add( Executive.cscCAT );
         cscList.add( Executive.cscPRO );
         cscList.add( Executive.cscHDR);
+        cscList.add( Executive.cscAHDR);
         
         entityList.add( Executive.entityTCS );
+        entityList.add( Executive.entityATCS );
         entityList.add( Executive.entityCCS );
+        entityList.add( Executive.entityACCS );
         entityList.add( Executive.entityARC );
         entityList.add( Executive.entityCAT );
         entityList.add( Executive.entityPRO );
         entityList.add( Executive.entityHDR );
+        entityList.add( Executive.entityAHDR );
         
         tcsCmdList.add( "filterChange" );
         tcsCmdList.add( "target" );
