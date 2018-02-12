@@ -178,13 +178,13 @@ public class PrimaryController implements Initializable {
                             
                             stateText.setText( execFX.STATE_TEXT_MAP.get( cmdString ) );
                             stateText.setStyle( "-fx-text-fill: darkcyan;" );
-                            stateLabel.setFont( Font.font( "System", FontWeight.BOLD, 11 ) );
+                            stateText.setFont( Font.font( "System", FontWeight.BOLD, 11 ) );
 
                             if ( cmdString.matches( "enterControl" ) ) {
 
                                 stateLabel.setStyle( "-fx-text-fill: green;" );
                                 stateLabel.setEffect( new Glow( 0.9 ) );
-                                stateLabel.setFont( Font.font( "System", FontWeight.BOLD, 13 ) );
+                                stateLabel.setFont( Font.font( "System", FontWeight.BOLD, 14 ) );
                                 stateLabel.setBorder( new Border( new BorderStroke( Color.BLACK,
                                                                                     BorderStrokeStyle.SOLID,
                                                                                     CornerRadii.EMPTY,

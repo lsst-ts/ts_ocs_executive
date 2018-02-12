@@ -42,23 +42,25 @@ import org.lsst.ocs.executive.salservice.SalCmd;
 public class Executive {
     
     public static final CommandableSalComponent cscTCS  = new CSCTcs();
-    public static final CommandableSalComponent cscATCS = new CSCTcs();
     public static final CommandableSalComponent cscCCS  = new CSCCcs();
-    public static final CommandableSalComponent cscACCS = new CSCCcs();
     public static final CommandableSalComponent cscARC  = new CSCArchiver();
     public static final CommandableSalComponent cscCAT  = new CSCCatchupArchiver();
     public static final CommandableSalComponent cscPRO  = new CSCProcessingCluster();
     public static final CommandableSalComponent cscHDR  = new CSCHeaderService();
+    
+    public static final CommandableSalComponent cscATCS = new CSCTcs();
+    public static final CommandableSalComponent cscACCS = new CSCCcs();
     public static final CommandableSalComponent cscAHDR = new CSCHeaderService();
     
     public static final Entity entityTCS  = new Entity( cscTCS );
-    public static final Entity entityATCS = new Entity( cscATCS );
     public static final Entity entityCCS  = new Entity( cscCCS );
-    public static final Entity entityACCS = new Entity( cscACCS );
     public static final Entity entityARC  = new Entity( cscARC );
     public static final Entity entityCAT  = new Entity( cscCAT );
     public static final Entity entityPRO  = new Entity( cscPRO );
     public static final Entity entityHDR  = new Entity( cscHDR );
+
+    public static final Entity entityATCS = new Entity( cscATCS );
+    public static final Entity entityACCS = new Entity( cscACCS );
     public static final Entity entityAHDR = new Entity( cscAHDR );
     
     public static final List<CmdTask> rCmdTasks_TCS = Arrays.asList(
