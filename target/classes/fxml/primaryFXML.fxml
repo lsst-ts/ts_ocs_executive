@@ -101,7 +101,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="tcsStateText" fx:id="tcsStateText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="tcsStateText" fx:id="tcsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -135,10 +135,13 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="tcsCmdText" fx:id="tcsCmdText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
+                                                <TextField id="tcsCmdText" fx:id="tcsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
                                                 </TextField>
                                              </children>
                                           </HBox>
@@ -180,7 +183,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="ccsStateText" fx:id="ccsStateText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="ccsStateText" fx:id="ccsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -212,10 +215,13 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="ccsCmdText" fx:id="ccsCmdText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
+                                                <TextField id="ccsCmdText" fx:id="ccsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
                                                 </TextField>
                                              </children>
                                           </HBox>
@@ -254,7 +260,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="arcStateText" fx:id="arcStateText" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="arcStateText" fx:id="arcStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -299,7 +305,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="catStateText" fx:id="catStateText" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="catStateText" fx:id="catStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -344,7 +350,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="proStateText" fx:id="proStateText" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="proStateText" fx:id="proStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -389,7 +395,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="hdrStateText" fx:id="hdrStateText" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="hdrStateText" fx:id="hdrStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -445,7 +451,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="tcsStateText" fx:id="atcsStateText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="tcsStateText" fx:id="atcsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -479,10 +485,13 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="tcsCmdText" fx:id="atcsCmdText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
+                                                <TextField id="tcsCmdText" fx:id="atcsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
                                                 </TextField>
                                              </children>
                                           </HBox>
@@ -524,7 +533,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="ccsStateText" fx:id="accsStateText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="ccsStateText" fx:id="accsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -556,10 +565,13 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="ccsCmdText" fx:id="accsCmdText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
+                                                <TextField id="ccsCmdText" fx:id="accsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
                                                 </TextField>
                                              </children>
                                           </HBox>
@@ -598,7 +610,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="arcStateText" fx:id="admStateText" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="arcStateText" fx:id="admStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -643,7 +655,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="hdrStateText" fx:id="ahdrStateText" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="hdrStateText" fx:id="ahdrStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
