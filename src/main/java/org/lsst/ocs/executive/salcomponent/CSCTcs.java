@@ -35,7 +35,7 @@ public class CSCTcs implements CommandableSalComponent {
 //                   Thread.currentThread().getId() + "\n" );
         
         SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand("tcs_command_enterControl");
+        publisher.salCommand( "tcs_command_enterControl" );
 
         tcs.command_enterControl command = new tcs.command_enterControl();
         command.private_revCode = "LSST TCS enterControl COMMAND";
@@ -44,16 +44,16 @@ public class CSCTcs implements CommandableSalComponent {
         command.action = "set";
         command.state = true;
 
-        int cmdId = publisher.issueCommand_enterControl(command);
+        int cmdId = publisher.issueCommand_enterControl( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_enterControl(cmdId, timeout);
+        publisher.waitForCompletion_enterControl( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -62,7 +62,7 @@ public class CSCTcs implements CommandableSalComponent {
     @Override public void start() { 
         
         SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand("tcs_command_start");
+        publisher.salCommand( "tcs_command_start" );
 
         tcs.command_start command = new tcs.command_start();
         command.private_revCode = "LSST TCS start COMMAND";
@@ -71,16 +71,16 @@ public class CSCTcs implements CommandableSalComponent {
         command.action = "set";
         command.configuration = "Default";
 
-        int cmdId = publisher.issueCommand_start(command);
+        int cmdId = publisher.issueCommand_start( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_start(cmdId, timeout);
+        publisher.waitForCompletion_start( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -90,7 +90,7 @@ public class CSCTcs implements CommandableSalComponent {
     @Override public void enable() {
 
         SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand("tcs_command_enable");
+        publisher.salCommand( "tcs_command_enable" );
 
         tcs.command_enable command = new tcs.command_enable();
         command.private_revCode = "LSST TCS enable COMMAND";
@@ -99,16 +99,16 @@ public class CSCTcs implements CommandableSalComponent {
         command.action = "set";
         command.state = true;
 
-        int cmdId = publisher.issueCommand_enable(command);
+        int cmdId = publisher.issueCommand_enable( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_enable(cmdId, timeout);
+        publisher.waitForCompletion_enable( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -117,7 +117,7 @@ public class CSCTcs implements CommandableSalComponent {
     @Override public void disable() {
 
         SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand("tcs_command_disable");
+        publisher.salCommand( "tcs_command_disable" );
 
         tcs.command_disable command = new tcs.command_disable();
         command.private_revCode = "LSST TCS disable COMMAND";
@@ -126,16 +126,16 @@ public class CSCTcs implements CommandableSalComponent {
         command.action = "set";
         command.state = true;
 
-        int cmdId = publisher.issueCommand_disable(command);
+        int cmdId = publisher.issueCommand_disable( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_disable(cmdId, timeout);
+        publisher.waitForCompletion_disable( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -144,7 +144,7 @@ public class CSCTcs implements CommandableSalComponent {
     @Override public void standby() {
 
         SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand("tcs_command_standby");
+        publisher.salCommand( "tcs_command_standby" );
 
         tcs.command_standby command = new tcs.command_standby();
         command.private_revCode = "LSST TCS standby COMMAND";
@@ -153,16 +153,16 @@ public class CSCTcs implements CommandableSalComponent {
         command.action = "set";
         command.state = true;
 
-        int cmdId = publisher.issueCommand_standby(command);
+        int cmdId = publisher.issueCommand_standby( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_standby(cmdId, timeout);
+        publisher.waitForCompletion_standby( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -171,7 +171,7 @@ public class CSCTcs implements CommandableSalComponent {
     @Override public void exitControl() {
 
         SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand("tcs_command_exitControl");
+        publisher.salCommand( "tcs_command_exitControl" );
 
         tcs.command_exitControl command = new tcs.command_exitControl();
         command.private_revCode = "LSST TCS exitControl COMMAND";
@@ -180,16 +180,16 @@ public class CSCTcs implements CommandableSalComponent {
         command.action = "set";
         command.state = true;
 
-        int cmdId = publisher.issueCommand_exitControl(command);
+        int cmdId = publisher.issueCommand_exitControl( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_exitControl(cmdId, timeout);
+        publisher.waitForCompletion_exitControl( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -198,7 +198,7 @@ public class CSCTcs implements CommandableSalComponent {
     public void filterChange() {
 
         SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand("tcs_command_filterChangeRequest");
+        publisher.salCommand( "tcs_command_filterChangeRequest" );
 
         tcs.command_filterChangeRequest command = new tcs.command_filterChangeRequest();
         command.private_revCode = "LSST TCS filterChangeRequest COMMAND";
@@ -207,16 +207,16 @@ public class CSCTcs implements CommandableSalComponent {
         command.action = "apply";
         command.filterChangeRequest = "g";
 
-        int cmdId = publisher.issueCommand_filterChangeRequest(command);
+        int cmdId = publisher.issueCommand_filterChangeRequest( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_filterChangeRequest(cmdId, timeout);
+        publisher.waitForCompletion_filterChangeRequest( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -225,7 +225,7 @@ public class CSCTcs implements CommandableSalComponent {
     public void target() {
 
         SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand("tcs_command_target");
+        publisher.salCommand( "tcs_command_target" );
 
         tcs.command_target command = new tcs.command_target();
         command.private_revCode = "LSST TCS target COMMAND";
@@ -245,16 +245,16 @@ public class CSCTcs implements CommandableSalComponent {
         command.exposure_times = (int) 15;
         command.slew_time = (double) 41.717;
             
-        int cmdId = publisher.issueCommand_target(command);
+        int cmdId = publisher.issueCommand_target( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 4;
-        publisher.waitForCompletion_target(cmdId, timeout);
+        publisher.waitForCompletion_target( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -264,15 +264,15 @@ public class CSCTcs implements CommandableSalComponent {
     
         // Initialize
         SAL_tcs subscriber = new SAL_tcs();
-        subscriber.salEvent("tcs_logevent_SummaryState");
+        subscriber.salEvent( "tcs_logevent_SummaryState" );
 
         tcs.logevent_SummaryState event = new tcs.logevent_SummaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
-        while (Boolean.TRUE) {
+        while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_SummaryState(event);
-            if (status == SAL_tcs.SAL__OK) {
+            status = subscriber.getEvent_SummaryState( event );
+            if ( status == SAL_tcs.SAL__OK ) {
                 
                 out.println("=== Event Logged : " + event);
 
@@ -281,7 +281,7 @@ public class CSCTcs implements CommandableSalComponent {
                 return status;
             }
 
-            try { Thread.sleep(100); } catch (InterruptedException e) { e.printStackTrace(); }
+            try { Thread.sleep(100); } catch ( InterruptedException e ) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */
@@ -294,20 +294,20 @@ public class CSCTcs implements CommandableSalComponent {
     
         // Initialize
         SAL_tcs subscriber = new SAL_tcs();
-        subscriber.salEvent("tcs_logevent_SettingVersions");
+        subscriber.salEvent( "tcs_logevent_SettingVersions" );
         
         tcs.logevent_SettingVersions event = new tcs.logevent_SettingVersions();
 
         int status;
-        while (Boolean.TRUE) {
+        while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_SettingVersions(event);
-            if (status == SAL_tcs.SAL__OK) {
+            status = subscriber.getEvent_SettingVersions( event );
+            if ( status == SAL_tcs.SAL__OK ) {
                 
                 out.println("=== Event Logged : " + event);
             }
             
-            try {Thread.sleep(100);} catch (InterruptedException e) { e.printStackTrace(); }
+            try {Thread.sleep(100);} catch ( InterruptedException e ) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */
@@ -318,20 +318,20 @@ public class CSCTcs implements CommandableSalComponent {
     
         // Initialize
         SAL_tcs subscriber = new SAL_tcs();
-        subscriber.salEvent("tcs_logevent_AppliedSettingsMatchStart");
+        subscriber.salEvent( "tcs_logevent_AppliedSettingsMatchStart" );
         
         tcs.logevent_AppliedSettingsMatchStart event = new tcs.logevent_AppliedSettingsMatchStart();
 
         int status;
-        while (Boolean.TRUE) {
+        while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_AppliedSettingsMatchStart(event);
-            if (status == SAL_tcs.SAL__OK) {
+            status = subscriber.getEvent_AppliedSettingsMatchStart( event );
+            if ( status == SAL_tcs.SAL__OK ) {
                 
                 out.println("=== Event Logged : " + event);
             }
             
-            try {Thread.sleep(100);} catch (InterruptedException e) { e.printStackTrace(); }
+            try {Thread.sleep(100);} catch ( InterruptedException e ) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */
@@ -342,20 +342,20 @@ public class CSCTcs implements CommandableSalComponent {
     
         // Initialize
         SAL_tcs subscriber = new SAL_tcs();
-        subscriber.salEvent("tcs_logevent_FilterChangeInPosition");
+        subscriber.salEvent( "tcs_logevent_FilterChangeInPosition" );
         
         tcs.logevent_FilterChangeInPosition event = new tcs.logevent_FilterChangeInPosition();
 
         int status;
-        while (Boolean.TRUE) {
+        while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_FilterChangeInPosition(event);
-            if (status == SAL_tcs.SAL__OK) {
+            status = subscriber.getEvent_FilterChangeInPosition( event );
+            if ( status == SAL_tcs.SAL__OK ) {
                 
                 out.println("=== Event Logged : " + event);
             }
             
-            try {Thread.sleep(100);} catch (InterruptedException e) { e.printStackTrace(); }
+            try {Thread.sleep(100);} catch ( InterruptedException e ) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */
@@ -366,20 +366,20 @@ public class CSCTcs implements CommandableSalComponent {
     
         // Initialize
         SAL_tcs subscriber = new SAL_tcs();
-        subscriber.salEvent("tcs_logevent_TargetInPosition");
+        subscriber.salEvent( "tcs_logevent_TargetInPosition" );
         
         tcs.logevent_TargetInPosition event = new tcs.logevent_TargetInPosition();
 
         int status;
-        while (Boolean.TRUE) {
+        while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_TargetInPosition(event);
-            if (status == SAL_tcs.SAL__OK) {
+            status = subscriber.getEvent_TargetInPosition( event );
+            if ( status == SAL_tcs.SAL__OK ) {
                 
                 out.println("=== Event Logged : " + event);
             }
             
-            try {Thread.sleep(100);} catch (InterruptedException e) { e.printStackTrace(); }
+            try {Thread.sleep(100);} catch ( InterruptedException e ) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */

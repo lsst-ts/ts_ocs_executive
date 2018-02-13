@@ -187,7 +187,7 @@ public class Executive {
     // start() method is the main entry point for all JavaFX applications
     //public void start(Stage primaryStage) { // Stage class is the top-level JavaFX container
     //public void start( Stage primaryStage ) throws IOException, InterruptedException, ExecutionException {
-    public static void main(String[] args) throws IOException, InterruptedException, ExecutionException {
+    public static void main( String[] args ) throws IOException, InterruptedException, ExecutionException {
 
         out.print( Thread.currentThread().getClass()
             .getSimpleName() + "::"

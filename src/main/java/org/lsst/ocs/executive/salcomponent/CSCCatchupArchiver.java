@@ -30,7 +30,7 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
     @Override public void enterControl() { 
     
         SAL_catchuparchiver publisher = new SAL_catchuparchiver();
-        publisher.salCommand("catchuparchiver_command_enterControl");
+        publisher.salCommand( "catchuparchiver_command_enterControl" );
 
         catchuparchiver.command_enterControl command = new catchuparchiver.command_enterControl();
         command.private_revCode = "LSST CatchupArchiver enterControl COMMAND";
@@ -39,16 +39,16 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         command.action = "set";
         command.state = true;
 
-        int cmdId = publisher.issueCommand_enterControl(command);
+        int cmdId = publisher.issueCommand_enterControl( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_enterControl(cmdId, timeout);
+        publisher.waitForCompletion_enterControl( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -57,7 +57,7 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
     @Override public void start() { 
         
         SAL_catchuparchiver publisher = new SAL_catchuparchiver();
-        publisher.salCommand("catchuparchiver_command_start");
+        publisher.salCommand( "catchuparchiver_command_start" );
 
         catchuparchiver.command_start command = new catchuparchiver.command_start();
         command.private_revCode = "LSST CatchupArchiver start COMMAND";
@@ -66,16 +66,16 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         command.action = "set";
         command.configuration = "normal";
 
-        int cmdId = publisher.issueCommand_start(command);
+        int cmdId = publisher.issueCommand_start( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_start(cmdId, timeout);
+        publisher.waitForCompletion_start( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -85,7 +85,7 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
     @Override public void enable() {
 
         SAL_catchuparchiver publisher = new SAL_catchuparchiver();
-        publisher.salCommand("catchuparchiver_command_enable");
+        publisher.salCommand( "catchuparchiver_command_enable" );
 
         catchuparchiver.command_enable command = new catchuparchiver.command_enable();
         command.private_revCode = "LSST CatchupArchiver enable COMMAND";
@@ -94,16 +94,16 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         command.action = "set";
         command.state = true;
 
-        int cmdId = publisher.issueCommand_enable(command);
+        int cmdId = publisher.issueCommand_enable( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_enable(cmdId, timeout);
+        publisher.waitForCompletion_enable( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -112,7 +112,7 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
     @Override public void disable() {
 
         SAL_catchuparchiver publisher = new SAL_catchuparchiver();
-        publisher.salCommand("catchuparchiver_command_disable");
+        publisher.salCommand( "catchuparchiver_command_disable" );
 
         catchuparchiver.command_disable command = new catchuparchiver.command_disable();
         command.private_revCode = "LSST CatchupArchiver disable COMMAND";
@@ -121,16 +121,16 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         command.action = "set";
         command.state = true;
 
-        int cmdId = publisher.issueCommand_disable(command);
+        int cmdId = publisher.issueCommand_disable( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_disable(cmdId, timeout);
+        publisher.waitForCompletion_disable( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -139,7 +139,7 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
     @Override public void standby() {
 
         SAL_catchuparchiver publisher = new SAL_catchuparchiver();
-        publisher.salCommand("catchuparchiver_command_standby");
+        publisher.salCommand( "catchuparchiver_command_standby" );
 
         catchuparchiver.command_standby command = new catchuparchiver.command_standby();
         command.private_revCode = "LSST CatchupArchiver standby COMMAND";
@@ -148,16 +148,16 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         command.action = "set";
         command.state = true;
 
-        int cmdId = publisher.issueCommand_standby(command);
+        int cmdId = publisher.issueCommand_standby( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_standby(cmdId, timeout);
+        publisher.waitForCompletion_standby( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -166,7 +166,7 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
     @Override public void exitControl() {
 
         SAL_catchuparchiver publisher = new SAL_catchuparchiver();
-        publisher.salCommand("catchuparchiver_command_exitControl");
+        publisher.salCommand( "catchuparchiver_command_exitControl" );
 
         catchuparchiver.command_exitControl command = new catchuparchiver.command_exitControl();
         command.private_revCode = "LSST CatchupArchiver exitControl COMMAND";
@@ -175,16 +175,16 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         command.action = "set";
         command.state = true;
 
-        int cmdId = publisher.issueCommand_exitControl(command);
+        int cmdId = publisher.issueCommand_exitControl( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_exitControl(cmdId, timeout);
+        publisher.waitForCompletion_exitControl( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -199,10 +199,10 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         catchuparchiver.logevent_SummaryState event = new catchuparchiver.logevent_SummaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
-        while (Boolean.TRUE) {
+        while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_SummaryState(event);
-            if (status == SAL_catchuparchiver.SAL__OK) {
+            status = subscriber.getEvent_SummaryState( event );
+            if ( status == SAL_catchuparchiver.SAL__OK ) {
                 
                 out.println("=== Event Logged : " + event);
 
@@ -211,7 +211,7 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
                 return status;
             }
 
-            try { Thread.sleep(100); } catch (InterruptedException e) { e.printStackTrace(); }
+            try { Thread.sleep(100); } catch ( InterruptedException e ) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */
@@ -224,20 +224,20 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
     
         // Initialize
         SAL_catchuparchiver subscriber = new SAL_catchuparchiver();
-        subscriber.salEvent("catchuparchiver_logevent_SettingVersions");
+        subscriber.salEvent( "catchuparchiver_logevent_SettingVersions" );
         
         catchuparchiver.logevent_SettingVersions event = new catchuparchiver.logevent_SettingVersions();
 
         int status;
-        while (Boolean.TRUE) {
+        while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_SettingVersions(event);
-            if (status == SAL_catchuparchiver.SAL__OK) {
+            status = subscriber.getEvent_SettingVersions( event );
+            if ( status == SAL_catchuparchiver.SAL__OK ) {
                 
                 out.println("=== Event Logged : " + event);
             }
             
-            try {Thread.sleep(100);} catch (InterruptedException e) { e.printStackTrace(); }
+            try {Thread.sleep(100);} catch ( InterruptedException e ) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */
@@ -248,20 +248,20 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
     
         // Initialize
         SAL_catchuparchiver subscriber = new SAL_catchuparchiver();
-        subscriber.salEvent("catchuparchiver_logevent_AppliedSettingsMatchStart");
+        subscriber.salEvent( "catchuparchiver_logevent_AppliedSettingsMatchStart" );
         
         catchuparchiver.logevent_AppliedSettingsMatchStart event = new catchuparchiver.logevent_AppliedSettingsMatchStart();
 
         int status;
-        while (Boolean.TRUE) {
+        while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_AppliedSettingsMatchStart(event);
-            if (status == SAL_catchuparchiver.SAL__OK) {
+            status = subscriber.getEvent_AppliedSettingsMatchStart( event );
+            if ( status == SAL_catchuparchiver.SAL__OK ) {
                 
                 out.println("=== Event Logged : " + event);
             }
             
-            try {Thread.sleep(100);} catch (InterruptedException e) { e.printStackTrace(); }
+            try {Thread.sleep(100);} catch ( InterruptedException e ) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */

@@ -78,7 +78,7 @@ public class CmdTask extends Task<Void> {
                     // invoke w/ null args
                    .invoke( this._entity, new Object[] {} );
         } catch ( Exception e ) {
-            e.printStackTrace( out.printf( this.getName() + "interrupted" ) );
+            e.printStackTrace( out.printf( this.getName() + "interrupted from CmdTask.call()" ) );
         }
         
         return null;

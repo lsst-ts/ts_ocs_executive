@@ -22,27 +22,27 @@ package org.lsst.ocs.executive;
 
 public final class ObservingMode { // final class
     
-    private final String obsMode_;
+    private final String _obsMode;
     
     // private constructor
-    private ObservingMode(final String obsMode) { this.obsMode_ = obsMode; }
+    private ObservingMode( final String obsMode ) { this._obsMode = obsMode; }
     
-    @Override public String toString() { return this.obsMode_; }
+    @Override public String toString() { return this._obsMode; }
     
-    public static final ObservingMode SCI = new ObservingMode("SCI");
-    public static final ObservingMode Science     = new ObservingMode("Science");
-    public static final ObservingMode SCIENCE     = new ObservingMode("SCIENCE");
+    public static final ObservingMode SCI         = new ObservingMode( "SCI"     );
+    public static final ObservingMode Science     = new ObservingMode( "Science" );
+    public static final ObservingMode SCIENCE     = new ObservingMode( "SCIENCE" );
 
-    public static final ObservingMode ENG = new ObservingMode("ENG");
-    public static final ObservingMode Engineering = new ObservingMode("Engineering");
-    public static final ObservingMode ENGINEERING = new ObservingMode("ENGINEERING");
+    public static final ObservingMode ENG         = new ObservingMode( "ENG"         );
+    public static final ObservingMode Engineering = new ObservingMode( "Engineering" );
+    public static final ObservingMode ENGINEERING = new ObservingMode( "ENGINEERING" );
 
-    public static final ObservingMode MNT = new ObservingMode("MNT");
-    public static final ObservingMode Maintenance = new ObservingMode("Maintenance");
-    public static final ObservingMode MAINTENANCE = new ObservingMode("MAINTENANCE");
+    public static final ObservingMode MNT         = new ObservingMode( "MNT"         );
+    public static final ObservingMode Maintenance = new ObservingMode( "Maintenance" );
+    public static final ObservingMode MAINTENANCE = new ObservingMode( "MAINTENANCE" );
 
-    public static final ObservingMode CAL = new ObservingMode("CAL");
-    public static final ObservingMode Calibration = new ObservingMode("Calibration");
-    public static final ObservingMode CALIBRATION = new ObservingMode("CALIBRATION");
+    public static final ObservingMode CAL         = new ObservingMode( "CAL"         );
+    public static final ObservingMode Calibration = new ObservingMode( "Calibration" );
+    public static final ObservingMode CALIBRATION = new ObservingMode( "CALIBRATION" );
 }
 

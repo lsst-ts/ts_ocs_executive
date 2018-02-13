@@ -199,10 +199,10 @@ public class CSCArchiver implements CommandableSalComponent {
         archiver.logevent_SummaryState event = new archiver.logevent_SummaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
-        while (Boolean.TRUE) {
+        while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_SummaryState(event);
-            if (status == SAL_archiver.SAL__OK) {
+            status = subscriber.getEvent_SummaryState( event );
+            if ( status == SAL_archiver.SAL__OK ) {
                 
                 out.println("=== Event Logged : " + event);
 
@@ -211,7 +211,7 @@ public class CSCArchiver implements CommandableSalComponent {
                 return status;
             }
 
-            try { Thread.sleep(100); } catch (InterruptedException e) { e.printStackTrace(); }
+            try { Thread.sleep( 100 ); } catch ( InterruptedException e ) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */

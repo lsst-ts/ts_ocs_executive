@@ -50,12 +50,12 @@ public class ExecutiveFX extends Application {
     public static final 
         Map<String, String> STATE_TEXT_MAP = new HashMap<String, String>() {
             {
-                put("enterControl", "STANDBY");
-                put("start"       , "DISABLED");
-                put("enable"      , "ENABLED");
-                put("disable"     , "DISABLED");
-                put("standby"     , "STANDBY");
-                put("exitControl" , "OFFLINE");
+                put( "enterControl", "STANDBY"  );
+                put( "start"       , "DISABLED" );
+                put( "enable"      , "ENABLED"  );
+                put( "disable"     , "DISABLED" );
+                put( "standby"     , "STANDBY"  );
+                put( "exitControl" , "OFFLINE"  );
             }
     };
     
@@ -71,11 +71,11 @@ public class ExecutiveFX extends Application {
         cscList.add( Executive.cscARC );
         cscList.add( Executive.cscCAT );
         cscList.add( Executive.cscPRO );
-        cscList.add( Executive.cscHDR);
+        cscList.add( Executive.cscHDR );
         
         cscList.add( Executive.cscATCS );
         cscList.add( Executive.cscACCS );
-        cscList.add( Executive.cscAHDR);
+        cscList.add( Executive.cscAHDR );
         
         entityList.add( Executive.entityTCS );
         entityList.add( Executive.entityCCS );
@@ -144,7 +144,7 @@ public class ExecutiveFX extends Application {
 
         String fxmlFile = "/fxml/primaryFXML.fxml";
         FXMLLoader loader = new FXMLLoader();
-        Parent rootBorderPane = (Parent) loader.load( getClass().getResourceAsStream( fxmlFile ) );
+        Parent rootBorderPane = ( Parent ) loader.load( getClass().getResourceAsStream( fxmlFile ) );
         
         // Give the controller access to the main app.
         controller = loader.getController();
@@ -175,7 +175,7 @@ public class ExecutiveFX extends Application {
     {
         super.stop();
         
-        if(controller != null)
+        if( controller != null )
         {
             //controller.startHousekeeping(); 
         }
@@ -183,7 +183,7 @@ public class ExecutiveFX extends Application {
         // Terminates the JavaFX Application & Launcher threads
         Platform.exit();
         // Terminates the current JVM (basically killing non-JavaFX threads)
-        System.exit(0);
+        System.exit( 0 );
     } 
     
     /**

@@ -22,19 +22,19 @@ package org.lsst.ocs.executive;
 
 public enum EntityType {
     
-    OCS("OCS"),
-    SEQUENCER("SEQUENCER"),
-    CCS("CCS"),
-    TCS("TCS"),
-    ARCHIVER("ARCHIVER"),
-    CATCHUPARCHIVER("CATCHUPARCHIVER"),
-    PROCESSINGCLUSTER("PROCESSINGCLUSTER"),
-    HEADERSERVICE("HEADERSERVICE");
+    OCS( "OCS" ),
+    SEQUENCER( "SEQUENCER" ),
+    CCS( "CCS" ),
+    TCS( "TCS" ),
+    ARCHIVER( "ARCHIVER" ),
+    CATCHUPARCHIVER( "CATCHUPARCHIVER" ),
+    PROCESSINGCLUSTER( "PROCESSINGCLUSTER" ),
+    HEADERSERVICE( "HEADERSERVICE" );
     
     private final String _etype;
     
     // private constructor
-    private EntityType(String etype) { this._etype = etype; }
+    private EntityType( String etype ) { this._etype = etype; }
     
     @Override public String toString() { return this._etype; }
 }

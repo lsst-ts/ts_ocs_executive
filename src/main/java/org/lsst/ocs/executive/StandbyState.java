@@ -32,34 +32,34 @@ public class StandbyState implements EntityState {
     // Entity is in StandbyState & ready for start trigger
     @Override public String getName() { return "StandbyState"; }
     
-    @Override public void start(Entity entity) {
+    @Override public void start( Entity entity ) {
         
         String salactor = entity.getClass().getSimpleName() + "." + entity.getCSC().getClass().getSimpleName();
-        out.println(salactor + "." + this.getName() + ".start");
+        out.println( salactor + "." + this.getName() + ".start" );
 
         // Cmd Sequencer, TCS, CCS or DMCS via SAL
         // 1. SalComponent (Rcvr) reference is entity data member
         
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-        SalCmd salCmd = new SalCmd(entity._salComponent);
+        SalCmd salCmd = new SalCmd( entity._salComponent );
 
         // 3. Also, assign topic & topic arguments
-        salCmd.setTopic("start");
+        salCmd.setTopic( "start" );
         
         // 4. Define Invoker & set up command request
-        SalConnect salConnect = new SalConnect(1);
-        salConnect.setSalService(salCmd);
+        SalConnect salConnect = new SalConnect( 1 );
+        salConnect.setSalService( salCmd );
         
         // 5. Invoker indirectly calls cmd->execute()
         salConnect.connect();
         
-        if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
+        if ( EntityType.OCS.toString().equalsIgnoreCase( salactor ) ) {
             
             // 1. Publish SummaryState if not previously pub'd
-            SalEvent salEvent = new SalEvent(entity._salComponent);
-            salEvent.setTopic("summaryState");
+            SalEvent salEvent = new SalEvent( entity._salComponent );
+            salEvent.setTopic( "summaryState" );
             
-            salConnect.setSalService(salEvent);
+            salConnect.setSalService( salEvent );
             salConnect.connect();
             
             // 2. Publishes heartbeat; some configuration settings applied
@@ -68,67 +68,67 @@ public class StandbyState implements EntityState {
         }
         
         // Cmd local entity state from StandbyState to DisabledState
-        entity.setState(new DisabledState());
+        entity.setState( new DisabledState() );
     }
 
-    @Override public void exitControl(Entity entity) {
+    @Override public void exitControl( Entity entity ) {
         
         String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
-        out.println(salactor + "." + this.getName() + ".exitControl");
+        out.println( salactor + "." + this.getName() + ".exitControl" );
 
         // Cmd Sequencer, TCS, CCS or DMCS via SAL
         // 1. SalComponent (Rcvr) reference is entity data member
         
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-        SalCmd salCmd = new SalCmd(entity._salComponent);
+        SalCmd salCmd = new SalCmd( entity._salComponent );
 
         // 3. Also, assign topic & topic arguments
-        salCmd.setTopic("exitControl");
+        salCmd.setTopic( "exitControl" );
         
         // 4. Define Invoker & set up command request
-        SalConnect salConnect = new SalConnect(1);
-        salConnect.setSalService(salCmd);
+        SalConnect salConnect = new SalConnect( 1 );
+        salConnect.setSalService( salCmd );
         
         // 5. Invoker indirectly calls cmd->execute()
         salConnect.connect();
 
-        if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
+        if ( EntityType.OCS.toString().equalsIgnoreCase( salactor ) ) {
             
             // 1. Publish SummaryState if not previously pub'd
-            SalEvent salEvent = new SalEvent(entity._salComponent);
-            salEvent.setTopic("summaryState");
+            SalEvent salEvent = new SalEvent( entity._salComponent );
+            salEvent.setTopic( "summaryState" );
             
-            salConnect.setSalService(salEvent);
+            salConnect.setSalService( salEvent );
             salConnect.connect();
             
             // 2. Apply some settings
         }
         
         // Cmd local entity state from StandbyState to OfflineState
-        entity.setState(new OfflineState());
+        entity.setState( new OfflineState() );
     }
 
-    @Override public void fault(Entity entity) {
+    @Override public void fault( Entity entity ) {
         
         String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
-        out.println(salactor + "." + this.getName() + ".fault");
+        out.println( salactor + "." + this.getName() + ".fault" );
 
         // Can't set other entities to FaultState, only myself
-        if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
+        if ( EntityType.OCS.toString().equalsIgnoreCase( salactor)  ) {
             
             // 1. Publish SummaryState == fault if not previously pub'd
-            SalEvent salEvent = new SalEvent(entity._salComponent);
-            salEvent.setTopic("summaryState");
+            SalEvent salEvent = new SalEvent( entity._salComponent );
+            salEvent.setTopic( "summaryState" );
             
-            SalConnect salConnect = new SalConnect(1);
-            salConnect.setSalService(salEvent);
+            SalConnect salConnect = new SalConnect( 1 );
+            salConnect.setSalService( salEvent );
             salConnect.connect();
             
             // 2. Set error code
             // Via Detailed State event ???
             
             // 3. Cmd local entity state from StandbyState to FaultState
-            entity.setState(new FaultState());
+            entity.setState( new FaultState() );
         }
     }
 }

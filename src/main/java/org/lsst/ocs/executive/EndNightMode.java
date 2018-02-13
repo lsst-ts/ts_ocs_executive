@@ -24,41 +24,41 @@ import static java.lang.System.out;
 public class EndNightMode implements ModeState {
     
     @Override public String getName() { return "EndNightMode"; }
-    //private void Initialize() { super.Name_ = "EndNightMode"; }
+    //private void Initialize() { super._Name = "EndNightMode"; }
     
     //public EndNightMode() { Initialize(); }
 
     /*
-    public EndNightMode(ModeState modeState) {
+    public EndNightMode( ModeState modeState ) {
         
         Initialize();
-        //this.mode_ = modeState.mode_;
-        this.Mode(modeState.Mode());
+        //this._mode = modeState._mode;
+        this.Mode( modeState.Mode() );
     }
     */
 
     /*
-    public EndNightMode(Mode mode) {
+    public EndNightMode( Mode mode ) {
         
         Initialize();
-        //this.mode_ = mode;
-        this.Mode(mode);
+        //this._mode = mode;
+        this.Mode( mode );
     }
     */
 
     //@Override public void startNight() {
-    @Override public void startNight(Entity entity) {
+    @Override public void startNight( Entity entity ) {
         
-        out.println(super.toString() + ".startNight");
+        out.println( super.toString() + ".startNight" );
 
         // 1. Sequencer comms...
         // 2. 
     }
     
     //@Override public void endNight() {
-    @Override public void endNight(Entity entity) {
+    @Override public void endNight( Entity entity ) {
         
-        out.println(super.toString() + ".endNight");
+        out.println( super.toString() + ".endNight" );
 
         // 1. Sequencer comms...
         // 2. 

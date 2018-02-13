@@ -74,7 +74,7 @@ public class EventCallable implements Callable<Integer> {
                                      .invoke( _csc, new Object[] {} ); 
         } catch ( Exception e ) {
             
-            e.printStackTrace( out.printf( this.getName() + "interrupted" ) );
+            e.printStackTrace( out.printf( this.getName() + "interrupted from EventCallable.call()" ) );
         }
 
         return status;

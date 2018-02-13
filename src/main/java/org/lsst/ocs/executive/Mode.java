@@ -23,19 +23,19 @@ package org.lsst.ocs.executive;
 //public class Mode extends DomainObject {
 public class Mode implements DomainObject {
     
-    private Entity entity_;
-    public Entity Entity() { return this.entity_; }
-    public void Entity(Entity entity) { this.entity_  = entity; }
+    private Entity _entity;
+    public Entity Entity() { return this._entity; }
+    public void Entity(Entity entity) { this._entity  = entity; }
     
-    private ModeState modeState_; //package-private member
-    public ModeState ModeState() { return this.modeState_; }
-    public void ModeState(ModeState modeState) { this.modeState_ = modeState; }
+    private ModeState _modeState; //package-private member
+    public ModeState ModeState() { return this._modeState; }
+    public void ModeState( ModeState modeState ) { this._modeState = modeState; }
     
-    public Mode(Entity entity) { 
+    public Mode( Entity entity ) { 
 
-        entity_ = entity;
-        modeState_ = new StartNightMode();
-        //modeState_ = new StartNightMode(this);
+        _entity = entity;
+        _modeState = new StartNightMode();
+        //_modeState = new StartNightMode(this);
 
         /*
         this.Name_ = entity.toString() + "." +
@@ -45,21 +45,21 @@ public class Mode implements DomainObject {
     }
 
     @Override public String getName() {
-        return "Entity->" + entity_.getEntityType() 
+        return "Entity->" + _entity.getEntityType() 
                           + "->" 
-                          + entity_.getObservingMode();
+                          + _entity.getObservingMode();
     }
 
-    public void startNight() { entity_.getMode().ModeState().startNight(entity_); }
-    //public void startNight() { entity_.Mode().ModeState().startNight(entity_); }
-    //public void startNight() { modeState_.startNight(entity_); }
-    //public void startNight() { modeState_.startNight(); }
+    public void startNight() { _entity.getMode().ModeState().startNight(_entity); }
+    //public void startNight() { _entity.Mode().ModeState().startNight(_entity); }
+    //public void startNight() { _modeState.startNight(_entity); }
+    //public void startNight() { _modeState.startNight(); }
     
-    public void endNight() { entity_.getMode().ModeState().endNight(entity_); }
-    //public void endNight() { entity_.Mode().ModeState().endNight(entity_); }
-    //public void endNight() { modeState_.endNight(entity_); }
-    //public void endNight() { modeState_.endNight(); }
+    public void endNight() { _entity.getMode().ModeState().endNight(_entity); }
+    //public void endNight() { _entity.Mode().ModeState().endNight(_entity); }
+    //public void endNight() { _modeState.endNight(_entity); }
+    //public void endNight() { _modeState.endNight(); }
 
-    public void scienceNight() { modeState_.scienceNight(); }
+    public void scienceNight() { _modeState.scienceNight(); }
 
 }

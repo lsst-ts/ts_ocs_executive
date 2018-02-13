@@ -30,7 +30,7 @@ import org.lsst.ocs.executive.salcomponent.*;
 //public class Entity extends DomainObject {
 public class Entity implements DomainObject {
     
-    @Override public String getName() {return "Entity->" + this._etype.toString(); }
+    @Override public String getName() { return "Entity->" + this._etype.toString(); }
     
     /** The state/etype of Commandable Entity **/
     protected EntityType _etype;
@@ -43,7 +43,7 @@ public class Entity implements DomainObject {
     // Command Receiver
     protected CommandableSalComponent _salComponent;
     
-    public Entity(CommandableSalComponent csc) {
+    public Entity( CommandableSalComponent csc ) {
         
         this._salComponent = csc;
         
@@ -60,7 +60,7 @@ public class Entity implements DomainObject {
         this._salComponent = csc;
     }
     
-    public Entity(EntityType etype) { 
+    public Entity( EntityType etype ) { 
 
         // Starting up & initial transition to OfflineState
         this._etype = etype;
@@ -97,14 +97,14 @@ public class Entity implements DomainObject {
         // Publish SummaryState of 'StandbyState' if OCS
     }
 
-    public Entity(EntityType etype, ObservingMode observingMode) { 
+    public Entity( EntityType etype, ObservingMode observingMode ) { 
 
         // Starting up & initial transition to OfflineState
-        this(etype);
+        this( etype );
 
         this._observingMode = observingMode;
-        this._mode = new Mode(this);
-        this._mode.ModeState(new StartNightMode());
+        this._mode = new Mode( this );
+        this._mode.ModeState( new StartNightMode() );
         
         /* this.Name_ = "Entity->" + this._etype.toString(); */
 
@@ -116,7 +116,7 @@ public class Entity implements DomainObject {
 
     public String getEntityType() { return _etype.toString(); }
     
-    public void setState(EntityState state) { this._state = state; }
+    public void setState( EntityState state ) { this._state = state; }
     public EntityState getState()           { return this._state; }
 
     // Delegate to the entity state object & pass the this ptr
@@ -127,7 +127,7 @@ public class Entity implements DomainObject {
     public void standby()      { this._state.standby(this); }
     public void exitControl()  { this._state.exitControl(this); }
 
-    public void setMode(Mode mode) { this._mode = mode; }
+    public void setMode( Mode mode ) { this._mode = mode; }
     public Mode getMode() { return this._mode; }
     public String getObservingMode() { return _observingMode.toString(); }
 

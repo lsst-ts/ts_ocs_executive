@@ -25,27 +25,27 @@ public interface EntityState extends DomainObject {
 
     // cmd entity from [OfflineState,OfflineState[AvailableState]] to StandbyState
     // external entity usage
-    default public void enterControl(Entity entity) { out.println("state transition error"); } 
+    default public void enterControl( Entity entity ) { out.println("state transition error"); } 
     
     // cmd entity from StandbyState to [OfflineState,OfflineState[PublishOnlyState]]
     // external entity usage
-    default public void exitControl(Entity entity) { out.println("state transition error"); }
+    default public void exitControl( Entity entity ) { out.println("state transition error"); }
     
     // Entity is in StandbyState & ready for start trigger & transitions to DisabledState
     // external entity usage
-    default public void start(Entity entity) { out.println("state transition error"); };
+    default public void start( Entity entity ) { out.println("state transition error"); };
     
     // cmd entity from DisabledState to StandbyState
-    default public void standby(Entity entity) { out.println("state transition error"); }
+    default public void standby( Entity entity ) { out.println("state transition error"); }
     
     // cmd entity from DisabledState to EnabledState
     // external entity usage??
-    default public void enable(Entity entity) { out.println("state transition error"); }
+    default public void enable( Entity entity ) { out.println("state transition error"); }
     
     // cmd entity from EnabledState to DisabledState
     // external entity usage??
-    default public void disable(Entity entity) { out.println("state transition error"); }
+    default public void disable( Entity entity ) { out.println("state transition error"); }
     
     // cmd OCS entity from [StandbyState,EnabledState,DisabledState] to FaultState
-    default public void fault(Entity entity) { out.println("state transition error"); }
+    default public void fault( Entity entity ) { out.println("state transition error"); }
 }

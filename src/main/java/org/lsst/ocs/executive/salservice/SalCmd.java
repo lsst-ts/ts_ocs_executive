@@ -54,7 +54,7 @@ public class SalCmd extends SalService implements DomainObject {
                          .invoke( _salComponent, new Object[]{} ); // invoke w/ null args
         }
         catch ( Exception e ) {
-            e.printStackTrace( out.printf( this.getName() + "interrupted" ) );
+            e.printStackTrace( out.printf( this.getName() + "interrupted from SalCmd.execute()" ) );
         }
     }
 }

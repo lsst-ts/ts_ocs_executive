@@ -193,7 +193,7 @@ public class CSCCcs implements CommandableSalComponent {
     public void setFilter() {
 
         SAL_camera publisher = new SAL_camera();
-        publisher.salCommand("camera_command_setFilter");
+        publisher.salCommand( "camera_command_setFilter" );
 
         camera.command_setFilter command  = new camera.command_setFilter();
         command.private_revCode = "LSST TEST COMMAND";
@@ -205,13 +205,13 @@ public class CSCCcs implements CommandableSalComponent {
         int cmdId = publisher.issueCommand_setFilter(command);
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_setFilter(cmdId, timeout);
+        publisher.waitForCompletion_setFilter( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -220,7 +220,7 @@ public class CSCCcs implements CommandableSalComponent {
     public void takeImage() {
 
         SAL_camera publisher = new SAL_camera();
-        publisher.salCommand("camera_command_takeImages");
+        publisher.salCommand( "camera_command_takeImages" );
 
         camera.command_takeImages command  = new camera.command_takeImages();
         command.private_revCode = "LSST TEST COMMAND";
@@ -238,13 +238,13 @@ public class CSCCcs implements CommandableSalComponent {
         int cmdId = publisher.issueCommand_takeImages(command);
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 20;
-        publisher.waitForCompletion_takeImages(cmdId, timeout);
+        publisher.waitForCompletion_takeImages( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -253,7 +253,7 @@ public class CSCCcs implements CommandableSalComponent {
     public void initImage() {
 
         SAL_camera publisher = new SAL_camera();
-        publisher.salCommand("camera_command_takeImages");
+        publisher.salCommand( "camera_command_takeImages" );
 
         camera.command_initImage command  = new camera.command_initImage();
         command.private_revCode = "LSST TEST COMMAND";
@@ -265,13 +265,13 @@ public class CSCCcs implements CommandableSalComponent {
         int cmdId = publisher.issueCommand_initImage(command);
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_initImage(cmdId, timeout);
+        publisher.waitForCompletion_initImage( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();

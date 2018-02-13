@@ -23,8 +23,8 @@ import static java.lang.System.out;
 
 public interface ModeState extends DomainObject {
     
-    default public void startNight(Entity entity) { out.println("error"); }
-    default public void endNight(Entity entity)   { out.println("error"); }
+    default public void startNight( Entity entity ) { out.println("error"); }
+    default public void endNight( Entity entity )   { out.println("error"); }
     //default public void startNight() { out.println("error"); }
     //default public void endNight()   { out.println("error"); }
     

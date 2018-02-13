@@ -37,20 +37,20 @@ public class SalConnect {
     Task<Void> [] _salServiceTasks;
     int _numTasks;
 
-    public void setSalService(SalService salService) {
+    public void setSalService( SalService salService ) {
         
         try {
-            _salServiceQ.put(salService);
-        } catch (Exception e) {
+            _salServiceQ.put( salService );
+        } catch ( Exception e ) {
             // TODO
         }
     }
     
-    public SalConnect(int n) {
+    public SalConnect( int numTasks ) {
         
         _salServiceQ = new LinkedBlockingQueue<>();
-        _salServiceTasks = new Task[n];
-        _numTasks = n;
+        _salServiceTasks = new Task[numTasks];
+        _numTasks = numTasks;
     }
         
     public void connect() { 

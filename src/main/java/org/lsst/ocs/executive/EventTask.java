@@ -77,7 +77,7 @@ public class EventTask extends Task<Integer> {
                                    .invoke( _csc, new Object[] {} );
         } catch ( Exception e ) {
 
-            e.printStackTrace( out.printf( this.getName() + "interrupted from cEventTask3:call()" ) );
+            e.printStackTrace( out.printf( this.getName() + "interrupted from EventTask.call()" ) );
         }
 
         return status;

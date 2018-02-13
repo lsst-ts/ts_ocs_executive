@@ -27,12 +27,12 @@ public abstract class SalService {
     protected String _topic;
     protected Object _topicArgs;
     
-    public void setTopic(String topic) {
+    public void setTopic( String topic ) {
         
         _topic = topic;
     }
     
-    public void setTopicArgs(List<String> topicArgs) {
+    public void setTopicArgs( List<String> topicArgs ) {
         
         _topicArgs = topicArgs;
     }

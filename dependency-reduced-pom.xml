@@ -4,7 +4,7 @@
   <groupId>org.lsst.ocs</groupId>
   <artifactId>OCSExecutive</artifactId>
   <name>OCSExecutive_SAL3.5.1</name>
-  <version>1.0</version>
+  <version>2.0</version>
   <developers>
     <developer>
       <id>jbuffill</id>

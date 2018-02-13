@@ -29,23 +29,23 @@ public class OfflineState implements EntityState {
 
     @Override public String getName() { return "OfflineState"; }
     
-    @Override public void enterControl(Entity entity) {
+    @Override public void enterControl( Entity entity ) {
         
         String salactor = entity.getClass().getSimpleName() + "." + entity.getCSC().getClass().getSimpleName();
-        out.println(salactor + "." + this.getName() + ".enterControl");
+        out.println( salactor + "." + this.getName() + ".enterControl" );
 
         // Cmd Sequencer, TCS, CCS or DMCS via SAL
         // 1. SalComponent (Rcvr) reference is entity data member
         
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-        SalCmd salCmd = new SalCmd(entity._salComponent);
+        SalCmd salCmd = new SalCmd( entity._salComponent );
 
         // 3. Also, assign topic & topic arguments
-        salCmd.setTopic("enterControl");
+        salCmd.setTopic( "enterControl" );
         
         // 4. Define Invoker & set up command request
-        SalConnect salConnect = new SalConnect(1);
-        salConnect.setSalService(salCmd);
+        SalConnect salConnect = new SalConnect( 1 );
+        salConnect.setSalService( salCmd );
         
         // 5. Invoker indirectly calls cmd->execute()
         salConnect.connect();
@@ -53,10 +53,10 @@ public class OfflineState implements EntityState {
         if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
             
             // 1. Publish SummaryState if not previously pub'd
-            SalEvent salEvent = new SalEvent(entity._salComponent);
-            salEvent.setTopic("summaryState");
+            SalEvent salEvent = new SalEvent( entity._salComponent );
+            salEvent.setTopic( "summaryState" );
             
-            salConnect.setSalService(salEvent);
+            salConnect.setSalService( salEvent );
             salConnect.connect();
 
             // 2. Check settings match (or differ) from start values
@@ -67,6 +67,6 @@ public class OfflineState implements EntityState {
         }
 
         // Cmd local entity state from OfflineState[AvailableState] to StandbyState
-        entity.setState(new StandbyState());
+        entity.setState( new StandbyState() );
     }
 }

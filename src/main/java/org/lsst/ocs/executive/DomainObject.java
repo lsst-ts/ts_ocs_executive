@@ -23,12 +23,12 @@ package org.lsst.ocs.executive;
 //public class DomainObject {
 public interface DomainObject {
 
-    //protected String Name_;
-    //String Name_ = null;
+    //protected String _Name;
+    //String _Name = null;
 
-    //public DomainObject(String name) { Name_ = name; }
+    //public DomainObject(String name) { _Name = name; }
     
-    //@Override public String toString() { return Name_; }
+    //@Override public String toString() { return _Name; }
     
     //default String getName() { return null; }
     default String getName() { return "NONAME"; }

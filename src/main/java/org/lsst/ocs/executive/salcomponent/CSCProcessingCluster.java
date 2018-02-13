@@ -30,7 +30,7 @@ public class CSCProcessingCluster implements CommandableSalComponent {
     @Override public void enterControl() { 
     
         SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand("processingcluster_command_enterControl");
+        publisher.salCommand( "processingcluster_command_enterControl" );
 
         processingcluster.command_enterControl command = new processingcluster.command_enterControl();
         command.private_revCode = "LSST ProcessingCluster enterControl COMMAND";
@@ -39,16 +39,16 @@ public class CSCProcessingCluster implements CommandableSalComponent {
         command.action = "set";
         command.state = true;
 
-        int cmdId = publisher.issueCommand_enterControl(command);
+        int cmdId = publisher.issueCommand_enterControl( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_enterControl(cmdId, timeout);
+        publisher.waitForCompletion_enterControl( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -57,7 +57,7 @@ public class CSCProcessingCluster implements CommandableSalComponent {
     @Override public void start() { 
         
         SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand("processingcluster_command_start");
+        publisher.salCommand( "processingcluster_command_start" );
 
         processingcluster.command_start command = new processingcluster.command_start();
         command.private_revCode = "LSST ProcessingCluster start COMMAND";
@@ -66,16 +66,16 @@ public class CSCProcessingCluster implements CommandableSalComponent {
         command.action = "set";
         command.configuration = "normal";
 
-        int cmdId = publisher.issueCommand_start(command);
+        int cmdId = publisher.issueCommand_start( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_start(cmdId, timeout);
+        publisher.waitForCompletion_start( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -85,7 +85,7 @@ public class CSCProcessingCluster implements CommandableSalComponent {
     @Override public void enable() {
 
         SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand("processingcluster_command_enable");
+        publisher.salCommand( "processingcluster_command_enable" );
 
         processingcluster.command_enable command = new processingcluster.command_enable();
         command.private_revCode = "LSST ProcessingCluster enable COMMAND";
@@ -94,16 +94,16 @@ public class CSCProcessingCluster implements CommandableSalComponent {
         command.action = "set";
         command.state = true;
 
-        int cmdId = publisher.issueCommand_enable(command);
+        int cmdId = publisher.issueCommand_enable( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_enable(cmdId, timeout);
+        publisher.waitForCompletion_enable( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -112,7 +112,7 @@ public class CSCProcessingCluster implements CommandableSalComponent {
     @Override public void disable() {
 
         SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand("processingcluster_command_disable");
+        publisher.salCommand( "processingcluster_command_disable" );
 
         processingcluster.command_disable command = new processingcluster.command_disable();
         command.private_revCode = "LSST ProcessingCluster disable COMMAND";
@@ -121,16 +121,16 @@ public class CSCProcessingCluster implements CommandableSalComponent {
         command.action = "set";
         command.state = true;
 
-        int cmdId = publisher.issueCommand_disable(command);
+        int cmdId = publisher.issueCommand_disable( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_disable(cmdId, timeout);
+        publisher.waitForCompletion_disable( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -139,7 +139,7 @@ public class CSCProcessingCluster implements CommandableSalComponent {
     @Override public void standby() {
 
         SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand("processingcluster_command_standby");
+        publisher.salCommand( "processingcluster_command_standby" );
 
         processingcluster.command_standby command = new processingcluster.command_standby();
         command.private_revCode = "LSST ProcessingCluster standby COMMAND";
@@ -148,16 +148,16 @@ public class CSCProcessingCluster implements CommandableSalComponent {
         command.action = "set";
         command.state = true;
 
-        int cmdId = publisher.issueCommand_standby(command);
+        int cmdId = publisher.issueCommand_standby( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_standby(cmdId, timeout);
+        publisher.waitForCompletion_standby( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -166,7 +166,7 @@ public class CSCProcessingCluster implements CommandableSalComponent {
     @Override public void exitControl() {
 
         SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand("processingcluster_command_exitControl");
+        publisher.salCommand( "processingcluster_command_exitControl" );
 
         processingcluster.command_exitControl command = new processingcluster.command_exitControl();
         command.private_revCode = "LSST ProcessingCluster exitControl COMMAND";
@@ -175,16 +175,16 @@ public class CSCProcessingCluster implements CommandableSalComponent {
         command.action = "set";
         command.state = true;
 
-        int cmdId = publisher.issueCommand_exitControl(command);
+        int cmdId = publisher.issueCommand_exitControl( command );
 
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_exitControl(cmdId, timeout);
+        publisher.waitForCompletion_exitControl( cmdId, timeout );
 
         // Remove the DataWriters etc
         publisher.salShutdown();
@@ -199,10 +199,10 @@ public class CSCProcessingCluster implements CommandableSalComponent {
         processingcluster.logevent_SummaryState event = new processingcluster.logevent_SummaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
-        while (Boolean.TRUE) {
+        while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_SummaryState(event);
-            if (status == SAL_processingcluster.SAL__OK) {
+            status = subscriber.getEvent_SummaryState( event );
+            if ( status == SAL_processingcluster.SAL__OK ) {
                 
                 out.println("=== Event Logged : " + event);
 
@@ -211,7 +211,7 @@ public class CSCProcessingCluster implements CommandableSalComponent {
                 return status;
             }
 
-            try { Thread.sleep(100); } catch (InterruptedException e) { e.printStackTrace(); }
+            try { Thread.sleep(100); } catch ( InterruptedException e ) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */
@@ -224,20 +224,20 @@ public class CSCProcessingCluster implements CommandableSalComponent {
     
         // Initialize
         SAL_processingcluster subscriber = new SAL_processingcluster();
-        subscriber.salEvent("processingcluster_logevent_SettingVersions");
+        subscriber.salEvent( "processingcluster_logevent_SettingVersions" );
         
         processingcluster.logevent_SettingVersions event = new processingcluster.logevent_SettingVersions();
 
         int status;
-        while (Boolean.TRUE) {
+        while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_SettingVersions(event);
-            if (status == SAL_processingcluster.SAL__OK) {
+            status = subscriber.getEvent_SettingVersions( event );
+            if ( status == SAL_processingcluster.SAL__OK ) {
                 
                 out.println("=== Event Logged : " + event);
             }
             
-            try {Thread.sleep(100);} catch (InterruptedException e) { e.printStackTrace(); }
+            try {Thread.sleep(100);} catch ( InterruptedException e ) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */
@@ -248,20 +248,20 @@ public class CSCProcessingCluster implements CommandableSalComponent {
     
         // Initialize
         SAL_processingcluster subscriber = new SAL_processingcluster();
-        subscriber.salEvent("processingcluster_logevent_AppliedSettingsMatchStart");
+        subscriber.salEvent( "processingcluster_logevent_AppliedSettingsMatchStart" );
         
         processingcluster.logevent_AppliedSettingsMatchStart event = new processingcluster.logevent_AppliedSettingsMatchStart();
 
         int status;
-        while (Boolean.TRUE) {
+        while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_AppliedSettingsMatchStart(event);
-            if (status == SAL_processingcluster.SAL__OK) {
+            status = subscriber.getEvent_AppliedSettingsMatchStart( event );
+            if ( status == SAL_processingcluster.SAL__OK ) {
                 
                 out.println("=== Event Logged : " + event);
             }
             
-            try {Thread.sleep(100);} catch (InterruptedException e) { e.printStackTrace(); }
+            try {Thread.sleep(100);} catch ( InterruptedException e ) { e.printStackTrace(); }
         }
 
         /* Remove the DataWriters etc */

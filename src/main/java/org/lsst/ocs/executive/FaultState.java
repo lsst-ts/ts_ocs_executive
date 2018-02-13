@@ -25,18 +25,18 @@ public class FaultState implements EntityState {
 
     @Override public String getName() { return "FaultState"; }
     
-    @Override public void exitControl(Entity entity) {
+    @Override public void exitControl( Entity entity ) {
         
         String salactor = entity.getClass().getSimpleName() + "." + entity.getCSC().getClass().getSimpleName();
-        out.println(salactor + "." + this.getName() + ".fault");
+        out.println( salactor + "." + this.getName() + ".fault" );
 
-        if ( EntityType.OCS.toString().equalsIgnoreCase(salactor) ) {
+        if ( EntityType.OCS.toString().equalsIgnoreCase( salactor ) ) {
             
             // 1. Publish SummaryState->FaultState if not previously pub'd
             //    a. Publish Topic->ErrorCode
             // 2. May read sensor data but control features disallowed
             // 3. Cmd entity from FaultState to OfflineState
-            entity.setState(new OfflineState());
+            entity.setState( new OfflineState() );
         }
     }
 }

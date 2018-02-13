@@ -22,8 +22,8 @@
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salcomponent/CSCHeaderService.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/Entity.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/EntityType.java
-/home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/EventCallable.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salcomponent/CSCCcs.java
+/home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/EventCallable.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/CmdTask.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salcomponent/CSCArchiver.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salservice/SalService.java

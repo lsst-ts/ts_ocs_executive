@@ -33,7 +33,7 @@ public class SalEvent extends SalService implements DomainObject {
     // Receiver (e.g. SalCamera)
     CommandableSalComponent _salComponent;
     
-    public SalEvent(CommandableSalComponent salComponent) {
+    public SalEvent( CommandableSalComponent salComponent ) {
         
         this._salComponent = salComponent;
     }
@@ -50,12 +50,12 @@ public class SalEvent extends SalService implements DomainObject {
         // receiver.action() (e.g. SalCamera.summaryState())
         try {
             _salComponent.getClass()
-                         .getMethod(super._topic, new Class[]{}) // method w/ null args
-                         .invoke(_salComponent, super._topicArgs);
+                         .getMethod( super._topic, new Class[]{} ) // method w/ null args
+                         .invoke( _salComponent, super._topicArgs );
                          //.invoke(_salComponent, new Object[]{}); // invoke w/ null args
         }
-        catch (Exception e) {
-            e.printStackTrace(out.printf(this.getName() + "interrupted"));
+        catch ( Exception e ) {
+            e.printStackTrace( out.printf( this.getName() + "interrupted from SalEvent.execute()" ) );
         }
     }
 }
