@@ -20,8 +20,11 @@ import org.lsst.ocs.executive.salservice.SalCmd;
 import org.lsst.ocs.executive.salservice.SalEvent;
 
 /**
- *
- * OfflineState is a Concrete State class implementation
+ * <h2>Offline Entity State</h2>
+ * <p>
+ * {@code OfflineState} is a Concrete State class implementation.
+ * <p>
+ * Transitions to: {@code StandbyState}
  *
  */
 

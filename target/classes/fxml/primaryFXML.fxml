@@ -67,7 +67,7 @@
                                  <children>
                                     <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-width: 0 1 0 0; -fx-border-style: solid;">
                                        <children>
-                                          <Label id="tcsLabel" fx:id="tcsLabel" alignment="CENTER" cache="true" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Main Telescope" textAlignment="CENTER">
+                                          <Label id="tcsLabel" fx:id="mtcsLabel" alignment="CENTER" cache="true" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Main Telescope" textAlignment="CENTER">
                                              <tooltip>
                                                 <Tooltip id="tcsTooltip" fx:id="tcsTooltip" text="TCS Offline" />
                                              </tooltip>
@@ -78,14 +78,14 @@
                                                 <Font size="12.0" />
                                              </font>
                                           </Label>
-                                          <MenuButton fx:id="tcsStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
+                                          <MenuButton fx:id="mtcsStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
                                              <items>
-                                                <MenuItem fx:id="enter" mnemonicParsing="false" onAction="#tcsState" style="-fx-font-size: 11;" text="enterControl" />
-                                                <MenuItem fx:id="start" mnemonicParsing="false" onAction="#tcsState" style="-fx-font-size: 11;" text="start" />
-                                                <MenuItem fx:id="enable" mnemonicParsing="false" onAction="#tcsState" style="-fx-font-size: 11;" text="enable" />
-                                                <MenuItem fx:id="disable" mnemonicParsing="false" onAction="#tcsState" style="-fx-font-size: 11;" text="disable" />
-                                                <MenuItem fx:id="standby" mnemonicParsing="false" onAction="#tcsState" style="-fx-font-size: 11;" text="standby" />
-                                                <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#tcsState" style="-fx-font-size: 11;" text="exitControl" />
+                                                <MenuItem fx:id="mtcsEnter" mnemonicParsing="false" onAction="#mtcsState" style="-fx-font-size: 11;" text="enterControl" />
+                                                <MenuItem fx:id="mtcsStart" mnemonicParsing="false" onAction="#mtcsState" style="-fx-font-size: 11;" text="start" />
+                                                <MenuItem fx:id="mtcsEnable" mnemonicParsing="false" onAction="#mtcsState" style="-fx-font-size: 11;" text="enable" />
+                                                <MenuItem fx:id="mtcsDisable" mnemonicParsing="false" onAction="#mtcsState" style="-fx-font-size: 11;" text="disable" />
+                                                <MenuItem fx:id="mtcsStandby" mnemonicParsing="false" onAction="#mtcsState" style="-fx-font-size: 11;" text="standby" />
+                                                <MenuItem fx:id="mtcsExit" mnemonicParsing="false" onAction="#mtcsState" style="-fx-font-size: 11;" text="exitControl" />
                                              </items>
                                              <font>
                                                 <Font size="11.0" />
@@ -101,7 +101,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="tcsStateText" fx:id="tcsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="tcsStateText" fx:id="mtcsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -116,10 +116,10 @@
                                                 <Insets top="25.0" />
                                              </VBox.margin>
                                           </Separator>
-                                          <MenuButton fx:id="tcsCmdMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="Commands">
+                                          <MenuButton fx:id="mtcsCmdMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="Commands">
                                              <items>
-                                                <MenuItem mnemonicParsing="false" onAction="#tcsCmd" style="-fx-font-size: 11;" text="filterChange" />
-                                                <MenuItem mnemonicParsing="false" onAction="#tcsCmd" style="-fx-font-size: 11;" text="target" />
+                                                <MenuItem mnemonicParsing="false" onAction="#mtcsCmd" style="-fx-font-size: 11;" text="filterChange" />
+                                                <MenuItem mnemonicParsing="false" onAction="#mtcsCmd" style="-fx-font-size: 11;" text="target" />
                                              </items>
                                              <VBox.margin>
                                                 <Insets />
@@ -135,7 +135,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="tcsCmdText" fx:id="tcsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
+                                                <TextField id="tcsCmdText" fx:id="mtcsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -430,12 +430,12 @@
                                           </Label>
                                           <MenuButton fx:id="atcsStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
                                              <items>
-                                                <MenuItem fx:id="aenter" mnemonicParsing="false" onAction="#atcsState" style="-fx-font-size: 11;" text="enterControl" />
-                                                <MenuItem fx:id="astart" mnemonicParsing="false" onAction="#atcsState" style="-fx-font-size: 11;" text="start" />
-                                                <MenuItem fx:id="aenable" mnemonicParsing="false" onAction="#atcsState" style="-fx-font-size: 11;" text="enable" />
-                                                <MenuItem fx:id="adisable" mnemonicParsing="false" onAction="#atcsState" style="-fx-font-size: 11;" text="disable" />
-                                                <MenuItem fx:id="astandby" mnemonicParsing="false" onAction="#atcsState" style="-fx-font-size: 11;" text="standby" />
-                                                <MenuItem fx:id="aexit" mnemonicParsing="false" onAction="#atcsState" style="-fx-font-size: 11;" text="exitControl" />
+                                                <MenuItem fx:id="atcsEnter" mnemonicParsing="false" onAction="#atcsState" style="-fx-font-size: 11;" text="enterControl" />
+                                                <MenuItem fx:id="atcsStart" mnemonicParsing="false" onAction="#atcsState" style="-fx-font-size: 11;" text="start" />
+                                                <MenuItem fx:id="atcsEnable" mnemonicParsing="false" onAction="#atcsState" style="-fx-font-size: 11;" text="enable" />
+                                                <MenuItem fx:id="atcsDisable" mnemonicParsing="false" onAction="#atcsState" style="-fx-font-size: 11;" text="disable" />
+                                                <MenuItem fx:id="atcsStandby" mnemonicParsing="false" onAction="#atcsState" style="-fx-font-size: 11;" text="standby" />
+                                                <MenuItem fx:id="atcsExit" mnemonicParsing="false" onAction="#atcsState" style="-fx-font-size: 11;" text="exitControl" />
                                              </items>
                                              <font>
                                                 <Font size="11.0" />

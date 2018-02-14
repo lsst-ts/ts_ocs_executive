@@ -6,6 +6,7 @@
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salservice/SalCmd.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/OfflineState.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/gui/primary/PrimaryController.java
+/home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salcomponent/CSCMTcs.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/StartNightMode.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/ObservingMode.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salcomponent/CommandableSalComponent.java
@@ -29,4 +30,3 @@
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salservice/SalService.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/EntityState.java
 /home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/ExecutiveFX.java
-/home/jbuffill/swdev/ts_ocs_executive/src/main/java/org/lsst/ocs/executive/salcomponent/CSCTcs.java

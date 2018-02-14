@@ -19,7 +19,7 @@ import org.lsst.ocs.executive.salcomponent.*;
 import static java.lang.System.out;
 
 /**
- * <h2>[Runnable] Command Task</h2>
+ * <h2>Command Task</h2>
  * <p>
  * The {@code CmdTask} class implements the {@link Task} interface and 
  * overrides the {@code call()} method defined in it. The {@code CmdTask} 

@@ -19,7 +19,7 @@ import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 import javafx.concurrent.Task;
 
 /**
- * <h2>[Callable] Event Task</h2>
+ * <h2>Event Task</h2>
  * <p>
  * The {@code EventTask} class implements the {@link Task} interface and 
  * overrides the {@code call()} method defined in it. The {@code EventTask} 

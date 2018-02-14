@@ -19,8 +19,9 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- *
- * CommandableSalComponent is the Receiver base class in the command pattern
+ * <h2>Commandable Software Access Layer (SAL) Component [CSC]</h2>
+ * <p>
+ * {@code CommandableSalComponent} is the Receiver base class in the command pattern
  *
  */
 

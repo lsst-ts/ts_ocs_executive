@@ -36,37 +36,40 @@ import org.lsst.ocs.executive.salconnect.SalConnect;
 import org.lsst.ocs.executive.salservice.SalCmd;
 
 /**
- * Executive is the Context class implementation
+ * <h2>Executive</h2>
+ * <p>
+ * The {@code Executive} is the application model class
+ * 
  */
 
 public class Executive {
     
-    public static final CommandableSalComponent cscTCS  = new CSCTcs();
-    public static final CommandableSalComponent cscCCS  = new CSCCcs();
-    public static final CommandableSalComponent cscARC  = new CSCArchiver();
-    public static final CommandableSalComponent cscCAT  = new CSCCatchupArchiver();
-    public static final CommandableSalComponent cscPRO  = new CSCProcessingCluster();
-    public static final CommandableSalComponent cscHDR  = new CSCHeaderService();
+    public static final CommandableSalComponent cscMTCS  = new CSCMTcs();
+    public static final CommandableSalComponent cscCCS   = new CSCCcs();
+    public static final CommandableSalComponent cscARC   = new CSCArchiver();
+    public static final CommandableSalComponent cscCAT   = new CSCCatchupArchiver();
+    public static final CommandableSalComponent cscPRO   = new CSCProcessingCluster();
+    public static final CommandableSalComponent cscHDR   = new CSCHeaderService();
     
-    public static final CommandableSalComponent cscATCS = new CSCTcs();
+    public static final CommandableSalComponent cscATCS = new CSCMTcs();
     public static final CommandableSalComponent cscACCS = new CSCCcs();
     public static final CommandableSalComponent cscAHDR = new CSCHeaderService();
     
-    public static final Entity entityTCS  = new Entity( cscTCS );
-    public static final Entity entityCCS  = new Entity( cscCCS );
-    public static final Entity entityARC  = new Entity( cscARC );
-    public static final Entity entityCAT  = new Entity( cscCAT );
-    public static final Entity entityPRO  = new Entity( cscPRO );
-    public static final Entity entityHDR  = new Entity( cscHDR );
+    public static final Entity entityMTCS  = new Entity( cscMTCS );
+    public static final Entity entityCCS   = new Entity( cscCCS  );
+    public static final Entity entityARC   = new Entity( cscARC  );
+    public static final Entity entityCAT   = new Entity( cscCAT  );
+    public static final Entity entityPRO   = new Entity( cscPRO  );
+    public static final Entity entityHDR   = new Entity( cscHDR  );
 
     public static final Entity entityATCS = new Entity( cscATCS );
     public static final Entity entityACCS = new Entity( cscACCS );
     public static final Entity entityAHDR = new Entity( cscAHDR );
     
-    public static final List<CmdTask> rCmdTasks_TCS = Arrays.asList(
+    public static final List<CmdTask> rCmdTasks_MTCS = Arrays.asList(
             
-        new CmdTask( cscTCS, "filterChange" ),
-        new CmdTask( cscTCS, "target" )
+        new CmdTask( cscMTCS, "filterChange" ),
+        new CmdTask( cscMTCS, "target" )
     );
     
     public static final List<CmdTask> rCmdTasks_CCS = Arrays.asList(
@@ -77,38 +80,38 @@ public class Executive {
     
     public static final List<CmdTask> rCmdTasks_ENTERCTRL = Arrays.asList(
             
-        new CmdTask( cscTCS, "enterControl" ),
-        new CmdTask( cscCCS, "enterControl" ),
-        new CmdTask( cscARC, "enterControl" ),
-        new CmdTask( cscCAT, "enterControl" ),
-        new CmdTask( cscPRO, "enterControl" ),
-        new CmdTask( cscHDR, "enterControl" )
+        new CmdTask( cscMTCS, "enterControl" ),
+        new CmdTask( cscCCS , "enterControl" ),
+        new CmdTask( cscARC , "enterControl" ),
+        new CmdTask( cscCAT , "enterControl" ),
+        new CmdTask( cscPRO , "enterControl" ),
+        new CmdTask( cscHDR , "enterControl" )
     );
     
     public static final List<CmdTask> rCmdTasks_START = Arrays.asList(
             
-        new CmdTask( cscTCS, "start" ),
-        new CmdTask( cscCCS, "start" ),
-        new CmdTask( cscARC, "start" ),
-        new CmdTask( cscCAT, "start" ),
-        new CmdTask( cscPRO, "start" ),
-        new CmdTask( cscHDR, "start" )        
+        new CmdTask( cscMTCS, "start" ),
+        new CmdTask( cscCCS , "start" ),
+        new CmdTask( cscARC , "start" ),
+        new CmdTask( cscCAT , "start" ),
+        new CmdTask( cscPRO , "start" ),
+        new CmdTask( cscHDR , "start" )        
     );
 
     public static final List<CmdTask> rCmdTasks_ENABLE = Arrays.asList(
             
-        new CmdTask( cscTCS, "enable" ),
-        new CmdTask( cscCCS, "enable" ),
-        new CmdTask( cscARC, "enable" ),
-        new CmdTask( cscCAT, "enable" ),
-        new CmdTask( cscPRO, "enable" ),
-        new CmdTask( cscHDR, "enable" )                
+        new CmdTask( cscMTCS, "enable" ),
+        new CmdTask( cscCCS , "enable" ),
+        new CmdTask( cscARC , "enable" ),
+        new CmdTask( cscCAT , "enable" ),
+        new CmdTask( cscPRO , "enable" ),
+        new CmdTask( cscHDR , "enable" )                
     );
     
-    public static final List<EventCallable> cEventTask_TCS = Arrays.asList(
+    public static final List<EventCallable> cEventTask_MTCS = Arrays.asList(
             
-        new EventCallable( cscTCS, "filterChangeInPosition" ),
-        new EventCallable( cscTCS, "targetInPosition" )
+        new EventCallable( cscMTCS, "filterChangeInPosition" ),
+        new EventCallable( cscMTCS, "targetInPosition" )
     );
 
     public static final List<EventCallable> cEventTask_CCS = Arrays.asList(
@@ -119,32 +122,32 @@ public class Executive {
 
     public static final List<EventCallable> cEventTask_SUMSTATE = Arrays.asList(
             
-        new EventCallable( cscTCS, "summaryState" ),
-        new EventCallable( cscCCS, "summaryState" ),
-        new EventCallable( cscARC, "summaryState" ),
-        new EventCallable( cscCAT, "summaryState" ),
-        new EventCallable( cscPRO, "summaryState" ),
-        new EventCallable( cscHDR, "summaryState" )
+        new EventCallable( cscMTCS, "summaryState" ),
+        new EventCallable( cscCCS , "summaryState" ),
+        new EventCallable( cscARC , "summaryState" ),
+        new EventCallable( cscCAT , "summaryState" ),
+        new EventCallable( cscPRO , "summaryState" ),
+        new EventCallable( cscHDR , "summaryState" )
     );
 
     public static final List<EventCallable> cEventTask_SETTINGS = Arrays.asList(
             
-        new EventCallable( cscTCS, "settingsVersion" ),
-        new EventCallable( cscCCS, "settingsVersion" ),
-        new EventCallable( cscARC, "settingsVersion" ),
-        new EventCallable( cscCAT, "settingsVersion" ),
-        new EventCallable( cscPRO, "settingsVersion" ),
-        new EventCallable( cscHDR, "settingsVersion" )
+        new EventCallable( cscMTCS, "settingsVersion" ),
+        new EventCallable( cscCCS , "settingsVersion" ),
+        new EventCallable( cscARC , "settingsVersion" ),
+        new EventCallable( cscCAT , "settingsVersion" ),
+        new EventCallable( cscPRO , "settingsVersion" ),
+        new EventCallable( cscHDR , "settingsVersion" )
 );
 
     public static final List<EventCallable> cEventTask_APPLIEDSETTINGS = Arrays.asList(
             
-        new EventCallable( cscTCS, "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscCCS, "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscARC, "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscCAT, "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscPRO, "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscHDR, "appliedSettingsMatchStartTest" )
+        new EventCallable( cscMTCS, "appliedSettingsMatchStartTest" ),
+        new EventCallable( cscCCS , "appliedSettingsMatchStartTest" ),
+        new EventCallable( cscARC , "appliedSettingsMatchStartTest" ),
+        new EventCallable( cscCAT , "appliedSettingsMatchStartTest" ),
+        new EventCallable( cscPRO , "appliedSettingsMatchStartTest" ),
+        new EventCallable( cscHDR , "appliedSettingsMatchStartTest" )
     );
 
     public void invokeWindow( Stage primaryStage ) {
@@ -264,7 +267,7 @@ public class Executive {
         // 1. SalComponent (Receiver) previously defined: rCCS
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         //    Also, assign topic & topic arguments
-        SalCmd salCmdTCS = new SalCmd( Executive.cscTCS );
+        SalCmd salCmdTCS = new SalCmd( Executive.cscMTCS );
         salCmdTCS.setTopic( "enterControl" );
         // 3. Define Invoker & set SalService request
         SalConnect salConnectTCS = new SalConnect(1);
@@ -486,26 +489,26 @@ public class Executive {
             /**
              * ***********************
              */
-            out.print( "\n" + EntityType.TCS.toString() + " sequence cmd enterControl..." );
+            out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd enterControl..." );
            // br.readLine();
-            //Executive.cscTCS.enterControl();
+            //Executive.cscMTCS.enterControl();
 
-            SalCmd salCmdTcs = new SalCmd( Executive.cscTCS );
+            SalCmd salCmdTcs = new SalCmd( Executive.cscMTCS );
             salCmdTcs.setTopic( "enterControl" );
             SalConnect salConnectTcs = new SalConnect(1);
             salConnectTcs.setSalService( salCmdTcs );
             salConnectTcs.connect();
 
-            out.print( "\n" + EntityType.TCS.toString() + " sequence cmd start..." );
+            out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd start..." );
            // br.readLine();
-            //Executive.cscTCS.start();
+            //Executive.cscMTCS.start();
 
             salCmdTcs.setTopic( "start" );
             salConnectTcs.connect();
 
-            out.print( "\n" + EntityType.TCS.toString() + " sequence cmd enable..." );
+            out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd enable..." );
             //br.readLine();
-            //Executive.cscTCS.enable();
+            //Executive.cscMTCS.enable();
 
             salCmdTcs.setTopic( "enable" );
             salConnectTcs.connect();
@@ -616,17 +619,17 @@ public class Executive {
             /**
              * ***********************
              */
-            out.print( "\n" + EntityType.TCS.toString() + " sequence cmd disable..." );
+            out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd disable..." );
            // br.readLine();
-            //Executive.cscTCS.disable();
+            //Executive.cscMTCS.disable();
 
-            out.print( "\n" + EntityType.TCS.toString() + " sequence cmd standby..." );
+            out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd standby..." );
            // br.readLine();
-            //Executive.cscTCS.standby();
+            //Executive.cscMTCS.standby();
 
-            out.print( "\n" + EntityType.TCS.toString() + " sequence cmd exitControl..." );
+            out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd exitControl..." );
            // br.readLine();
-            //Executive.cscTCS.exitControl();
+            //Executive.cscMTCS.exitControl();
 
             /**
              * ***********************

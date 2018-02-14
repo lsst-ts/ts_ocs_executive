@@ -17,8 +17,9 @@ package org.lsst.ocs.executive.salservice;
 import java.util.List;
 
 /**
- *
- * SalService is the Command Interface class in the command pattern
+ * <h2>SAL Service</h2>
+ * <p>
+ * {@code SalService} is the Command Interface class in the command pattern
  *
  */
 

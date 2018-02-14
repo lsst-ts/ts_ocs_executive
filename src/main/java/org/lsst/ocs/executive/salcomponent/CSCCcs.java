@@ -18,8 +18,9 @@ import org.lsst.sal.SAL_camera;
 import static java.lang.System.out;
 
 /**
- *
- * CSCCcs is a Receiver class in the command pattern
+ * <h2>Camera Control System (CCS) CSC</h2>
+ * <p>
+ * {@code CSCCcs} is a Receiver class in the command pattern
  * 
  */
 

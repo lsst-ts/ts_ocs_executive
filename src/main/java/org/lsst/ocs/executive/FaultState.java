@@ -16,8 +16,9 @@ package org.lsst.ocs.executive;
 import static java.lang.System.out;
 
 /**
- *
- * FaultState is a Concrete State class implementation
+ * <h2>Fault Entity State</h2>
+ * <p>
+ * {@code FaultState} is a Concrete State class implementation.
  *
  */
 

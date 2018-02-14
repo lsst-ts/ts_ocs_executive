@@ -15,8 +15,9 @@
 package org.lsst.ocs.executive;
 
 /**
- *
- * EntityType
+ * <h2>Entity Type</h2>
+ * <p>
+ * {@code EntityType} is an enum to specifically identify subsystems
  *
  */
 
@@ -25,7 +26,7 @@ public enum EntityType {
     OCS( "OCS" ),
     SEQUENCER( "SEQUENCER" ),
     CCS( "CCS" ),
-    TCS( "TCS" ),
+    MTCS( "MTCS" ),
     ARCHIVER( "ARCHIVER" ),
     CATCHUPARCHIVER( "CATCHUPARCHIVER" ),
     PROCESSINGCLUSTER( "PROCESSINGCLUSTER" ),

@@ -20,7 +20,7 @@ org/lsst/ocs/executive/gui/primary/PrimaryController$1.class
 org/lsst/ocs/executive/ObservingMode.class
 org/lsst/ocs/executive/ModeState.class
 org/lsst/ocs/executive/EntityState.class
-org/lsst/ocs/executive/salcomponent/CSCTcs.class
+org/lsst/ocs/executive/salcomponent/CSCMTcs.class
 org/lsst/ocs/executive/salservice/SalCmd.class
 org/lsst/ocs/executive/FaultState.class
 org/lsst/ocs/executive/ExecutiveFX.class

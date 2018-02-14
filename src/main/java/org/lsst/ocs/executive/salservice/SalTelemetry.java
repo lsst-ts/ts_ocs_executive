@@ -19,8 +19,9 @@ import org.lsst.ocs.executive.DomainObject;
 import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 
 /**
- *
- * SalTelemetry is a Concrete Command class in the command pattern
+ * <h2>SAL Telemetry</h2>
+ * <p>
+ * {@code SalTelemetry} is a Concrete Command class in the command pattern
  *
  */
 

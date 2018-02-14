@@ -18,8 +18,9 @@ import org.lsst.sal.SAL_archiver;
 import static java.lang.System.out;
 
 /**
- *
- * CSCArchiver is a Receiver class in the command pattern
+ * <h2>Data Management Archiver Service CSC</h2>
+ * <p>
+ * {@code CSCArchiver} is a Receiver class in the command pattern
  * 
  */
 

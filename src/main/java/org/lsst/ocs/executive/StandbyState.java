@@ -20,10 +20,11 @@ import org.lsst.ocs.executive.salservice.SalCmd;
 import org.lsst.ocs.executive.salservice.SalEvent;
 
 /**
- *
- * StandbyState is a Concrete State class implementation
- * 
- * Transitions to: OfflineState, DisabledState or FaultState
+ * <h2>Standby Entity State</h2>
+ * <p>
+ * {@code StandbyState} is a Concrete State class implementation.
+ * <p>
+ * Transitions to: {@code OfflineState}, {@code DisabledState} or {@code FaultState}
  *
  */
 

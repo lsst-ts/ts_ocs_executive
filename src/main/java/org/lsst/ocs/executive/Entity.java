@@ -22,8 +22,9 @@ package org.lsst.ocs.executive;
 import org.lsst.ocs.executive.salcomponent.*;
 
 /**
- *
- * Entity is a Context class implementation
+ * <h2>Entity</h2>
+ * <p>
+ * {@code Entity} is a Context class implementation in the state pattern
  *
  */
 
@@ -72,7 +73,7 @@ public class Entity implements DomainObject {
                 _salComponent = new CSCCcs();
                 break;
             case "TCS":
-                _salComponent = new CSCTcs();
+                _salComponent = new CSCMTcs();
                 break;
             case "ARCHIVER":
                 _salComponent = new CSCArchiver();

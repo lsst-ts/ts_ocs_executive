@@ -18,8 +18,9 @@ import static java.lang.System.out;
 import org.lsst.sal.SAL_processingcluster;
 
 /**
- *
- * CSCProcessingCluster is a Receiver class in the command pattern
+ * <h2>Data Management Processing Cluster Service CSC</h2>
+ * <p>
+ * {@code CSCProcessingCluster} is a Receiver class in the command pattern
  *
  */
 

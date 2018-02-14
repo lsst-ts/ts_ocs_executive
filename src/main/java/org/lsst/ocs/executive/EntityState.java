@@ -16,8 +16,9 @@ package org.lsst.ocs.executive;
 import static java.lang.System.out;
 
 /**
- *
- * EntityState is an abstract state base class
+ * <h2>Entity State</h2>
+ * <p>
+ * {@code EntityState} is an abstract state base class in the state pattern
  *
  */
 

@@ -18,12 +18,13 @@ import org.lsst.sal.SAL_tcs;
 import static java.lang.System.out;
 
 /**
- *
- * CSCTcs is a Receiver class in the command pattern
+ * <h2>Main Telescope Control System (MTCS) CSC</h2>
+ * <p>
+ * {@code CSCMTcs} is a Receiver class in the command pattern
  *
  */
 
-public class CSCTcs implements CommandableSalComponent {
+public class CSCMTcs implements CommandableSalComponent {
     
     @Override public String getName() { return "CSCTcs"; }
     

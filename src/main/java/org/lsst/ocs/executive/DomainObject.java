@@ -15,8 +15,9 @@
 package org.lsst.ocs.executive;
 
 /**
- *
- * DomainObject is an interface type
+ * <h2>Command Task</h2>
+ * <p>
+ * {@code DomainObject} is an interface class type
  *
  */
 
