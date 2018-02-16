@@ -24,24 +24,36 @@ import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
  * {@code SalTelemetry} is a Concrete Command class in the command pattern
  *
  */
-
 public class SalTelemetry extends SalService implements DomainObject {
     
     @Override public String getName() { return "SalTelemetry"; }    
     
-    // Receiver (e.g. SalCamera)
+    /* Command Pattern: Receiver IF (e.g. concrete receiver =>  CSCCcs) */
     CommandableSalComponent _salComponent;
     
     public SalTelemetry( CommandableSalComponent salComponent ) { this._salComponent = salComponent; }
 
     @Override public void execute() {
         
-        // receiver.action() (e.g. SalCamera.heartBeat())
+        out.print( this.getName() + "::"
+                                  + super._topic
+                                  + "::"
+                                  + this._salComponent
+                                  + "::"
+                                  + Thread.currentThread().getStackTrace()[1].getMethodName()
+                                  + "::"
+                                  + "Threadid: "
+                                  + Thread.currentThread().getId() + "\n" );
+
         try {
+            /* Command Pattern: receiverIF.action() [e.g. concrete rcvr => cscMTcs.heartBeat()] */
             _salComponent.getClass()
-                         .getMethod( this._topic, new Class[]{} ) // method w/ null args
+                         /* specify method & that it takes no (i.e. null) args */
+                         .getMethod( this._topic, new Class[]{} )
+                         /* invoke w/ specific arg */
                          .invoke( _salComponent, super._topicArgs );
-                         //.invoke(_salComponent, new Object[]{}); // invoke w/ null args
+            
+                         //.invoke(_salComponent, new Object[]{});
         }
         catch (Exception e) {
             e.printStackTrace( out.printf( this.getName() + "interrupted from SalTelemetry.execute()" ) );

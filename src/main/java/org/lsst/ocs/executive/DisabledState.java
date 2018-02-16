@@ -30,12 +30,10 @@ public class DisabledState implements EntityState {
 
     // Entity has applied settings & may acquire data
     @Override
-    public String getName () {
-        return "DisabledState";
-    }
+    public String getName() { return "DisabledState"; }
 
     @Override
-    public void enable ( Entity entity ) {
+    public void enable( Entity entity ) {
 
         String salactor = entity.getClass().getSimpleName() + "." + entity.getCSC().getClass().getSimpleName();
         out.println( salactor + "." + this.getName() + ".enable" );
@@ -77,7 +75,7 @@ public class DisabledState implements EntityState {
     }
 
     @Override
-    public void standby ( Entity entity ) {
+    public void standby( Entity entity ) {
 
         String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
         out.println( salactor + "." + this.getName() + ".standby" );
@@ -115,7 +113,7 @@ public class DisabledState implements EntityState {
     }
 
     @Override
-    public void fault ( Entity entity ) {
+    public void fault( Entity entity ) {
 
         String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
         out.println( salactor + "." + this.getName() + ".fault" );

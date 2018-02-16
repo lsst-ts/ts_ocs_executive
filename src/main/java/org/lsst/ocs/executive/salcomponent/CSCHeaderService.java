@@ -20,7 +20,7 @@ import org.lsst.sal.SAL_dmHeaderService;
 /**
  * <h2>Data Management Header Service CSC</h2>
  * <p>
- * {@code CSCHeaderService} is a Receiver class in the command pattern
+ * {@code CSCHeaderService} is a (Concrete) Receiver class in the command pattern
  *
  */
 
@@ -50,7 +50,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         int timeout = 3;
         publisher.waitForCompletion_EnterControl( cmdId, timeout );
 
-        // Remove the DataWriters etc
+        /* Remove the DataWriters etc */
         publisher.salShutdown();
     }
 
@@ -76,7 +76,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         int timeout = 3;
         publisher.waitForCompletion_Start( cmdId, timeout );
 
-        // Remove the DataWriters etc
+        /* Remove the DataWriters etc */
         publisher.salShutdown();
     
     }
@@ -103,7 +103,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         int timeout = 3;
         publisher.waitForCompletion_Enable( cmdId, timeout );
 
-        // Remove the DataWriters etc
+        /* Remove the DataWriters etc */
         publisher.salShutdown();
     }
 
@@ -129,7 +129,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         int timeout = 3;
         publisher.waitForCompletion_Disable( cmdId, timeout );
 
-        // Remove the DataWriters etc
+        /* Remove the DataWriters etc */
         publisher.salShutdown();
     }
 
@@ -155,7 +155,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         int timeout = 3;
         publisher.waitForCompletion_Standby( cmdId, timeout );
 
-        // Remove the DataWriters etc
+        /* Remove the DataWriters etc */
         publisher.salShutdown();
     }
 
@@ -181,7 +181,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         int timeout = 3;
         publisher.waitForCompletion_ExitControl( cmdId, timeout );
 
-        // Remove the DataWriters etc
+        /* Remove the DataWriters etc */
         publisher.salShutdown();
     }
 
@@ -203,10 +203,15 @@ public class CSCHeaderService implements CommandableSalComponent {
 
                 /* Remove the DataWriters etc */
                 subscriber.salShutdown();
+                
                 return status;
             }
 
-            try { Thread.sleep(100); } catch ( InterruptedException e ) { e.printStackTrace(); }
+            try {
+                Thread.sleep( 100 );
+            } catch ( InterruptedException e ) {
+                e.printStackTrace();
+            }
         }
 
         /* Remove the DataWriters etc */
@@ -221,18 +226,22 @@ public class CSCHeaderService implements CommandableSalComponent {
         SAL_dmHeaderService subscriber = new SAL_dmHeaderService();
         subscriber.salEvent( "dmHeaderService_logevent_SettingVersions" );
         
-        dmHeaderService.logevent_SettingVersions event = new dmHeaderService.logevent_SettingVersions();
+        dmHeaderService.logevent_SettingVersions event = 
+            new dmHeaderService.logevent_SettingVersions();
 
         int status;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SettingVersions( event );
             if ( status == SAL_dmHeaderService.SAL__OK ) {
-                
                 out.println("=== Event Logged : " + event);
             }
             
-            try {Thread.sleep(100);} catch ( InterruptedException e ) { e.printStackTrace(); }
+            try {
+                Thread.sleep( 100 );
+            } catch ( InterruptedException e ) {
+                e.printStackTrace();
+            }
         }
 
         /* Remove the DataWriters etc */
@@ -245,18 +254,22 @@ public class CSCHeaderService implements CommandableSalComponent {
         SAL_dmHeaderService subscriber = new SAL_dmHeaderService();
         subscriber.salEvent( "dmHeaderService_logevent_AppliedSettingsMatchStart" );
         
-        dmHeaderService.logevent_AppliedSettingsMatchStart event = new dmHeaderService.logevent_AppliedSettingsMatchStart();
+        dmHeaderService.logevent_AppliedSettingsMatchStart event = 
+            new dmHeaderService.logevent_AppliedSettingsMatchStart();
 
         int status;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_AppliedSettingsMatchStart( event );
             if ( status == SAL_dmHeaderService.SAL__OK ) {
-                
                 out.println("=== Event Logged : " + event);
             }
             
-            try {Thread.sleep(100);} catch ( InterruptedException e ) { e.printStackTrace(); }
+            try {
+                Thread.sleep( 100 );
+            } catch ( InterruptedException e ) {
+                e.printStackTrace();
+            }
         }
 
         /* Remove the DataWriters etc */

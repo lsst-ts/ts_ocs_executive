@@ -1,14 +1,14 @@
 /*
  * LSST Observatory Control System (OCS) Software
  * Copyright 2008-2017 AURA/LSST.
- * 
+ *
  * This product includes software developed by the
  * LSST Project (http://www.lsst.org/) with contributions made at LSST partner
  * institutions.  The list of partner institutions is found at:
  * http://www.lsst.org/lsst/about/contributors .
- * 
- * Use and redistribution of this software is covered by the GNU Public License 
- * Version 3 (GPLv3) or later, as detailed below.  A copy of the GPLv3 is also 
+ *
+ * Use and redistribution of this software is covered by the GNU Public License
+ * Version 3 (GPLv3) or later, as detailed below.  A copy of the GPLv3 is also
  * available at <http://www.gnu.org/licenses/>.
  */
 
@@ -39,115 +39,106 @@ import org.lsst.ocs.executive.salservice.SalCmd;
  * <h2>Executive</h2>
  * <p>
  * The {@code Executive} is the application model class
- * 
+ * <p>
  */
-
 public class Executive {
-    
-    public static final CommandableSalComponent cscMTCS  = new CSCMTcs();
-    public static final CommandableSalComponent cscCCS   = new CSCCcs();
-    public static final CommandableSalComponent cscARC   = new CSCArchiver();
-    public static final CommandableSalComponent cscCAT   = new CSCCatchupArchiver();
-    public static final CommandableSalComponent cscPRO   = new CSCProcessingCluster();
-    public static final CommandableSalComponent cscHDR   = new CSCHeaderService();
-    
-    public static final CommandableSalComponent cscATCS = new CSCMTcs();
-    public static final CommandableSalComponent cscACCS = new CSCCcs();
-    public static final CommandableSalComponent cscAHDR = new CSCHeaderService();
-    
-    public static final Entity entityMTCS  = new Entity( cscMTCS );
-    public static final Entity entityCCS   = new Entity( cscCCS  );
-    public static final Entity entityARC   = new Entity( cscARC  );
-    public static final Entity entityCAT   = new Entity( cscCAT  );
-    public static final Entity entityPRO   = new Entity( cscPRO  );
-    public static final Entity entityHDR   = new Entity( cscHDR  );
+
+    public static final CommandableSalComponent cscMTCS = new CSCMTcs();
+    public static final CommandableSalComponent cscCCS  = new CSCCcs();
+    public static final CommandableSalComponent cscARC  = new CSCArchiver();
+    public static final CommandableSalComponent cscCAT  = new CSCCatchupArchiver();
+    public static final CommandableSalComponent cscPRO  = new CSCProcessingCluster();
+    public static final CommandableSalComponent cscHDR  = new CSCHeaderService();
+
+    public static final CommandableSalComponent cscATCS = new CSCATcs();
+    public static final CommandableSalComponent cscACCS = new CSCACcs();
+    public static final CommandableSalComponent cscADMD = new CSCArchiver();
+    public static final CommandableSalComponent cscAHDR = new CSCAHeaderService();
+
+    public static final Entity entityMTCS = new Entity( cscMTCS );
+    public static final Entity entityCCS  = new Entity( cscCCS  );
+    public static final Entity entityARC  = new Entity( cscARC  );
+    public static final Entity entityCAT  = new Entity( cscCAT  );
+    public static final Entity entityPRO  = new Entity( cscPRO  );
+    public static final Entity entityHDR  = new Entity( cscHDR  );
 
     public static final Entity entityATCS = new Entity( cscATCS );
     public static final Entity entityACCS = new Entity( cscACCS );
+    public static final Entity entityADMD = new Entity( cscADMD );
     public static final Entity entityAHDR = new Entity( cscAHDR );
-    
+
     public static final List<CmdTask> rCmdTasks_MTCS = Arrays.asList(
-            
         new CmdTask( cscMTCS, "filterChange" ),
-        new CmdTask( cscMTCS, "target" )
+        new CmdTask( cscMTCS, "target"       )
     );
-    
+
     public static final List<CmdTask> rCmdTasks_CCS = Arrays.asList(
-            
         new CmdTask( cscCCS, "setFilter" ),
         new CmdTask( cscCCS, "takeImage" )
     );
-    
+
     public static final List<CmdTask> rCmdTasks_ENTERCTRL = Arrays.asList(
-            
         new CmdTask( cscMTCS, "enterControl" ),
-        new CmdTask( cscCCS , "enterControl" ),
-        new CmdTask( cscARC , "enterControl" ),
-        new CmdTask( cscCAT , "enterControl" ),
-        new CmdTask( cscPRO , "enterControl" ),
-        new CmdTask( cscHDR , "enterControl" )
+        new CmdTask( cscCCS, "enterControl"  ),
+        new CmdTask( cscARC, "enterControl"  ),
+        new CmdTask( cscCAT, "enterControl"  ),
+        new CmdTask( cscPRO, "enterControl"  ),
+        new CmdTask( cscHDR, "enterControl"  )
     );
-    
+
     public static final List<CmdTask> rCmdTasks_START = Arrays.asList(
-            
         new CmdTask( cscMTCS, "start" ),
-        new CmdTask( cscCCS , "start" ),
-        new CmdTask( cscARC , "start" ),
-        new CmdTask( cscCAT , "start" ),
-        new CmdTask( cscPRO , "start" ),
-        new CmdTask( cscHDR , "start" )        
+        new CmdTask( cscCCS, "start"  ),
+        new CmdTask( cscARC, "start"  ),
+        new CmdTask( cscCAT, "start"  ),
+        new CmdTask( cscPRO, "start"  ),
+        new CmdTask( cscHDR, "start"  )
     );
 
     public static final List<CmdTask> rCmdTasks_ENABLE = Arrays.asList(
-            
         new CmdTask( cscMTCS, "enable" ),
-        new CmdTask( cscCCS , "enable" ),
-        new CmdTask( cscARC , "enable" ),
-        new CmdTask( cscCAT , "enable" ),
-        new CmdTask( cscPRO , "enable" ),
-        new CmdTask( cscHDR , "enable" )                
+        new CmdTask( cscCCS, "enable"  ),
+        new CmdTask( cscARC, "enable"  ),
+        new CmdTask( cscCAT, "enable"  ),
+        new CmdTask( cscPRO, "enable"  ),
+        new CmdTask( cscHDR, "enable"  )
     );
-    
+
     public static final List<EventCallable> cEventTask_MTCS = Arrays.asList(
-            
         new EventCallable( cscMTCS, "filterChangeInPosition" ),
-        new EventCallable( cscMTCS, "targetInPosition" )
+        new EventCallable( cscMTCS, "targetInPosition"       )
     );
 
     public static final List<EventCallable> cEventTask_CCS = Arrays.asList(
-            
         new EventCallable( cscCCS, "tbd" ),
         new EventCallable( cscCCS, "tbd" )
     );
 
     public static final List<EventCallable> cEventTask_SUMSTATE = Arrays.asList(
-            
         new EventCallable( cscMTCS, "summaryState" ),
-        new EventCallable( cscCCS , "summaryState" ),
-        new EventCallable( cscARC , "summaryState" ),
-        new EventCallable( cscCAT , "summaryState" ),
-        new EventCallable( cscPRO , "summaryState" ),
-        new EventCallable( cscHDR , "summaryState" )
+        new EventCallable( cscCCS, "summaryState"  ),
+        new EventCallable( cscARC, "summaryState"  ),
+        new EventCallable( cscCAT, "summaryState"  ),
+        new EventCallable( cscPRO, "summaryState"  ),
+        new EventCallable( cscHDR, "summaryState"  )
     );
 
     public static final List<EventCallable> cEventTask_SETTINGS = Arrays.asList(
-            
         new EventCallable( cscMTCS, "settingsVersion" ),
-        new EventCallable( cscCCS , "settingsVersion" ),
-        new EventCallable( cscARC , "settingsVersion" ),
-        new EventCallable( cscCAT , "settingsVersion" ),
-        new EventCallable( cscPRO , "settingsVersion" ),
-        new EventCallable( cscHDR , "settingsVersion" )
-);
+        new EventCallable( cscCCS, "settingsVersion"  ),
+        new EventCallable( cscARC, "settingsVersion"  ),
+        new EventCallable( cscCAT, "settingsVersion"  ),
+        new EventCallable( cscPRO, "settingsVersion"  ),
+        new EventCallable( cscHDR, "settingsVersion"  )
+    );
 
     public static final List<EventCallable> cEventTask_APPLIEDSETTINGS = Arrays.asList(
-            
         new EventCallable( cscMTCS, "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscCCS , "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscARC , "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscCAT , "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscPRO , "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscHDR , "appliedSettingsMatchStartTest" )
+        new EventCallable( cscCCS, "appliedSettingsMatchStartTest"  ),
+        new EventCallable( cscARC, "appliedSettingsMatchStartTest"  ),
+        new EventCallable( cscCAT, "appliedSettingsMatchStartTest"  ),
+        new EventCallable( cscPRO, "appliedSettingsMatchStartTest"  ),
+        new EventCallable( cscHDR, "appliedSettingsMatchStartTest"  )
     );
 
     public void invokeWindow( Stage primaryStage ) {
@@ -160,7 +151,7 @@ public class Executive {
         btn.setOnAction( event -> {
 
             msg.setText( "Hello World! JavaFX style :)" );
-        } );
+        });
 
         btn.setVisible( true );
 
@@ -177,9 +168,9 @@ public class Executive {
         primaryStage.show();
 
         out.print( this.getClass()
-            .getSimpleName() + "::"
-                   + Thread.currentThread().getStackTrace()[1].getMethodName()
-                   + "::" );
+                       .getSimpleName() + "::"
+                                        + Thread.currentThread().getStackTrace()[1].getMethodName()
+                                        + "::" );
 
         out.print( Thread.currentThread().getName() );
         out.println( " " + "id: " + Thread.currentThread().getId() );
@@ -192,10 +183,11 @@ public class Executive {
     //public void start( Stage primaryStage ) throws IOException, InterruptedException, ExecutionException {
     public static void main( String[] args ) throws IOException, InterruptedException, ExecutionException {
 
-        out.print( Thread.currentThread().getClass()
-            .getSimpleName() + "::"
-                   + Thread.currentThread().getStackTrace()[1].getMethodName()
-                   + "::" );
+        out.print( Thread.currentThread()
+                         .getClass()
+                         .getSimpleName() + "::"
+                                          + Thread.currentThread().getStackTrace()[1].getMethodName()
+                                          + "::" );
 
         //out.print( Thread.currentThread().getName() );
         out.println( " " + "id: " + Thread.currentThread().getId() );
@@ -243,26 +235,16 @@ public class Executive {
 //        winFuture.get(); // blocks until thread returns
 
         /*
-          sumStateFutures.parallelStream()
-                        .map((Future<SalEvent> future) -> {
-                            try {
-                                return future.get();
-                            }
-                            catch (Exception e) {
-                                throw new IllegalStateException(e);
-                            }
-                        })
-                        .collect(Collectors.toList())
-                        .forEach(event -> event.getName());
+         * sumStateFutures.parallelStream() .map((Future<SalEvent> future) -> {
+         * try { return future.get(); } catch (Exception e) { throw new
+         * IllegalStateException(e); } }) .collect(Collectors.toList())
+         * .forEach(event -> event.getName());
          */
-        
         // buffReader = new BufferedReader( new InputStreamReader( System.in ) );
         //out.println( "\n" + " Event Subscribers invoking..." );
         //buffReader.readLine();
-
         //out.print( "\n" + EntityType.TCS.toString() + " sequence cmd enterControl..." );
         //buffReader.readLine();
-
         // [C.]
         // 1. SalComponent (Receiver) previously defined: rCCS
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
@@ -270,18 +252,17 @@ public class Executive {
         SalCmd salCmdTCS = new SalCmd( Executive.cscMTCS );
         salCmdTCS.setTopic( "enterControl" );
         // 3. Define Invoker & set SalService request
-        SalConnect salConnectTCS = new SalConnect(1);
+        SalConnect salConnectTCS = new SalConnect( 1 );
         salConnectTCS.setSalService( salCmdTCS );
         //salConnectCamera.setSalCmd(new SalCmd(rCCS), "enterControl");
         // 4. Invoker indirectly calls cmd->execute()
         salConnectTCS.connect();
-        
+
         if ( false ) {
 
             //BufferedReader ss1 = new BufferedReader( new InputStreamReader( System.in ) );
             //out.println( "\n" + " Event Subscribers done..." );
             //ss1.readLine();
-
             /**
              * *******************************************************************
              */
@@ -289,40 +270,32 @@ public class Executive {
             //ExecutorService ex = Executors.newFixedThreadPool(6);
             //List<Future<Entity>> enterCtrlFutures  = ex.invokeAll(CmdTask.ENTERCTRL_TASKS);
             /*
-        ex.submit(CmdTask.rENTERCTRL_TASKS.get(0));
-        ex.submit(CmdTask.rENTERCTRL_TASKS.get(1));
-        ex.submit(CmdTask.rENTERCTRL_TASKS.get(2));
-        ex.submit(CmdTask.rENTERCTRL_TASKS.get(3));
-        ex.submit(CmdTask.rENTERCTRL_TASKS.get(4));
-        ex.submit(CmdTask.rENTERCTRL_TASKS.get(5));
+             * ex.submit(CmdTask.rENTERCTRL_TASKS.get(0));
+             * ex.submit(CmdTask.rENTERCTRL_TASKS.get(1));
+             * ex.submit(CmdTask.rENTERCTRL_TASKS.get(2));
+             * ex.submit(CmdTask.rENTERCTRL_TASKS.get(3));
+             * ex.submit(CmdTask.rENTERCTRL_TASKS.get(4));
+             * ex.submit(CmdTask.rENTERCTRL_TASKS.get(5));
              */
  /*
-        BufferedReader ss2 = new BufferedReader(new InputStreamReader(System.in));
-        out.println("\n" + " EnterControl tasks invoking...");
-        ss2.readLine();
+             * BufferedReader ss2 = new BufferedReader(new
+             * InputStreamReader(System.in)); out.println("\n" + " EnterControl
+             * tasks invoking..."); ss2.readLine();
              */
 
  /*
-        enterCtrlFutures.parallelStream()
-                        .map((Future<Entity> future) -> {
-                            try {
-                                return future.get();
-                            }
-                            catch (Exception e) {
-                                throw new IllegalStateException(e);
-                            }
-                        })
-                        .collect(Collectors.toList())
-                        .parallelStream()
-                        .map(entity -> ex.submit(new CmdTask(entity, "start")));
-                        //.forEach(entity -> ex.submit(new CmdTask(entity, "start")));
-                        //.forEach(out::println);
+             * enterCtrlFutures.parallelStream() .map((Future<Entity> future) ->
+             * { try { return future.get(); } catch (Exception e) { throw new
+             * IllegalStateException(e); } }) .collect(Collectors.toList())
+             * .parallelStream() .map(entity -> ex.submit(new CmdTask(entity,
+             * "start"))); //.forEach(entity -> ex.submit(new CmdTask(entity,
+             * "start"))); //.forEach(out::println);
              */
             /**
              * *********************************
              */
             /**
-             * * OCS Sequencer STM Init    **
+             * * OCS Sequencer STM Init **
              */
             /**
              * *********************************
@@ -339,83 +312,49 @@ public class Executive {
             //BufferedReader br = new BufferedReader( new InputStreamReader( System.in ) );
 
             /*
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-
-        Runnable taskSeq = () -> {
-            try { 
-                out.println("Executing enterControl thread task");
-                //seqEntity.enterControl();
-                CmdTask.SEQ.enterControl();
-            } 
-            catch (Exception e) {
-                e.printStackTrace(out.printf("taskSeq enterControl interrupted"));
-            }
-        };
-        // submit method returns a Future so curry to Future's get() method
-        // Block until task finishes
-        executor.submit(taskSeq);
-                //.get();
-        
-        // 3. Transition to 'DisabledState'
-        //    Verify settings; verify OCS SummaryState of 'DisabledState'
-        out.print("\n" + EntityType.SEQUENCER.toString()+ " start...");
-        br.readLine();
-        
-        Runnable taskSeq1 = () -> {
-            try { 
-                out.println("Executing start thread task");
-                //seqEntity.start();
-                CmdTask.SEQ.start();
-            } 
-            catch (Exception e) {
-                e.printStackTrace(out.printf("taskSeq enable interrupted"));
-            }
-        };
-        // Block until task finishes
-        executor.submit(taskSeq1);
-                //.get();
-
-        // 4. Transition to 'EnabledState'
-        //    Verify settings; verify OCS SummaryState of 
-        out.print("\n" + EntityType.SEQUENCER.toString()+ " enable...");
-        br.readLine();
-        
-        Runnable taskSeq2 = () -> {
-            try { 
-                out.println("Executing enable thread task");
-                //seqEntity.enable();
-                CmdTask.SEQ.enable();
-            } 
-            catch (Exception e) {
-                e.printStackTrace(out.printf("taskSeq enable interrupted"));
-            }
-        };
-        // Block until task finishes
-        executor.submit(taskSeq2);
-                //.get();
-        
-        // Shutdown single thread executor
-        try {
-            out.println("shutting down executor...");
-            executor.shutdown();
-            executor.awaitTermination(1, TimeUnit.SECONDS);
-        }
-        catch (InterruptedException e) {
-            out.println("task interrupted");
-        }
-        finally {
-            if(!executor.isTerminated()) {
-                err.println("cancel non-finished tasks");
-            }
-            executor.shutdownNow();
-            out.println("executor shutdown finished");
-        }
+             * ExecutorService executor = Executors.newSingleThreadExecutor();
+             *
+             * Runnable taskSeq = () -> { try { out.println("Executing
+             * enterControl thread task"); //seqEntity.enterControl();
+             * CmdTask.SEQ.enterControl(); } catch (Exception e) {
+             * e.printStackTrace(out.printf("taskSeq enterControl
+             * interrupted")); } }; // submit method returns a Future so curry
+             * to Future's get() method // Block until task finishes
+             * executor.submit(taskSeq); //.get();
+             *
+             * // 3. Transition to 'DisabledState' // Verify settings; verify
+             * OCS SummaryState of 'DisabledState' out.print("\n" +
+             * EntityType.SEQUENCER.toString()+ " start..."); br.readLine();
+             *
+             * Runnable taskSeq1 = () -> { try { out.println("Executing start
+             * thread task"); //seqEntity.start(); CmdTask.SEQ.start(); } catch
+             * (Exception e) { e.printStackTrace(out.printf("taskSeq enable
+             * interrupted")); } }; // Block until task finishes
+             * executor.submit(taskSeq1); //.get();
+             *
+             * // 4. Transition to 'EnabledState' // Verify settings; verify OCS
+             * SummaryState of out.print("\n" + EntityType.SEQUENCER.toString()+
+             * " enable..."); br.readLine();
+             *
+             * Runnable taskSeq2 = () -> { try { out.println("Executing enable
+             * thread task"); //seqEntity.enable(); CmdTask.SEQ.enable(); }
+             * catch (Exception e) { e.printStackTrace(out.printf("taskSeq
+             * enable interrupted")); } }; // Block until task finishes
+             * executor.submit(taskSeq2); //.get();
+             *
+             * // Shutdown single thread executor try { out.println("shutting
+             * down executor..."); executor.shutdown();
+             * executor.awaitTermination(1, TimeUnit.SECONDS); } catch
+             * (InterruptedException e) { out.println("task interrupted"); }
+             * finally { if(!executor.isTerminated()) { err.println("cancel
+             * non-finished tasks"); } executor.shutdownNow();
+             * out.println("executor shutdown finished"); }
              */
             /**
              * ***********************
              */
             /**
-             * * CCS STM Init    **
+             * * CCS STM Init **
              */
             /**
              * ***********************
@@ -434,11 +373,9 @@ public class Executive {
             // new SalCmd(rCCS, "enterControl")
             //CmdTask.ENTERCTRL_TASKS.get(0).call();
             //rCmdTask.rENTERCTRL_TASKS.get( 0 ).run();
-
             // [B.]
             // Receiver previously defined: rCCS = new CSCCcs();
             //rCmdTask.rCCS.enterControl();
-
             // [C.]
             // 1. SalComponent (Receiver) previously defined: rCCS
             // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
@@ -446,7 +383,7 @@ public class Executive {
             SalCmd salCmdCamera = new SalCmd( Executive.cscCCS );
             salCmdCamera.setTopic( "enterControl" );
             // 3. Define Invoker & set SalService request
-            SalConnect salConnectCamera = new SalConnect(1);
+            SalConnect salConnectCamera = new SalConnect( 1 );
             salConnectCamera.setSalService( salCmdCamera );
             //salConnectCamera.setSalCmd(new SalCmd(rCCS), "enterControl");
             // 4. Invoker indirectly calls cmd->execute()
@@ -484,23 +421,23 @@ public class Executive {
              * ***********************
              */
             /**
-             * * TCS STM Init    **
+             * * TCS STM Init **
              */
             /**
              * ***********************
              */
             out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd enterControl..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscMTCS.enterControl();
 
             SalCmd salCmdTcs = new SalCmd( Executive.cscMTCS );
             salCmdTcs.setTopic( "enterControl" );
-            SalConnect salConnectTcs = new SalConnect(1);
+            SalConnect salConnectTcs = new SalConnect( 1 );
             salConnectTcs.setSalService( salCmdTcs );
             salConnectTcs.connect();
 
             out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd start..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscMTCS.start();
 
             salCmdTcs.setTopic( "start" );
@@ -517,7 +454,7 @@ public class Executive {
              * **************************
              */
             /**
-             * * DM STM Init   **
+             * * DM STM Init **
              */
             /**
              * **************************
@@ -535,7 +472,7 @@ public class Executive {
             // --- Add code ---
             // 3. cmd CCS to 'DisabledState'
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd start..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscARC.start();
 
             // 3a. Verify SummaryState of 'DisabledState'
@@ -552,13 +489,13 @@ public class Executive {
             // 4a. Verify SummaryState of 'EnabledState'
             // --- Add code ---
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd enterControl..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscCAT.enterControl();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd start..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscCAT.start();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd enable..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscCAT.enable();
 
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd enterControl..." );
@@ -575,36 +512,36 @@ public class Executive {
              * ***********************
              */
             /**
-             * * DM STM Shutdown  **
+             * * DM STM Shutdown **
              */
             /**
              * ***********************
              */
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd disable..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscPRO.disable();
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd standby..." );
             //br.readLine();
             //Executive.cscPRO.standby();
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd exitControl..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscPRO.exitControl();
 
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd disable..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscCAT.disable();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd standby..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscCAT.standby();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd exitControl..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscCAT.exitControl();
 
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd disable..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscARC.disable();
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd standby..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscARC.standby();
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd exitControl..." );
             //br.readLine();
@@ -614,130 +551,115 @@ public class Executive {
              * ***********************
              */
             /**
-             * * TCS STM Shutdown    **
+             * * TCS STM Shutdown **
              */
             /**
              * ***********************
              */
             out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd disable..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscMTCS.disable();
 
             out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd standby..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscMTCS.standby();
 
             out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd exitControl..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscMTCS.exitControl();
 
             /**
              * ***********************
              */
             /**
-             * * CCS STM Shutdown  **
+             * * CCS STM Shutdown **
              */
             /**
              * ***********************
              */
             out.print( "\n" + EntityType.CCS.toString() + " sequence cmd disable..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscCCS.disable();
 
             out.print( "\n" + EntityType.CCS.toString() + " sequence cmd standby..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscCCS.standby();
 
             out.print( "\n" + EntityType.CCS.toString() + " sequence cmd exitControl..." );
-           // br.readLine();
+            // br.readLine();
             //Executive.cscCCS.exitControl();
 
             /**
              * ***********************
              */
             /**
-             * * TCS STM Init    **
+             * * TCS STM Init **
              */
             /**
              * ***********************
              */
-            /*    
-        // TCS Entity object created
-        Entity tcsEntity = new Entity(EntityType.TCS);
-        
-        // 1. Verify SummaryState of 'OfflineState[AvailableState]'
-        // --- Add code ---
-        
-        // 2. cmd tcs to 'StandbyState'
-        // if ( tcsEntity.getName().equals( tcsBoundary.SummaryState() )
-        tcsEntity.enterControl();
-        
-        // 2a. Verify SummaryState of 'StandbyState'
-        // --- Add code ---
-        
-        // 2b. Determine a 'RecommendedSettingsVersion'
-        // --- Add code ---
-
-        // 3. cmd tcs to 'DisabledState'
-        tcsEntity.start();
-        
-        // 3a. Verify SummaryState of 'DisabledState'
-        // --- Add code ---
-
-        // 3b. Verify 'SettingsApplied'
-        // --- Add code ---
-
-        // 3c. Verify 'AppliedSettingsMatchStart'
-        // --- Add code ---
-
-        // 4. cmd tcs to 'EnabledState'
-        tcsEntity.enable();
-        
-        // 4a. Verify SummaryState of 'EnabledState'
-        // --- Add code ---
+            /*
+             * // TCS Entity object created Entity tcsEntity = new
+             * Entity(EntityType.TCS);
+             *
+             * // 1. Verify SummaryState of 'OfflineState[AvailableState]' //
+             * --- Add code ---
+             *
+             * // 2. cmd tcs to 'StandbyState' // if (
+             * tcsEntity.getName().equals( tcsBoundary.SummaryState() )
+             * tcsEntity.enterControl();
+             *
+             * // 2a. Verify SummaryState of 'StandbyState' // --- Add code ---
+             *
+             * // 2b. Determine a 'RecommendedSettingsVersion' // --- Add code
+             * ---
+             *
+             * // 3. cmd tcs to 'DisabledState' tcsEntity.start();
+             *
+             * // 3a. Verify SummaryState of 'DisabledState' // --- Add code ---
+             *
+             * // 3b. Verify 'SettingsApplied' // --- Add code ---
+             *
+             * // 3c. Verify 'AppliedSettingsMatchStart' // --- Add code ---
+             *
+             * // 4. cmd tcs to 'EnabledState' tcsEntity.enable();
+             *
+             * // 4a. Verify SummaryState of 'EnabledState' // --- Add code ---
              */
             /**
              * ***********************
              */
             /**
-             * * DMCS STM Init    **
+             * * DMCS STM Init **
              */
             /**
              * ***********************
              */
-            /*    
-        // DMCS Entity object created
-        Entity dmcsEntity = new Entity(EntityType.DMCS);
-        
-        // 1. Verify SummaryState of 'OfflineState[AvailableState]'
-        // --- Add code ---
-        
-        // 2. cmd DMCS to 'StandbyState'
-        dmcsEntity.enterControl();
-        
-        // 2a. Verify SummaryState of 'StandbyState'
-        // --- Add code ---
-        
-        // 2b. Determine a 'RecommendedSettingsVersion'
-        // --- Add code ---
-
-        // 3. cmd DMCS to 'DisabledState'
-        dmcsEntity.start();
-        
-        // 3a. Verify SummaryState of 'DisabledState'
-        // --- Add code ---
-
-        // 3b. Verify 'SettingsApplied'
-        // --- Add code ---
-
-        // 3c. Verify 'AppliedSettingsMatchStart'
-        // --- Add code ---
-
-        // 4. cmd DMCS to 'EnabledState'
-        dmcsEntity.enable();
-        
-        // 4a. Verify SummaryState of 'EnabledState'
-        // --- Add code ---
+            /*
+             * // DMCS Entity object created Entity dmcsEntity = new
+             * Entity(EntityType.DMCS);
+             *
+             * // 1. Verify SummaryState of 'OfflineState[AvailableState]' //
+             * --- Add code ---
+             *
+             * // 2. cmd DMCS to 'StandbyState' dmcsEntity.enterControl();
+             *
+             * // 2a. Verify SummaryState of 'StandbyState' // --- Add code ---
+             *
+             * // 2b. Determine a 'RecommendedSettingsVersion' // --- Add code
+             * ---
+             *
+             * // 3. cmd DMCS to 'DisabledState' dmcsEntity.start();
+             *
+             * // 3a. Verify SummaryState of 'DisabledState' // --- Add code ---
+             *
+             * // 3b. Verify 'SettingsApplied' // --- Add code ---
+             *
+             * // 3c. Verify 'AppliedSettingsMatchStart' // --- Add code ---
+             *
+             * // 4. cmd DMCS to 'EnabledState' dmcsEntity.enable();
+             *
+             * // 4a. Verify SummaryState of 'EnabledState' // --- Add code ---
              */
         }
 

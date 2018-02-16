@@ -20,7 +20,7 @@ import org.lsst.sal.SAL_catchuparchiver;
 /**
  * <h2>Data Management Catchup Archiver Service CSC</h2>
  * <p>
- * {@code CSCCatchupArchiver} is a Receiver class in the command pattern
+ * {@code CSCCatchupArchiver} is a (Concrete) Receiver class in the command pattern
  *
  */
 
@@ -51,7 +51,7 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         int timeout = 3;
         publisher.waitForCompletion_enterControl( cmdId, timeout );
 
-        // Remove the DataWriters etc
+        /* Remove the DataWriters etc */
         publisher.salShutdown();
     }
 
@@ -78,7 +78,7 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         int timeout = 3;
         publisher.waitForCompletion_start( cmdId, timeout );
 
-        // Remove the DataWriters etc
+        /* Remove the DataWriters etc */
         publisher.salShutdown();
     
     }
@@ -106,7 +106,7 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         int timeout = 3;
         publisher.waitForCompletion_enable( cmdId, timeout );
 
-        // Remove the DataWriters etc
+        /* Remove the DataWriters etc */
         publisher.salShutdown();
     }
 
@@ -133,7 +133,7 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         int timeout = 3;
         publisher.waitForCompletion_disable( cmdId, timeout );
 
-        // Remove the DataWriters etc
+        /* Remove the DataWriters etc */
         publisher.salShutdown();
     }
 
@@ -160,7 +160,7 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         int timeout = 3;
         publisher.waitForCompletion_standby( cmdId, timeout );
 
-        // Remove the DataWriters etc
+        /* Remove the DataWriters etc */
         publisher.salShutdown();
     }
 
@@ -187,7 +187,7 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         int timeout = 3;
         publisher.waitForCompletion_exitControl( cmdId, timeout );
 
-        // Remove the DataWriters etc
+        /* Remove the DataWriters etc */
         publisher.salShutdown();
     }
 
@@ -209,10 +209,15 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
 
                 /* Remove the DataWriters etc */
                 subscriber.salShutdown();
+                
                 return status;
             }
 
-            try { Thread.sleep(100); } catch ( InterruptedException e ) { e.printStackTrace(); }
+            try {
+                Thread.sleep( 100 );
+            } catch ( InterruptedException e ) {
+                e.printStackTrace();
+            }
         }
 
         /* Remove the DataWriters etc */
@@ -234,11 +239,14 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
             
             status = subscriber.getEvent_SettingVersions( event );
             if ( status == SAL_catchuparchiver.SAL__OK ) {
-                
                 out.println("=== Event Logged : " + event);
             }
             
-            try {Thread.sleep(100);} catch ( InterruptedException e ) { e.printStackTrace(); }
+            try {
+                Thread.sleep( 100 );
+            } catch ( InterruptedException e ) {
+                e.printStackTrace();
+            }
         }
 
         /* Remove the DataWriters etc */
@@ -258,11 +266,14 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
             
             status = subscriber.getEvent_AppliedSettingsMatchStart( event );
             if ( status == SAL_catchuparchiver.SAL__OK ) {
-                
                 out.println("=== Event Logged : " + event);
             }
             
-            try {Thread.sleep(100);} catch ( InterruptedException e ) { e.printStackTrace(); }
+            try {
+                Thread.sleep( 100 );
+            } catch ( InterruptedException e ) {
+                e.printStackTrace();
+            }
         }
 
         /* Remove the DataWriters etc */

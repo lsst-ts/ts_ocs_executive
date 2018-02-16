@@ -21,7 +21,6 @@ import static java.lang.System.out;
  * {@code EntityState} is an abstract state base class in the state pattern
  *
  */
-
 public interface EntityState extends DomainObject {
 
     // cmd entity from [OfflineState,OfflineState[AvailableState]] to StandbyState

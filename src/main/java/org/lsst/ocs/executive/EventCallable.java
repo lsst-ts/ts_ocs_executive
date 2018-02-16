@@ -31,30 +31,27 @@ import org.lsst.ocs.executive.salcomponent.CommandableSalComponent.*;
  * it only defines an entry point for threads. It allows you to pass the 
  * object to the {@link Thread}.
  */
-
 public class EventCallable implements Callable<Integer> {
 
+    /* Command Pattern: Receiver (e.g. SalCamera) */
     private final CommandableSalComponent _csc;
+    
     private final String _event;
     private final String _name = "EventCallable";
 
-    public EventCallable ( CommandableSalComponent csc, String event ) {
+    public EventCallable( CommandableSalComponent csc, String event ) {
 
         this._csc = csc;
         this._event = event;
     }
 
-    public String getName() {
-        
-        return _name;
-    }
+    public String getName() { return _name; }
 
     @Override public Integer call() {
         
         Thread.currentThread().setName( getName() );
         out.print( this.getName() + "::"
-                                  + Thread.currentThread().getStackTrace()[1]
-                                                          .getMethodName()
+                                  + Thread.currentThread().getStackTrace()[1].getMethodName()
                                   + "::" 
                                   + this._csc.getName()
                                   + "::"
@@ -66,14 +63,13 @@ public class EventCallable implements Callable<Integer> {
         int status = CSC_STATUS.SAL__OK.getValue();
         
         try {
-            
-            status = ( Integer ) _csc.getClass()
-                                      // specify method & that it takes no (i.e. null) args
-                                     .getMethod( this._event, new Class[] {} ) 
-                                      // invoke w/ null args
-                                     .invoke( _csc, new Object[] {} ); 
+            /* Command Pattern: receiver.action() [e.g. cscTcs.enterControl()] */
+            status = (Integer) _csc.getClass()
+                                   /* specify method & that it takes no (i.e. null) args */
+                                   .getMethod( this._event, new Class[] {} ) 
+                                   /* invoke w/ null args */
+                                   .invoke( _csc, new Object[] {} ); 
         } catch ( Exception e ) {
-            
             e.printStackTrace( out.printf( this.getName() + "interrupted from EventCallable.call()" ) );
         }
 

@@ -65,14 +65,13 @@ import org.lsst.ocs.executive.salservice.SalCmd;
  * by the FXML loader does not need to be annotated with {@code @FXML}. However,
  * annotating a public member with {@code @FXML} is not an error.
  */
-
 public class PrimaryController implements Initializable {
 
     // Reference to ExecutiveFX, the main Application class
     private ExecutiveFX execFX;
     
     @FXML private MenuButton mtcsStateMenu, ccsStateMenu, arcStateMenu, catStateMenu, proStateMenu, hdrStateMenu,
-                             atcsStateMenu, accsStateMenu, admStateMenu, ahdrStateMenu;
+                             atcsStateMenu, accsStateMenu, admsStateMenu, ahdrStateMenu;
 
     @FXML private MenuItem mtcsEnter, mtcsStart, mtcsEnable, mtcsDisable, mtcsStandby, mtcsExit,
                            atcsEnter, atcsStart, atcsEnable, atcsDisable, atcsStandby, atcsExit;
@@ -82,7 +81,7 @@ public class PrimaryController implements Initializable {
     
     @FXML private MenuItem arcEnter, arcStart, arcEnable, arcDisable, arcStandby, arcExit;
 
-    @FXML private MenuItem admEnter, admStart, admEnable, admDisable, admStandby, admExit;
+    @FXML private MenuItem admsEnter, admsStart, admsEnable, admsDisable, admsStandby, admsExit;
     
     @FXML private MenuItem catEnter, catStart, catEnable, catDisable, catStandby, catExit;
     
@@ -102,15 +101,15 @@ public class PrimaryController implements Initializable {
                            menuitemCreateProcessingCluster, menuitemCreateAll;
 
     @FXML private Label mtcsLabel, ccsLabel, arcLabel, catLabel, proLabel, hdrLabel,
-                        atcsLabel, accsLabel, admLabel, ahdrLabel;
+                        atcsLabel, accsLabel, admsLabel, ahdrLabel;
     private ObservableList<Label> stateLabelList;
 
     @FXML private Tooltip mtcsTooltip, ccsTooltip, arcTooltip, catTooltip, proTooltip, hdrTooltip,
-                          atcsTooltip, accsTooltip, admTooltip, ahdrTooltip;
+                          atcsTooltip, accsTooltip, admsTooltip, ahdrTooltip;
     private ObservableList<Tooltip> stateTooltipList;
     
     @FXML private TextField mtcsStateText, ccsStateText, arcStateText, catStateText, proStateText, hdrStateText,
-                            atcsStateText, accsStateText, admStateText, ahdrStateText;
+                            atcsStateText, accsStateText, admsStateText, ahdrStateText;
     private ObservableList<TextField> stateTextList;
     
     /**
@@ -118,23 +117,21 @@ public class PrimaryController implements Initializable {
      * after the fxml file has been loaded.
      */
     @Override
-    public void initialize(URL locationUrl, ResourceBundle resourceBundle) {
+    public void initialize( URL locationUrl, ResourceBundle resourceBundle ) {
         
         stateLabelList = FXCollections.observableArrayList( 
             mtcsLabel, ccsLabel, arcLabel, catLabel, proLabel,
-            atcsLabel, accsLabel, admLabel, ahdrLabel
+            atcsLabel, accsLabel, admsLabel, ahdrLabel
         );
 
         stateTooltipList = FXCollections.observableArrayList(
-                
             mtcsTooltip, ccsTooltip, arcTooltip, catTooltip, proTooltip,
-            atcsTooltip, accsTooltip, admTooltip, ahdrTooltip
+            atcsTooltip, accsTooltip, admsTooltip, ahdrTooltip
         );
 
         stateTextList = FXCollections.observableArrayList(
-                
             mtcsStateText, ccsStateText, arcStateText, catStateText, proStateText,
-            atcsStateText, accsStateText, admStateText, ahdrStateText
+            atcsStateText, accsStateText, admsStateText, ahdrStateText
         );
     }
     
@@ -143,10 +140,7 @@ public class PrimaryController implements Initializable {
      * 
      * @param refExecFX class which holds {@code main()}
      */
-    public void setExecFXApp( ExecutiveFX refExecFX ) {
-
-        this.execFX = refExecFX;
-    }
+    public void setExecFXApp( ExecutiveFX refExecFX ) { this.execFX = refExecFX; }
 
     /**
      * The {@code checkSummaryState()} method subscribes to the SummaryState topic
@@ -175,9 +169,10 @@ public class PrimaryController implements Initializable {
                                 ( new EventTask( entity.getCSC(), "summaryState" ) ).call();
                         
                         int ndx = execFX.getEntityList().indexOf( entity );
-                        TextField stateText = stateTextList.get(ndx);
-                        Label stateLabel = stateLabelList.get(ndx);
-                        Tooltip stateTooltip = stateTooltipList.get(ndx);
+                        
+                        TextField stateText = stateTextList.get( ndx );
+                        Label stateLabel = stateLabelList.get( ndx );
+                        Tooltip stateTooltip = stateTooltipList.get( ndx );
 
                         if ( sumState.equals( CommandableSalComponent.CSC_STATUS.SAL__OK.getValue() ) ) {
                             
@@ -194,6 +189,7 @@ public class PrimaryController implements Initializable {
                                                                                     BorderStrokeStyle.SOLID,
                                                                                     CornerRadii.EMPTY,
                                                                                     new BorderWidths( 1, 1, 1, 0 ) ) ) );
+                                
                                 stateTooltip.setText( stateLabel.getText() + " Online");
                             }
 
@@ -206,6 +202,7 @@ public class PrimaryController implements Initializable {
                                                                                     BorderStrokeStyle.SOLID,
                                                                                     CornerRadii.EMPTY,
                                                                                     new BorderWidths( 1, 1, 1, 0 ) ) ) );
+                                
                                 stateTooltip.setText( stateLabel.getText() + " Offline");
                             }
                         }
@@ -364,7 +361,7 @@ public class PrimaryController implements Initializable {
         MenuItem mi = ( MenuItem ) event.getSource();
         String cmdString = mi.getText();
 
-        Entity entity = execFX.getEntityList().get( 0 /* cscATCS */ );
+        Entity entity = execFX.getEntityList().get( 6 /* cscATCS */ );
 
         // State Pattern: context.request() [e.g. entityATCS.enterControl()]
         ( new CmdTask( entity, cmdString ) ).call();
@@ -381,7 +378,7 @@ public class PrimaryController implements Initializable {
         
         // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         // 2b. Also, assign topic & topic arguments
-        SalCmd salCmdATCS = new SalCmd( execFX.getCscList().get( 0 /* cscATCS */ ) );
+        SalCmd salCmdATCS = new SalCmd( execFX.getCscList().get( 6 /* cscATCS */ ) );
         salCmdATCS.setTopic( cmdString );
 
         // 3a. Define Invoker w/ # of threads
@@ -398,7 +395,7 @@ public class PrimaryController implements Initializable {
         MenuItem mi = ( MenuItem ) event.getSource();
         String cmdString = mi.getText();
 
-        Entity entity = execFX.getEntityList().get( 1 /* cscACCS */ );
+        Entity entity = execFX.getEntityList().get( 7 /* cscACCS */ );
 
         // State Pattern: context.request() [e.g. entityACCS.enterControl()]
         ( new CmdTask( entity, cmdString ) ).call();
@@ -415,7 +412,7 @@ public class PrimaryController implements Initializable {
 
         // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         // 2b. Also, assign topic & topic arguments
-        SalCmd salCmdACCS = new SalCmd( execFX.getCscList().get( 1 /* cscACCS */ ) );
+        SalCmd salCmdACCS = new SalCmd( execFX.getCscList().get( 7 /* cscACCS */ ) );
         salCmdACCS.setTopic( cmdString );
 
         // 3a. Define Invoker w/ # of threads
@@ -434,7 +431,7 @@ public class PrimaryController implements Initializable {
                 e.printStackTrace();
             }
             
-            SalCmd salCmdACCS2 = new SalCmd( execFX.getCscList().get( 1 /* cscACCS */ ) );
+            SalCmd salCmdACCS2 = new SalCmd( execFX.getCscList().get( 7 /* cscACCS */ ) );
             salCmdACCS2.setTopic( "takeImage" );
             salConnectACCS.setSalService( salCmdACCS2 );
 
@@ -442,12 +439,12 @@ public class PrimaryController implements Initializable {
         }
     }
     
-    @FXML private void admState( ActionEvent event ) throws Exception {
+    @FXML private void admsState( ActionEvent event ) throws Exception {
 
         MenuItem mi = ( MenuItem ) event.getSource();
         String cmdString = mi.getText();
 
-        Entity entity = execFX.getEntityList().get( 2 /* cscADM */ );
+        Entity entity = execFX.getEntityList().get( 8 /* cscADM */ );
 
         // State Pattern: context.request() [e.g. entityADM.enterControl()]
         ( new CmdTask( entity, cmdString ) ).call();
@@ -460,7 +457,7 @@ public class PrimaryController implements Initializable {
         MenuItem mi = ( MenuItem ) event.getSource();
         String cmdString = mi.getText();
 
-        Entity entity = execFX.getEntityList().get( 5 /* cscHDR */ );
+        Entity entity = execFX.getEntityList().get( 9 /* cscHDR */ );
 
         // State Pattern: context.request() [e.g. entityAHDR.enterControl()]
         ( new CmdTask( entity, cmdString ) ).call();
@@ -470,9 +467,11 @@ public class PrimaryController implements Initializable {
 
     @FXML private void createCSC( ActionEvent event ) throws Exception {
 
-        out.print( Thread.currentThread().getStackTrace()[1].getMethodName() + "::" +
-                   "Threadid: " + 
-                   Thread.currentThread().getId() + "\n");
+        out.print( Thread.currentThread()
+                         .getStackTrace()[1]
+                         .getMethodName() + "::" 
+                                          + "Threadid: "
+                                          + Thread.currentThread().getId() + "\n" );
         
         // Grab the index & string of the selected CSC menu item
         int cscIndex = menuCSC.getItems().indexOf( event.getSource() );
@@ -499,9 +498,11 @@ public class PrimaryController implements Initializable {
     
     @FXML private void createAllCSC( ActionEvent event ) throws Exception {
 
-        out.print( Thread.currentThread().getStackTrace()[1].getMethodName() + "::" +
-                   "Threadid: " + 
-                   Thread.currentThread().getId() + "\n");
+        out.print( Thread.currentThread()
+                         .getStackTrace()[1]
+                         .getMethodName() + "::" 
+                                          + "Threadid: "
+                                          + Thread.currentThread().getId() + "\n" );
         
         // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
@@ -510,17 +511,17 @@ public class PrimaryController implements Initializable {
         SalConnect salConnectCsc = new SalConnect( execFX.getCscList().size() );
         String cmdString = "enterControl";
 
-        execFX.getCscList() .forEach( csc -> {
+        execFX.getCscList().forEach( csc -> {
             
             SalCmd salCmdCsc = new SalCmd( csc );
             salCmdCsc.setTopic( cmdString );
             salConnectCsc.setSalService( salCmdCsc );
-        }) ;
+        });
         salConnectCsc.connect();
 
-        execFX.getEntityList().forEach(entity -> {
+        execFX.getEntityList().forEach( entity -> {
             
-            try { 
+            try {
                 checkSummaryState( entity, cmdString );
             } catch ( Exception ex ) {
                 ex.printStackTrace( out.printf( "InterruptedException from  PrimaryController.createAllCSC()" ) );

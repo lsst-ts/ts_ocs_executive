@@ -24,12 +24,11 @@ import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
  * {@code SalCmd} is a Concrete Command class in the command pattern
  *
  */
-
 public class SalCmd extends SalService implements DomainObject {
 
     @Override public String getName() { return "SalCmd"; }
     
-    // Receiver (e.g. SalCamera)
+    /* Command Pattern: Receiver IF (e.g. concrete receiver =>  CSCCcs) */
     CommandableSalComponent _salComponent;
     
     public SalCmd( CommandableSalComponent salComponent ) { 
@@ -40,18 +39,23 @@ public class SalCmd extends SalService implements DomainObject {
     
     @Override public void execute() { 
 
-        out.print( this.getName() + "::" + 
-                   super._topic + "::" +
-                   this._salComponent + "::" +
-                   Thread.currentThread().getStackTrace()[1].getMethodName() + "::" +
-                   "Threadid: " + 
-                   Thread.currentThread().getId() + "\n" );
+        out.print( this.getName() + "::"
+                                  + super._topic
+                                  + "::"
+                                  + this._salComponent
+                                  + "::"
+                                  + Thread.currentThread().getStackTrace()[1].getMethodName()
+                                  + "::"
+                                  + "Threadid: "
+                                  + Thread.currentThread().getId() + "\n" );
         
-        // receiver.action() (e.g. cscTcs.enterControl())
         try {
+            /* Command Pattern: receiverIF.action() [e.g. concrete rcvr => cscMTcs.enterControl()] */
             _salComponent.getClass()
-                         .getMethod( super._topic, new Class[]{} ) // method w/ null args
-                         .invoke( _salComponent, new Object[]{} ); // invoke w/ null args
+                         /* specify method & that it takes no (i.e. null) args */
+                         .getMethod( super._topic, new Class[]{} )
+                         /* invoke w/ null args */
+                         .invoke( _salComponent, new Object[]{} );
         }
         catch ( Exception e ) {
             e.printStackTrace( out.printf( this.getName() + "interrupted from SalCmd.execute()" ) );

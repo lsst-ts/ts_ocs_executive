@@ -21,16 +21,15 @@ import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 /**
  * <h2>SAL Event</h2>
  * <p>
- * {@code SalEvent} is a Concrete Interface Command class in the command pattern
+ * {@code SalEvent} is a Concrete Command class in the command pattern
  *
  */
-
 public class SalEvent extends SalService implements DomainObject {
 
 
     @Override public String getName() { return "SalEvent"; }
     
-    // Receiver (e.g. SalCamera)
+    /* Command Pattern: Receiver IF (e.g. concrete receiver =>  CSCCcs) */
     CommandableSalComponent _salComponent;
     
     public SalEvent( CommandableSalComponent salComponent ) {
@@ -40,19 +39,25 @@ public class SalEvent extends SalService implements DomainObject {
 
     @Override public void execute() {
         
-        out.print( this.getName() + "::" + 
-                   super._topic + "::" +
-                   this._salComponent + "::" +
-                   Thread.currentThread().getStackTrace()[1].getMethodName() + "::" +
-                   "Threadid: " + 
-                   Thread.currentThread().getId() + "\n" );
+        out.print( this.getName() + "::"
+                                  + super._topic
+                                  + "::"
+                                  + this._salComponent
+                                  + "::"
+                                  + Thread.currentThread().getStackTrace()[1].getMethodName()
+                                  + "::"
+                                  + "Threadid: "
+                                  + Thread.currentThread().getId() + "\n" );
         
-        // receiver.action() (e.g. SalCamera.summaryState())
         try {
+            /* Command Pattern: receiverIF.action() [e.g. concrete rcvr => cscMTcs.summaryState()] */
             _salComponent.getClass()
-                         .getMethod( super._topic, new Class[]{} ) // method w/ null args
+                         /* specify method & that it takes no (i.e. null) args */
+                         .getMethod( super._topic, new Class[]{} )
+                         /* invoke w/ specific arg */
                          .invoke( _salComponent, super._topicArgs );
-                         //.invoke(_salComponent, new Object[]{}); // invoke w/ null args
+            
+                         //.invoke(_salComponent, new Object[]{});
         }
         catch ( Exception e ) {
             e.printStackTrace( out.printf( this.getName() + "interrupted from SalEvent.execute()" ) );

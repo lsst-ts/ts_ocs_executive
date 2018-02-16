@@ -17,24 +17,27 @@ package org.lsst.ocs.executive;
 /**
  * <h2>Entity Type</h2>
  * <p>
- * {@code EntityType} is an enum to specifically identify subsystems
+ * {@code EntityType} is an {@code enum} type to specifically identify subsystems
  *
  */
-
 public enum EntityType {
     
-    OCS( "OCS" ),
-    SEQUENCER( "SEQUENCER" ),
-    CCS( "CCS" ),
-    MTCS( "MTCS" ),
-    ARCHIVER( "ARCHIVER" ),
-    CATCHUPARCHIVER( "CATCHUPARCHIVER" ),
-    PROCESSINGCLUSTER( "PROCESSINGCLUSTER" ),
-    HEADERSERVICE( "HEADERSERVICE" );
+    OCS               ( "OCS"               ),
+    SEQUENCER         ( "SEQUENCER"         ),
+    MTCS              ( "MTCS"              ),
+    CCS               ( "CCS"               ),
+    ARCHIVER          ( "ARCHIVER"          ),
+    CATCHUPARCHIVER   ( "CATCHUPARCHIVER"   ),
+    PROCESSINGCLUSTER ( "PROCESSINGCLUSTER" ),
+    HEADERSERVICE     ( "HEADERSERVICE"     ),
+
+    ATCS              ( "ATCS"              ),
+    ACCS              ( "ACCS"              ),
+    AHEADERSERVICE    ( "AHEADERSERVICE"    );
     
     private final String _etype;
     
-    // private constructor
+    /* private constructor */
     private EntityType( String etype ) { this._etype = etype; }
     
     @Override public String toString() { return this._etype; }

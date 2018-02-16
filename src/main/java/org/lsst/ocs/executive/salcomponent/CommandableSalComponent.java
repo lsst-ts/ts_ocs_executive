@@ -24,7 +24,6 @@ import java.util.HashMap;
  * {@code CommandableSalComponent} is the Receiver base class in the command pattern
  *
  */
-
 public interface CommandableSalComponent extends DomainObject {
     
     // SAL middle-ware default Commands
@@ -92,15 +91,9 @@ public interface CommandableSalComponent extends DomainObject {
         ////////////////////////////////////////////////
         private final Integer statusValue;
 
-        private CSC_STATUS( Integer value ) {
-            
-            this.statusValue = value;
-        }
+        private CSC_STATUS( Integer value ) { this.statusValue = value; }
 
-        public int getValue() {
-
-            return statusValue;
-        }
+        public int getValue() { return statusValue; }
 
         // VALUE -> ENUM CONVERSION
         ////////////////////////////////////////////////
@@ -109,7 +102,6 @@ public interface CommandableSalComponent extends DomainObject {
         static {
 
             for ( CSC_STATUS status : CSC_STATUS.values() ) {
-
                 statusValues.put( status.statusValue, status );
             }
         }

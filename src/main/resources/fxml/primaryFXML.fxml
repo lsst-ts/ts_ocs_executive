@@ -67,9 +67,9 @@
                                  <children>
                                     <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-width: 0 1 0 0; -fx-border-style: solid;">
                                        <children>
-                                          <Label id="tcsLabel" fx:id="mtcsLabel" alignment="CENTER" cache="true" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Main Telescope" textAlignment="CENTER">
+                                          <Label id="mtcsLabel" fx:id="mtcsLabel" alignment="CENTER" cache="true" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Main Telescope" textAlignment="CENTER">
                                              <tooltip>
-                                                <Tooltip id="tcsTooltip" fx:id="tcsTooltip" text="TCS Offline" />
+                                                <Tooltip id="mtcsTooltip" fx:id="mtcsTooltip" text="Main Telescope Offline" />
                                              </tooltip>
                                              <opaqueInsets>
                                                 <Insets />
@@ -101,7 +101,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="tcsStateText" fx:id="mtcsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="mtcsStateText" fx:id="mtcsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -135,7 +135,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="tcsCmdText" fx:id="mtcsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
+                                                <TextField id="mtcsCmdText" fx:id="mtcsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -154,7 +154,7 @@
                                        <children>
                                           <Label id="ccsLabel" fx:id="ccsLabel" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Main Camera" textAlignment="CENTER">
                                              <tooltip>
-                                                <Tooltip id="ccsTooltip" fx:id="ccsTooltip" text="CAMERA Offline" />
+                                                <Tooltip id="ccsTooltip" fx:id="ccsTooltip" text="Main Camera Offline" />
                                              </tooltip>
                                              <font>
                                                 <Font size="12.0" />
@@ -413,13 +413,13 @@
                         </AnchorPane>
                       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="1050.0">
                            <children>
-                              <HBox id="mainHBox" fx:id="mainHBox1" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="1050.0">
+                              <HBox id="auxHBox" fx:id="auxHBox" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="1050.0">
                                  <children>
                                     <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-width: 0 1 0 0; -fx-border-style: solid;">
                                        <children>
-                                          <Label id="tcsLabel" fx:id="atcsLabel" alignment="CENTER" cache="true" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary Telescope" textAlignment="CENTER">
+                                          <Label id="atcsLabel" fx:id="atcsLabel" alignment="CENTER" cache="true" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary Telescope" textAlignment="CENTER">
                                              <tooltip>
-                                                <Tooltip id="tcsTooltip" fx:id="tcsTooltip1" text="TCS Offline" />
+                                                <Tooltip id="atcsTooltip" fx:id="atcsTooltip" text="Auxiliary Telescope Offline" />
                                              </tooltip>
                                              <opaqueInsets>
                                                 <Insets />
@@ -451,7 +451,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="tcsStateText" fx:id="atcsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="atcsStateText" fx:id="atcsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -485,7 +485,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="tcsCmdText" fx:id="atcsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
+                                                <TextField id="atcsCmdText" fx:id="atcsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -502,9 +502,9 @@
                                     </VBox>
                                     <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
                                        <children>
-                                          <Label id="ccsLabel" fx:id="accsLabel" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary Camera" textAlignment="CENTER">
+                                          <Label id="accsLabel" fx:id="accsLabel" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary Camera" textAlignment="CENTER">
                                              <tooltip>
-                                                <Tooltip id="ccsTooltip" fx:id="ccsTooltip1" text="CAMERA Offline" />
+                                                <Tooltip id="accsTooltip" fx:id="accsTooltip" text="Auxiliary Camera Offline" />
                                              </tooltip>
                                              <font>
                                                 <Font size="12.0" />
@@ -533,7 +533,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="ccsStateText" fx:id="accsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="accsStateText" fx:id="accsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -565,7 +565,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="ccsCmdText" fx:id="accsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
+                                                <TextField id="accsCmdText" fx:id="accsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -579,22 +579,22 @@
                                     </VBox>
                                     <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
                                        <children>
-                                          <Label id="arcLabel" fx:id="admLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary DM Device" textAlignment="CENTER">
+                                          <Label id="admsLabel" fx:id="admsLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary DM Service" textAlignment="CENTER">
                                              <tooltip>
-                                                <Tooltip id="arcTooltip" fx:id="arcTooltip1" text="ARCHIVER Offline" />
+                                                <Tooltip id="admsTooltip" fx:id="admsTooltip" text="Auxiliary DM Service Offline" />
                                              </tooltip>
                                              <font>
                                                 <Font size="12.0" />
                                              </font>
                                           </Label>
-                                          <MenuButton fx:id="admStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
+                                          <MenuButton fx:id="admsStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
                                              <items>
-                                                <MenuItem fx:id="admEnter" mnemonicParsing="false" onAction="#admState" style="-fx-font-size: 11;" text="enterControl" />
-                                                <MenuItem fx:id="admStart" mnemonicParsing="false" onAction="#admState" style="-fx-font-size: 11;" text="start" />
-                                                <MenuItem fx:id="admEnable" mnemonicParsing="false" onAction="#admState" style="-fx-font-size: 11;" text="enable" />
-                                                <MenuItem fx:id="admDisable" mnemonicParsing="false" onAction="#admState" style="-fx-font-size: 11;" text="disable" />
-                                                <MenuItem fx:id="admStandby" mnemonicParsing="false" onAction="#admState" style="-fx-font-size: 11;" text="standby" />
-                                                <MenuItem fx:id="admExit" mnemonicParsing="false" onAction="#admState" style="-fx-font-size: 11;" text="exitControl" />
+                                                <MenuItem fx:id="admsEnter" mnemonicParsing="false" onAction="#admsState" style="-fx-font-size: 11;" text="enterControl" />
+                                                <MenuItem fx:id="admsStart" mnemonicParsing="false" onAction="#admsState" style="-fx-font-size: 11;" text="start" />
+                                                <MenuItem fx:id="admsEnable" mnemonicParsing="false" onAction="#admsState" style="-fx-font-size: 11;" text="enable" />
+                                                <MenuItem fx:id="admsDisable" mnemonicParsing="false" onAction="#admsState" style="-fx-font-size: 11;" text="disable" />
+                                                <MenuItem fx:id="admsStandby" mnemonicParsing="false" onAction="#admsState" style="-fx-font-size: 11;" text="standby" />
+                                                <MenuItem fx:id="admsExit" mnemonicParsing="false" onAction="#admsState" style="-fx-font-size: 11;" text="exitControl" />
                                              </items>
                                              <font>
                                                 <Font size="11.0" />
@@ -610,7 +610,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="arcStateText" fx:id="admStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="admsStateText" fx:id="admsStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
@@ -624,9 +624,9 @@
                                     </VBox>
                                     <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
                                        <children>
-                                          <Label id="catLabel" fx:id="ahdrLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary DM Header Serviceer" textAlignment="CENTER">
+                                          <Label id="ahdrLabel" fx:id="ahdrLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary DM Header Serviceer" textAlignment="CENTER">
                                              <tooltip>
-                                                <Tooltip fx:id="catTooltip1" text="CATCHUP ARCHIVER Offline" />
+                                                <Tooltip fx:id="ahdrTooltip" text="Auxiliary Header Service Offline" />
                                              </tooltip>
                                              <font>
                                                 <Font size="12.0" />
@@ -655,7 +655,7 @@
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField id="hdrStateText" fx:id="ahdrStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                <TextField id="shdrStateText" fx:id="ahdrStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
                                                    <HBox.margin>
                                                       <Insets top="1.0" />
                                                    </HBox.margin>
