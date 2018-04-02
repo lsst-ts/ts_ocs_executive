@@ -26,7 +26,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import org.lsst.ocs.executive.gui.primary.PrimaryController;
-import org.lsst.ocs.executive.salcomponent.CSCScheduler;
 import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 
 /**
