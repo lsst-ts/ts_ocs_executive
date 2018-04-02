@@ -61,10 +61,10 @@ public class Entity implements DomainObject {
         
         switch( this._etype.toString() ) {
             case "CAMERA":
-                _salComponent = new CSCCcs();
+                _salComponent = new CSCCamera();
                 break;
             case "TCS":
-                _salComponent = new CSCMTcs();
+                _salComponent = new CSCMainTelescope();
                 break;
             case "ARCHIVER":
                 _salComponent = new CSCArchiver();
@@ -73,7 +73,7 @@ public class Entity implements DomainObject {
                 _salComponent = new CSCCatchupArchiver();
                 break;
             case "PROCESSINGCLUSTER":
-                _salComponent = new CSCProcessingCluster();
+                _salComponent = new CSCPromptProcessing();
                 break;
             case "HEADERSERVICE":
                 _salComponent = new CSCHeaderService();

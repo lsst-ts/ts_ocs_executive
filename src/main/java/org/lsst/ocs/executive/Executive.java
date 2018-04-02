@@ -43,28 +43,30 @@ import org.lsst.ocs.executive.salservice.SalCmd;
  */
 public class Executive {
 
-    public static final CommandableSalComponent cscMTCS = new CSCMTcs();
-    public static final CommandableSalComponent cscCCS  = new CSCCcs();
+    public static final CommandableSalComponent cscSCH  = new CSCScheduler();
+    public static final CommandableSalComponent cscMTCS = new CSCMainTelescope();
+    public static final CommandableSalComponent cscCCS  = new CSCCamera();
     public static final CommandableSalComponent cscARC  = new CSCArchiver();
     public static final CommandableSalComponent cscCAT  = new CSCCatchupArchiver();
-    public static final CommandableSalComponent cscPRO  = new CSCProcessingCluster();
+    public static final CommandableSalComponent cscPRO  = new CSCPromptProcessing();
     public static final CommandableSalComponent cscHDR  = new CSCHeaderService();
+    public static final CommandableSalComponent cscASCH = new CSCAuxScheduler();
+    public static final CommandableSalComponent cscATCS = new CSCAuxTelescope();
+    public static final CommandableSalComponent cscACCS = new CSCAuxCamera();
+    public static final CommandableSalComponent cscAARC = new CSCAuxArchiver();
+    public static final CommandableSalComponent cscAHDR = new CSCAuxHeaderService();
 
-    public static final CommandableSalComponent cscATCS = new CSCATcs();
-    public static final CommandableSalComponent cscACCS = new CSCACcs();
-    public static final CommandableSalComponent cscADMD = new CSCArchiver();
-    public static final CommandableSalComponent cscAHDR = new CSCAHeaderService();
-
+    public static final Entity entitySCH  = new Entity( cscSCH );
     public static final Entity entityMTCS = new Entity( cscMTCS );
     public static final Entity entityCCS  = new Entity( cscCCS  );
     public static final Entity entityARC  = new Entity( cscARC  );
     public static final Entity entityCAT  = new Entity( cscCAT  );
     public static final Entity entityPRO  = new Entity( cscPRO  );
     public static final Entity entityHDR  = new Entity( cscHDR  );
-
+    public static final Entity entityASCH = new Entity( cscASCH );
     public static final Entity entityATCS = new Entity( cscATCS );
     public static final Entity entityACCS = new Entity( cscACCS );
-    public static final Entity entityADMD = new Entity( cscADMD );
+    public static final Entity entityAARC = new Entity( cscAARC );
     public static final Entity entityAHDR = new Entity( cscAHDR );
 
     public static final List<CmdTask> rCmdTasks_MTCS = Arrays.asList(
@@ -77,31 +79,59 @@ public class Executive {
         new CmdTask( cscCCS, "takeImage" )
     );
 
+    public static final List<CmdTask> rCmdTasks_ATCS = Arrays.asList(
+        new CmdTask( cscATCS, "filterChange" ),
+        new CmdTask( cscATCS, "target"       )
+    );
+
+    public static final List<CmdTask> rCmdTasks_ACCS = Arrays.asList(
+        new CmdTask( cscACCS, "setFilter" ),
+        new CmdTask( cscACCS, "takeImage" )
+    );
+
     public static final List<CmdTask> rCmdTasks_ENTERCTRL = Arrays.asList(
+        new CmdTask( cscSCH,  "enterControl" ),
         new CmdTask( cscMTCS, "enterControl" ),
-        new CmdTask( cscCCS, "enterControl"  ),
-        new CmdTask( cscARC, "enterControl"  ),
-        new CmdTask( cscCAT, "enterControl"  ),
-        new CmdTask( cscPRO, "enterControl"  ),
-        new CmdTask( cscHDR, "enterControl"  )
+        new CmdTask( cscCCS,  "enterControl" ),
+        new CmdTask( cscARC,  "enterControl" ),
+        new CmdTask( cscCAT,  "enterControl" ),
+        new CmdTask( cscPRO,  "enterControl" ),
+        new CmdTask( cscHDR,  "enterControl" ),
+        new CmdTask( cscASCH, "enterControl" ),
+        new CmdTask( cscATCS, "enterControl" ),
+        new CmdTask( cscACCS, "enterControl" ),
+        new CmdTask( cscAARC, "enterControl" ),
+        new CmdTask( cscAHDR, "enterControl" )
     );
 
     public static final List<CmdTask> rCmdTasks_START = Arrays.asList(
+        new CmdTask( cscSCH,  "start" ),
         new CmdTask( cscMTCS, "start" ),
-        new CmdTask( cscCCS, "start"  ),
-        new CmdTask( cscARC, "start"  ),
-        new CmdTask( cscCAT, "start"  ),
-        new CmdTask( cscPRO, "start"  ),
-        new CmdTask( cscHDR, "start"  )
+        new CmdTask( cscCCS,  "start" ),
+        new CmdTask( cscARC,  "start" ),
+        new CmdTask( cscCAT,  "start" ),
+        new CmdTask( cscPRO,  "start" ),
+        new CmdTask( cscHDR,  "start" ),
+        new CmdTask( cscASCH, "start" ),
+        new CmdTask( cscATCS, "start" ),
+        new CmdTask( cscACCS, "start" ),
+        new CmdTask( cscAARC, "start" ),
+        new CmdTask( cscAHDR, "start" )
     );
 
     public static final List<CmdTask> rCmdTasks_ENABLE = Arrays.asList(
+        new CmdTask( cscSCH, "enable" ),
         new CmdTask( cscMTCS, "enable" ),
-        new CmdTask( cscCCS, "enable"  ),
-        new CmdTask( cscARC, "enable"  ),
-        new CmdTask( cscCAT, "enable"  ),
-        new CmdTask( cscPRO, "enable"  ),
-        new CmdTask( cscHDR, "enable"  )
+        new CmdTask( cscCCS,  "enable" ),
+        new CmdTask( cscARC,  "enable" ),
+        new CmdTask( cscCAT,  "enable" ),
+        new CmdTask( cscPRO,  "enable" ),
+        new CmdTask( cscHDR,  "enable" ),
+        new CmdTask( cscASCH, "enable" ),
+        new CmdTask( cscATCS, "enable" ),
+        new CmdTask( cscACCS, "enable" ),
+        new CmdTask( cscAARC, "enable" ),
+        new CmdTask( cscAHDR, "enable" )
     );
 
     public static final List<EventCallable> cEventTask_MTCS = Arrays.asList(
@@ -114,31 +144,59 @@ public class Executive {
         new EventCallable( cscCCS, "tbd" )
     );
 
+    public static final List<EventCallable> cEventTask_ATCS = Arrays.asList(
+        new EventCallable( cscATCS, "filterChangeInPosition" ),
+        new EventCallable( cscATCS, "targetInPosition"       )
+    );
+
+    public static final List<EventCallable> cEventTask_ACCS = Arrays.asList(
+        new EventCallable( cscACCS, "tbd" ),
+        new EventCallable( cscACCS, "tbd" )
+    );
+
     public static final List<EventCallable> cEventTask_SUMSTATE = Arrays.asList(
+        new EventCallable( cscSCH,  "summaryState" ),
         new EventCallable( cscMTCS, "summaryState" ),
-        new EventCallable( cscCCS, "summaryState"  ),
-        new EventCallable( cscARC, "summaryState"  ),
-        new EventCallable( cscCAT, "summaryState"  ),
-        new EventCallable( cscPRO, "summaryState"  ),
-        new EventCallable( cscHDR, "summaryState"  )
+        new EventCallable( cscCCS,  "summaryState" ),
+        new EventCallable( cscARC,  "summaryState" ),
+        new EventCallable( cscCAT,  "summaryState" ),
+        new EventCallable( cscPRO,  "summaryState" ),
+        new EventCallable( cscHDR,  "summaryState" ),
+        new EventCallable( cscASCH, "summaryState" ),
+        new EventCallable( cscATCS, "summaryState" ),
+        new EventCallable( cscACCS, "summaryState" ),
+        new EventCallable( cscAARC, "summaryState" ),
+        new EventCallable( cscAHDR, "summaryState" )
     );
 
     public static final List<EventCallable> cEventTask_SETTINGS = Arrays.asList(
+        new EventCallable( cscSCH,  "settingsVersion" ),
         new EventCallable( cscMTCS, "settingsVersion" ),
-        new EventCallable( cscCCS, "settingsVersion"  ),
-        new EventCallable( cscARC, "settingsVersion"  ),
-        new EventCallable( cscCAT, "settingsVersion"  ),
-        new EventCallable( cscPRO, "settingsVersion"  ),
-        new EventCallable( cscHDR, "settingsVersion"  )
+        new EventCallable( cscCCS,  "settingsVersion" ),
+        new EventCallable( cscARC,  "settingsVersion" ),
+        new EventCallable( cscCAT,  "settingsVersion" ),
+        new EventCallable( cscPRO,  "settingsVersion" ),
+        new EventCallable( cscHDR,  "settingsVersion" ),
+        new EventCallable( cscASCH, "settingsVersion" ),
+        new EventCallable( cscATCS, "settingsVersion" ),
+        new EventCallable( cscACCS, "settingsVersion" ),
+        new EventCallable( cscAARC, "settingsVersion" ),
+        new EventCallable( cscAHDR, "settingsVersion" )
     );
 
     public static final List<EventCallable> cEventTask_APPLIEDSETTINGS = Arrays.asList(
+        new EventCallable( cscSCH,  "appliedSettingsMatchStartTest" ),
         new EventCallable( cscMTCS, "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscCCS, "appliedSettingsMatchStartTest"  ),
-        new EventCallable( cscARC, "appliedSettingsMatchStartTest"  ),
-        new EventCallable( cscCAT, "appliedSettingsMatchStartTest"  ),
-        new EventCallable( cscPRO, "appliedSettingsMatchStartTest"  ),
-        new EventCallable( cscHDR, "appliedSettingsMatchStartTest"  )
+        new EventCallable( cscCCS,  "appliedSettingsMatchStartTest" ),
+        new EventCallable( cscARC,  "appliedSettingsMatchStartTest" ),
+        new EventCallable( cscCAT,  "appliedSettingsMatchStartTest" ),
+        new EventCallable( cscPRO,  "appliedSettingsMatchStartTest" ),
+        new EventCallable( cscHDR,  "appliedSettingsMatchStartTest" ),
+        new EventCallable( cscASCH, "appliedSettingsMatchStartTest" ),
+        new EventCallable( cscATCS, "appliedSettingsMatchStartTest" ),
+        new EventCallable( cscACCS, "appliedSettingsMatchStartTest" ),
+        new EventCallable( cscAARC, "appliedSettingsMatchStartTest" ),
+        new EventCallable( cscAHDR, "appliedSettingsMatchStartTest" )
     );
 
     public void invokeWindow( Stage primaryStage ) {
@@ -374,7 +432,7 @@ public class Executive {
             //CmdTask.ENTERCTRL_TASKS.get(0).call();
             //rCmdTask.rENTERCTRL_TASKS.get( 0 ).run();
             // [B.]
-            // Receiver previously defined: rCCS = new CSCCcs();
+            // Receiver previously defined: rCCS = new CSCCamera();
             //rCmdTask.rCCS.enterControl();
             // [C.]
             // 1. SalComponent (Receiver) previously defined: rCCS

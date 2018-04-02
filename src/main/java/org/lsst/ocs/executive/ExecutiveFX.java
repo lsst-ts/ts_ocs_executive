@@ -26,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import org.lsst.ocs.executive.gui.primary.PrimaryController;
+import org.lsst.ocs.executive.salcomponent.CSCScheduler;
 import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 
 /**
@@ -47,14 +48,42 @@ public class ExecutiveFX extends Application {
     private final ObservableList<String> ccsCmdList = FXCollections.observableArrayList();
 
     public static final Map<String, String> STATE_TEXT_MAP = new HashMap<String, String>() {
-
         {
+            // cmdString, State
             put( "enterControl", "STANDBY"  );
             put( "start"       , "DISABLED" );
             put( "enable"      , "ENABLED"  );
             put( "disable"     , "DISABLED" );
             put( "standby"     , "STANDBY"  );
             put( "exitControl" , "OFFLINE"  );
+        }
+    };
+
+    public static final Map<String, Entity> STATE_ENTITY_MAP = new HashMap<String, Entity>() {
+        {
+            // StateMenu ID, Entity
+            put( "sch", Executive.entitySCH  );
+            put( "mtc", Executive.entityMTCS );
+            put( "ccs", Executive.entityCCS  );
+            put( "arc", Executive.entityARC  );
+            put( "cat", Executive.entityCAT  );
+            put( "pro", Executive.entityPRO  );
+            put( "hdr", Executive.entityHDR  );
+            put( "asc", Executive.entityASCH );
+            put( "atc", Executive.entityATCS );
+            put( "acc", Executive.entityACCS );
+            put( "aar", Executive.entityAARC );
+            put( "ahd", Executive.entityAHDR );
+        }
+    };
+
+    public static final Map<String, Entity> CMD_CSC_MAP = new HashMap<String, Entity>() {
+        {
+            // CmdMenu ID, Csc
+            put( "mtc", Executive.entityMTCS );
+            put( "ccs", Executive.entityCCS  );
+            put( "atc", Executive.entityATCS );
+            put( "acc", Executive.entityACCS );
         }
     };
 
@@ -65,28 +94,30 @@ public class ExecutiveFX extends Application {
          */
     public ExecutiveFX() throws Exception {
 
+        cscList.add( Executive.cscSCH );
         cscList.add( Executive.cscMTCS );
         cscList.add( Executive.cscCCS  );
         cscList.add( Executive.cscARC  );
         cscList.add( Executive.cscCAT  );
         cscList.add( Executive.cscPRO  );
         cscList.add( Executive.cscHDR  );
-
+        cscList.add( Executive.cscASCH );
         cscList.add( Executive.cscATCS );
         cscList.add( Executive.cscACCS );
-        cscList.add( Executive.cscADMD );
+        cscList.add( Executive.cscAARC );
         cscList.add( Executive.cscAHDR );
 
+        entityList.add( Executive.entitySCH );
         entityList.add( Executive.entityMTCS );
         entityList.add( Executive.entityCCS  );
         entityList.add( Executive.entityARC  );
         entityList.add( Executive.entityCAT  );
         entityList.add( Executive.entityPRO  );
         entityList.add( Executive.entityHDR  );
-
+        entityList.add( Executive.entityASCH );
         entityList.add( Executive.entityATCS );
         entityList.add( Executive.entityACCS );
-        entityList.add( Executive.entityADMD );
+        entityList.add( Executive.entityAARC );
         entityList.add( Executive.entityAHDR );
 
         mtcsCmdList.add( "filterChange" );
@@ -107,7 +138,7 @@ public class ExecutiveFX extends Application {
 
     public ObservableList<String> getMTcsCmdList() { return mtcsCmdList; }
 
-    public ObservableList<String> getCameraCmdList() { return ccsCmdList; }
+    public ObservableList<String> getCcsCmdList() { return ccsCmdList; }
 
     /**
          * Returns the observable list of active CSCs.
