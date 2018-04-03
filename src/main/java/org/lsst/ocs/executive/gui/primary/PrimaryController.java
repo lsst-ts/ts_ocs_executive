@@ -122,17 +122,17 @@ public class PrimaryController implements Initializable {
     @Override
     public void initialize( URL locationUrl, ResourceBundle resourceBundle ) {
         stateLabelList = FXCollections.observableArrayList( 
-            schLabel, mtcsLabel, ccsLabel, arcLabel, catLabel, proLabel,
+            schLabel, mtcsLabel, ccsLabel, arcLabel, catLabel, proLabel, hdrLabel,
             aschLabel, atcsLabel, accsLabel, aarcLabel, ahdrLabel
         );
 
         stateTooltipList = FXCollections.observableArrayList(
-            schTooltip, mtcsTooltip, ccsTooltip, arcTooltip, catTooltip, proTooltip,
+            schTooltip, mtcsTooltip, ccsTooltip, arcTooltip, catTooltip, proTooltip, hdrTooltip,
             aschTooltip, atcsTooltip, accsTooltip, aarcTooltip, ahdrTooltip
         );
 
         stateTextList = FXCollections.observableArrayList(
-            schStateText, mtcsStateText, ccsStateText, arcStateText, catStateText, proStateText,
+            schStateText, mtcsStateText, ccsStateText, arcStateText, catStateText, proStateText, hdrStateText,
             aschStateText, atcsStateText, accsStateText, aarcStateText, ahdrStateText
         );
     }

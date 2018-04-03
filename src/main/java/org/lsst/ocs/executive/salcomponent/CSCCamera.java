@@ -34,11 +34,9 @@ public class CSCCamera implements CommandableSalComponent {
         SAL_camera publisher = new SAL_camera();
         publisher.salCommand( "camera_command_enterControl" );
 
+        publisher.setDebugLevel( 1 );
+        
         camera.command_enterControl command = new camera.command_enterControl();
-        command.private_revCode = "LSST Camera enterControl COMMAND";
-        command.device = "ccs";
-        command.property = "enterControl";
-        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_enterControl( command );
@@ -62,6 +60,8 @@ public class CSCCamera implements CommandableSalComponent {
         SAL_camera publisher = new SAL_camera();
         publisher.salCommand( "camera_command_start" );
 
+        publisher.setDebugLevel( 1 );
+        
         camera.command_start command = new camera.command_start();
         command.private_revCode = "LSST Camera start COMMAND";
         command.device = "ccs";
@@ -91,6 +91,8 @@ public class CSCCamera implements CommandableSalComponent {
         SAL_camera publisher = new SAL_camera();
         publisher.salCommand( "camera_command_enable" );
 
+        publisher.setDebugLevel( 1 );
+        
         camera.command_enable command = new camera.command_enable();
         command.private_revCode = "LSST Camera enable COMMAND";
         command.device = "ccs";
@@ -119,6 +121,8 @@ public class CSCCamera implements CommandableSalComponent {
         SAL_camera publisher = new SAL_camera();
         publisher.salCommand( "camera_command_disable" );
 
+        publisher.setDebugLevel( 1 );
+        
         camera.command_disable command = new camera.command_disable();
         command.private_revCode = "LSST Camera disable COMMAND";
         command.device = "ccs";
@@ -147,6 +151,8 @@ public class CSCCamera implements CommandableSalComponent {
         SAL_camera publisher = new SAL_camera();
         publisher.salCommand( "camera_command_standby" );
 
+        publisher.setDebugLevel( 1 );
+        
         camera.command_standby command = new camera.command_standby();
         command.private_revCode = "LSST Camera standby COMMAND";
         command.device = "ccs";
@@ -175,6 +181,8 @@ public class CSCCamera implements CommandableSalComponent {
         SAL_camera publisher = new SAL_camera();
         publisher.salCommand( "camera_command_exitControl" );
 
+        publisher.setDebugLevel( 1 );
+        
         camera.command_exitControl command = new camera.command_exitControl();
         command.private_revCode = "LSST Camera exitControl COMMAND";
         command.device = "ccs";
@@ -202,6 +210,8 @@ public class CSCCamera implements CommandableSalComponent {
         SAL_camera publisher = new SAL_camera();
         publisher.salCommand( "camera_command_setFilter" );
 
+        publisher.setDebugLevel( 1 );
+        
         camera.command_setFilter command = new camera.command_setFilter();
         command.private_revCode = "LSST TEST COMMAND";
         command.device = "ccs";
@@ -229,6 +239,8 @@ public class CSCCamera implements CommandableSalComponent {
         SAL_camera publisher = new SAL_camera();
         publisher.salCommand( "camera_command_takeImages" );
 
+        publisher.setDebugLevel( 1 );
+        
         camera.command_takeImages command = new camera.command_takeImages();
         command.private_revCode = "LSST TEST COMMAND";
         command.device = "ccs";
@@ -262,6 +274,8 @@ public class CSCCamera implements CommandableSalComponent {
         SAL_camera publisher = new SAL_camera();
         publisher.salCommand( "camera_command_takeImages" );
 
+        publisher.setDebugLevel( 1 );
+        
         camera.command_initImage command = new camera.command_initImage();
         command.private_revCode = "LSST TEST COMMAND";
         command.device = "ccs";
@@ -291,6 +305,8 @@ public class CSCCamera implements CommandableSalComponent {
         SAL_camera subscriber = new SAL_camera();
         subscriber.salEvent( "camera_logevent_SummaryState" );
 
+        subscriber.setDebugLevel( 1 );
+        
         camera.logevent_SummaryState event = new camera.logevent_SummaryState();
 
 //        out.print( this.getClass()
@@ -335,6 +351,8 @@ public class CSCCamera implements CommandableSalComponent {
         SAL_camera subscriber = new SAL_camera();
         subscriber.salEvent( "camera_logevent_SettingVersions" );
 
+        subscriber.setDebugLevel( 1 );
+        
         camera.logevent_SettingVersions event = new camera.logevent_SettingVersions();
 
         int status;
@@ -363,6 +381,8 @@ public class CSCCamera implements CommandableSalComponent {
         SAL_camera subscriber = new SAL_camera();
         subscriber.salEvent( "camera_logevent_AppliedSettingsMatchStart" );
 
+        subscriber.setDebugLevel( 1 );
+        
         camera.logevent_AppliedSettingsMatchStart event = new camera.logevent_AppliedSettingsMatchStart();
 
         int status;

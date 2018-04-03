@@ -3320,3 +3320,108 @@ Node        : jormungand
 Process     : java <17734>
 Thread      : OSPL Kernel Manager 7f3e08b0c700
 Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/495/0/1519345605.611406226
+========================================================================================
+Report      : ERROR
+Date        : Mon Apr 02 16:39:46 MST 2018
+Description : handleSubscriptions: participant not found, presumably already been deleted
+
+Node        : jormungand
+Process     : java <26832>
+Thread      : ddsi2 7f33d16a1700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_main.c/1391/0/1522712386.357205684
+========================================================================================
+Report      : ERROR
+Date        : Tue Apr 03 11:04:03 MST 2018
+Description : c_metaBind failed for Struct <v_readerLifecyclePolicy> in scope <kernelModule>.
+Node        : jormungand
+Process     : java <11722>
+Thread      : OSPL Kernel Manager 7f72c8c2e700
+Internals   : V6.4.140320OSS/24b1387/24b1387/sd_deserXmlStructure/sd_serializerXMLTypeinfo.c/2436/0/1522778643.659081392
+========================================================================================
+Report      : ERROR
+Date        : Tue Apr 03 11:04:03 MST 2018
+Description : Deserialize failed
+Node        : jormungand
+Process     : java <11722>
+Thread      : OSPL Kernel Manager 7f72c8c2e700
+Internals   : V6.4.140320OSS/24b1387/24b1387/Type deserialize/sd_serializerXMLTypeinfo.c/3016/0/1522778643.659171079
+========================================================================================
+Report      : ERROR
+Date        : Tue Apr 03 11:04:03 MST 2018
+Description : Deserialization remote topic failed: (null) at <unknown>
+Node        : jormungand
+Process     : java <11722>
+Thread      : OSPL Kernel Manager 7f72c8c2e700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/495/0/1522778643.659197185
+========================================================================================
+Report      : ERROR
+Date        : Tue Apr 03 11:04:23 MST 2018
+Description : c_metaBind failed for Struct <v_readerLifecyclePolicy> in scope <kernelModule>.
+Node        : jormungand
+Process     : java <11722>
+Thread      : OSPL Kernel Manager 7f72c8c2e700
+Internals   : V6.4.140320OSS/24b1387/24b1387/sd_deserXmlStructure/sd_serializerXMLTypeinfo.c/2436/0/1522778663.399768055
+========================================================================================
+Report      : ERROR
+Date        : Tue Apr 03 11:04:23 MST 2018
+Description : Deserialize failed
+Node        : jormungand
+Process     : java <11722>
+Thread      : OSPL Kernel Manager 7f72c8c2e700
+Internals   : V6.4.140320OSS/24b1387/24b1387/Type deserialize/sd_serializerXMLTypeinfo.c/3016/0/1522778663.399825564
+========================================================================================
+Report      : ERROR
+Date        : Tue Apr 03 11:04:23 MST 2018
+Description : Deserialization remote topic failed: (null) at <unknown>
+Node        : jormungand
+Process     : java <11722>
+Thread      : OSPL Kernel Manager 7f72c8c2e700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/495/0/1522778663.399848006
+========================================================================================
+Report      : ERROR
+Date        : Tue Apr 03 11:05:56 MST 2018
+Description : c_metaBind failed for Struct <v_readerLifecyclePolicy> in scope <kernelModule>.
+Node        : jormungand
+Process     : java <11722>
+Thread      : OSPL Kernel Manager 7f72c8c2e700
+Internals   : V6.4.140320OSS/24b1387/24b1387/sd_deserXmlStructure/sd_serializerXMLTypeinfo.c/2436/0/1522778756.379780736
+========================================================================================
+Report      : ERROR
+Date        : Tue Apr 03 11:05:56 MST 2018
+Description : Deserialize failed
+Node        : jormungand
+Process     : java <11722>
+Thread      : OSPL Kernel Manager 7f72c8c2e700
+Internals   : V6.4.140320OSS/24b1387/24b1387/Type deserialize/sd_serializerXMLTypeinfo.c/3016/0/1522778756.379841473
+========================================================================================
+Report      : ERROR
+Date        : Tue Apr 03 11:05:56 MST 2018
+Description : Deserialization remote topic failed: (null) at <unknown>
+Node        : jormungand
+Process     : java <11722>
+Thread      : OSPL Kernel Manager 7f72c8c2e700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/495/0/1522778756.379867888
+========================================================================================
+Report      : ERROR
+Date        : Tue Apr 03 11:14:52 MST 2018
+Description : c_metaBind failed for Struct <v_readerLifecyclePolicy> in scope <kernelModule>.
+Node        : jormungand
+Process     : java <13938>
+Thread      : OSPL Kernel Manager 7fb30b9d6700
+Internals   : V6.4.140320OSS/24b1387/24b1387/sd_deserXmlStructure/sd_serializerXMLTypeinfo.c/2436/0/1522779292.012602922
+========================================================================================
+Report      : ERROR
+Date        : Tue Apr 03 11:14:52 MST 2018
+Description : Deserialize failed
+Node        : jormungand
+Process     : java <13938>
+Thread      : OSPL Kernel Manager 7fb30b9d6700
+Internals   : V6.4.140320OSS/24b1387/24b1387/Type deserialize/sd_serializerXMLTypeinfo.c/3016/0/1522779292.012680553
+========================================================================================
+Report      : ERROR
+Date        : Tue Apr 03 11:14:52 MST 2018
+Description : Deserialization remote topic failed: (null) at <unknown>
+Node        : jormungand
+Process     : java <13938>
+Thread      : OSPL Kernel Manager 7fb30b9d6700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/495/0/1522779292.012718685

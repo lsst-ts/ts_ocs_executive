@@ -3,8 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.lsst.ocs</groupId>
   <artifactId>OCSExecutive</artifactId>
-  <name>OCSExecutive_SAL3.5.1</name>
-  <version>2.0</version>
+  <name>OCSExecutive_SAL3.5.2</name>
+  <version>2.1</version>
   <developers>
     <developer>
       <id>jbuffill</id>

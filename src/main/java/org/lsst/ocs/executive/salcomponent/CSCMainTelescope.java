@@ -38,11 +38,9 @@ public class CSCMainTelescope implements CommandableSalComponent {
         SAL_tcs publisher = new SAL_tcs();
         publisher.salCommand( "tcs_command_enterControl" );
 
+        publisher.setDebugLevel( 1 );
+        
         tcs.command_enterControl command = new tcs.command_enterControl();
-        command.private_revCode = "LSST TCS enterControl COMMAND";
-        command.device = "mtcs";
-        command.property = "enterControl";
-        command.action = "set";
         command.state = true;
 
         int cmdId = publisher.issueCommand_enterControl( command );
@@ -66,6 +64,8 @@ public class CSCMainTelescope implements CommandableSalComponent {
         SAL_tcs publisher = new SAL_tcs();
         publisher.salCommand( "tcs_command_start" );
 
+        publisher.setDebugLevel( 1 );
+        
         tcs.command_start command = new tcs.command_start();
         command.private_revCode = "LSST TCS start COMMAND";
         command.device = "mtcs";
@@ -95,6 +95,8 @@ public class CSCMainTelescope implements CommandableSalComponent {
         SAL_tcs publisher = new SAL_tcs();
         publisher.salCommand( "tcs_command_enable" );
 
+        publisher.setDebugLevel( 1 );
+        
         tcs.command_enable command = new tcs.command_enable();
         command.private_revCode = "LSST TCS enable COMMAND";
         command.device = "mtcs";
@@ -123,6 +125,8 @@ public class CSCMainTelescope implements CommandableSalComponent {
         SAL_tcs publisher = new SAL_tcs();
         publisher.salCommand( "tcs_command_disable" );
 
+        publisher.setDebugLevel( 1 );
+        
         tcs.command_disable command = new tcs.command_disable();
         command.private_revCode = "LSST TCS disable COMMAND";
         command.device = "mtcs";
@@ -151,6 +155,8 @@ public class CSCMainTelescope implements CommandableSalComponent {
         SAL_tcs publisher = new SAL_tcs();
         publisher.salCommand( "tcs_command_standby" );
 
+        publisher.setDebugLevel( 1 );
+        
         tcs.command_standby command = new tcs.command_standby();
         command.private_revCode = "LSST TCS standby COMMAND";
         command.device = "mtcs";
@@ -179,6 +185,8 @@ public class CSCMainTelescope implements CommandableSalComponent {
         SAL_tcs publisher = new SAL_tcs();
         publisher.salCommand( "tcs_command_exitControl" );
 
+        publisher.setDebugLevel( 1 );
+        
         tcs.command_exitControl command = new tcs.command_exitControl();
         command.private_revCode = "LSST TCS exitControl COMMAND";
         command.device = "mtcs";
@@ -233,6 +241,8 @@ public class CSCMainTelescope implements CommandableSalComponent {
         SAL_tcs publisher = new SAL_tcs();
         publisher.salCommand( "tcs_command_target" );
 
+        publisher.setDebugLevel( 1 );
+        
         tcs.command_target command = new tcs.command_target();
         command.private_revCode = "LSST TCS target COMMAND";
         command.device = "mtcs";
@@ -245,7 +255,7 @@ public class CSCMainTelescope implements CommandableSalComponent {
         command.filter = (String) "z";
         command.requestTime = (double) 1664583885.2;
         command.ra = (double) 289.583;
-        command.dec = (double) 0.187;
+        command.decl = (double) 0.187;
         command.angle = (double) 156.887;
         command.num_exposures = (int) 2;
         command.exposure_times = (int) 15;
@@ -273,6 +283,8 @@ public class CSCMainTelescope implements CommandableSalComponent {
         SAL_tcs subscriber = new SAL_tcs();
         subscriber.salEvent( "tcs_logevent_SummaryState" );
 
+        subscriber.setDebugLevel( 1 );
+        
         tcs.logevent_SummaryState event = new tcs.logevent_SummaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
@@ -309,6 +321,8 @@ public class CSCMainTelescope implements CommandableSalComponent {
         SAL_tcs subscriber = new SAL_tcs();
         subscriber.salEvent( "tcs_logevent_SettingVersions" );
 
+        subscriber.setDebugLevel( 1 );
+        
         tcs.logevent_SettingVersions event = new tcs.logevent_SettingVersions();
 
         int status;
@@ -337,6 +351,8 @@ public class CSCMainTelescope implements CommandableSalComponent {
         SAL_tcs subscriber = new SAL_tcs();
         subscriber.salEvent( "tcs_logevent_AppliedSettingsMatchStart" );
 
+        subscriber.setDebugLevel( 1 );
+        
         tcs.logevent_AppliedSettingsMatchStart event = new tcs.logevent_AppliedSettingsMatchStart();
 
         int status;
@@ -364,6 +380,8 @@ public class CSCMainTelescope implements CommandableSalComponent {
         SAL_tcs subscriber = new SAL_tcs();
         subscriber.salEvent( "tcs_logevent_FilterChangeInPosition" );
 
+        subscriber.setDebugLevel( 1 );
+        
         tcs.logevent_FilterChangeInPosition event = new tcs.logevent_FilterChangeInPosition();
 
         int status;
@@ -372,6 +390,7 @@ public class CSCMainTelescope implements CommandableSalComponent {
             status = subscriber.getEvent_FilterChangeInPosition( event );
             if ( status == SAL_tcs.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
+                out.println("=== FilterChangeInPosition value: " + event.FilterChangeInPosition);
             }
 
             try {
@@ -391,6 +410,8 @@ public class CSCMainTelescope implements CommandableSalComponent {
         SAL_tcs subscriber = new SAL_tcs();
         subscriber.salEvent( "tcs_logevent_TargetInPosition" );
 
+        subscriber.setDebugLevel( 1 );
+        
         tcs.logevent_TargetInPosition event = new tcs.logevent_TargetInPosition();
 
         int status;
@@ -399,6 +420,7 @@ public class CSCMainTelescope implements CommandableSalComponent {
             status = subscriber.getEvent_TargetInPosition( event );
             if ( status == SAL_tcs.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
+                out.println("=== TargetInPosition value: " + event.TargetInPosition);
             }
 
             try {

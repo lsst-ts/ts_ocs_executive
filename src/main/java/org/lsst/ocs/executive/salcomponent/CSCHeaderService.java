@@ -15,7 +15,7 @@
 package org.lsst.ocs.executive.salcomponent;
 
 import static java.lang.System.out;
-import org.lsst.sal.SAL_dmHeaderService;
+import org.lsst.sal.SAL_headerService;
 
 /**
  * <h2>Data Management Header Service CSC</h2>
@@ -30,16 +30,18 @@ public class CSCHeaderService implements CommandableSalComponent {
 
     @Override public void enterControl() { 
     
-        SAL_dmHeaderService publisher = new SAL_dmHeaderService();
-        publisher.salCommand( "dmHeaderService_command_EnterControl" );
+        SAL_headerService publisher = new SAL_headerService();
+        publisher.salCommand( "headerService_command_enterControl" );
 
-        dmHeaderService.command_EnterControl command = new dmHeaderService.command_EnterControl();
+        publisher.setDebugLevel( 1 );
+        
+        headerService.command_enterControl command = new headerService.command_enterControl();
         command.private_revCode = "LSST DM HeaderService enterControl COMMAND";
-        command.device = "dmHeaderService";
+        command.device = "headerService";
         command.property = "enterControl";
         command.action = "set";
 
-        int cmdId = publisher.issueCommand_EnterControl( command );
+        int cmdId = publisher.issueCommand_enterControl( command );
 
         try {
             Thread.sleep( 250 );
@@ -48,7 +50,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_EnterControl( cmdId, timeout );
+        publisher.waitForCompletion_enterControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
         publisher.salShutdown();
@@ -56,16 +58,18 @@ public class CSCHeaderService implements CommandableSalComponent {
 
     @Override public void start() { 
         
-        SAL_dmHeaderService publisher = new SAL_dmHeaderService();
-        publisher.salCommand( "dmHeaderService_command_Start" );
+        SAL_headerService publisher = new SAL_headerService();
+        publisher.salCommand( "headerService_command_start" );
 
-        dmHeaderService.command_Start command = new dmHeaderService.command_Start();
+        publisher.setDebugLevel( 1 );
+        
+        headerService.command_start command = new headerService.command_start();
         command.private_revCode = "LSST DM HeaderService start COMMAND";
-        command.device = "dmHeaderService";
+        command.device = "headerService";
         command.property = "start";
         command.action = "set";
 
-        int cmdId = publisher.issueCommand_Start( command );
+        int cmdId = publisher.issueCommand_start( command );
 
         try {
             Thread.sleep( 250 );
@@ -74,7 +78,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_Start( cmdId, timeout );
+        publisher.waitForCompletion_start( cmdId, timeout );
 
         /* Remove the DataWriters etc */
         publisher.salShutdown();
@@ -83,16 +87,18 @@ public class CSCHeaderService implements CommandableSalComponent {
 
     @Override public void enable() {
 
-        SAL_dmHeaderService publisher = new SAL_dmHeaderService();
-        publisher.salCommand( "dmHeaderService_command_Enable" );
+        SAL_headerService publisher = new SAL_headerService();
+        publisher.salCommand( "headerService_command_enable" );
 
-        dmHeaderService.command_Enable command = new dmHeaderService.command_Enable();
+        publisher.setDebugLevel( 1 );
+        
+        headerService.command_enable command = new headerService.command_enable();
         command.private_revCode = "LSST DM HeaderService enable COMMAND";
-        command.device = "dmHeaderService";
+        command.device = "headerService";
         command.property = "enable";
         command.action = "set";
 
-        int cmdId = publisher.issueCommand_Enable( command );
+        int cmdId = publisher.issueCommand_enable( command );
 
         try {
             Thread.sleep( 250 );
@@ -101,7 +107,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_Enable( cmdId, timeout );
+        publisher.waitForCompletion_enable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
         publisher.salShutdown();
@@ -109,16 +115,18 @@ public class CSCHeaderService implements CommandableSalComponent {
 
     @Override public void disable() {
 
-        SAL_dmHeaderService publisher = new SAL_dmHeaderService();
-        publisher.salCommand( "dmHeaderService_command_Disable" );
+        SAL_headerService publisher = new SAL_headerService();
+        publisher.salCommand( "headerService_command_disable" );
 
-        dmHeaderService.command_Disable command = new dmHeaderService.command_Disable();
+        publisher.setDebugLevel( 1 );
+        
+        headerService.command_disable command = new headerService.command_disable();
         command.private_revCode = "LSST DM HeaderService disable COMMAND";
-        command.device = "dmHeaderService";
+        command.device = "headerService";
         command.property = "disable";
         command.action = "set";
 
-        int cmdId = publisher.issueCommand_Disable( command );
+        int cmdId = publisher.issueCommand_disable( command );
 
         try {
             Thread.sleep( 250 );
@@ -127,7 +135,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_Disable( cmdId, timeout );
+        publisher.waitForCompletion_disable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
         publisher.salShutdown();
@@ -135,16 +143,18 @@ public class CSCHeaderService implements CommandableSalComponent {
 
     @Override public void standby() {
 
-        SAL_dmHeaderService publisher = new SAL_dmHeaderService();
-        publisher.salCommand( "dmHeaderService_command_Standby" );
+        SAL_headerService publisher = new SAL_headerService();
+        publisher.salCommand( "headerService_command_standby" );
 
-        dmHeaderService.command_Standby command = new dmHeaderService.command_Standby();
+        publisher.setDebugLevel( 1 );
+        
+        headerService.command_standby command = new headerService.command_standby();
         command.private_revCode = "LSST DM HeaderService standby COMMAND";
-        command.device = "dmHeaderService";
+        command.device = "headerService";
         command.property = "standby";
         command.action = "set";
 
-        int cmdId = publisher.issueCommand_Standby( command );
+        int cmdId = publisher.issueCommand_standby( command );
 
         try {
             Thread.sleep( 250 );
@@ -153,7 +163,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_Standby( cmdId, timeout );
+        publisher.waitForCompletion_standby( cmdId, timeout );
 
         /* Remove the DataWriters etc */
         publisher.salShutdown();
@@ -161,16 +171,18 @@ public class CSCHeaderService implements CommandableSalComponent {
 
     @Override public void exitControl() {
 
-        SAL_dmHeaderService publisher = new SAL_dmHeaderService();
-        publisher.salCommand( "dmHeaderService_command_ExitControl" );
+        SAL_headerService publisher = new SAL_headerService();
+        publisher.salCommand( "headerService_command_exitControl" );
 
-        dmHeaderService.command_ExitControl command = new dmHeaderService.command_ExitControl();
+        publisher.setDebugLevel( 1 );
+        
+        headerService.command_exitControl command = new headerService.command_exitControl();
         command.private_revCode = "LSST DM HeaderService exitControl COMMAND";
-        command.device = "dmHeaderService";
+        command.device = "headerService";
         command.property = "exitControl";
         command.action = "set";
 
-        int cmdId = publisher.issueCommand_ExitControl( command );
+        int cmdId = publisher.issueCommand_exitControl( command );
 
         try {
             Thread.sleep( 250 );
@@ -179,7 +191,7 @@ public class CSCHeaderService implements CommandableSalComponent {
         }
 
         int timeout = 3;
-        publisher.waitForCompletion_ExitControl( cmdId, timeout );
+        publisher.waitForCompletion_exitControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
         publisher.salShutdown();
@@ -188,16 +200,18 @@ public class CSCHeaderService implements CommandableSalComponent {
     @Override public Integer summaryState() {
     
         // Initialize
-        SAL_dmHeaderService subscriber = new SAL_dmHeaderService();
-        subscriber.salEvent( "dmHeaderService_logevent_SummaryState" );
+        SAL_headerService subscriber = new SAL_headerService();
+        subscriber.salEvent( "headerService_logevent_SummaryState" );
 
-        dmHeaderService.logevent_SummaryState event = new dmHeaderService.logevent_SummaryState();
+        subscriber.setDebugLevel( 1 );
+        
+        headerService.logevent_SummaryState event = new headerService.logevent_SummaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_dmHeaderService.SAL__OK ) {
+            if ( status == SAL_headerService.SAL__OK ) {
                 
                 out.println("=== Event Logged : " + event);
 
@@ -223,17 +237,19 @@ public class CSCHeaderService implements CommandableSalComponent {
     @Override public void settingsVersion() {
     
         // Initialize
-        SAL_dmHeaderService subscriber = new SAL_dmHeaderService();
-        subscriber.salEvent( "dmHeaderService_logevent_SettingVersions" );
+        SAL_headerService subscriber = new SAL_headerService();
+        subscriber.salEvent( "headerService_logevent_SettingVersions" );
         
-        dmHeaderService.logevent_SettingVersions event = 
-            new dmHeaderService.logevent_SettingVersions();
+        subscriber.setDebugLevel( 1 );
+        
+        headerService.logevent_SettingVersions event = 
+            new headerService.logevent_SettingVersions();
 
         int status;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SettingVersions( event );
-            if ( status == SAL_dmHeaderService.SAL__OK ) {
+            if ( status == SAL_headerService.SAL__OK ) {
                 out.println("=== Event Logged : " + event);
             }
             
@@ -251,17 +267,19 @@ public class CSCHeaderService implements CommandableSalComponent {
     @Override public void appliedSettingsMatchStart() {
     
         // Initialize
-        SAL_dmHeaderService subscriber = new SAL_dmHeaderService();
-        subscriber.salEvent( "dmHeaderService_logevent_AppliedSettingsMatchStart" );
+        SAL_headerService subscriber = new SAL_headerService();
+        subscriber.salEvent( "headerService_logevent_AppliedSettingsMatchStart" );
         
-        dmHeaderService.logevent_AppliedSettingsMatchStart event = 
-            new dmHeaderService.logevent_AppliedSettingsMatchStart();
+        subscriber.setDebugLevel( 1 );
+        
+        headerService.logevent_AppliedSettingsMatchStart event = 
+            new headerService.logevent_AppliedSettingsMatchStart();
 
         int status;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_AppliedSettingsMatchStart( event );
-            if ( status == SAL_dmHeaderService.SAL__OK ) {
+            if ( status == SAL_headerService.SAL__OK ) {
                 out.println("=== Event Logged : " + event);
             }
             

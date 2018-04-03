@@ -14,7 +14,7 @@
 
 package org.lsst.ocs.executive.salcomponent;
 
-import org.lsst.sal.SAL_archiver;
+import org.lsst.sal.SAL_atScheduler;
 import static java.lang.System.out;
 
 /**
@@ -30,10 +30,12 @@ public class CSCAuxScheduler implements CommandableSalComponent {
 
     @Override public void enterControl() {
 
-        SAL_archiver publisher = new SAL_archiver();
+        SAL_atScheduler publisher = new SAL_atScheduler();
         publisher.salCommand( "ascheduler_command_enterControl" );
 
-        archiver.command_enterControl command = new archiver.command_enterControl();
+        publisher.setDebugLevel( 1 );
+        
+        atScheduler.command_enterControl command = new atScheduler.command_enterControl();
         command.private_revCode = "LSST Archiver enterControl COMMAND";
         command.device = "archiver";
         command.property = "enterControl";
@@ -57,10 +59,12 @@ public class CSCAuxScheduler implements CommandableSalComponent {
 
     @Override public void start() {
 
-        SAL_archiver publisher = new SAL_archiver();
+        SAL_atScheduler publisher = new SAL_atScheduler();
         publisher.salCommand( "ascheduler_command_start" );
 
-        archiver.command_start command = new archiver.command_start();
+        publisher.setDebugLevel( 1 );
+        
+        atScheduler.command_start command = new atScheduler.command_start();
         command.private_revCode = "LSST Archiver start COMMAND";
         command.device = "configuration";
         command.property = "start";
@@ -85,10 +89,12 @@ public class CSCAuxScheduler implements CommandableSalComponent {
 
     @Override public void enable() {
 
-        SAL_archiver publisher = new SAL_archiver();
+        SAL_atScheduler publisher = new SAL_atScheduler();
         publisher.salCommand( "ascheduler_command_enable" );
 
-        archiver.command_enable command = new archiver.command_enable();
+        publisher.setDebugLevel( 1 );
+        
+        atScheduler.command_enable command = new atScheduler.command_enable();
         command.private_revCode = "LSST Archiver enable COMMAND";
         command.device = "archiver";
         command.property = "enable";
@@ -112,10 +118,12 @@ public class CSCAuxScheduler implements CommandableSalComponent {
 
     @Override public void disable() {
 
-        SAL_archiver publisher = new SAL_archiver();
+        SAL_atScheduler publisher = new SAL_atScheduler();
         publisher.salCommand( "ascheduler_command_disable" );
 
-        archiver.command_disable command = new archiver.command_disable();
+        publisher.setDebugLevel( 1 );
+        
+        atScheduler.command_disable command = new atScheduler.command_disable();
         command.private_revCode = "LSST Archiver disable COMMAND";
         command.device = "archiver";
         command.property = "disable";
@@ -139,10 +147,12 @@ public class CSCAuxScheduler implements CommandableSalComponent {
 
     @Override public void standby() {
 
-        SAL_archiver publisher = new SAL_archiver();
+        SAL_atScheduler publisher = new SAL_atScheduler();
         publisher.salCommand( "ascheduler_command_standby" );
 
-        archiver.command_standby command = new archiver.command_standby();
+        publisher.setDebugLevel( 1 );
+        
+        atScheduler.command_standby command = new atScheduler.command_standby();
         command.private_revCode = "LSST Archiver standby COMMAND";
         command.device = "archiver";
         command.property = "standby";
@@ -166,10 +176,12 @@ public class CSCAuxScheduler implements CommandableSalComponent {
 
     @Override public void exitControl() {
 
-        SAL_archiver publisher = new SAL_archiver();
+        SAL_atScheduler publisher = new SAL_atScheduler();
         publisher.salCommand( "ascheduler_command_exitControl" );
 
-        archiver.command_exitControl command = new archiver.command_exitControl();
+        publisher.setDebugLevel( 1 );
+        
+        atScheduler.command_exitControl command = new atScheduler.command_exitControl();
         command.private_revCode = "LSST Archiver exitControl COMMAND";
         command.device = "archiver";
         command.property = "exitControl";
@@ -194,16 +206,18 @@ public class CSCAuxScheduler implements CommandableSalComponent {
     @Override public Integer summaryState() {
     
         // Initialize
-        SAL_archiver subscriber = new SAL_archiver();
+        SAL_atScheduler subscriber = new SAL_atScheduler();
         subscriber.salEvent( "ascheduler_logevent_SummaryState" );
 
-        archiver.logevent_SummaryState event = new archiver.logevent_SummaryState();
+        subscriber.setDebugLevel( 1 );
+        
+        atScheduler.logevent_SummaryState event = new atScheduler.logevent_SummaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_archiver.SAL__OK ) {
+            if ( status == SAL_atScheduler.SAL__OK ) {
                 
                 out.println("=== Event Logged : " + event);
 
@@ -229,16 +243,18 @@ public class CSCAuxScheduler implements CommandableSalComponent {
     @Override public void settingsVersion() {
 
         // Initialize
-        SAL_archiver subscriber = new SAL_archiver();
+        SAL_atScheduler subscriber = new SAL_atScheduler();
         subscriber.salEvent( "ascheduler_logevent_SettingVersions" );
 
-        archiver.logevent_SettingVersions event = new archiver.logevent_SettingVersions();
+        subscriber.setDebugLevel( 1 );
+        
+        atScheduler.logevent_SettingVersions event = new atScheduler.logevent_SettingVersions();
 
         int status;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SettingVersions( event );
-            if ( status == SAL_archiver.SAL__OK ) {
+            if ( status == SAL_atScheduler.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }
 
@@ -256,16 +272,18 @@ public class CSCAuxScheduler implements CommandableSalComponent {
     @Override public void appliedSettingsMatchStart() {
 
         // Initialize
-        SAL_archiver subscriber = new SAL_archiver();
+        SAL_atScheduler subscriber = new SAL_atScheduler();
         subscriber.salEvent( "ascheduler_logevent_AppliedSettingsMatchStart" );
 
-        archiver.logevent_AppliedSettingsMatchStart event = new archiver.logevent_AppliedSettingsMatchStart();
+        subscriber.setDebugLevel( 1 );
+        
+        atScheduler.logevent_AppliedSettingsMatchStart event = new atScheduler.logevent_AppliedSettingsMatchStart();
 
         int status;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_AppliedSettingsMatchStart( event );
-            if ( status == SAL_archiver.SAL__OK ) {
+            if ( status == SAL_atScheduler.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }
 

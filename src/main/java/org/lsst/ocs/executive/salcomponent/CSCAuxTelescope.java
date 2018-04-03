@@ -14,7 +14,7 @@
 
 package org.lsst.ocs.executive.salcomponent;
 
-import org.lsst.sal.SAL_tcs;
+import org.lsst.sal.SAL_atcs;
 import static java.lang.System.out;
 
 /**
@@ -35,15 +35,13 @@ public class CSCAuxTelescope implements CommandableSalComponent {
 //                   "Threadid: " + 
 //                   Thread.currentThread().getId() + "\n" );
         
-        SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand( "tcs_command_enterControl" );
+        SAL_atcs publisher = new SAL_atcs();
+        publisher.salCommand( "atcs_command_enterControl" );
 
-        tcs.command_enterControl command = new tcs.command_enterControl();
-        command.private_revCode = "LSST TCS enterControl COMMAND";
-        command.device = "atcs";
-        command.property = "enterControl";
-        command.action = "set";
-        command.state = true;
+        publisher.setDebugLevel( 1 );
+        
+        atcs.command_enterControl command = new atcs.command_enterControl();
+        command.enterControl = true;
 
         int cmdId = publisher.issueCommand_enterControl( command );
 
@@ -53,7 +51,7 @@ public class CSCAuxTelescope implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 5;
         publisher.waitForCompletion_enterControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -62,15 +60,12 @@ public class CSCAuxTelescope implements CommandableSalComponent {
 
     @Override public void start() { 
         
-        SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand( "tcs_command_start" );
+        SAL_atcs publisher = new SAL_atcs();
+        publisher.salCommand( "atcs_command_start" );
 
-        tcs.command_start command = new tcs.command_start();
-        command.private_revCode = "LSST TCS start COMMAND";
-        command.device = "atcs";
-        command.property = "start";
-        command.action = "set";
-        command.configuration = "Default";
+        publisher.setDebugLevel( 1 );
+        
+        atcs.command_start command = new atcs.command_start();
 
         int cmdId = publisher.issueCommand_start( command );
 
@@ -80,7 +75,7 @@ public class CSCAuxTelescope implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 5;
         publisher.waitForCompletion_start( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -90,15 +85,12 @@ public class CSCAuxTelescope implements CommandableSalComponent {
 
     @Override public void enable() {
 
-        SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand( "tcs_command_enable" );
+        SAL_atcs publisher = new SAL_atcs();
+        publisher.salCommand( "atcs_command_enable" );
 
-        tcs.command_enable command = new tcs.command_enable();
-        command.private_revCode = "LSST TCS enable COMMAND";
-        command.device = "atcs";
-        command.property = "enable";
-        command.action = "set";
-        command.state = true;
+        publisher.setDebugLevel( 1 );
+        
+        atcs.command_enable command = new atcs.command_enable();
 
         int cmdId = publisher.issueCommand_enable( command );
 
@@ -108,7 +100,7 @@ public class CSCAuxTelescope implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 5;
         publisher.waitForCompletion_enable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -117,15 +109,12 @@ public class CSCAuxTelescope implements CommandableSalComponent {
 
     @Override public void disable() {
 
-        SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand( "tcs_command_disable" );
+        SAL_atcs publisher = new SAL_atcs();
+        publisher.salCommand( "atcs_command_disable" );
 
-        tcs.command_disable command = new tcs.command_disable();
-        command.private_revCode = "LSST TCS disable COMMAND";
-        command.device = "atcs";
-        command.property = "disable";
-        command.action = "set";
-        command.state = true;
+        publisher.setDebugLevel( 1 );
+        
+        atcs.command_disable command = new atcs.command_disable();
 
         int cmdId = publisher.issueCommand_disable( command );
 
@@ -135,7 +124,7 @@ public class CSCAuxTelescope implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 5;
         publisher.waitForCompletion_disable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -144,15 +133,12 @@ public class CSCAuxTelescope implements CommandableSalComponent {
 
     @Override public void standby() {
 
-        SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand( "tcs_command_standby" );
+        SAL_atcs publisher = new SAL_atcs();
+        publisher.salCommand( "atcs_command_standby" );
 
-        tcs.command_standby command = new tcs.command_standby();
-        command.private_revCode = "LSST TCS standby COMMAND";
-        command.device = "atcs";
-        command.property = "standby";
-        command.action = "set";
-        command.state = true;
+        publisher.setDebugLevel( 1 );
+        
+        atcs.command_standby command = new atcs.command_standby();
 
         int cmdId = publisher.issueCommand_standby( command );
 
@@ -162,7 +148,7 @@ public class CSCAuxTelescope implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 5;
         publisher.waitForCompletion_standby( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -171,15 +157,12 @@ public class CSCAuxTelescope implements CommandableSalComponent {
 
     @Override public void exitControl() {
 
-        SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand( "tcs_command_exitControl" );
+        SAL_atcs publisher = new SAL_atcs();
+        publisher.salCommand( "atcs_command_exitControl" );
 
-        tcs.command_exitControl command = new tcs.command_exitControl();
-        command.private_revCode = "LSST TCS exitControl COMMAND";
-        command.device = "atcs";
-        command.property = "exitControl";
-        command.action = "set";
-        command.state = true;
+        publisher.setDebugLevel( 1 );
+        
+        atcs.command_exitControl command = new atcs.command_exitControl();
 
         int cmdId = publisher.issueCommand_exitControl( command );
 
@@ -189,26 +172,26 @@ public class CSCAuxTelescope implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 5;
         publisher.waitForCompletion_exitControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
         publisher.salShutdown();
     }
 
-    public void filterChange() {
+    public void SpectrographSetup() {
 
-        SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand( "tcs_command_filterChangeRequest" );
+        SAL_atcs publisher = new SAL_atcs();
+        publisher.salCommand( "atcs_command_SpectrographSetup" );
 
-        tcs.command_filterChangeRequest command = new tcs.command_filterChangeRequest();
-        command.private_revCode = "LSST TCS filterChangeRequest COMMAND";
-        command.device = "atcs";
-        command.property = "filterChangeRequest";
-        command.action = "apply";
-        command.filterChangeRequest = "g";
+        publisher.setDebugLevel( 1 );
+        
+        atcs.command_SpectrographSetup command = new atcs.command_SpectrographSetup();
+        command.grating = (int) 0;
+        command.filter = (int) 0;
+        command.stagePosition = (double) 0.0;
 
-        int cmdId = publisher.issueCommand_filterChangeRequest( command );
+        int cmdId = publisher.issueCommand_SpectrographSetup(command );
 
         try {
             Thread.sleep( 250 );
@@ -216,37 +199,56 @@ public class CSCAuxTelescope implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
-        publisher.waitForCompletion_filterChangeRequest( cmdId, timeout );
+        int timeout = 5;
+        publisher.waitForCompletion_SpectrographSetup(cmdId, timeout );
 
         /* Remove the DataWriters etc */
         publisher.salShutdown();
     }
 
-    public void target() {
+    public void Offset() {
 
-        SAL_tcs publisher = new SAL_tcs();
-        publisher.salCommand( "tcs_command_target" );
+        SAL_atcs publisher = new SAL_atcs();
+        publisher.salCommand( "atcs_command_Offset" );
 
-        tcs.command_target command = new tcs.command_target();
-        command.private_revCode = "LSST TCS target COMMAND";
-        command.device   = "atcs";
-        command.property = "target";
-        command.action   = "apply";
+        publisher.setDebugLevel( 1 );
         
+        atcs.command_Offset command = new atcs.command_Offset();
+        command.offsetX = (double) 0.0;
+        command.offsetY = (double) 0.0;
+
+        int cmdId = publisher.issueCommand_Offset(command );
+
+        try {
+            Thread.sleep( 250 );
+        } catch ( InterruptedException e ) {
+            e.printStackTrace();
+        }
+
+        int timeout = 5;
+        publisher.waitForCompletion_Offset(cmdId, timeout );
+
+        /* Remove the DataWriters etc */
+        publisher.salShutdown();
+    }
+
+    public void Target() {
+
+        SAL_atcs publisher = new SAL_atcs();
+        publisher.salCommand( "atcs_command_Target" );
+
+        publisher.setDebugLevel( 1 );
+        
+        atcs.command_Target command = new atcs.command_Target();
+
         command.targetId = (int) 2;
-        command.fieldId = (int) 2653;
-        command.groupId = (int) 1;
-        command.filter = (String) "z";
-        command.requestTime = (double) 1664583885.2;
         command.ra = (double) 289.583;
-        command.dec = (double) 0.187;
-        command.angle = (double) 156.887;
-        command.num_exposures = (int) 2;
-        command.exposure_times = (int) 15;
-        command.slew_time = (double) 41.717;
+        command.decl = (double) 0.187;
+        command.skyPositionAngle = (double) 156.887;
+        command.numOfExposures = (int) 2;
+        command.exposureTime = (int) 15;
             
-        int cmdId = publisher.issueCommand_target( command );
+        int cmdId = publisher.issueCommand_Target( command );
 
         try {
             Thread.sleep( 250 );
@@ -255,7 +257,7 @@ public class CSCAuxTelescope implements CommandableSalComponent {
         }
 
         int timeout = 4;
-        publisher.waitForCompletion_target( cmdId, timeout );
+        publisher.waitForCompletion_Target( cmdId, timeout );
 
         /* Remove the DataWriters etc */
         publisher.salShutdown();
@@ -264,16 +266,18 @@ public class CSCAuxTelescope implements CommandableSalComponent {
     @Override public Integer summaryState() {
     
         // Initialize
-        SAL_tcs subscriber = new SAL_tcs();
-        subscriber.salEvent( "tcs_logevent_SummaryState" );
+        SAL_atcs subscriber = new SAL_atcs();
+        subscriber.salEvent( "atcs_logevent_SummaryState" );
 
-        tcs.logevent_SummaryState event = new tcs.logevent_SummaryState();
+        subscriber.setDebugLevel( 1 );
+        
+        atcs.logevent_SummaryState event = new atcs.logevent_SummaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_tcs.SAL__OK ) {
+            if ( status == SAL_atcs.SAL__OK ) {
                 
                 out.println("=== Event Logged : " + event);
 
@@ -298,16 +302,18 @@ public class CSCAuxTelescope implements CommandableSalComponent {
     @Override public void settingsVersion() {
     
         // Initialize
-        SAL_tcs subscriber = new SAL_tcs();
-        subscriber.salEvent( "tcs_logevent_SettingVersions" );
+        SAL_atcs subscriber = new SAL_atcs();
+        subscriber.salEvent( "atcs_logevent_SettingVersions" );
         
-        tcs.logevent_SettingVersions event = new tcs.logevent_SettingVersions();
+        subscriber.setDebugLevel( 1 );
+        
+        atcs.logevent_SettingVersions event = new atcs.logevent_SettingVersions();
 
         int status;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SettingVersions( event );
-            if ( status == SAL_tcs.SAL__OK ) {
+            if ( status == SAL_atcs.SAL__OK ) {
                 out.println("=== Event Logged : " + event);
             }
             
@@ -325,16 +331,18 @@ public class CSCAuxTelescope implements CommandableSalComponent {
     @Override public void appliedSettingsMatchStart() {
     
         // Initialize
-        SAL_tcs subscriber = new SAL_tcs();
-        subscriber.salEvent( "tcs_logevent_AppliedSettingsMatchStart" );
+        SAL_atcs subscriber = new SAL_atcs();
+        subscriber.salEvent( "atcs_logevent_AppliedSettingsMatchStart" );
         
-        tcs.logevent_AppliedSettingsMatchStart event = new tcs.logevent_AppliedSettingsMatchStart();
+        subscriber.setDebugLevel( 1 );
+        
+        atcs.logevent_AppliedSettingsMatchStart event = new atcs.logevent_AppliedSettingsMatchStart();
 
         int status;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_AppliedSettingsMatchStart( event );
-            if ( status == SAL_tcs.SAL__OK ) {
+            if ( status == SAL_atcs.SAL__OK ) {
                 out.println("=== Event Logged : " + event);
             }
             
@@ -349,20 +357,23 @@ public class CSCAuxTelescope implements CommandableSalComponent {
 	subscriber.salShutdown();
     }
     
-    public void filterChangeInPosition() {
+    public void SpectrographInPosition() {
     
         // Initialize
-        SAL_tcs subscriber = new SAL_tcs();
-        subscriber.salEvent( "tcs_logevent_FilterChangeInPosition" );
+        SAL_atcs subscriber = new SAL_atcs();
+        subscriber.salEvent( "atcs_logevent_SpectrographInPosition" );
         
-        tcs.logevent_FilterChangeInPosition event = new tcs.logevent_FilterChangeInPosition();
+        subscriber.setDebugLevel( 1 );
+        
+        atcs.logevent_SpectrographInPosition event = new atcs.logevent_SpectrographInPosition();
 
         int status;
         while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_FilterChangeInPosition( event );
-            if ( status == SAL_tcs.SAL__OK ) {
+            status = subscriber.getEvent_SpectrographInPosition( event );
+            if ( status == SAL_atcs.SAL__OK ) {
                 out.println("=== Event Logged : " + event);
+                out.println("=== inPosition value: " + event.inPosition);
             }
             
             try {
@@ -376,20 +387,23 @@ public class CSCAuxTelescope implements CommandableSalComponent {
 	subscriber.salShutdown();
     }
     
-    public void targetInPosition() {
+    public void TelescopeInPosition() {
     
         // Initialize
-        SAL_tcs subscriber = new SAL_tcs();
-        subscriber.salEvent( "tcs_logevent_TargetInPosition" );
+        SAL_atcs subscriber = new SAL_atcs();
+        subscriber.salEvent( "atcs_logevent_TelescopeInPosition" );
         
-        tcs.logevent_TargetInPosition event = new tcs.logevent_TargetInPosition();
+        subscriber.setDebugLevel( 1 );
+        
+        atcs.logevent_TelescopeInPosition event = new atcs.logevent_TelescopeInPosition();
 
         int status;
         while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_TargetInPosition( event );
-            if ( status == SAL_tcs.SAL__OK ) {
-                out.println("=== Event Logged : " + event);
+            status = subscriber.getEvent_TelescopeInPosition( event );
+            if ( status == SAL_atcs.SAL__OK ) {
+                out.println("=== Event Logged: " + event);
+                out.println("=== inPosition value: " + event.inPosition);
             }
 
             try {

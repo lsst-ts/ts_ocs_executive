@@ -33,6 +33,8 @@ public class CSCArchiver implements CommandableSalComponent {
         SAL_archiver publisher = new SAL_archiver();
         publisher.salCommand( "archiver_command_enterControl" );
 
+        publisher.setDebugLevel( 1 );
+        
         archiver.command_enterControl command = new archiver.command_enterControl();
         command.private_revCode = "LSST Archiver enterControl COMMAND";
         command.device = "archiver";
@@ -60,6 +62,8 @@ public class CSCArchiver implements CommandableSalComponent {
         SAL_archiver publisher = new SAL_archiver();
         publisher.salCommand( "archiver_command_start" );
 
+        publisher.setDebugLevel( 1 );
+        
         archiver.command_start command = new archiver.command_start();
         command.private_revCode = "LSST Archiver start COMMAND";
         command.device = "configuration";
@@ -88,6 +92,8 @@ public class CSCArchiver implements CommandableSalComponent {
         SAL_archiver publisher = new SAL_archiver();
         publisher.salCommand( "archiver_command_enable" );
 
+        publisher.setDebugLevel( 1 );
+        
         archiver.command_enable command = new archiver.command_enable();
         command.private_revCode = "LSST Archiver enable COMMAND";
         command.device = "archiver";
@@ -115,6 +121,8 @@ public class CSCArchiver implements CommandableSalComponent {
         SAL_archiver publisher = new SAL_archiver();
         publisher.salCommand( "archiver_command_disable" );
 
+        publisher.setDebugLevel( 1 );
+        
         archiver.command_disable command = new archiver.command_disable();
         command.private_revCode = "LSST Archiver disable COMMAND";
         command.device = "archiver";
@@ -142,6 +150,8 @@ public class CSCArchiver implements CommandableSalComponent {
         SAL_archiver publisher = new SAL_archiver();
         publisher.salCommand( "archiver_command_standby" );
 
+        publisher.setDebugLevel( 1 );
+        
         archiver.command_standby command = new archiver.command_standby();
         command.private_revCode = "LSST Archiver standby COMMAND";
         command.device = "archiver";
@@ -169,6 +179,8 @@ public class CSCArchiver implements CommandableSalComponent {
         SAL_archiver publisher = new SAL_archiver();
         publisher.salCommand( "archiver_command_exitControl" );
 
+        publisher.setDebugLevel( 1 );
+        
         archiver.command_exitControl command = new archiver.command_exitControl();
         command.private_revCode = "LSST Archiver exitControl COMMAND";
         command.device = "archiver";
@@ -197,6 +209,8 @@ public class CSCArchiver implements CommandableSalComponent {
         SAL_archiver subscriber = new SAL_archiver();
         subscriber.salEvent( "archiver_logevent_SummaryState" );
 
+        subscriber.setDebugLevel( 1 );
+        
         archiver.logevent_SummaryState event = new archiver.logevent_SummaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();

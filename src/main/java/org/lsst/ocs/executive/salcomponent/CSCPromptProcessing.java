@@ -33,6 +33,8 @@ public class CSCPromptProcessing implements CommandableSalComponent {
         SAL_processingcluster publisher = new SAL_processingcluster();
         publisher.salCommand( "processingcluster_command_enterControl" );
 
+        publisher.setDebugLevel( 1 );
+        
         processingcluster.command_enterControl command = new processingcluster.command_enterControl();
         command.private_revCode = "LSST ProcessingCluster enterControl COMMAND";
         command.device = "promptprocessing";
@@ -60,6 +62,8 @@ public class CSCPromptProcessing implements CommandableSalComponent {
         SAL_processingcluster publisher = new SAL_processingcluster();
         publisher.salCommand( "processingcluster_command_start" );
 
+        publisher.setDebugLevel( 1 );
+        
         processingcluster.command_start command = new processingcluster.command_start();
         command.private_revCode = "LSST PromptProcessing start COMMAND";
         command.device = "promptprocessing";
@@ -88,6 +92,8 @@ public class CSCPromptProcessing implements CommandableSalComponent {
         SAL_processingcluster publisher = new SAL_processingcluster();
         publisher.salCommand( "processingcluster_command_enable" );
 
+        publisher.setDebugLevel( 1 );
+        
         processingcluster.command_enable command = new processingcluster.command_enable();
         command.private_revCode = "LSST PromptProcessing enable COMMAND";
         command.device = "promptprocessing";
@@ -115,6 +121,8 @@ public class CSCPromptProcessing implements CommandableSalComponent {
         SAL_processingcluster publisher = new SAL_processingcluster();
         publisher.salCommand( "processingcluster_command_disable" );
 
+        publisher.setDebugLevel( 1 );
+        
         processingcluster.command_disable command = new processingcluster.command_disable();
         command.private_revCode = "LSST PromptProcessing disable COMMAND";
         command.device = "promptprocessing";
@@ -142,6 +150,8 @@ public class CSCPromptProcessing implements CommandableSalComponent {
         SAL_processingcluster publisher = new SAL_processingcluster();
         publisher.salCommand( "processingcluster_command_standby" );
 
+        publisher.setDebugLevel( 1 );
+        
         processingcluster.command_standby command = new processingcluster.command_standby();
         command.private_revCode = "LSST PromptProcessing standby COMMAND";
         command.device = "promptprocessing";
@@ -169,6 +179,8 @@ public class CSCPromptProcessing implements CommandableSalComponent {
         SAL_processingcluster publisher = new SAL_processingcluster();
         publisher.salCommand( "processingcluster_command_exitControl" );
 
+        publisher.setDebugLevel( 1 );
+        
         processingcluster.command_exitControl command = new processingcluster.command_exitControl();
         command.private_revCode = "LSST PromptProcessing exitControl COMMAND";
         command.device = "promptprocessing";
@@ -197,6 +209,8 @@ public class CSCPromptProcessing implements CommandableSalComponent {
         SAL_processingcluster subscriber = new SAL_processingcluster();
         subscriber.salEvent( "dmHeaderService_logevent_SummaryState" );
 
+        subscriber.setDebugLevel( 1 );
+        
         processingcluster.logevent_SummaryState event = new processingcluster.logevent_SummaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
@@ -232,6 +246,8 @@ public class CSCPromptProcessing implements CommandableSalComponent {
         SAL_processingcluster subscriber = new SAL_processingcluster();
         subscriber.salEvent( "processingcluster_logevent_SettingVersions" );
         
+        subscriber.setDebugLevel( 1 );
+        
         processingcluster.logevent_SettingVersions event = new processingcluster.logevent_SettingVersions();
 
         int status;
@@ -258,6 +274,8 @@ public class CSCPromptProcessing implements CommandableSalComponent {
         // Initialize
         SAL_processingcluster subscriber = new SAL_processingcluster();
         subscriber.salEvent( "processingcluster_logevent_AppliedSettingsMatchStart" );
+        
+        subscriber.setDebugLevel( 1 );
         
         processingcluster.logevent_AppliedSettingsMatchStart event = new processingcluster.logevent_AppliedSettingsMatchStart();
 

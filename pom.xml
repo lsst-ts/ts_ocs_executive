@@ -3,8 +3,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.lsst.ocs</groupId>
     <artifactId>OCSExecutive</artifactId>
-    <version>2.0</version>
-    <name>OCSExecutive_SAL3.5.1</name>
+    <version>2.1</version>
+    <name>OCSExecutive_SAL3.5.2</name>
 
     <developers>
         <developer>
@@ -38,39 +38,59 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>opensplice.dds</groupId>
-            <artifactId>dcpssaj</artifactId>
-            <version>6.4.1</version>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_archiver</artifactId>
+            <version>3.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_atArchiver</artifactId>
+            <version>3.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_atHeaderService</artifactId>
+            <version>3.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_atScheduler</artifactId>
+            <version>3.5.2</version>
         </dependency>
         <dependency>
             <groupId>org.lsst.lsst-tsvm</groupId>
             <artifactId>sal_camera</artifactId>
-            <version>3.6.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_tcs</artifactId>
-            <version>3.6.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_archiver</artifactId>
-            <version>3.6.0</version>
+            <version>3.5.2</version>
         </dependency>
         <dependency>
             <groupId>org.lsst.lsst-tsvm</groupId>
             <artifactId>sal_catchuparchiver</artifactId>
-            <version>3.6.0</version>
+            <version>3.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_headerService</artifactId>
+            <version>3.5.2</version>
         </dependency>
         <dependency>
             <groupId>org.lsst.lsst-tsvm</groupId>
             <artifactId>sal_processingcluster</artifactId>
-            <version>3.6.0</version>
+            <version>3.5.2</version>
         </dependency>
         <dependency>
             <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_dmHeaderService</artifactId>
-            <version>3.6.0</version>
+            <artifactId>sal_tcs</artifactId>
+            <version>3.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_atcs</artifactId>
+            <version>3.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_atcamera</artifactId>
+            <version>3.5.2</version>
         </dependency>
     </dependencies>
 

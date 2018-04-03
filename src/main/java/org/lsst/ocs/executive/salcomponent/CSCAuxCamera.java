@@ -14,7 +14,7 @@
 
 package org.lsst.ocs.executive.salcomponent;
 
-import org.lsst.sal.SAL_camera;
+import org.lsst.sal.SAL_atcamera;
 import static java.lang.System.out;
 
 /**
@@ -30,14 +30,12 @@ public class CSCAuxCamera implements CommandableSalComponent {
 
     @Override public void enterControl() {
 
-        SAL_camera publisher = new SAL_camera();
-        publisher.salCommand( "camera_command_enterControl" );
+        SAL_atcamera publisher = new SAL_atcamera();
+        publisher.salCommand( "atcamera_command_enterControl" );
 
-        camera.command_enterControl command = new camera.command_enterControl();
-        command.private_revCode = "LSST Camera enterControl COMMAND";
-        command.device = "accs";
-        command.property = "enterControl";
-        command.action = "set";
+        publisher.setDebugLevel( 1 );
+        
+        atcamera.command_enterControl command = new atcamera.command_enterControl();
         command.state = true;
 
         int cmdId = publisher.issueCommand_enterControl( command );
@@ -57,10 +55,12 @@ public class CSCAuxCamera implements CommandableSalComponent {
 
     @Override public void start() {
 
-        SAL_camera publisher = new SAL_camera();
-        publisher.salCommand( "camera_command_start" );
+        SAL_atcamera publisher = new SAL_atcamera();
+        publisher.salCommand( "atcamera_command_start" );
 
-        camera.command_start command = new camera.command_start();
+        publisher.setDebugLevel( 1 );
+
+        atcamera.command_start command = new atcamera.command_start();
         command.private_revCode = "LSST Camera start COMMAND";
         command.device = "accs";
         command.property = "start";
@@ -85,10 +85,12 @@ public class CSCAuxCamera implements CommandableSalComponent {
 
     @Override public void enable() {
 
-        SAL_camera publisher = new SAL_camera();
-        publisher.salCommand( "camera_command_enable" );
+        SAL_atcamera publisher = new SAL_atcamera();
+        publisher.salCommand( "atcamera_command_enable" );
 
-        camera.command_enable command = new camera.command_enable();
+        publisher.setDebugLevel( 1 );
+
+        atcamera.command_enable command = new atcamera.command_enable();
         command.private_revCode = "LSST Camera enable COMMAND";
         command.device = "accs";
         command.property = "enable";
@@ -112,10 +114,12 @@ public class CSCAuxCamera implements CommandableSalComponent {
 
     @Override public void disable() {
 
-        SAL_camera publisher = new SAL_camera();
-        publisher.salCommand( "camera_command_disable" );
+        SAL_atcamera publisher = new SAL_atcamera();
+        publisher.salCommand( "atcamera_command_disable" );
 
-        camera.command_disable command = new camera.command_disable();
+        publisher.setDebugLevel( 1 );
+
+        atcamera.command_disable command = new atcamera.command_disable();
         command.private_revCode = "LSST Camera disable COMMAND";
         command.device = "accs";
         command.property = "disable";
@@ -139,10 +143,12 @@ public class CSCAuxCamera implements CommandableSalComponent {
 
     @Override public void standby() {
 
-        SAL_camera publisher = new SAL_camera();
-        publisher.salCommand( "camera_command_standby" );
+        SAL_atcamera publisher = new SAL_atcamera();
+        publisher.salCommand( "atcamera_command_standby" );
 
-        camera.command_standby command = new camera.command_standby();
+        publisher.setDebugLevel( 1 );
+
+        atcamera.command_standby command = new atcamera.command_standby();
         command.private_revCode = "LSST Camera standby COMMAND";
         command.device = "accs";
         command.property = "standby";
@@ -166,10 +172,12 @@ public class CSCAuxCamera implements CommandableSalComponent {
 
     @Override public void exitControl() {
 
-        SAL_camera publisher = new SAL_camera();
-        publisher.salCommand( "camera_command_exitControl" );
+        SAL_atcamera publisher = new SAL_atcamera();
+        publisher.salCommand( "atcamera_command_exitControl" );
 
-        camera.command_exitControl command = new camera.command_exitControl();
+        publisher.setDebugLevel( 1 );
+
+        atcamera.command_exitControl command = new atcamera.command_exitControl();
         command.private_revCode = "LSST Camera exitControl COMMAND";
         command.device = "accs";
         command.property = "exitControl";
@@ -191,39 +199,14 @@ public class CSCAuxCamera implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    public void setFilter() {
-
-        SAL_camera publisher = new SAL_camera();
-        publisher.salCommand( "camera_command_setFilter" );
-
-        camera.command_setFilter command  = new camera.command_setFilter();
-        command.private_revCode = "LSST TEST COMMAND";
-        command.device   = "accs";
-        command.property = "setFilter";
-        command.action   = "apply";
-        command.name = "i-9";
-
-        int cmdId = publisher.issueCommand_setFilter(command);
-
-        try {
-            Thread.sleep( 250 );
-        } catch ( InterruptedException e ) {
-            e.printStackTrace();
-        }
-
-        int timeout = 3;
-        publisher.waitForCompletion_setFilter( cmdId, timeout );
-
-        /* Remove the DataWriters etc */
-        publisher.salShutdown();
-    }
-   
     public void takeImage() {
 
-        SAL_camera publisher = new SAL_camera();
-        publisher.salCommand( "camera_command_takeImages" );
+        SAL_atcamera publisher = new SAL_atcamera();
+        publisher.salCommand( "atcamera_command_takeImages" );
 
-        camera.command_takeImages command  = new camera.command_takeImages();
+        publisher.setDebugLevel( 1 );
+
+        atcamera.command_takeImages command  = new atcamera.command_takeImages();
         command.private_revCode = "LSST TEST COMMAND";
         command.device   = "accs";
         command.property = "takeImages";
@@ -253,10 +236,12 @@ public class CSCAuxCamera implements CommandableSalComponent {
    
     public void initImage() {
 
-        SAL_camera publisher = new SAL_camera();
-        publisher.salCommand( "camera_command_takeImages" );
+        SAL_atcamera publisher = new SAL_atcamera();
+        publisher.salCommand( "atcamera_command_takeImages" );
 
-        camera.command_initImage command  = new camera.command_initImage();
+        publisher.setDebugLevel( 1 );
+
+        atcamera.command_initImage command  = new atcamera.command_initImage();
         command.private_revCode = "LSST TEST COMMAND";
         command.device   = "accs";
         command.property = "initImage";
@@ -281,10 +266,12 @@ public class CSCAuxCamera implements CommandableSalComponent {
     @Override public Integer summaryState() {
 
         // Initialize
-        SAL_camera subscriber = new SAL_camera();
-        subscriber.salEvent( "camera_logevent_SummaryState" );
+        SAL_atcamera subscriber = new SAL_atcamera();
+        subscriber.salEvent( "atcamera_logevent_SummaryState" );
 
-        camera.logevent_SummaryState event = new camera.logevent_SummaryState();
+        subscriber.setDebugLevel( 1 );
+
+        atcamera.logevent_SummaryState event = new atcamera.logevent_SummaryState();
 
 //        out.print( this.getClass()
 //            .getSimpleName() + "::"
@@ -300,7 +287,7 @@ public class CSCAuxCamera implements CommandableSalComponent {
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_camera.SAL__OK ) {
+            if ( status == SAL_atcamera.SAL__OK ) {
                 
                 out.println( "=== Event Logged : " + event );
                 
@@ -324,18 +311,20 @@ public class CSCAuxCamera implements CommandableSalComponent {
     }
 
     @Override public void settingsVersion() {
-
+        
         // Initialize
-        SAL_camera subscriber = new SAL_camera();
-        subscriber.salEvent( "camera_logevent_SettingVersions" );
+        SAL_atcamera subscriber = new SAL_atcamera();
+        subscriber.salEvent( "atcamera_logevent_SettingVersions" );
 
-        camera.logevent_SettingVersions event = new camera.logevent_SettingVersions();
+        subscriber.setDebugLevel( 1 );
+
+        atcamera.logevent_SettingVersions event = new atcamera.logevent_SettingVersions();
 
         int status;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SettingVersions( event );
-            if ( status == SAL_camera.SAL__OK ) {
+            if ( status == SAL_atcamera.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }
 
@@ -353,16 +342,18 @@ public class CSCAuxCamera implements CommandableSalComponent {
     @Override public void appliedSettingsMatchStart() {
 
         // Initialize
-        SAL_camera subscriber = new SAL_camera();
-        subscriber.salEvent( "camera_logevent_AppliedSettingsMatchStart" );
+        SAL_atcamera subscriber = new SAL_atcamera();
+        subscriber.salEvent( "atcamera_logevent_AppliedSettingsMatchStart" );
 
-        camera.logevent_AppliedSettingsMatchStart event = new camera.logevent_AppliedSettingsMatchStart();
+        subscriber.setDebugLevel( 1 );
+
+        atcamera.logevent_AppliedSettingsMatchStart event = new atcamera.logevent_AppliedSettingsMatchStart();
 
         int status;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_AppliedSettingsMatchStart( event );
-            if ( status == SAL_camera.SAL__OK ) {
+            if ( status == SAL_atcamera.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }
 

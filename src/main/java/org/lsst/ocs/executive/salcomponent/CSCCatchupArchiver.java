@@ -33,6 +33,8 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         SAL_catchuparchiver publisher = new SAL_catchuparchiver();
         publisher.salCommand( "catchuparchiver_command_enterControl" );
 
+        publisher.setDebugLevel( 1 );
+        
         catchuparchiver.command_enterControl command = new catchuparchiver.command_enterControl();
         command.private_revCode = "LSST CatchupArchiver enterControl COMMAND";
         command.device = "catchuparchiver";
@@ -60,6 +62,8 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         SAL_catchuparchiver publisher = new SAL_catchuparchiver();
         publisher.salCommand( "catchuparchiver_command_start" );
 
+        publisher.setDebugLevel( 1 );
+        
         catchuparchiver.command_start command = new catchuparchiver.command_start();
         command.private_revCode = "LSST CatchupArchiver start COMMAND";
         command.device = "catchuparchiver";
@@ -88,6 +92,8 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         SAL_catchuparchiver publisher = new SAL_catchuparchiver();
         publisher.salCommand( "catchuparchiver_command_enable" );
 
+        publisher.setDebugLevel( 1 );
+        
         catchuparchiver.command_enable command = new catchuparchiver.command_enable();
         command.private_revCode = "LSST CatchupArchiver enable COMMAND";
         command.device = "catchuparchiver";
@@ -115,6 +121,8 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         SAL_catchuparchiver publisher = new SAL_catchuparchiver();
         publisher.salCommand( "catchuparchiver_command_disable" );
 
+        publisher.setDebugLevel( 1 );
+        
         catchuparchiver.command_disable command = new catchuparchiver.command_disable();
         command.private_revCode = "LSST CatchupArchiver disable COMMAND";
         command.device = "catchuparchiver";
@@ -142,6 +150,8 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         SAL_catchuparchiver publisher = new SAL_catchuparchiver();
         publisher.salCommand( "catchuparchiver_command_standby" );
 
+        publisher.setDebugLevel( 1 );
+        
         catchuparchiver.command_standby command = new catchuparchiver.command_standby();
         command.private_revCode = "LSST CatchupArchiver standby COMMAND";
         command.device = "catchuparchiver";
@@ -169,6 +179,8 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         SAL_catchuparchiver publisher = new SAL_catchuparchiver();
         publisher.salCommand( "catchuparchiver_command_exitControl" );
 
+        publisher.setDebugLevel( 1 );
+        
         catchuparchiver.command_exitControl command = new catchuparchiver.command_exitControl();
         command.private_revCode = "LSST CatchupArchiver exitControl COMMAND";
         command.device = "catchuparchiver";
@@ -197,6 +209,8 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         SAL_catchuparchiver subscriber = new SAL_catchuparchiver();
         subscriber.salEvent( "catchuparchiver_logevent_SummaryState" );
 
+        subscriber.setDebugLevel( 1 );
+        
         catchuparchiver.logevent_SummaryState event = new catchuparchiver.logevent_SummaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
@@ -232,6 +246,8 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         SAL_catchuparchiver subscriber = new SAL_catchuparchiver();
         subscriber.salEvent( "catchuparchiver_logevent_SettingVersions" );
         
+        subscriber.setDebugLevel( 1 );
+        
         catchuparchiver.logevent_SettingVersions event = new catchuparchiver.logevent_SettingVersions();
 
         int status;
@@ -258,6 +274,8 @@ public class CSCCatchupArchiver implements CommandableSalComponent {
         // Initialize
         SAL_catchuparchiver subscriber = new SAL_catchuparchiver();
         subscriber.salEvent( "catchuparchiver_logevent_AppliedSettingsMatchStart" );
+        
+        subscriber.setDebugLevel( 1 );
         
         catchuparchiver.logevent_AppliedSettingsMatchStart event = new catchuparchiver.logevent_AppliedSettingsMatchStart();
 
