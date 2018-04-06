@@ -40,7 +40,12 @@
                         <MenuItem id="menuitemHeaderService" fx:id="menuitemHeaderService" mnemonicParsing="false" onAction="#createCSC" text="HEADER SERVICE" />
                     </items>
                   </Menu>
-                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll" mnemonicParsing="false" onAction="#createAllCSC" text="Create All CSCs" />
+                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll" mnemonicParsing="false" onAction="#enterAllCSC" text="Enter All CSCs" />
+                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll1" mnemonicParsing="false" onAction="#startAllCSC" text="Start All CSCs" />
+                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll2" mnemonicParsing="false" onAction="#enableAllCSC" text="Enable All CSCs" />
+                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll21" mnemonicParsing="false" onAction="#disableAllCSC" text="Disable All CSCs" />
+                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll211" mnemonicParsing="false" onAction="#standbyAllCSC" text="Standby All CSCs" />
+                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll2111" mnemonicParsing="false" onAction="#exitAllCSC" text="Exit All CSCs" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

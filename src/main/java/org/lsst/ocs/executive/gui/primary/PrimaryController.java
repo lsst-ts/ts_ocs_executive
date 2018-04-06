@@ -382,7 +382,7 @@ public class PrimaryController implements Initializable {
         checkSummaryState( entity, cmdString );        
     }
     
-    @FXML private void createAllCSC( ActionEvent event ) throws Exception {
+    @FXML private void enterAllCSC( ActionEvent event ) throws Exception {
 
         out.print( Thread.currentThread()
                          .getStackTrace()[1]
@@ -394,10 +394,12 @@ public class PrimaryController implements Initializable {
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         //    Also, assign topic & topic arguments
         
-        SalConnect salConnectCsc = new SalConnect( execFX.getCscList().size() );
         String cmdString = "enterControl";
 
-        execFX.getCscList().forEach( csc -> {
+        //SalConnect salConnectCsc = new SalConnect( execFX.getCscList().size() );
+        //execFX.getCscList().forEach( csc -> {
+        SalConnect salConnectCsc = new SalConnect( execFX.getCscList().subList( 8, 11).size() );
+        execFX.getCscList().subList( 8, 11).forEach( csc -> {
             
             SalCmd salCmdCsc = new SalCmd( csc );
             salCmdCsc.setTopic( cmdString );
@@ -405,7 +407,8 @@ public class PrimaryController implements Initializable {
         });
         salConnectCsc.connect();
 
-        execFX.getEntityList().forEach( entity -> {
+        //execFX.getEntityList().forEach( entity -> {
+        execFX.getEntityList().subList( 8, 11).forEach( entity -> {
             
             try {
                 checkSummaryState( entity, cmdString );
@@ -415,4 +418,190 @@ public class PrimaryController implements Initializable {
             }
         });
     }
+    
+    @FXML private void startAllCSC( ActionEvent event ) throws Exception {
+
+        out.print( Thread.currentThread()
+                         .getStackTrace()[1]
+                         .getMethodName() + "::" 
+                                          + "Threadid: "
+                                          + Thread.currentThread().getId() + "\n" );
+        
+        // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
+        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+        //    Also, assign topic & topic arguments
+        
+        String cmdString = "start";
+
+        //SalConnect salConnectCsc = new SalConnect( execFX.getCscList().size() );
+        //execFX.getCscList().forEach( csc -> {
+        SalConnect salConnectCsc = new SalConnect( execFX.getCscList().subList( 8, 11).size() );
+        execFX.getCscList().subList( 8, 11).forEach( csc -> {
+            
+            SalCmd salCmdCsc = new SalCmd( csc );
+            salCmdCsc.setTopic( cmdString );
+            salConnectCsc.setSalService( salCmdCsc );
+        });
+        salConnectCsc.connect();
+
+        //execFX.getEntityList().forEach( entity -> {
+        execFX.getEntityList().subList( 8, 11).forEach( entity -> {
+            
+            try {
+                checkSummaryState( entity, cmdString );
+            } catch ( Exception ex ) {
+                ex.printStackTrace( out.printf( "InterruptedException from  PrimaryController.createAllCSC()" ) );
+                //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
+            }
+        });
+    }
+
+    @FXML private void enableAllCSC( ActionEvent event ) throws Exception {
+
+        out.print( Thread.currentThread()
+                         .getStackTrace()[1]
+                         .getMethodName() + "::" 
+                                          + "Threadid: "
+                                          + Thread.currentThread().getId() + "\n" );
+        
+        // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
+        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+        //    Also, assign topic & topic arguments
+        
+        String cmdString = "enable";
+
+        //SalConnect salConnectCsc = new SalConnect( execFX.getCscList().size() );
+        //execFX.getCscList().forEach( csc -> {
+        SalConnect salConnectCsc = new SalConnect( execFX.getCscList().subList( 8, 11).size() );
+        execFX.getCscList().subList( 8, 11).forEach( csc -> {
+            
+            SalCmd salCmdCsc = new SalCmd( csc );
+            salCmdCsc.setTopic( cmdString );
+            salConnectCsc.setSalService( salCmdCsc );
+        });
+        salConnectCsc.connect();
+
+        //execFX.getEntityList().forEach( entity -> {
+        execFX.getEntityList().subList( 8, 11).forEach( entity -> {
+            
+            try {
+                checkSummaryState( entity, cmdString );
+            } catch ( Exception ex ) {
+                ex.printStackTrace( out.printf( "InterruptedException from  PrimaryController.createAllCSC()" ) );
+                //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
+            }
+        });
+    }
+    
+    @FXML private void disableAllCSC( ActionEvent event ) throws Exception {
+
+        out.print( Thread.currentThread()
+                         .getStackTrace()[1]
+                         .getMethodName() + "::" 
+                                          + "Threadid: "
+                                          + Thread.currentThread().getId() + "\n" );
+        
+        // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
+        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+        //    Also, assign topic & topic arguments
+        
+        String cmdString = "disable";
+
+        //SalConnect salConnectCsc = new SalConnect( execFX.getCscList().size() );
+        //execFX.getCscList().forEach( csc -> {
+        SalConnect salConnectCsc = new SalConnect( execFX.getCscList().subList( 8, 11).size() );
+        execFX.getCscList().subList( 8, 11).forEach( csc -> {
+            
+            SalCmd salCmdCsc = new SalCmd( csc );
+            salCmdCsc.setTopic( cmdString );
+            salConnectCsc.setSalService( salCmdCsc );
+        });
+        salConnectCsc.connect();
+
+        //execFX.getEntityList().forEach( entity -> {
+        execFX.getEntityList().subList( 8, 11).forEach( entity -> {
+            
+            try {
+                checkSummaryState( entity, cmdString );
+            } catch ( Exception ex ) {
+                ex.printStackTrace( out.printf( "InterruptedException from  PrimaryController.createAllCSC()" ) );
+                //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
+            }
+        });
+    }
+    
+    @FXML private void standbyAllCSC( ActionEvent event ) throws Exception {
+
+        out.print( Thread.currentThread()
+                         .getStackTrace()[1]
+                         .getMethodName() + "::" 
+                                          + "Threadid: "
+                                          + Thread.currentThread().getId() + "\n" );
+        
+        // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
+        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+        //    Also, assign topic & topic arguments
+        
+        String cmdString = "standby";
+
+        //SalConnect salConnectCsc = new SalConnect( execFX.getCscList().size() );
+        //execFX.getCscList().forEach( csc -> {
+        SalConnect salConnectCsc = new SalConnect( execFX.getCscList().subList( 8, 11).size() );
+        execFX.getCscList().subList( 8, 11).forEach( csc -> {
+            
+            SalCmd salCmdCsc = new SalCmd( csc );
+            salCmdCsc.setTopic( cmdString );
+            salConnectCsc.setSalService( salCmdCsc );
+        });
+        salConnectCsc.connect();
+
+        //execFX.getEntityList().forEach( entity -> {
+        execFX.getEntityList().subList( 8, 11).forEach( entity -> {
+            
+            try {
+                checkSummaryState( entity, cmdString );
+            } catch ( Exception ex ) {
+                ex.printStackTrace( out.printf( "InterruptedException from  PrimaryController.createAllCSC()" ) );
+                //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
+            }
+        });
+    }
+    
+    @FXML private void exitAllCSC( ActionEvent event ) throws Exception {
+
+        out.print( Thread.currentThread()
+                         .getStackTrace()[1]
+                         .getMethodName() + "::" 
+                                          + "Threadid: "
+                                          + Thread.currentThread().getId() + "\n" );
+        
+        // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
+        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+        //    Also, assign topic & topic arguments
+        
+        String cmdString = "exitControl";
+
+        //SalConnect salConnectCsc = new SalConnect( execFX.getCscList().size() );
+        //execFX.getCscList().forEach( csc -> {
+        SalConnect salConnectCsc = new SalConnect( execFX.getCscList().subList( 8, 11).size() );
+        execFX.getCscList().subList( 8, 11).forEach( csc -> {
+            
+            SalCmd salCmdCsc = new SalCmd( csc );
+            salCmdCsc.setTopic( cmdString );
+            salConnectCsc.setSalService( salCmdCsc );
+        });
+        salConnectCsc.connect();
+
+        //execFX.getEntityList().forEach( entity -> {
+        execFX.getEntityList().subList( 8, 11).forEach( entity -> {
+            
+            try {
+                checkSummaryState( entity, cmdString );
+            } catch ( Exception ex ) {
+                ex.printStackTrace( out.printf( "InterruptedException from  PrimaryController.createAllCSC()" ) );
+                //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
+            }
+        });
+    }
+    
 }
