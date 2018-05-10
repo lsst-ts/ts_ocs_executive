@@ -2,7 +2,6 @@
 <actions>
         <action>
             <actionName>run</actionName>
-            <preAction>build-with-dependencies</preAction>
             <packagings>
                 <packaging>jar</packaging>
             </packagings>
@@ -11,8 +10,9 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Dprism.order=sw -classpath %classpath org.lsst.ocs.executive.ExecutiveFX</exec.args>
+                <exec.args>-Dprism.order=sw -Djava.library.path=/home/jbuffill/swdev/ts_sal_3.5.2/ts_sal/../ts_opensplice/OpenSpliceDDS/V6.4.1/HDE/x86_64.linux/lib/ -classpath %classpath org.lsst.ocs.executive.ExecutiveFX</exec.args>
                 <exec.executable>java</exec.executable>
+                
             </properties>
         </action>
         <action>
@@ -25,7 +25,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Dprism.order=sw -classpath %classpath org.lsst.ocs.executive.ExecutiveFX</exec.args>
+                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Dprism.order=sw -Djava.library.path=/home/jbuffill/swdev/ts_sal_3.5.2/ts_sal/../ts_opensplice/OpenSpliceDDS/V6.4.1/HDE/x86_64.linux/lib/ -DskipTests -classpath %classpath org.lsst.ocs.executive.ExecutiveFX</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
             </properties>
@@ -40,13 +40,12 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Dprism.order=sw -classpath %classpath org.lsst.ocs.executive.ExecutiveFX</exec.args>
+                <exec.args>-Dprism.order=sw -Djava.library.path=/home/jbuffill/swdev/ts_sal_3.5.2/ts_sal/../ts_opensplice/OpenSpliceDDS/V6.4.1/HDE/x86_64.linux/lib/ -DskipTests -classpath %classpath org.lsst.ocs.executive.ExecutiveFX</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
         <action>
             <actionName>rebuild</actionName>
-            <preAction>build-with-dependencies</preAction>
             <packagings>
                 <packaging>*</packaging>
             </packagings>
@@ -55,12 +54,12 @@
                 <goal>install</goal>
             </goals>
             <properties>
-                <Env.JAVA_HOME>/usr/java/jdk1.8.0_162</Env.JAVA_HOME>
+                <Env.JAVA_HOME>/usr/java/jdk1.8.0_172-amd64</Env.JAVA_HOME>
+                
             </properties>
         </action>
         <action>
             <actionName>clean</actionName>
-            <preAction>build-with-dependencies</preAction>
             <packagings>
                 <packaging>*</packaging>
             </packagings>
@@ -69,12 +68,11 @@
                 
             </goals>
             <properties>
-                <Env.JAVA_HOME>/usr/java/jdk1.8.0_162</Env.JAVA_HOME>
+                <Env.JAVA_HOME>/usr/java/jdk1.8.0_172-amd64</Env.JAVA_HOME>
             </properties>
         </action>
         <action>
             <actionName>debug.test.single</actionName>
-            <preAction>build-with-dependencies</preAction>
             <packagings>
                 <packaging>*</packaging>
             </packagings>
@@ -91,20 +89,41 @@
         </action>
         <action>
             <actionName>build</actionName>
-            <preAction>build-with-dependencies</preAction>
             <packagings>
                 <packaging>*</packaging>
             </packagings>
             <goals>
                 <goal>install</goal>
                 
+                
             </goals>
             <properties>
-                <Env.JAVA_HOME>/usr/java/jdk1.8.0_162</Env.JAVA_HOME>
+                <Env.JAVA_HOME>/usr/java/jdk1.8.0_172-amd64</Env.JAVA_HOME>
+                <exec.args>-Dprism.order=sw -classpath %classpath org.lsst.ocs.executive.ExecutiveFX</exec.args>
+                <exec.executable>java</exec.executable>
+                
                 
                 
                 
                 
             </properties>
+        </action>
+        <action>
+            <actionName>test</actionName>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
+            <goals>
+                <goal>org.apache.maven.plugins:maven-surefire-plugin:2.21.0:test</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>test.single</actionName>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
+            <goals>
+                <goal>org.apache.maven.plugins:maven-surefire-plugin:2.21.0:test</goal>
+            </goals>
         </action>
     </actions>

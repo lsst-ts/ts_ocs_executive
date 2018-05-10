@@ -8,6 +8,7 @@ Without this configuration present, some functionality in the IDE may be limited
 -->
     <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
         <word>etype</word>
+        <word>instantiable</word>
     </spellchecker-wordlist>
     <properties xmlns="http://www.netbeans.org/ns/maven-properties-data/1">
         <!--
@@ -18,6 +19,6 @@ Any value defined here will override the pom.xml file value but is only applicab
 -->
         <netbeans.hint.license>default</netbeans.hint.license>
         <org-netbeans-modules-javascript2-requirejs.enabled>true</org-netbeans-modules-javascript2-requirejs.enabled>
-        <netbeans.hint.jdkPlatform>JDK_1.8</netbeans.hint.jdkPlatform>
+        <netbeans.hint.jdkPlatform>JDK_1.8_172</netbeans.hint.jdkPlatform>
     </properties>
 </project-shared-configuration>

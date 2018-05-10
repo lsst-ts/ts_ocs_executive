@@ -9,7 +9,10 @@
                 <goal>install</goal>
             </goals>
             <properties>
-                <Env.JAVA_HOME>/usr/java/jdk1.8.0_162</Env.JAVA_HOME>
+                <Env.JAVA_HOME>/usr/java/jdk1.8.0_172-amd64</Env.JAVA_HOME>
+                <exec.args>-Dprism.order=sw -classpath %classpath org.lsst.ocs.executive.ExecutiveFX</exec.args>
+                <exec.executable>java</exec.executable>
+                
             </properties>
         </action>
     </actions>

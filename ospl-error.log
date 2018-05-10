@@ -3425,3 +3425,75 @@ Node        : jormungand
 Process     : java <13938>
 Thread      : OSPL Kernel Manager 7fb30b9d6700
 Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/495/0/1522779292.012718685
+========================================================================================
+Report      : ERROR
+Date        : Tue May 08 15:39:35 MST 2018
+Description : c_metaBind failed for Struct <v_readerLifecyclePolicy> in scope <kernelModule>.
+Node        : jormungand
+Process     : java <17975>
+Thread      : OSPL Kernel Manager 7f4b50b33700
+Internals   : V6.4.140320OSS/24b1387/24b1387/sd_deserXmlStructure/sd_serializerXMLTypeinfo.c/2436/0/1525819175.279682289
+========================================================================================
+Report      : ERROR
+Date        : Tue May 08 15:39:35 MST 2018
+Description : Deserialize failed
+Node        : jormungand
+Process     : java <17975>
+Thread      : OSPL Kernel Manager 7f4b50b33700
+Internals   : V6.4.140320OSS/24b1387/24b1387/Type deserialize/sd_serializerXMLTypeinfo.c/3016/0/1525819175.279827877
+========================================================================================
+Report      : ERROR
+Date        : Tue May 08 15:39:35 MST 2018
+Description : Deserialization remote topic failed: (null) at <unknown>
+Node        : jormungand
+Process     : java <17975>
+Thread      : OSPL Kernel Manager 7f4b50b33700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/495/0/1525819175.279858998
+========================================================================================
+Report      : ERROR
+Date        : Thu May 10 14:56:29 MST 2018
+Description : c_metaBind failed for Struct <v_readerLifecyclePolicy> in scope <kernelModule>.
+Node        : jormungand
+Process     : java <4952>
+Thread      : OSPL Kernel Manager 7fe2d0d4a700
+Internals   : V6.4.140320OSS/24b1387/24b1387/sd_deserXmlStructure/sd_serializerXMLTypeinfo.c/2436/0/1525989389.865179552
+========================================================================================
+Report      : ERROR
+Date        : Thu May 10 14:56:29 MST 2018
+Description : Deserialize failed
+Node        : jormungand
+Process     : java <4952>
+Thread      : OSPL Kernel Manager 7fe2d0d4a700
+Internals   : V6.4.140320OSS/24b1387/24b1387/Type deserialize/sd_serializerXMLTypeinfo.c/3016/0/1525989389.865292015
+========================================================================================
+Report      : ERROR
+Date        : Thu May 10 14:56:29 MST 2018
+Description : Deserialization remote topic failed: (null) at <unknown>
+Node        : jormungand
+Process     : java <4952>
+Thread      : OSPL Kernel Manager 7fe2d0d4a700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/495/0/1525989389.865319009
+========================================================================================
+Report      : ERROR
+Date        : Thu May 10 14:58:14 MST 2018
+Description : c_metaBind failed for Struct <v_readerLifecyclePolicy> in scope <kernelModule>.
+Node        : jormungand
+Process     : java <5206>
+Thread      : OSPL Kernel Manager 7fda84082700
+Internals   : V6.4.140320OSS/24b1387/24b1387/sd_deserXmlStructure/sd_serializerXMLTypeinfo.c/2436/0/1525989494.306500243
+========================================================================================
+Report      : ERROR
+Date        : Thu May 10 14:58:14 MST 2018
+Description : Deserialize failed
+Node        : jormungand
+Process     : java <5206>
+Thread      : OSPL Kernel Manager 7fda84082700
+Internals   : V6.4.140320OSS/24b1387/24b1387/Type deserialize/sd_serializerXMLTypeinfo.c/3016/0/1525989494.306612790
+========================================================================================
+Report      : ERROR
+Date        : Thu May 10 14:58:14 MST 2018
+Description : Deserialization remote topic failed: (null) at <unknown>
+Node        : jormungand
+Process     : java <5206>
+Thread      : OSPL Kernel Manager 7fda84082700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/495/0/1525989494.306641278
