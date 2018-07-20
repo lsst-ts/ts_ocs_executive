@@ -20,7 +20,6 @@ import java.util.List;
  * <h2>SAL Service</h2>
  * <p>
  * {@code SalService} is the Command Interface class in the command pattern
- * <p>
  */
 public abstract class SalService {
 

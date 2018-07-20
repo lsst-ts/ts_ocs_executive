@@ -4,7 +4,7 @@
     <groupId>org.lsst.ocs</groupId>
     <artifactId>OCSExecutive</artifactId>
     <version>2.1</version>
-    <name>OCSExecutive_SAL3.5.2</name>
+    <name>OCSExecutive</name>
 
     <licenses>
         <license>
@@ -34,7 +34,49 @@
         </developer>
     </developers>
     
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+        <java.version>1.8</java.version>
+        <!-- <maven.compiler.source>1.8</maven.compiler.source> -->
+        <!-- <maven.compiler.target>1.8</maven.compiler.target> -->
+
+        <junit.version>4.12</junit.version>
+        <junit.jupiter.version>5.2.0</junit.jupiter.version>
+        <junit.platform.version>1.2.0</junit.platform.version>
+
+        <mockito.version>2.18.3</mockito.version>
+
+        <log4j.version>2.11.0</log4j.version>
+        
+        <!-- The total heap size is bounded by below by -Xms<min> and above by -Xmx<max> -->
+        <!-- Max Heap Size: -Xmx or -XX:MaxHeapSize
+                            Maximum size (in bytes) of the memory allocation pool in bytes. Value must be multiples of
+                            1024 and greater than 2 MB. k/K=Kilobytes, m/M=megabytes, g/G=gigbytes
+                -->
+        <!-- Initial Heap Size: -Xms 
+                            Sets the initial size (in bytes) of the heap. Value must be multiples of 1024
+                            and greater than 1 MB
+                -->
+        <!-- <argLine>-Xms1025k -Xmx1025k</argLine> -->
+        <!-- argLine>-Xms2G -Xmx2G</argLine> -->
+    </properties>
+
     <dependencies>
+        
+        <!-- Add the Apache log4j dependencies -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!-- Add the Reactive dependencies -->
         <dependency>
             <groupId>io.reactivex.rxjava2</groupId>
             <artifactId>rxjava</artifactId>
@@ -45,77 +87,120 @@
             <artifactId>rxjavafx</artifactId>
             <version>2.2.2</version>
         </dependency>
+        
+        <!-- Add the JUnit dependencies -->
         <dependency>
+            <!-- Configuring a 'test' dependency on  JUnit 4 to support JUnit 4 based tests -->
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.7</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- Configuring a 'test' dependency on  JUnit Jupiter API to support JUnit Jupiter based tests (i.e. JUnit 5) -->
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+	<dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-runner</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
+        </dependency>        
+        <!-- Add the Mockito dependencies -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Add the LSST CSCs dependencies -->
+        <dependency>
             <groupId>org.lsst.lsst-tsvm</groupId>
             <artifactId>sal_archiver</artifactId>
-            <version>3.5.2</version>
+            <version>3.7.1</version>
         </dependency>
         <dependency>
             <groupId>org.lsst.lsst-tsvm</groupId>
             <artifactId>sal_atArchiver</artifactId>
-            <version>3.5.2</version>
+            <version>3.7.1</version>
         </dependency>
         <dependency>
             <groupId>org.lsst.lsst-tsvm</groupId>
             <artifactId>sal_atHeaderService</artifactId>
-            <version>3.5.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_camera</artifactId>
-            <version>3.5.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_catchuparchiver</artifactId>
-            <version>3.5.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_headerService</artifactId>
-            <version>3.5.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_processingcluster</artifactId>
-            <version>3.5.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_tcs</artifactId>
-            <version>3.5.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_atcs</artifactId>
-            <version>3.5.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_atcamera</artifactId>
-            <version>3.5.2</version>
+            <version>3.7.1</version>
         </dependency>
         <dependency>
             <groupId>org.lsst.lsst-tsvm</groupId>
             <artifactId>sal_atScheduler</artifactId>
-            <version>3.5.2</version>
+            <version>3.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_atcamera</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_atcs</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_camera</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_catchuparchiver</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_headerService</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_promptProcessing</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_scheduler</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_tcs</artifactId>
+            <version>3.7.1</version>
         </dependency>
     </dependencies>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
-
     <build>
         <finalName>ocsexec</finalName>
+
         <plugins>
             
             <plugin>
@@ -126,16 +211,9 @@
                     <compilerArgs>
                         <arg></arg>
                     </compilerArgs>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <compilerArgs>
-                        <arg></arg>
-                    </compilerArgs>
+                    <excludes>
+                        <exclude>**/CSCCamera.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
 
@@ -145,12 +223,47 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.6.1</version>
                 <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <excludes>
+                        <exclude>**/CSCCamera.java</exclude>
+                    </excludes>
+                    
                     <compilerArgs>
                         <arg></arg>
                     </compilerArgs>
                 </configuration>
             </plugin>
             
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArgs>
+                        <arg></arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/CSCCamera.java</exclude>                        
+                    </excludes>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArgs>
+                        <arg></arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+
             <!-- Maven Assembly Plugin -->
 <!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -228,20 +341,6 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.0.2</version>
                 <executions>
-
-<!--                    <execution>
-                        <id>unpack-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>
-                                ${project.build.directory}/dependclasses
-                            </outputDirectory>
-                        </configuration>
-                    </execution>
--->                    
                     <execution>
                         <id>copy-dependencies</id>
                         <phase>package</phase>
@@ -267,7 +366,60 @@
                 </configuration>
             </plugin>
 -->
-
+            <!-- Declare the maven-surefire-plugin & configure the  dependencies of this plugin -->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.21.0</version>
+                <configuration>
+                    <!-- <exec.args>-Xms1025k -Xmx1025k -XshowSettings:vm</exec.args> -->
+                    <!-- <argLine>-Xms1025k -Xmx1025k -XshowSettings:vm</argLine> -->
+                    <!-- <exec.args>-Xms1025k -Xmx1025k</exec.args> -->
+                    
+                    <!-- Filtering by Test Class Name:                                                                                                                                 -->
+                    <!-- The Maven Surefire Plugin will scan for test classes whose fully qualified names match the following patterns -->
+                    <includes>
+                        <include>**/Test*.java</include>
+                        <include>**/*Test.java</include>
+                        <include>**/*Tests.java</include>
+                        <include>**/*TestCase.java</include>
+                    </includes>
+                    <!-- Filtering by Tags:                                                                                                                                                         -->
+                    <!-- The Maven Surefire Plugin can filter tests by tags or tag expressions using the following configuration properties -->
+                    <properties>
+                        <!-- 
+                                                <includeTags>fast</includeTags>
+                                                <excludeTags>slow</excludeTags> 
+                                                <includeTags>acceptance | !feature-a</includeTags>
+                                                <excludeTags>integration, regression</excludeTags> 
+                                                -->
+                    </properties>
+                </configuration>
+                <!-- The following are maven-surefire-plugin dependencies that will be added to the runtime classpath -->
+                <!-- register the individual JUnit 5 components with Maven surefire -->
+                <dependencies>
+                    <dependency>
+                        <!-- A provider for Maven Surefire that allows us to run tests -->
+                        <!-- that use either JUnit 3, 4 or 5 via: mvn test                       -->
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>${junit.platform.version}</version>
+                    </dependency>
+                    <!-- Configure Test Engines -->
+                    <dependency>
+                        <!-- Adding the JUnit Jupiter test engine implementation to allow us to run tests that use JUnit 5 -->
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>${junit.jupiter.version}</version>
+                    </dependency>
+                    <dependency>
+                        <!-- Adding the JUnit vintage test engine implementation to allow us to run tests that use either JUnit 3 or 4 -->
+                        <groupId>org.junit.vintage</groupId>
+                        <artifactId>junit-vintage-engine</artifactId>
+                        <version>${junit.jupiter.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            
         </plugins>
     </build>
 

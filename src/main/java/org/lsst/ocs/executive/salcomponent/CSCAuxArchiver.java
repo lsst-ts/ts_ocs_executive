@@ -14,16 +14,17 @@
 
 package org.lsst.ocs.executive.salcomponent;
 
-import org.lsst.sal.SAL_atArchiver;
 import static java.lang.System.out;
+import org.lsst.ocs.executive.Executive;
+import org.lsst.sal.SAL_atArchiver;
+
+import org.lsst.sal.SAL_scheduler;
 
 /**
- * <h2>Auxiliary Data Management Service CSC</h2>
- * <p>
+ * <h2>Data Management Auxiliary Archiver Service CSC</h2>
+ *
  * {@code CSCAuxArchiver} is a (Concrete) Receiver class in the command pattern
- * 
  */
-
 public class CSCAuxArchiver implements CommandableSalComponent {
 
     @Override public String getName() { return "CSCAuxArchiver"; }
@@ -50,7 +51,7 @@ public class CSCAuxArchiver implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enterControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -79,7 +80,7 @@ public class CSCAuxArchiver implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_start( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -109,7 +110,7 @@ public class CSCAuxArchiver implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -138,7 +139,7 @@ public class CSCAuxArchiver implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_disable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -167,7 +168,7 @@ public class CSCAuxArchiver implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_standby( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -196,7 +197,7 @@ public class CSCAuxArchiver implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_exitControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -217,14 +218,18 @@ public class CSCAuxArchiver implements CommandableSalComponent {
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_atArchiver.SAL__OK ) {
+            if ( status == SAL_scheduler.SAL__OK ) {
                 
-                out.println("=== Event Logged : " + event);
-
-                /* Remove the DataWriters etc */
-                subscriber.salShutdown();
+                out.println( "=== Event Logged : " + event );
+                out.println( "=== Event Status : " + status );
+                out.println( "=== Event SummaryState : " + event.SummaryStateValue );
                 
-                return status;
+                try {
+                    Executive.getEntityMap().get( "aar" )._stateTransitionQ.put( event.SummaryStateValue );
+                    Executive.getEntityMap().get( "aar" )._guiStateTransitionQ.put( event.SummaryStateValue );
+                } catch ( InterruptedException ie ) {
+                    ie.printStackTrace( out.printf( "GOOD SummaryState" ));
+                }
             }
 
             try {

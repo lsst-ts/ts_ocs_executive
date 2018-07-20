@@ -15,27 +15,28 @@
 package org.lsst.ocs.executive.salcomponent;
 
 import static java.lang.System.out;
-import org.lsst.sal.SAL_processingcluster;
+import org.lsst.ocs.executive.Executive;
+import org.lsst.sal.SAL_promptProcessing;
+
+import org.lsst.sal.SAL_scheduler;
 
 /**
- * <h2>Data Management Processing Cluster Service CSC</h2>
- * <p>
- * {@code CSCPromptProcessing} is a (Concrete) Receiver class in the command pattern
+ * <h2>Data Management Prompt Processing Service CSC</h2>
  *
+ * {@code CSCPromptProcessing} is a (Concrete) Receiver class in the command pattern
  */
-
 public class CSCPromptProcessing implements CommandableSalComponent {
     
     @Override public String getName() { return "CSCPromptProcessing"; }
 
     @Override public void enterControl() { 
     
-        SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand( "processingcluster_command_enterControl" );
+        SAL_promptProcessing publisher = new SAL_promptProcessing();
+        publisher.salCommand( "promptprocessing_command_enterControl" );
 
         publisher.setDebugLevel( 1 );
         
-        processingcluster.command_enterControl command = new processingcluster.command_enterControl();
+        promptProcessing.command_enterControl command = new promptProcessing.command_enterControl();
         command.private_revCode = "LSST ProcessingCluster enterControl COMMAND";
         command.device = "promptprocessing";
         command.property = "enterControl";
@@ -50,7 +51,7 @@ public class CSCPromptProcessing implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enterControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -59,12 +60,12 @@ public class CSCPromptProcessing implements CommandableSalComponent {
 
     @Override public void start() { 
         
-        SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand( "processingcluster_command_start" );
+        SAL_promptProcessing publisher = new SAL_promptProcessing();
+        publisher.salCommand( "promptprocessing_command_start" );
 
         publisher.setDebugLevel( 1 );
         
-        processingcluster.command_start command = new processingcluster.command_start();
+        promptProcessing.command_start command = new promptProcessing.command_start();
         command.private_revCode = "LSST PromptProcessing start COMMAND";
         command.device = "promptprocessing";
         command.property = "start";
@@ -79,7 +80,7 @@ public class CSCPromptProcessing implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_start( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -89,12 +90,12 @@ public class CSCPromptProcessing implements CommandableSalComponent {
 
     @Override public void enable() {
 
-        SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand( "processingcluster_command_enable" );
+        SAL_promptProcessing publisher = new SAL_promptProcessing();
+        publisher.salCommand( "promptprocessing_command_enable" );
 
         publisher.setDebugLevel( 1 );
         
-        processingcluster.command_enable command = new processingcluster.command_enable();
+        promptProcessing.command_enable command = new promptProcessing.command_enable();
         command.private_revCode = "LSST PromptProcessing enable COMMAND";
         command.device = "promptprocessing";
         command.property = "enable";
@@ -109,7 +110,7 @@ public class CSCPromptProcessing implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -118,12 +119,12 @@ public class CSCPromptProcessing implements CommandableSalComponent {
 
     @Override public void disable() {
 
-        SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand( "processingcluster_command_disable" );
+        SAL_promptProcessing publisher = new SAL_promptProcessing();
+        publisher.salCommand( "promptprocessing_command_disable" );
 
         publisher.setDebugLevel( 1 );
         
-        processingcluster.command_disable command = new processingcluster.command_disable();
+        promptProcessing.command_disable command = new promptProcessing.command_disable();
         command.private_revCode = "LSST PromptProcessing disable COMMAND";
         command.device = "promptprocessing";
         command.property = "disable";
@@ -138,7 +139,7 @@ public class CSCPromptProcessing implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_disable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -147,12 +148,12 @@ public class CSCPromptProcessing implements CommandableSalComponent {
 
     @Override public void standby() {
 
-        SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand( "processingcluster_command_standby" );
+        SAL_promptProcessing publisher = new SAL_promptProcessing();
+        publisher.salCommand( "promptprocessing_command_standby" );
 
         publisher.setDebugLevel( 1 );
         
-        processingcluster.command_standby command = new processingcluster.command_standby();
+        promptProcessing.command_standby command = new promptProcessing.command_standby();
         command.private_revCode = "LSST PromptProcessing standby COMMAND";
         command.device = "promptprocessing";
         command.property = "standby";
@@ -167,7 +168,7 @@ public class CSCPromptProcessing implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_standby( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -176,12 +177,12 @@ public class CSCPromptProcessing implements CommandableSalComponent {
 
     @Override public void exitControl() {
 
-        SAL_processingcluster publisher = new SAL_processingcluster();
-        publisher.salCommand( "processingcluster_command_exitControl" );
+        SAL_promptProcessing publisher = new SAL_promptProcessing();
+        publisher.salCommand( "promptprocessing_command_exitControl" );
 
         publisher.setDebugLevel( 1 );
         
-        processingcluster.command_exitControl command = new processingcluster.command_exitControl();
+        promptProcessing.command_exitControl command = new promptProcessing.command_exitControl();
         command.private_revCode = "LSST PromptProcessing exitControl COMMAND";
         command.device = "promptprocessing";
         command.property = "exitControl";
@@ -196,7 +197,7 @@ public class CSCPromptProcessing implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_exitControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -206,25 +207,29 @@ public class CSCPromptProcessing implements CommandableSalComponent {
     @Override public Integer summaryState() {
     
         // Initialize
-        SAL_processingcluster subscriber = new SAL_processingcluster();
+        SAL_promptProcessing subscriber = new SAL_promptProcessing();
         subscriber.salEvent( "dmHeaderService_logevent_SummaryState" );
 
         subscriber.setDebugLevel( 1 );
         
-        processingcluster.logevent_SummaryState event = new processingcluster.logevent_SummaryState();
+        promptProcessing.logevent_SummaryState event = new promptProcessing.logevent_SummaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_processingcluster.SAL__OK ) {
+            if ( status == SAL_scheduler.SAL__OK ) {
                 
-                out.println("=== Event Logged : " + event);
-
-                /* Remove the DataWriters etc */
-                subscriber.salShutdown();
+                out.println( "=== Event Logged : " + event );
+                out.println( "=== Event Status : " + status );
+                out.println( "=== Event SummaryState : " + event.SummaryStateValue );
                 
-                return status;
+                try {
+                    Executive.getEntityMap().get( "pro" )._stateTransitionQ.put( event.SummaryStateValue );
+                    Executive.getEntityMap().get( "pro" )._guiStateTransitionQ.put( event.SummaryStateValue );
+                } catch ( InterruptedException ie ) {
+                    ie.printStackTrace( out.printf( "GOOD SummaryState" ));
+                }
             }
 
             try {
@@ -243,18 +248,18 @@ public class CSCPromptProcessing implements CommandableSalComponent {
     @Override public void settingsVersion() {
     
         // Initialize
-        SAL_processingcluster subscriber = new SAL_processingcluster();
-        subscriber.salEvent( "processingcluster_logevent_SettingVersions" );
+        SAL_promptProcessing subscriber = new SAL_promptProcessing();
+        subscriber.salEvent( "promptprocessing_logevent_SettingVersions" );
         
         subscriber.setDebugLevel( 1 );
         
-        processingcluster.logevent_SettingVersions event = new processingcluster.logevent_SettingVersions();
+        promptProcessing.logevent_SettingVersions event = new promptProcessing.logevent_SettingVersions();
 
         int status;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SettingVersions( event );
-            if ( status == SAL_processingcluster.SAL__OK ) {
+            if ( status == SAL_promptProcessing.SAL__OK ) {
                 out.println("=== Event Logged : " + event);
             }
             
@@ -272,18 +277,18 @@ public class CSCPromptProcessing implements CommandableSalComponent {
     @Override public void appliedSettingsMatchStart() {
     
         // Initialize
-        SAL_processingcluster subscriber = new SAL_processingcluster();
-        subscriber.salEvent( "processingcluster_logevent_AppliedSettingsMatchStart" );
+        SAL_promptProcessing subscriber = new SAL_promptProcessing();
+        subscriber.salEvent( "promptprocessing_logevent_AppliedSettingsMatchStart" );
         
         subscriber.setDebugLevel( 1 );
         
-        processingcluster.logevent_AppliedSettingsMatchStart event = new processingcluster.logevent_AppliedSettingsMatchStart();
+        promptProcessing.logevent_AppliedSettingsMatchStart event = new promptProcessing.logevent_AppliedSettingsMatchStart();
 
         int status;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_AppliedSettingsMatchStart( event );
-            if ( status == SAL_processingcluster.SAL__OK ) {
+            if ( status == SAL_promptProcessing.SAL__OK ) {
                 out.println("=== Event Logged : " + event);
             }
             

@@ -14,16 +14,17 @@
 
 package org.lsst.ocs.executive.salcomponent;
 
-import org.lsst.sal.SAL_atcamera;
 import static java.lang.System.out;
+import org.lsst.ocs.executive.Executive;
+import org.lsst.sal.SAL_atcamera;
+
+import org.lsst.sal.SAL_scheduler;
 
 /**
  * <h2>Auxiliary Camera Control System (ACCS) CSC</h2>
- * <p>
+ *
  * {@code CSCAuxCamera} is a (Concrete) Receiver class in the command pattern
- * 
  */
-
 public class CSCAuxCamera implements CommandableSalComponent {
 
     @Override public String getName() { return "CSCAuxCamera"; }
@@ -36,6 +37,10 @@ public class CSCAuxCamera implements CommandableSalComponent {
         publisher.setDebugLevel( 1 );
         
         atcamera.command_enterControl command = new atcamera.command_enterControl();
+        command.private_revCode = "LSST AuxCamera enterControl COMMAND";
+        command.device = "atcamera";
+        command.property = "state";
+        command.action = "enterControl";
         command.state = true;
 
         int cmdId = publisher.issueCommand_enterControl( command );
@@ -46,10 +51,17 @@ public class CSCAuxCamera implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enterControl( cmdId, timeout );
 
+        SAL_atcamera cmd = new SAL_atcamera();
+        cmd.salProcessor("atcamera_command_enterControl");
+	atcamera.command_enterControl command2 = new atcamera.command_enterControl();   
+        cmd.acceptCommand_enterControl(command2);
+        cmd.salShutdown();
+        //publisher.flushSamples( command );
         /* Remove the DataWriters etc */
+
         publisher.salShutdown();
     }
 
@@ -61,11 +73,10 @@ public class CSCAuxCamera implements CommandableSalComponent {
         publisher.setDebugLevel( 1 );
 
         atcamera.command_start command = new atcamera.command_start();
-        command.private_revCode = "LSST Camera start COMMAND";
-        command.device = "accs";
-        command.property = "start";
-        command.action = "set";
-        command.configuration = "normal";
+        command.private_revCode = "LSST AuxCamera enterControl COMMAND";
+        command.device = "atcamera";
+        command.property = "state";
+        command.action = "start";
 
         int cmdId = publisher.issueCommand_start( command );
 
@@ -75,7 +86,7 @@ public class CSCAuxCamera implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_start( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -91,10 +102,10 @@ public class CSCAuxCamera implements CommandableSalComponent {
         publisher.setDebugLevel( 1 );
 
         atcamera.command_enable command = new atcamera.command_enable();
-        command.private_revCode = "LSST Camera enable COMMAND";
-        command.device = "accs";
-        command.property = "enable";
-        command.action = "set";
+        command.private_revCode = "LSST AuxCamera enterControl COMMAND";
+        command.device = "atcamera";
+        command.property = "state";
+        command.action = "enable";
         command.state = true;
 
         int cmdId = publisher.issueCommand_enable( command );
@@ -105,7 +116,7 @@ public class CSCAuxCamera implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -120,10 +131,10 @@ public class CSCAuxCamera implements CommandableSalComponent {
         publisher.setDebugLevel( 1 );
 
         atcamera.command_disable command = new atcamera.command_disable();
-        command.private_revCode = "LSST Camera disable COMMAND";
-        command.device = "accs";
-        command.property = "disable";
-        command.action = "set";
+        command.private_revCode = "LSST AuxCamera enterControl COMMAND";
+        command.device = "atcamera";
+        command.property = "state";
+        command.action = "disable";
         command.state = true;
 
         int cmdId = publisher.issueCommand_disable( command );
@@ -134,7 +145,7 @@ public class CSCAuxCamera implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_disable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -149,10 +160,10 @@ public class CSCAuxCamera implements CommandableSalComponent {
         publisher.setDebugLevel( 1 );
 
         atcamera.command_standby command = new atcamera.command_standby();
-        command.private_revCode = "LSST Camera standby COMMAND";
-        command.device = "accs";
-        command.property = "standby";
-        command.action = "set";
+        command.private_revCode = "LSST AuxCamera enterControl COMMAND";
+        command.device = "atcamera";
+        command.property = "state";
+        command.action = "standby";
         command.state = true;
 
         int cmdId = publisher.issueCommand_standby( command );
@@ -163,7 +174,7 @@ public class CSCAuxCamera implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_standby( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -178,10 +189,10 @@ public class CSCAuxCamera implements CommandableSalComponent {
         publisher.setDebugLevel( 1 );
 
         atcamera.command_exitControl command = new atcamera.command_exitControl();
-        command.private_revCode = "LSST Camera exitControl COMMAND";
-        command.device = "accs";
-        command.property = "exitControl";
-        command.action = "set";
+        command.private_revCode = "LSST AuxCamera enterControl COMMAND";
+        command.device = "atcamera";
+        command.property = "state";
+        command.action = "exitControl";
         command.state = true;
 
         int cmdId = publisher.issueCommand_exitControl( command );
@@ -192,7 +203,7 @@ public class CSCAuxCamera implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_exitControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -256,7 +267,7 @@ public class CSCAuxCamera implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_initImage( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -273,28 +284,22 @@ public class CSCAuxCamera implements CommandableSalComponent {
 
         atcamera.logevent_SummaryState event = new atcamera.logevent_SummaryState();
 
-//        out.print( this.getClass()
-//            .getSimpleName() + "::"
-//                   + Thread.currentThread().getStackTrace()[1].getMethodName()
-//                   + "::" );
-//        Thread.currentThread().setName( new String().concat( "CSCCameraSummaryStateThread" ) );
-//        out.print( Thread.currentThread().getName() );
-//        out.println( " " + "id: " + Thread.currentThread().getId() );
-
-//        out.println( "Camera Event SummaryState logger ready " );
-
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_atcamera.SAL__OK ) {
+            if ( status == SAL_scheduler.SAL__OK ) {
                 
                 out.println( "=== Event Logged : " + event );
+                out.println( "=== Event Status : " + status );
+                out.println( "=== Event SummaryState : " + event.SummaryStateValue );
                 
-                /* Remove the DataWriters etc */
-                subscriber.salShutdown();
-                
-                return status;
+                try {
+                    Executive.getEntityMap().get( "acc" )._stateTransitionQ.put( event.SummaryStateValue );
+                    Executive.getEntityMap().get( "acc" )._guiStateTransitionQ.put( event.SummaryStateValue );
+                } catch ( InterruptedException ie ) {
+                    ie.printStackTrace( out.printf( "GOOD SummaryState" ));
+                }
             }
 
             try {
@@ -325,6 +330,7 @@ public class CSCAuxCamera implements CommandableSalComponent {
             
             status = subscriber.getEvent_SettingVersions( event );
             if ( status == SAL_atcamera.SAL__OK ) {
+                
                 out.println( "=== Event Logged : " + event );
             }
 
@@ -347,13 +353,15 @@ public class CSCAuxCamera implements CommandableSalComponent {
 
         subscriber.setDebugLevel( 1 );
 
-        atcamera.logevent_AppliedSettingsMatchStart event = new atcamera.logevent_AppliedSettingsMatchStart();
+        atcamera.logevent_AppliedSettingsMatchStart event =
+            new atcamera.logevent_AppliedSettingsMatchStart();
 
         int status;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_AppliedSettingsMatchStart( event );
             if ( status == SAL_atcamera.SAL__OK ) {
+                
                 out.println( "=== Event Logged : " + event );
             }
 

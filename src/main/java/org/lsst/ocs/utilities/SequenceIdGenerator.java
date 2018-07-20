@@ -19,16 +19,15 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * <h2>Sequence Id Generator</h2>
- * <p>
+ *
  * The non-instantiable {@code SequenceIdGenerator} utility/helper class
  * that implements a {@link Thread} safe version of a monotonic counter.
- * <p>
+ *
  * Example: 
  * <pre>
  *  {@code string seqId = SequenceIdGenerator.getInstance().getNextId(); } 
  * </pre>
  */
-
 public final class SequenceIdGenerator {
     
     private static volatile SequenceIdGenerator _instance = null;

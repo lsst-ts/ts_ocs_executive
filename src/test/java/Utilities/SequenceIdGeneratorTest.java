@@ -16,23 +16,35 @@ package Utilities;
 
 import org.lsst.ocs.utilities.SequenceIdGenerator;
 
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.atomic.AtomicLong;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.extension.ExtendWith;
+//import org.lsst.ocs.executive.salcomponent.CSCArchiver;
+
+//import org.mockito.InjectMocks;
+//import org.mockito.Mockito;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
  * <h2>Sequence Id Generator Test</h2>
- * <p>
+ *
  * Tests {@code SequenceIdGenerator} utility/helper class
  */
+class MySequenceIdGeneratorTest {
+    
+    @Mock SequenceIdGenerator sigInstance2;
+}
 
+@ExtendWith(MockitoExtension.class)
 public class SequenceIdGeneratorTest {
+    
+//    @Mock private CSCArchiver archiver;
+    @Mock private SequenceIdGenerator sigInstance2;
     
     static final SequenceIdGenerator sigInstance = SequenceIdGenerator.getInstance();
     
@@ -49,7 +61,7 @@ public class SequenceIdGeneratorTest {
         return sigInstanceId;
     }
     
-    @BeforeClass
+    @BeforeAll
     public static void initTest() {
         
         System.out.printf( "initialId: %s" + " from: " + Thread.currentThread().getName() + "\n", sigInstanceId );
@@ -61,25 +73,25 @@ public class SequenceIdGeneratorTest {
         Executors.newSingleThreadExecutor().submit( () -> {
 
             SequenceIdGenerator sgenT1 = SequenceIdGenerator.getInstance();
-            Assert.assertEquals( sigInstance, sgenT1 );
-            Assert.assertEquals( sigInstanceHash, sgenT1.hashCode() );
+            assertEquals( sigInstance, sgenT1 );
+            assertEquals( sigInstanceHash, sgenT1.hashCode() );
 
             String id;
             String id2;
 
-            Assert.assertEquals( Str2IntIncr2Str( sigInstanceId, 1 ), id = sgenT1.getNextId() );
-            Assert.assertEquals( Str2IntIncr2Str( sigInstanceId, 1 ), id2 = sgenT1.getNextId() );
+            assertEquals( Str2IntIncr2Str( sigInstanceId, 1 ), id = sgenT1.getNextId() );
+            assertEquals( Str2IntIncr2Str( sigInstanceId, 1 ), id2 = sgenT1.getNextId() );
 
             System.out.printf( "t1Id: %s" + " from: " + Thread.currentThread().getName() + "\n", id );
             System.out.printf( "t1Id: %s" + " from: " + Thread.currentThread().getName() + "\n", id2 );
 
-            Assert.assertEquals( Str2IntIncr2Str( sigInstanceId, 10 ), id = sgenT1.getNextId(10) );
-            Assert.assertEquals( Str2IntIncr2Str( sigInstanceId, 10 ), id2 = sgenT1.getNextId(10) );
+            assertEquals( Str2IntIncr2Str( sigInstanceId, 10 ), id = sgenT1.getNextId(10) );
+            assertEquals( Str2IntIncr2Str( sigInstanceId, 10 ), id2 = sgenT1.getNextId(10) );
 
             System.out.printf( "t1Id10: %s" + " from: " + Thread.currentThread().getName() + "\n", id );
             System.out.printf( "t1Id10: %s" + " from: " + Thread.currentThread().getName() + "\n", id2 );
-        } 
-        ).get(); // get() waits for thread to finish (i.e. no parallelism, thus sequential threading)
+        
+        }).get(); // get() waits for thread to finish (i.e. no parallelism, thus sequential threading)
 
 
 // Alternative Way
@@ -87,26 +99,25 @@ public class SequenceIdGeneratorTest {
 //        Executors.newSingleThreadExecutor().execute( () -> {
 //
 //            SequenceIdGenerator sgenT1 = SequenceIdGenerator.getInstance();
-//            Assert.assertEquals( sigInstance, sgenT1 );
-//            Assert.assertEquals( sigInstanceHash, sgenT1.hashCode() );
+//            assertEquals( sigInstance, sgenT1 );
+//            assertEquals( sigInstanceHash, sgenT1.hashCode() );
 //
 //            String id;
 //            String id2;
 //
-//            Assert.assertEquals( Str2IntIncr2Str( sigInstanceId, 1 ), id = sgenT1.getNextId() );
-//            Assert.assertEquals( Str2IntIncr2Str( sigInstanceId, 1 ), id2 = sgenT1.getNextId() );
+//            assertEquals( Str2IntIncr2Str( sigInstanceId, 1 ), id = sgenT1.getNextId() );
+//            assertEquals( Str2IntIncr2Str( sigInstanceId, 1 ), id2 = sgenT1.getNextId() );
 //
 //            System.out.printf( "t1Id: %s" + " from: " + Thread.currentThread().getName() + "\n", id );
 //            System.out.printf( "t1Id: %s" + " from: " + Thread.currentThread().getName() + "\n", id2 );
 //
-//            Assert.assertEquals( Str2IntIncr2Str( sigInstanceId, 10 ), id = sgenT1.getNextId(10) );
-//            Assert.assertEquals( Str2IntIncr2Str( sigInstanceId, 10 ), id2 = sgenT1.getNextId(10) );
+//            assertEquals( Str2IntIncr2Str( sigInstanceId, 10 ), id = sgenT1.getNextId(10) );
+//            assertEquals( Str2IntIncr2Str( sigInstanceId, 10 ), id2 = sgenT1.getNextId(10) );
 //
 //            System.out.printf( "t1Id10: %s" + " from: " + Thread.currentThread().getName() + "\n", id );
 //            System.out.printf( "t1Id10: %s" + " from: " + Thread.currentThread().getName() + "\n", id2 );
 //        });
     }
-
 
 
     @Test
@@ -115,14 +126,14 @@ public class SequenceIdGeneratorTest {
         Runnable t2 = () -> {
 
             SequenceIdGenerator sgenT2 = SequenceIdGenerator.getInstance();
-            Assert.assertEquals( sigInstance, sgenT2 );
-            Assert.assertEquals( sigInstanceHash, sgenT2.hashCode() );
+            assertEquals( sigInstance, sgenT2 );
+            assertEquals( sigInstanceHash, sgenT2.hashCode() );
         
             String id;
             String id2;
             
-            Assert.assertEquals( Str2IntIncr2Str( sigInstanceId, 1 ), id = sgenT2.getNextId() );
-            Assert.assertEquals( Str2IntIncr2Str( sigInstanceId, 1 ), id2 = sgenT2.getNextId() );
+            assertEquals( Str2IntIncr2Str( sigInstanceId, 1 ), id = sgenT2.getNextId() );
+            assertEquals( Str2IntIncr2Str( sigInstanceId, 1 ), id2 = sgenT2.getNextId() );
             
             System.out.printf( "t2Id: %s" + " from: " + Thread.currentThread().getName() + "\n", id );
             System.out.printf( "t2Id: %s" + " from: " + Thread.currentThread().getName() + "\n", id2 );

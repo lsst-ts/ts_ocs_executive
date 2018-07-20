@@ -13,21 +13,22 @@
  */
 package org.lsst.ocs.executive.salcomponent;
 
-import static java.lang.System.out;
 import org.lsst.ocs.executive.DomainObject;
-import java.util.Map;
+
+import static java.lang.System.out;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <h2>Commandable Software Access Layer (SAL) Component [CSC]</h2>
- * <p>
- * {@code CommandableSalComponent} is the Receiver base class in the command pattern
  *
+ * {@code CommandableSalComponent} is the Receiver base class in the command pattern
  */
 public interface CommandableSalComponent extends DomainObject {
     
+    //////////////////////////////////////////////////////
     // SAL middle-ware default Commands
-    ////////////////////////////////////////////////
+    //////////////////////////////////////////////////////
     default public void enterControl() { out.println( "CSC cmd error: enterControl" ); }
     default public void start()        { out.println( "CSC cmd error: start"        ); }
     default public void enable()       { out.println( "CSC cmd error: enable"       ); }
@@ -35,8 +36,9 @@ public interface CommandableSalComponent extends DomainObject {
     default public void standby()      { out.println( "CSC cmd error: standby"      ); }
     default public void exitControl()  { out.println( "CSC cmd error: exitControl"  ); }
 
+    //////////////////////////////////////////////////////
     // SAL middle-ware default Events
-    ////////////////////////////////////////////////
+    //////////////////////////////////////////////////////
     default public void settingsVersion()           { out.println( "CSC event error: settingsVersion"           ); }
     default public void appliedSettingsMatchStart() { out.println( "CSC event error: appliedSettingsMatchStart" ); }
     default public Integer summaryState()           { out.println( "CSC event error: summaryState" ); return -1; }
@@ -87,6 +89,7 @@ public interface CommandableSalComponent extends DomainObject {
         SAL__AVAILABLESTATE   ( 532 ),
         SAL__FAULTSTATE       ( 540 );
 
+        ////////////////////////////////////////////////
         // ENUM -> VALUE CONVERSION
         ////////////////////////////////////////////////
         private final Integer statusValue;
@@ -95,9 +98,12 @@ public interface CommandableSalComponent extends DomainObject {
 
         public int getValue() { return statusValue; }
 
+        ////////////////////////////////////////////////
         // VALUE -> ENUM CONVERSION
         ////////////////////////////////////////////////
-        public static final Map<Integer, CSC_STATUS> statusValues = new HashMap<>();
+        private static final Map<Integer, CSC_STATUS> statusValues =
+            new HashMap<>();
+//            Collections.unmodifiableMap( new HashMap<>() );
 
         static {
 

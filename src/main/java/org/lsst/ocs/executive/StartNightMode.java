@@ -13,14 +13,14 @@
  */
 
 package org.lsst.ocs.executive;
+
 import static java.lang.System.out;
 
 /**
+ * <h2>Start Night Mode</h2>
  *
- * StartNightMode is a Concrete State class implementation
- *
+ * {@code StartNightMode} is a Concrete State class implementation
  */
-
 //public class StartNightMode extends ModeState {
 public class StartNightMode implements ModeState {
     

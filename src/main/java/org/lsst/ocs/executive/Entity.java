@@ -19,13 +19,14 @@
 
 package org.lsst.ocs.executive;
 
-import org.lsst.ocs.executive.salcomponent.*;
+import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
+
+import java.util.concurrent.SynchronousQueue;
 
 /**
  * <h2>Entity</h2>
- * <p>
- * {@code Entity} is a Context class implementation in the state pattern
  *
+ * {@code Entity} is a Context class implementation in the state pattern
  */
 public class Entity implements DomainObject {
     
@@ -35,12 +36,17 @@ public class Entity implements DomainObject {
     protected EntityType _etype;
 
     private EntityState _state; // association via composition
+
+    private Integer _stateInteger;
     
     protected ObservingMode _observingMode;
     private Mode _mode;
     
     /* Command Receiver */
     protected CommandableSalComponent _salComponent;
+    
+    public SynchronousQueue<Integer> _stateTransitionQ = new SynchronousQueue<>();
+    public SynchronousQueue<Integer> _guiStateTransitionQ = new SynchronousQueue<>();
     
     public Entity( CommandableSalComponent csc ) {
         
@@ -59,28 +65,28 @@ public class Entity implements DomainObject {
         
         this._state = new OfflineState();
         
-        switch( this._etype.toString() ) {
-            case "CAMERA":
-                _salComponent = new CSCCamera();
-                break;
-            case "TCS":
-                _salComponent = new CSCMainTelescope();
-                break;
-            case "ARCHIVER":
-                _salComponent = new CSCArchiver();
-                break;
-            case "CATCHUPARCHIVER":
-                _salComponent = new CSCCatchupArchiver();
-                break;
-            case "PROCESSINGCLUSTER":
-                _salComponent = new CSCPromptProcessing();
-                break;
-            case "HEADERSERVICE":
-                _salComponent = new CSCHeaderService();
-                break;
-        }
+//        switch( this._etype.toString() ) {
+//            case "CAMERA":
+//                _salComponent = new CSCCamera();
+//                break;
+//            case "TCS":
+//                _salComponent = new CSCMainTelescope();
+//                break;
+//            case "ARCHIVER":
+//                _salComponent = new CSCArchiver();
+//                break;
+//            case "CATCHUPARCHIVER":
+//                _salComponent = new CSCCatchupArchiver();
+//                break;
+//            case "PROCESSINGCLUSTER":
+//                _salComponent = new CSCPromptProcessing();
+//                break;
+//            case "HEADERSERVICE":
+//                _salComponent = new CSCHeaderService();
+//                break;
+//        }
     
-        //this._mode = new Mode(this); // _mode.modeState_ set in Mode Cstr
+        //this._mode = new Mode( this ); // _mode.modeState_ set in Mode Cstr
         /* this.Name_ = "Entity->" + this._etype.toString(); */
 
         /*  Can start here or in Main */
@@ -96,7 +102,7 @@ public class Entity implements DomainObject {
 
         this._observingMode = observingMode;
         this._mode = new Mode( this );
-        this._mode.ModeState( new StartNightMode() );
+        this._mode.modeState( new StartNightMode() );
         
         // this.Name_ = "Entity->" + this._etype.toString();
 
@@ -104,20 +110,23 @@ public class Entity implements DomainObject {
     }
 
     /* The initial configuration setting for the device. */
-    //_configurationState = new ProductionConfigurationState(this);
+    //_configurationState = new ProductionConfigurationState( this );
 
     public String getEntityType() { return _etype.toString(); }
     
     public void setState( EntityState state ) { this._state = state; }
     public EntityState getState()             { return this._state;  }
 
+    public void setStateInteger( Integer state ) { this._stateInteger = state; }
+    public Integer getStateInteger()             { return this._stateInteger;  }
+
     /* Delegate to the entity state object & pass the this ptr */
-    public void enterControl() { this._state.enterControl(this); }
-    public void start()        { this._state.start(this);        }
-    public void enable()       { this._state.enable(this);       }
-    public void disable()      { this._state.disable(this);      }
-    public void standby()      { this._state.standby(this);      }
-    public void exitControl()  { this._state.exitControl(this);  }
+    public void enterControl() { this._state.enterControl( this ); }
+    public void start()        { this._state.start( this );        }
+    public void enable()       { this._state.enable( this );       }
+    public void disable()      { this._state.disable( this );      }
+    public void standby()      { this._state.standby( this );      }
+    public void exitControl()  { this._state.exitControl( this );  }
 
     public void setMode( Mode mode ) { this._mode = mode; }
     public Mode getMode()            { return this._mode; }

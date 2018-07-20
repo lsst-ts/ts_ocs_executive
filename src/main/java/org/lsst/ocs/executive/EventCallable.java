@@ -14,14 +14,14 @@
 
 package org.lsst.ocs.executive;
 
+import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
+
 import static java.lang.System.out;
 import java.util.concurrent.Callable;
-import org.lsst.ocs.executive.salcomponent.*;
-import org.lsst.ocs.executive.salcomponent.CommandableSalComponent.*;
 
 /**
  * <h2>Event Callable</h2>
- * <p>
+ *
  * The {@code EventCallable} class implements the {@link Callable} interface and 
  * overrides the {@code call()} method defined in it. The {@code EventCallable} 
  * class wraps a SAL event topic and is intended to be run in a 
@@ -37,7 +37,6 @@ public class EventCallable implements Callable<Integer> {
     private final CommandableSalComponent _csc;
     
     private final String _event;
-    private final String _name = "EventCallable";
 
     public EventCallable( CommandableSalComponent csc, String event ) {
 
@@ -45,32 +44,32 @@ public class EventCallable implements Callable<Integer> {
         this._event = event;
     }
 
-    public String getName() { return _name; }
+    public String getName() {
+        
+        return "EventCallable" + "::" + this._csc.getName() + "::" + this._event;
+    }
 
     @Override public Integer call() {
         
         Thread.currentThread().setName( getName() );
-        out.print( this.getName() + "::"
-                                  + Thread.currentThread().getStackTrace()[1].getMethodName()
-                                  + "::" 
-                                  + this._csc.getName()
-                                  + "::"
-                                  + this._event 
-                                  + "::"
-                                  + "Threadid: " 
-                                  + Thread.currentThread().getId() + "\n");
+        out.println( this.getName() + "::"
+                                    + Thread.currentThread().getStackTrace()[1].getMethodName()
+                                    + "::"
+                                    + "Threadid: " 
+                                    + Thread.currentThread().getId() );
         
-        int status = CSC_STATUS.SAL__OK.getValue();
+        int status = CommandableSalComponent.CSC_STATUS.SAL__OK.getValue();
         
         try {
             /* Command Pattern: receiver.action() [e.g. cscTcs.enterControl()] */
             status = (Integer) _csc.getClass()
                                    /* specify method & that it takes no (i.e. null) args */
-                                   .getMethod( this._event, new Class[] {} ) 
+                                   .getMethod( this._event, new Class<?>[]{} ) 
                                    /* invoke w/ null args */
-                                   .invoke( _csc, new Object[] {} ); 
+                                   .invoke( _csc, new Object[]{} ); 
         } catch ( Exception e ) {
-            e.printStackTrace( out.printf( this.getName() + "interrupted from EventCallable.call()" ) );
+            e.printStackTrace(
+                out.printf( this.getName() + "interrupted from EventCallable.call()" ));
         }
 
         return status;

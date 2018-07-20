@@ -13,14 +13,14 @@
  */
 
 package org.lsst.ocs.executive;
+
 import static java.lang.System.out;
 
 /**
+ * <h2>Mode State</h2>
  *
- * ModeState is an abstract state base class
- *
+ * {@code ModeState} is an abstract state base class
  */
-
 public interface ModeState extends DomainObject {
     
     default public void startNight( Entity entity ) { out.println("error"); }
@@ -33,11 +33,11 @@ public interface ModeState extends DomainObject {
     default public void maintenanceNight() { out.println("error"); }
     default public void calibrationNight() { out.println("error"); }
 
-    /*
+/*
     public void scienceDay()     { out.println("error"); }
     public void engineeringDay() { out.println("error"); }
     public void maintenanceDay() { out.println("error"); }
     public void calibrationDay() { out.println("error"); }
-    */
+ */
     
 }

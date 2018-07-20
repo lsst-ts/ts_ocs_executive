@@ -14,14 +14,16 @@
 
 package org.lsst.ocs.executive.salcomponent;
 
-import org.lsst.sal.SAL_camera;
 import static java.lang.System.out;
+import org.lsst.ocs.executive.Executive;
+import org.lsst.sal.SAL_camera;
+
+import org.lsst.sal.SAL_scheduler;
 
 /**
  * <h2>Main Camera Control System (CCS) CSC</h2>
- * <p>
+ *
  * {@code CSCCamera} is a (Concrete) Receiver class in the command pattern
- * <p>
  */
 public class CSCCamera implements CommandableSalComponent {
 
@@ -47,7 +49,7 @@ public class CSCCamera implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enterControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -77,7 +79,7 @@ public class CSCCamera implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_start( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -108,7 +110,7 @@ public class CSCCamera implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -138,7 +140,7 @@ public class CSCCamera implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_disable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -168,7 +170,7 @@ public class CSCCamera implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_standby( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -198,7 +200,7 @@ public class CSCCamera implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_exitControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -227,7 +229,7 @@ public class CSCCamera implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_setFilter( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -291,7 +293,7 @@ public class CSCCamera implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_initImage( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -309,26 +311,22 @@ public class CSCCamera implements CommandableSalComponent {
         
         camera.logevent_SummaryState event = new camera.logevent_SummaryState();
 
-//        out.print( this.getClass()
-//            .getSimpleName() + "::"
-//                   + Thread.currentThread().getStackTrace()[1].getMethodName()
-//                   + "::" );
-//        Thread.currentThread().setName( new String().concat( "CSCCameraSummaryStateThread" ) );
-//        out.print( Thread.currentThread().getName() );
-//        out.println( " " + "id: " + Thread.currentThread().getId() );
-//        out.println( "Camera Event SummaryState logger ready " );
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while ( Boolean.TRUE ) {
-
+            
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_camera.SAL__OK ) {
-
-                out.println( "=== Event Logged : " + event );
-
-                /* Remove the DataWriters etc */
-                subscriber.salShutdown();
+            if ( status == SAL_scheduler.SAL__OK ) {
                 
-                return status;
+                out.println( "=== Event Logged : " + event );
+                out.println( "=== Event Status : " + status );
+                out.println( "=== Event SummaryState : " + event.SummaryStateValue );
+                
+                try {
+                    Executive.getEntityMap().get( "ccs" )._stateTransitionQ.put( event.SummaryStateValue );
+                    Executive.getEntityMap().get( "ccs" )._guiStateTransitionQ.put( event.SummaryStateValue );
+                } catch ( InterruptedException ie ) {
+                    ie.printStackTrace( out.printf( "GOOD SummaryState" ));
+                }
             }
 
             try {

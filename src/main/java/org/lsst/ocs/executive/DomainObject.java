@@ -15,12 +15,10 @@
 package org.lsst.ocs.executive;
 
 /**
- * <h2>Command Task</h2>
- * <p>
- * {@code DomainObject} is an interface class type
+ * <h2>Domain Object</h2>
  *
+ * {@code DomainObject} is an interface class type
  */
-
 //public class DomainObject {
 public interface DomainObject {
 

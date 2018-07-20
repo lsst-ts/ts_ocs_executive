@@ -25,7 +25,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Dprism.order=sw -Djava.library.path=/home/jbuffill/swdev/ts_sal_3.5.2/ts_sal/../ts_opensplice/OpenSpliceDDS/V6.4.1/HDE/x86_64.linux/lib/ -DskipTests -classpath %classpath org.lsst.ocs.executive.ExecutiveFX</exec.args>
+                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Dprism.order=sw -Djava.library.path=/home/jbuffill/swdev/ts_sal_3.5.2/ts_sal/../ts_opensplice/OpenSpliceDDS/V6.4.1/HDE/x86_64.linux/lib/ -classpath %classpath org.lsst.ocs.executive.ExecutiveFX</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
             </properties>
@@ -40,7 +40,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Dprism.order=sw -Djava.library.path=/home/jbuffill/swdev/ts_sal_3.5.2/ts_sal/../ts_opensplice/OpenSpliceDDS/V6.4.1/HDE/x86_64.linux/lib/ -DskipTests -classpath %classpath org.lsst.ocs.executive.ExecutiveFX</exec.args>
+                <exec.args>-Dprism.order=sw -Djava.library.path=/home/jbuffill/swdev/ts_sal_3.5.2/ts_sal/../ts_opensplice/OpenSpliceDDS/V6.4.1/HDE/x86_64.linux/lib/ -classpath %classpath org.lsst.ocs.executive.ExecutiveFX</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>

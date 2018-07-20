@@ -14,226 +14,293 @@
 
 package org.lsst.ocs.executive;
 
-import static java.lang.System.out;
-import static javafx.geometry.Pos.CENTER;
+import org.lsst.ocs.executive.salcomponent.*;
 
+import static java.lang.System.out;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
-
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 import java.util.concurrent.ExecutionException;
-
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
-import org.lsst.ocs.executive.salcomponent.*;
-import org.lsst.ocs.executive.salconnect.SalConnect;
-import org.lsst.ocs.executive.salservice.SalCmd;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <h2>Executive</h2>
- * <p>
+ * 
  * The {@code Executive} is the application model class
- * <p>
  */
 public class Executive {
 
-    public static final CommandableSalComponent cscSCH  = new CSCScheduler();
-    public static final CommandableSalComponent cscMTCS = new CSCMainTelescope();
-    public static final CommandableSalComponent cscCCS  = new CSCCamera();
-    public static final CommandableSalComponent cscARC  = new CSCArchiver();
-    public static final CommandableSalComponent cscCAT  = new CSCCatchupArchiver();
-    public static final CommandableSalComponent cscPRO  = new CSCPromptProcessing();
-    public static final CommandableSalComponent cscHDR  = new CSCHeaderService();
-    public static final CommandableSalComponent cscASCH = new CSCAuxScheduler();
-    public static final CommandableSalComponent cscATCS = new CSCAuxTelescope();
-    public static final CommandableSalComponent cscACCS = new CSCAuxCamera();
-    public static final CommandableSalComponent cscAARC = new CSCAuxArchiver();
-    public static final CommandableSalComponent cscAHDR = new CSCAuxHeaderService();
+    public static final CommandableSalComponent _cscSCH  = new CSCScheduler();
+    public static final CommandableSalComponent _cscMTCS = new CSCMainTelescope();
+    public static final CommandableSalComponent _cscCCS  = new CSCCamera();
+    public static final CommandableSalComponent _cscARC  = new CSCArchiver();
+    public static final CommandableSalComponent _cscCAT  = new CSCCatchupArchiver();
+    public static final CommandableSalComponent _cscPRO  = new CSCPromptProcessing();
+    public static final CommandableSalComponent _cscHDR  = new CSCHeaderService();
+    public static final CommandableSalComponent _cscASCH = new CSCAuxScheduler();
+    public static final CommandableSalComponent _cscATCS = new CSCAuxTelescope();
+    public static final CommandableSalComponent _cscACCS = new CSCAuxCamera();
+    public static final CommandableSalComponent _cscAARC = new CSCAuxArchiver();
+    public static final CommandableSalComponent _cscAHDR = new CSCAuxHeaderService();
 
-    public static final Entity entitySCH  = new Entity( cscSCH );
-    public static final Entity entityMTCS = new Entity( cscMTCS );
-    public static final Entity entityCCS  = new Entity( cscCCS  );
-    public static final Entity entityARC  = new Entity( cscARC  );
-    public static final Entity entityCAT  = new Entity( cscCAT  );
-    public static final Entity entityPRO  = new Entity( cscPRO  );
-    public static final Entity entityHDR  = new Entity( cscHDR  );
-    public static final Entity entityASCH = new Entity( cscASCH );
-    public static final Entity entityATCS = new Entity( cscATCS );
-    public static final Entity entityACCS = new Entity( cscACCS );
-    public static final Entity entityAARC = new Entity( cscAARC );
-    public static final Entity entityAHDR = new Entity( cscAHDR );
+    public static final Entity _entitySCH  = new Entity( _cscSCH  );
+    public static final Entity _entityMTCS = new Entity( _cscMTCS );
+    public static final Entity _entityCCS  = new Entity( _cscCCS  );
+    public static final Entity _entityARC  = new Entity( _cscARC  );
+    public static final Entity _entityCAT  = new Entity( _cscCAT  );
+    public static final Entity _entityPRO  = new Entity( _cscPRO  );
+    public static final Entity _entityHDR  = new Entity( _cscHDR  );
+    public static final Entity _entityASCH = new Entity( _cscASCH );
+    public static final Entity _entityATCS = new Entity( _cscATCS );
+    public static final Entity _entityACCS = new Entity( _cscACCS );
+    public static final Entity _entityAARC = new Entity( _cscAARC );
+    public static final Entity _entityAHDR = new Entity( _cscAHDR );
 
-    public static final List<CmdTask> rCmdTasks_MTCS = Arrays.asList(
-        new CmdTask( cscMTCS, "filterChange" ),
-        new CmdTask( cscMTCS, "target"       )
-    );
-
-    public static final List<CmdTask> rCmdTasks_CCS = Arrays.asList(
-        new CmdTask( cscCCS, "setFilter" ),
-        new CmdTask( cscCCS, "takeImage" )
-    );
-
-    public static final List<CmdTask> rCmdTasks_ATCS = Arrays.asList(
-        new CmdTask( cscATCS, "filterChange" ),
-        new CmdTask( cscATCS, "target"       )
-    );
-
-    public static final List<CmdTask> rCmdTasks_ACCS = Arrays.asList(
-        new CmdTask( cscACCS, "setFilter" ),
-        new CmdTask( cscACCS, "takeImage" )
-    );
-
-    public static final List<CmdTask> rCmdTasks_ENTERCTRL = Arrays.asList(
-        new CmdTask( cscSCH,  "enterControl" ),
-        new CmdTask( cscMTCS, "enterControl" ),
-        new CmdTask( cscCCS,  "enterControl" ),
-        new CmdTask( cscARC,  "enterControl" ),
-        new CmdTask( cscCAT,  "enterControl" ),
-        new CmdTask( cscPRO,  "enterControl" ),
-        new CmdTask( cscHDR,  "enterControl" ),
-        new CmdTask( cscASCH, "enterControl" ),
-        new CmdTask( cscATCS, "enterControl" ),
-        new CmdTask( cscACCS, "enterControl" ),
-        new CmdTask( cscAARC, "enterControl" ),
-        new CmdTask( cscAHDR, "enterControl" )
-    );
-
-    public static final List<CmdTask> rCmdTasks_START = Arrays.asList(
-        new CmdTask( cscSCH,  "start" ),
-        new CmdTask( cscMTCS, "start" ),
-        new CmdTask( cscCCS,  "start" ),
-        new CmdTask( cscARC,  "start" ),
-        new CmdTask( cscCAT,  "start" ),
-        new CmdTask( cscPRO,  "start" ),
-        new CmdTask( cscHDR,  "start" ),
-        new CmdTask( cscASCH, "start" ),
-        new CmdTask( cscATCS, "start" ),
-        new CmdTask( cscACCS, "start" ),
-        new CmdTask( cscAARC, "start" ),
-        new CmdTask( cscAHDR, "start" )
-    );
-
-    public static final List<CmdTask> rCmdTasks_ENABLE = Arrays.asList(
-        new CmdTask( cscSCH, "enable" ),
-        new CmdTask( cscMTCS, "enable" ),
-        new CmdTask( cscCCS,  "enable" ),
-        new CmdTask( cscARC,  "enable" ),
-        new CmdTask( cscCAT,  "enable" ),
-        new CmdTask( cscPRO,  "enable" ),
-        new CmdTask( cscHDR,  "enable" ),
-        new CmdTask( cscASCH, "enable" ),
-        new CmdTask( cscATCS, "enable" ),
-        new CmdTask( cscACCS, "enable" ),
-        new CmdTask( cscAARC, "enable" ),
-        new CmdTask( cscAHDR, "enable" )
-    );
-
-    public static final List<EventCallable> cEventTask_MTCS = Arrays.asList(
-        new EventCallable( cscMTCS, "filterChangeInPosition" ),
-        new EventCallable( cscMTCS, "targetInPosition"       )
-    );
-
-    public static final List<EventCallable> cEventTask_CCS = Arrays.asList(
-        new EventCallable( cscCCS, "tbd" ),
-        new EventCallable( cscCCS, "tbd" )
-    );
-
-    public static final List<EventCallable> cEventTask_ATCS = Arrays.asList(
-        new EventCallable( cscATCS, "filterChangeInPosition" ),
-        new EventCallable( cscATCS, "targetInPosition"       )
-    );
-
-    public static final List<EventCallable> cEventTask_ACCS = Arrays.asList(
-        new EventCallable( cscACCS, "tbd" ),
-        new EventCallable( cscACCS, "tbd" )
-    );
-
-    public static final List<EventCallable> cEventTask_SUMSTATE = Arrays.asList(
-        new EventCallable( cscSCH,  "summaryState" ),
-        new EventCallable( cscMTCS, "summaryState" ),
-        new EventCallable( cscCCS,  "summaryState" ),
-        new EventCallable( cscARC,  "summaryState" ),
-        new EventCallable( cscCAT,  "summaryState" ),
-        new EventCallable( cscPRO,  "summaryState" ),
-        new EventCallable( cscHDR,  "summaryState" ),
-        new EventCallable( cscASCH, "summaryState" ),
-        new EventCallable( cscATCS, "summaryState" ),
-        new EventCallable( cscACCS, "summaryState" ),
-        new EventCallable( cscAARC, "summaryState" ),
-        new EventCallable( cscAHDR, "summaryState" )
-    );
-
-    public static final List<EventCallable> cEventTask_SETTINGS = Arrays.asList(
-        new EventCallable( cscSCH,  "settingsVersion" ),
-        new EventCallable( cscMTCS, "settingsVersion" ),
-        new EventCallable( cscCCS,  "settingsVersion" ),
-        new EventCallable( cscARC,  "settingsVersion" ),
-        new EventCallable( cscCAT,  "settingsVersion" ),
-        new EventCallable( cscPRO,  "settingsVersion" ),
-        new EventCallable( cscHDR,  "settingsVersion" ),
-        new EventCallable( cscASCH, "settingsVersion" ),
-        new EventCallable( cscATCS, "settingsVersion" ),
-        new EventCallable( cscACCS, "settingsVersion" ),
-        new EventCallable( cscAARC, "settingsVersion" ),
-        new EventCallable( cscAHDR, "settingsVersion" )
-    );
-
-    public static final List<EventCallable> cEventTask_APPLIEDSETTINGS = Arrays.asList(
-        new EventCallable( cscSCH,  "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscMTCS, "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscCCS,  "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscARC,  "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscCAT,  "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscPRO,  "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscHDR,  "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscASCH, "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscATCS, "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscACCS, "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscAARC, "appliedSettingsMatchStartTest" ),
-        new EventCallable( cscAHDR, "appliedSettingsMatchStartTest" )
-    );
-
-    public void invokeWindow( Stage primaryStage ) {
-
-        Button btn = new Button();
-        Text msg = new Text();
-
-        btn.setText( "Say 'Hello World'" );
-
-        btn.setOnAction( event -> {
-
-            msg.setText( "Hello World! JavaFX style :)" );
+    /**
+          * Returns a Map of CSCs.
+          *
+          * @return Map of pre-instantiated CSCs
+          */
+    @SuppressWarnings( "serial" )
+    public static Map<String, CommandableSalComponent> getCscMap() {
+        
+        return
+            Collections.unmodifiableMap( new HashMap<String, CommandableSalComponent>() {
+            {
+                // (CSC key, CSC value)
+                put( "sch", Executive._cscSCH  );
+                put( "mtc", Executive._cscMTCS );
+                put( "ccs", Executive._cscCCS  );
+                put( "arc", Executive._cscARC  );
+                put( "cat", Executive._cscCAT  );
+                put( "pro", Executive._cscPRO  );
+                put( "hdr", Executive._cscHDR  );
+                put( "asc", Executive._cscASCH );
+                put( "atc", Executive._cscATCS );
+                put( "acc", Executive._cscACCS );
+                put( "aar", Executive._cscAARC );
+                put( "ahd", Executive._cscAHDR );
+            }
         });
+    }  
 
-        btn.setVisible( true );
-
-        // root node of the scene is a vertical box
-        // btn control added to 1st row in column; text msg control added to 2nd row in same column
-        VBox root = new VBox( 10, btn, msg );
-        root.setAlignment( CENTER );
-
-        // Scene class is the container for all content
-        Scene scene = new Scene( root, 300, 250 );
-
-        primaryStage.setTitle( "Hello JavaFX 8 World!" );
-        primaryStage.setScene( scene );
-        primaryStage.show();
-
-        out.print( this.getClass()
-                       .getSimpleName() + "::"
-                                        + Thread.currentThread().getStackTrace()[1].getMethodName()
-                                        + "::" );
-
-        out.print( Thread.currentThread().getName() );
-        out.println( " " + "id: " + Thread.currentThread().getId() );
-
+    /**
+          * Returns the list of CSCs.
+          *
+          * @return List of pre-instantiated CSCs
+          */
+    public static List<CommandableSalComponent> getCscList() {
+        
+        return
+            Collections.unmodifiableList( Arrays.asList(
+                Executive._cscSCH,
+                Executive._cscMTCS,
+                Executive._cscCCS,
+                Executive._cscARC,
+                Executive._cscCAT,
+                Executive._cscPRO,
+                Executive._cscHDR,
+                Executive._cscHDR,
+                Executive._cscHDR,
+                Executive._cscASCH,
+                Executive._cscATCS,
+                Executive._cscACCS,
+                Executive._cscAARC,
+                Executive._cscAHDR
+            )
+        );
     }
+    
+    /**
+          * Returns a Map of the Entity objects.
+          *
+          * @return Map of pre-instantiated Entity objects
+          */
+    @SuppressWarnings( "serial" )
+    public static Map<String, Entity> getEntityMap() {
+        
+        return
+            Collections.unmodifiableMap( new HashMap<String, Entity>() {
+            {
+                // (Entity key, Entity value)
+                put( "sch", Executive._entitySCH  );
+                put( "mtc", Executive._entityMTCS );
+                put( "ccs", Executive._entityCCS  );
+                put( "arc", Executive._entityARC  );
+                put( "cat", Executive._entityCAT  );
+                put( "pro", Executive._entityPRO  );
+                put( "hdr", Executive._entityHDR  );
+                put( "asc", Executive._entityASCH );
+                put( "atc", Executive._entityATCS );
+                put( "acc", Executive._entityACCS );
+                put( "aar", Executive._entityAARC );
+                put( "ahd", Executive._entityAHDR );
+            }
+        });
+    }  
+
+    /**
+          * Returns a List of Entity objects.
+          *
+          * @return List of pre-instantiated Entity objects
+          */
+    public static List<Entity> getEntityList() {
+        
+        return
+            Collections.unmodifiableList( Arrays.asList(
+                Executive._entitySCH,
+                Executive._entityMTCS,
+                Executive._entityCCS,
+                Executive._entityARC,
+                Executive._entityCAT,
+                Executive._entityPRO,
+                Executive._entityHDR,
+                Executive._entityASCH,
+                Executive._entityATCS,
+                Executive._entityACCS,
+                Executive._entityAARC,
+                Executive._entityAHDR
+            )
+        );
+    }
+
+    
+    public static final List<CmdTask> rCmdTasks_MTCS = Collections.unmodifiableList( Arrays.asList (
+        new CmdTask( _cscMTCS, "filterChange" ),
+        new CmdTask( _cscMTCS, "target"       )
+    ));
+
+    public static final List<CmdTask> rCmdTasks_CCS = Collections.unmodifiableList( Arrays.asList (
+        new CmdTask( _cscCCS, "setFilter" ),
+        new CmdTask( _cscCCS, "takeImage" )
+    ));
+
+    public static final List<CmdTask> rCmdTasks_ATCS = Collections.unmodifiableList( Arrays.asList (
+        new CmdTask( _cscMTCS, "filterChange" ),
+        new CmdTask( _cscMTCS, "target"       )
+    ));
+
+    public static final List<CmdTask> rCmdTasks_ACCS = Collections.unmodifiableList( Arrays.asList (
+        new CmdTask( _cscCCS, "setFilter" ),
+        new CmdTask( _cscCCS, "takeImage" )
+    ));
+
+    public static final List<CmdTask> rCmdTasks_ENTERCTRL = Collections.unmodifiableList( Arrays.asList (
+        new CmdTask( _cscSCH,  "enterControl" ),
+        new CmdTask( _cscMTCS, "enterControl" ),
+        new CmdTask( _cscCCS,  "enterControl" ),
+        new CmdTask( _cscARC,  "enterControl" ),
+        new CmdTask( _cscCAT,  "enterControl" ),
+        new CmdTask( _cscPRO,  "enterControl" ),
+        new CmdTask( _cscHDR,  "enterControl" ),
+        new CmdTask( _cscASCH, "enterControl" ),
+        new CmdTask( _cscATCS, "enterControl" ),
+        new CmdTask( _cscACCS, "enterControl" ),
+        new CmdTask( _cscAARC, "enterControl" ),
+        new CmdTask( _cscAHDR, "enterControl" )
+    ));
+
+    public static final List<CmdTask> rCmdTasks_START = Collections.unmodifiableList( Arrays.asList (
+        new CmdTask( _cscSCH,  "start" ),
+        new CmdTask( _cscMTCS, "start" ),
+        new CmdTask( _cscCCS,  "start" ),
+        new CmdTask( _cscARC,  "start" ),
+        new CmdTask( _cscCAT,  "start" ),
+        new CmdTask( _cscPRO,  "start" ),
+        new CmdTask( _cscHDR,  "start" ),
+        new CmdTask( _cscASCH, "start" ),
+        new CmdTask( _cscATCS, "start" ),
+        new CmdTask( _cscACCS, "start" ),
+        new CmdTask( _cscAARC, "start" ),
+        new CmdTask( _cscAHDR, "start" )
+    ));
+
+    public static final List<CmdTask> rCmdTasks_ENABLE = Collections.unmodifiableList( Arrays.asList (
+        new CmdTask( _cscSCH, "enable" ),
+        new CmdTask( _cscMTCS, "enable" ),
+        new CmdTask( _cscCCS,  "enable" ),
+        new CmdTask( _cscARC,  "enable" ),
+        new CmdTask( _cscCAT,  "enable" ),
+        new CmdTask( _cscPRO,  "enable" ),
+        new CmdTask( _cscHDR,  "enable" ),
+        new CmdTask( _cscASCH, "enable" ),
+        new CmdTask( _cscATCS, "enable" ),
+        new CmdTask( _cscACCS, "enable" ),
+        new CmdTask( _cscAARC, "enable" ),
+        new CmdTask( _cscAHDR, "enable" )
+    ));
+
+    public static final List<EventCallable> cEventTask_MTCS = Collections.unmodifiableList( Arrays.asList (
+        new EventCallable( _cscMTCS, "filterChangeInPosition" ),
+        new EventCallable( _cscMTCS, "targetInPosition"       )
+    ));
+    
+    public static final List<EventCallable> cEventTask_CCS = Collections.unmodifiableList( Arrays.asList (
+        new EventCallable( _cscCCS, "tbd" ),
+        new EventCallable( _cscCCS, "tbd" )
+    ));
+
+    public static final List<EventCallable> cEventTask_ATCS = Collections.unmodifiableList( Arrays.asList (
+        new EventCallable( _cscMTCS, "filterChangeInPosition" ),
+        new EventCallable( _cscMTCS, "targetInPosition"       )
+    ));
+    
+
+    public static final List<EventCallable> cEventTask_ACCS = Collections.unmodifiableList( Arrays.asList (
+        new EventCallable( _cscCCS, "tbd" ),
+        new EventCallable( _cscCCS, "tbd" )
+    ));
+
+    //public static final List<EventCallable> cEventTask_SUMSTATE = Collections.unmodifiableList( Arrays.asList (
+    //    new EventCallable( _cscSCH,  "summaryState" )
+    public static final List<EventTask> cEventTask_SUMSTATE = Collections.unmodifiableList( Arrays.asList (
+        new EventTask( _cscSCH,  "summaryState" ),
+        new EventTask( _cscMTCS, "summaryState" ),
+        new EventTask( _cscCCS,  "summaryState" ),
+        new EventTask( _cscARC,  "summaryState" ),
+        new EventTask( _cscCAT,  "summaryState" ),
+        new EventTask( _cscPRO,  "summaryState" ),
+        new EventTask( _cscHDR,  "summaryState" ),
+        new EventTask( _cscASCH, "summaryState" ),
+        new EventTask( _cscATCS, "summaryState" ),
+        new EventTask( _cscACCS, "summaryState" ),
+        new EventTask( _cscAARC, "summaryState" ),
+        new EventTask( _cscAHDR, "summaryState" )
+    ));
+
+    public static final List<EventTask> cEventTask_SETTINGS = Collections.unmodifiableList( Arrays.asList (
+        new EventTask( _cscSCH,  "settingsVersion" ),
+        new EventTask( _cscMTCS, "settingsVersion" ),
+        new EventTask( _cscCCS,  "settingsVersion" ),
+        new EventTask( _cscARC,  "settingsVersion" ),
+        new EventTask( _cscCAT,  "settingsVersion" ),
+        new EventTask( _cscPRO,  "settingsVersion" ),
+        new EventTask( _cscHDR,  "settingsVersion" ),
+        new EventTask( _cscASCH, "settingsVersion" ),
+        new EventTask( _cscATCS, "settingsVersion" ),
+        new EventTask( _cscACCS, "settingsVersion" ),
+        new EventTask( _cscAARC, "settingsVersion" ),
+        new EventTask( _cscAHDR, "settingsVersion" )
+    ));
+
+    public static final List<EventTask> cEventTask_APPLIEDSETTINGS = Collections.unmodifiableList( Arrays.asList (
+        new EventTask( _cscSCH,  "appliedSettingsMatchStartTest" ),
+        new EventTask( _cscMTCS, "appliedSettingsMatchStartTest" ),
+        new EventTask( _cscCCS,  "appliedSettingsMatchStartTest" ),
+        new EventTask( _cscARC,  "appliedSettingsMatchStartTest" ),
+        new EventTask( _cscCAT,  "appliedSettingsMatchStartTest" ),
+        new EventTask( _cscPRO,  "appliedSettingsMatchStartTest" ),
+        new EventTask( _cscHDR,  "appliedSettingsMatchStartTest" ),
+        new EventTask( _cscASCH, "appliedSettingsMatchStartTest" ),
+        new EventTask( _cscATCS, "appliedSettingsMatchStartTest" ),
+        new EventTask( _cscACCS, "appliedSettingsMatchStartTest" ),
+        new EventTask( _cscAARC, "appliedSettingsMatchStartTest" ),
+        new EventTask( _cscAHDR, "appliedSettingsMatchStartTest" )
+    ));
 
     //@Override
     // start() method is the main entry point for all JavaFX applications
@@ -307,14 +374,14 @@ public class Executive {
         // 1. SalComponent (Receiver) previously defined: rCCS
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         //    Also, assign topic & topic arguments
-        SalCmd salCmdTCS = new SalCmd( Executive.cscMTCS );
-        salCmdTCS.setTopic( "enterControl" );
+        //SalCmd salCmdTCS = new SalCmd( Executive._cscMTCS );
+        //salCmdTCS.setTopic( "enterControl" );
         // 3. Define Invoker & set SalService request
-        SalConnect salConnectTCS = new SalConnect( 1 );
-        salConnectTCS.setSalService( salCmdTCS );
+        //SalConnect salConnectTCS = new SalConnect( 1 );
+        //salConnectTCS.setSalService( salCmdTCS );
         //salConnectCamera.setSalCmd(new SalCmd(rCCS), "enterControl");
         // 4. Invoker indirectly calls cmd->execute()
-        salConnectTCS.connect();
+        //salConnectTCS.connect();
 
         if ( false ) {
 
@@ -438,14 +505,14 @@ public class Executive {
             // 1. SalComponent (Receiver) previously defined: rCCS
             // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
             //    Also, assign topic & topic arguments
-            SalCmd salCmdCamera = new SalCmd( Executive.cscCCS );
-            salCmdCamera.setTopic( "enterControl" );
+            //SalCmd salCmdCamera = new SalCmd( Executive._cscCCS );
+            //salCmdCamera.setTopic( "enterControl" );
             // 3. Define Invoker & set SalService request
-            SalConnect salConnectCamera = new SalConnect( 1 );
-            salConnectCamera.setSalService( salCmdCamera );
+            //SalConnect salConnectCamera = new SalConnect( 1 );
+            //salConnectCamera.setSalService( salCmdCamera );
             //salConnectCamera.setSalCmd(new SalCmd(rCCS), "enterControl");
             // 4. Invoker indirectly calls cmd->execute()
-            salConnectCamera.connect();
+            //salConnectCamera.connect();
 
             // 2a. Verify SummaryState of 'StandbyState'
             // --- Add code ---
@@ -454,10 +521,10 @@ public class Executive {
             // 3. cmd CCS to 'DisabledState'
             out.print( "\n" + EntityType.CCS.toString() + " sequence cmd start..." );
             //br.readLine();
-            //Executive.cscCCS.start();
+            //Executive._cscCCS.start();
 
-            salCmdCamera.setTopic( "start" );
-            salConnectCamera.connect();
+            //salCmdCamera.setTopic( "start" );
+            //salConnectCamera.connect();
 
             // 3a. Verify SummaryState of 'DisabledState'
             // --- Add code ---
@@ -468,10 +535,10 @@ public class Executive {
             // 4. cmd CCS to 'EnabledState'
             out.print( "\n" + EntityType.CCS.toString() + " sequence cmd enable..." );
             //br.readLine();
-            //Executive.cscCCS.enable();
+            //Executive._cscCCS.enable();
 
-            salCmdCamera.setTopic( "start" );
-            salConnectCamera.connect();
+            //salCmdCamera.setTopic( "start" );
+            //salConnectCamera.connect();
 
             // 4a. Verify SummaryState of 'EnabledState'
             // --- Add code ---
@@ -486,27 +553,27 @@ public class Executive {
              */
             out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd enterControl..." );
             // br.readLine();
-            //Executive.cscMTCS.enterControl();
+            //Executive._cscMTCS.enterControl();
 
-            SalCmd salCmdTcs = new SalCmd( Executive.cscMTCS );
-            salCmdTcs.setTopic( "enterControl" );
-            SalConnect salConnectTcs = new SalConnect( 1 );
-            salConnectTcs.setSalService( salCmdTcs );
-            salConnectTcs.connect();
+            //SalCmd salCmdTcs = new SalCmd( Executive._cscMTCS );
+            //salCmdTcs.setTopic( "enterControl" );
+            //SalConnect salConnectTcs = new SalConnect( 1 );
+            //salConnectTcs.setSalService( salCmdTcs );
+            //salConnectTcs.connect();
 
             out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd start..." );
             // br.readLine();
-            //Executive.cscMTCS.start();
+            //Executive._cscMTCS.start();
 
-            salCmdTcs.setTopic( "start" );
-            salConnectTcs.connect();
+            //salCmdTcs.setTopic( "start" );
+            //salConnectTcs.connect();
 
             out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd enable..." );
             //br.readLine();
-            //Executive.cscMTCS.enable();
+            //Executive._cscMTCS.enable();
 
-            salCmdTcs.setTopic( "enable" );
-            salConnectTcs.connect();
+            //salCmdTcs.setTopic( "enable" );
+            //salConnectTcs.connect();
 
             /**
              * **************************
@@ -522,7 +589,7 @@ public class Executive {
             // 2. cmd CCS to 'StandbyState'
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd enterControl..." );
             //br.readLine();
-            //Executive.cscARC.enterControl();
+            //Executive._cscARC.enterControl();
 
             // 2a. Verify SummaryState of 'StandbyState'
             // --- Add code ---
@@ -531,7 +598,7 @@ public class Executive {
             // 3. cmd CCS to 'DisabledState'
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd start..." );
             // br.readLine();
-            //Executive.cscARC.start();
+            //Executive._cscARC.start();
 
             // 3a. Verify SummaryState of 'DisabledState'
             // --- Add code ---
@@ -542,29 +609,29 @@ public class Executive {
             // 4. cmd CCS to 'EnabledState'
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd enable..." );
             //br.readLine();
-            //Executive.cscARC.enable();
+            //Executive._cscARC.enable();
 
             // 4a. Verify SummaryState of 'EnabledState'
             // --- Add code ---
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd enterControl..." );
             // br.readLine();
-            //Executive.cscCAT.enterControl();
+            //Executive._cscCAT.enterControl();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd start..." );
             // br.readLine();
-            //Executive.cscCAT.start();
+            //Executive._cscCAT.start();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd enable..." );
             // br.readLine();
-            //Executive.cscCAT.enable();
+            //Executive._cscCAT.enable();
 
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd enterControl..." );
             //br.readLine();
-            //Executive.cscPRO.enterControl();
+            //Executive._cscPRO.enterControl();
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd start..." );
             //br.readLine();
-            //Executive.cscPRO.start();
+            //Executive._cscPRO.start();
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd enable..." );
             //br.readLine();
-            //Executive.cscPRO.enable();
+            //Executive._cscPRO.enable();
 
             /**
              * ***********************
@@ -577,33 +644,33 @@ public class Executive {
              */
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd disable..." );
             // br.readLine();
-            //Executive.cscPRO.disable();
+            //Executive._cscPRO.disable();
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd standby..." );
             //br.readLine();
-            //Executive.cscPRO.standby();
+            //Executive._cscPRO.standby();
             out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd exitControl..." );
             // br.readLine();
-            //Executive.cscPRO.exitControl();
+            //Executive._cscPRO.exitControl();
 
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd disable..." );
             // br.readLine();
-            //Executive.cscCAT.disable();
+            //Executive._cscCAT.disable();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd standby..." );
             // br.readLine();
-            //Executive.cscCAT.standby();
+            //Executive._cscCAT.standby();
             out.print( "\n" + EntityType.CATCHUPARCHIVER.toString() + " sequence cmd exitControl..." );
             // br.readLine();
-            //Executive.cscCAT.exitControl();
+            //Executive._cscCAT.exitControl();
 
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd disable..." );
             // br.readLine();
-            //Executive.cscARC.disable();
+            //Executive._cscARC.disable();
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd standby..." );
             // br.readLine();
-            //Executive.cscARC.standby();
+            //Executive._cscARC.standby();
             out.print( "\n" + EntityType.ARCHIVER.toString() + " sequence cmd exitControl..." );
             //br.readLine();
-            //Executive.cscARC.exitControl();
+            //Executive._cscARC.exitControl();
 
             /**
              * ***********************
@@ -616,15 +683,15 @@ public class Executive {
              */
             out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd disable..." );
             // br.readLine();
-            //Executive.cscMTCS.disable();
+            //Executive._cscMTCS.disable();
 
             out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd standby..." );
             // br.readLine();
-            //Executive.cscMTCS.standby();
+            //Executive._cscMTCS.standby();
 
             out.print( "\n" + EntityType.MTCS.toString() + " sequence cmd exitControl..." );
             // br.readLine();
-            //Executive.cscMTCS.exitControl();
+            //Executive._cscMTCS.exitControl();
 
             /**
              * ***********************
@@ -637,15 +704,15 @@ public class Executive {
              */
             out.print( "\n" + EntityType.CCS.toString() + " sequence cmd disable..." );
             // br.readLine();
-            //Executive.cscCCS.disable();
+            //Executive._cscCCS.disable();
 
             out.print( "\n" + EntityType.CCS.toString() + " sequence cmd standby..." );
             // br.readLine();
-            //Executive.cscCCS.standby();
+            //Executive._cscCCS.standby();
 
             out.print( "\n" + EntityType.CCS.toString() + " sequence cmd exitControl..." );
             // br.readLine();
-            //Executive.cscCCS.exitControl();
+            //Executive._cscCCS.exitControl();
 
             /**
              * ***********************
@@ -723,14 +790,3 @@ public class Executive {
 
     }
 }
-
-//    public static void main(String[] args) throws IOException, InterruptedException, ExecutionException {
-//        
-//        Thread.currentThread().setName(new String().concat("OCSMainThread"));
-//        out.print(Thread.currentThread().getName());
-//        out.println(" "+"id: "+Thread.currentThread().getId());
-//        
-//        launch(args);
-//    }    
-//   
-//}

@@ -14,14 +14,25 @@
 
 package org.lsst.ocs.executive.gui.primary;
 
+import org.lsst.ocs.executive.CmdTask;
+import org.lsst.ocs.executive.Entity;
+import org.lsst.ocs.executive.Executive;
+import org.lsst.ocs.executive.salconnect.SalConnect;
+import org.lsst.ocs.executive.salservice.SalCmd;
+
 import static java.lang.System.out;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Map;
+import java.util.ResourceBundle;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -42,18 +53,11 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
-import org.lsst.ocs.executive.Entity;
-import org.lsst.ocs.executive.ExecutiveFX;
-import org.lsst.ocs.executive.CmdTask;
-import org.lsst.ocs.executive.EventTask;
-import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
-import org.lsst.ocs.executive.salconnect.SalConnect;
-import org.lsst.ocs.executive.salservice.SalCmd;
+import org.lsst.ocs.executive.salservice.SalEvent;
 
 /**
  * <h2>FXML Primary Controller</h2>
- * <p>
+ *
  * The controller class for <i>primaryFXML.fxml</i> document (via 
  * {@code fx:controller} attribute).
  * <p>
@@ -67,11 +71,11 @@ import org.lsst.ocs.executive.salservice.SalCmd;
  */
 public class PrimaryController implements Initializable {
 
-    // Reference to ExecutiveFX, the main Application class
-    private ExecutiveFX execFX;
-    
-    @FXML private MenuButton schStateMenu, mtcsStateMenu, ccsStateMenu, arcStateMenu, catStateMenu, proStateMenu, hdrStateMenu,
-                             aschStateMenu, atcsStateMenu, accsStateMenu, aarcStateMenu, ahdrStateMenu;
+    @FXML private MenuItem primaryExit;
+
+    @FXML private MenuButton schStateMenu, mtcsStateMenu, ccsStateMenu, arcStateMenu,
+                             catStateMenu, proStateMenu, hdrStateMenu, aschStateMenu,
+                             atcsStateMenu, accsStateMenu, aarcStateMenu, ahdrStateMenu;
 
     @FXML private MenuItem schEnter, schStart, schEnable, schDisable, schStandby, schExit,
                            aschEnter, aschStart, aschEnable, aschDisable, aschStandby, aschExit;
@@ -103,62 +107,95 @@ public class PrimaryController implements Initializable {
                            menuitemCreateArchiver, menuitemCreateCatchupArchiver, 
                            menuitemCreateProcessingCluster, menuitemCreateAll;
 
-    @FXML private Label schLabel, mtcsLabel, ccsLabel, arcLabel, catLabel, proLabel, hdrLabel,
-                        aschLabel, atcsLabel, accsLabel, aarcLabel, ahdrLabel;
-    private ObservableList<Label> stateLabelList;
+    @FXML private Label schLabel, mtcsLabel, ccsLabel, arcLabel, catLabel, proLabel,
+                        hdrLabel, aschLabel, atcsLabel, accsLabel, aarcLabel, ahdrLabel;
+    private static final List<Label> STATE_LABEL_LIST = new ArrayList<Label>();
 
-    @FXML private Tooltip schTooltip, mtcsTooltip, ccsTooltip, arcTooltip, catTooltip, proTooltip, hdrTooltip,
-                          aschTooltip, atcsTooltip, accsTooltip, aarcTooltip, ahdrTooltip;
-    private ObservableList<Tooltip> stateTooltipList;
+    @FXML private Tooltip schTooltip, mtcsTooltip, ccsTooltip, arcTooltip, catTooltip,
+                          proTooltip, hdrTooltip, aschTooltip, atcsTooltip, accsTooltip,
+                          aarcTooltip, ahdrTooltip;
+    private static final List<Tooltip> STATE_TOOLTIP_LIST = new ArrayList<Tooltip>();
     
-    @FXML private TextField schStateText, mtcsStateText, ccsStateText, arcStateText, catStateText, proStateText, hdrStateText,
-                            aschStateText, atcsStateText, accsStateText, aarcStateText, ahdrStateText;
-    private ObservableList<TextField> stateTextList;
+    @FXML private TextField schStateText, mtcsStateText, ccsStateText, arcStateText,
+                            catStateText, proStateText, hdrStateText, aschStateText,
+                            atcsStateText, accsStateText, aarcStateText, ahdrStateText;
+    private static final List<TextField> STATE_TEXT_LIST = new ArrayList<TextField>();
+    
+    public static final Map<String, String> STATE_TEXT_MAP = new HashMap<>();
+
+    // Reference to ExecutiveFX, the main Application class
+    //private Executive _exec;
     
     /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
+          * Initializes the controller class. 
+          * <p>
+          * This method is automatically called  after the fxml file has been loaded.
+          */
     @Override
     public void initialize( URL locationUrl, ResourceBundle resourceBundle ) {
-        stateLabelList = FXCollections.observableArrayList( 
-            schLabel, mtcsLabel, ccsLabel, arcLabel, catLabel, proLabel, hdrLabel,
-            aschLabel, atcsLabel, accsLabel, aarcLabel, ahdrLabel
-        );
+        
+        ExecutorService es = Executors.newCachedThreadPool();
+        Executive.cEventTask_SUMSTATE.forEach( es::submit );
+        
+        STATE_LABEL_LIST.add( schLabel  ); STATE_LABEL_LIST.add( mtcsLabel );
+        STATE_LABEL_LIST.add( ccsLabel  ); STATE_LABEL_LIST.add( arcLabel  );
+        STATE_LABEL_LIST.add( catLabel  ); STATE_LABEL_LIST.add( proLabel  );
+        STATE_LABEL_LIST.add( hdrLabel  ); STATE_LABEL_LIST.add( aschLabel );
+        STATE_LABEL_LIST.add( atcsLabel ); STATE_LABEL_LIST.add( accsLabel );
+        STATE_LABEL_LIST.add( aarcLabel ); STATE_LABEL_LIST.add( ahdrLabel );
 
-        stateTooltipList = FXCollections.observableArrayList(
-            schTooltip, mtcsTooltip, ccsTooltip, arcTooltip, catTooltip, proTooltip, hdrTooltip,
-            aschTooltip, atcsTooltip, accsTooltip, aarcTooltip, ahdrTooltip
-        );
+        STATE_TOOLTIP_LIST.add( schTooltip  ); STATE_TOOLTIP_LIST.add( mtcsTooltip );
+        STATE_TOOLTIP_LIST.add( ccsTooltip  ); STATE_TOOLTIP_LIST.add( arcTooltip  );
+        STATE_TOOLTIP_LIST.add( catTooltip  ); STATE_TOOLTIP_LIST.add( proTooltip  );
+        STATE_TOOLTIP_LIST.add( hdrTooltip  ); STATE_TOOLTIP_LIST.add( aschTooltip );
+        STATE_TOOLTIP_LIST.add( atcsTooltip ); STATE_TOOLTIP_LIST.add( accsTooltip );
+        STATE_TOOLTIP_LIST.add( aarcTooltip ); STATE_TOOLTIP_LIST.add( ahdrTooltip );
 
-        stateTextList = FXCollections.observableArrayList(
-            schStateText, mtcsStateText, ccsStateText, arcStateText, catStateText, proStateText, hdrStateText,
-            aschStateText, atcsStateText, accsStateText, aarcStateText, ahdrStateText
-        );
+        STATE_TEXT_LIST.add( schStateText  ); STATE_TEXT_LIST.add( mtcsStateText );
+        STATE_TEXT_LIST.add( ccsStateText  ); STATE_TEXT_LIST.add( arcStateText  );
+        STATE_TEXT_LIST.add( catStateText  ); STATE_TEXT_LIST.add( proStateText  );
+        STATE_TEXT_LIST.add( hdrStateText  ); STATE_TEXT_LIST.add( aschStateText );
+        STATE_TEXT_LIST.add( atcsStateText ); STATE_TEXT_LIST.add( accsStateText );
+        STATE_TEXT_LIST.add( aarcStateText ); STATE_TEXT_LIST.add( ahdrStateText );
+        
+        // ( cmdString key, State value )
+        STATE_TEXT_MAP.put( "enterControl", "STANDBY"  );
+        STATE_TEXT_MAP.put( "start"       , "DISABLED" );
+        STATE_TEXT_MAP.put( "enable"      , "ENABLED"  );
+        STATE_TEXT_MAP.put( "disable"     , "DISABLED" );
+        STATE_TEXT_MAP.put( "standby"     , "STANDBY"  );
+        STATE_TEXT_MAP.put( "exitControl" , "OFFLINE"  );
+
+        primaryExit.setOnAction( e -> {
+            
+            Platform.exit();
+            
+            System.exit( 0 );
+        }); 
     }
     
     /**
-     * Is called by the main FX application to give a reference back to itself.
-     * 
-     * @param refExecFX class which holds {@code main()}
-     */
-    public void setExecFXApp( ExecutiveFX refExecFX ) { this.execFX = refExecFX; }
+          * Method is called by the main FX application to give a reference back to itself.
+          * 
+          * @param refExecFX class which holds {@code main()}
+          */
+    //public void setExecFXApp( ExecutiveFX refExecFX ) { this._exec = refExecFX; }
 
     /**
-     * The {@code checkSummaryState()} method subscribes to the SummaryState topic
-     * of a specific CSC on a background JavaFX thread.
-     * 
-     * A {@code Service} class creates & manages a Task that performs the work 
-     * on a background (daemon) thread. {@code Service} implements {@code Worker}.
-     * 
-     * <p>Similar to doing: Thread th = new Thread(new Runnable task)
-     * <p>Similar to doing: Executors.newWorkStealingPool().execute(new Runnable task);
-     *
-     * @see <li>https://docs.oracle.com/javase/8/javafx/api/toc.htm
-     * @see <li>https://docs.oracle.com/javase/8/javafx/concurrent/Service.html
-     */
+          * The {@code checkSummaryState()} method subscribes to the SummaryState topic
+          * of a specific CSC on a background JavaFX thread.
+          * <p>
+          * A {@code Service} class creates & manages a Task that performs the work 
+          * on a background (daemon) thread. {@code Service} implements {@code Worker}.
+          * 
+          * <p>Similar to doing: Thread th = new Thread(new Runnable task)
+          * <p>Similar to doing: Executors.newWorkStealingPool().execute(new Runnable task);
+          *
+          * @see <li>https://docs.oracle.com/javase/8/javafx/api/toc.htm
+          * @see <li>https://docs.oracle.com/javase/8/javafx/concurrent/Service.html
+          */
     void checkSummaryState( Entity entity, String cmdString ) throws Exception {
-
+        
         Service service = new Service() {
 
             @Override protected Task createTask () {
@@ -167,45 +204,49 @@ public class PrimaryController implements Initializable {
                     
                     @Override protected Void call() throws Exception {
                         
-                        Integer sumState = 
-                                ( new EventTask( entity.getCSC(), "summaryState" ) ).call();
+                        Thread.currentThread().setName( "GuiCheck SumState Service" );
+                        //out.println( Thread.currentThread().getName() + ": " + Thread.currentThread().getId() );
                         
-                        int ndx = execFX.getEntityList().indexOf( entity );
+                        int ndx = Executive.getEntityList().indexOf( entity );
+                        TextField stateText = STATE_TEXT_LIST.get( ndx );
+                        Label stateLabel = STATE_LABEL_LIST.get( ndx );
+                        Tooltip stateTooltip = STATE_TOOLTIP_LIST.get( ndx );
                         
-                        TextField stateText = stateTextList.get( ndx );
-                        Label stateLabel = stateLabelList.get( ndx );
-                        Tooltip stateTooltip = stateTooltipList.get( ndx );
-
-                        if ( sumState.equals( CommandableSalComponent.CSC_STATUS.SAL__OK.getValue() ) ) {
+                        Integer guiState =  entity._guiStateTransitionQ.take();
+                        if ( guiState >= 1 ) {
                             
-                            stateText.setText( execFX.STATE_TEXT_MAP.get( cmdString ) );
+                            stateText.setText( STATE_TEXT_MAP.get( cmdString ));
                             stateText.setStyle( "-fx-text-fill: darkcyan;" );
-                            stateText.setFont( Font.font( "System", FontWeight.BOLD, 11 ) );
+                            stateText.setFont( Font.font( "System", FontWeight.BOLD, 11 ));
 
-                            if ( cmdString.matches( "enterControl" ) ) {
+                            if ( cmdString.matches( "enterControl" )) {
 
                                 stateLabel.setStyle( "-fx-text-fill: green;" );
-                                stateLabel.setEffect( new Glow( 0.9 ) );
-                                stateLabel.setFont( Font.font( "System", FontWeight.BOLD, 14 ) );
-                                stateLabel.setBorder( new Border( new BorderStroke( Color.BLACK,
-                                                                                    BorderStrokeStyle.SOLID,
-                                                                                    CornerRadii.EMPTY,
-                                                                                    new BorderWidths( 1, 1, 1, 0 ) ) ) );
+                                stateLabel.setEffect( new Glow( 0.9 ));
+                                stateLabel.setFont( Font.font( "System", FontWeight.BOLD, 14 ));
+                                stateLabel.setBorder( new Border( 
+                                                        new BorderStroke( Color.BLACK,
+                                                        BorderStrokeStyle.SOLID,
+                                                        CornerRadii.EMPTY,
+                                                        new BorderWidths( 1, 1, 1, 0 )))
+                                );
                                 
-                                stateTooltip.setText( stateLabel.getText() + " Online");
+                                stateTooltip.setText( stateLabel.getText() + " Online" );
                             }
 
-                            if ( cmdString.matches( "exitControl" ) ) {
+                            if ( cmdString.matches( "exitControl" )) {
 
                                 stateLabel.setStyle( "-fx-text-fill: gainsboro;" );
                                 stateLabel.setEffect( new Glow() );
-                                stateLabel.setFont( Font.font( "System", FontWeight.NORMAL, 11 ) );
-                                stateLabel.setBorder( new Border( new BorderStroke( Color.BLACK,
-                                                                                    BorderStrokeStyle.SOLID,
-                                                                                    CornerRadii.EMPTY,
-                                                                                    new BorderWidths( 1, 1, 1, 0 ) ) ) );
+                                stateLabel.setFont( Font.font( "System", FontWeight.NORMAL, 11 ));
+                                stateLabel.setBorder( new Border( 
+                                                        new BorderStroke( Color.BLACK,
+                                                        BorderStrokeStyle.SOLID,
+                                                        CornerRadii.EMPTY,
+                                                        new BorderWidths( 1, 1, 1, 0 )))
+                                );
                                 
-                                stateTooltip.setText( stateLabel.getText() + " Offline");
+                                stateTooltip.setText( stateLabel.getText() + " Offline" );
                             }
                         }
                         
@@ -218,25 +259,55 @@ public class PrimaryController implements Initializable {
        service.start();
     }
 
-    void checkSettingsVersion( Entity entity, String cmdString ) throws Exception { ;}
-    void checkAppliedSettings( Entity entity, String cmdString ) throws Exception { ;}
-    void checkFilterChange( Entity entity, String cmdString ) throws Exception { ;}
-    void checkTarget( Entity entity, String cmdString ) throws Exception { ;}
+    void checkSettingsVersion( Entity entity, String cmdString ) throws Exception { }
+    void checkAppliedSettings( Entity entity, String cmdString ) throws Exception { }
+    void checkFilterChange   ( Entity entity, String cmdString ) throws Exception { }
+    void checkTarget         ( Entity entity, String cmdString ) throws Exception { }
 
+    // Generic "State Transition" EventHandler for any CSC State pull-down menu items
     @FXML private void cscState( ActionEvent event ) throws Exception {
 
         MenuItem mi = ( MenuItem ) event.getSource();
         
         String cmdString = mi.getText();
-        // Grab the first 3 characters of the command string
-        Entity entity = execFX.STATE_ENTITY_MAP.get( mi.getId().substring( 0, 3 ) ); /* e.g. entitySCH */
 
+        // Grab the first 3 characters of the command string
+        Entity entity =
+            Executive.getEntityMap().get( mi.getId().substring( 0, 3 )); /* e.g. entitySCH */
+
+        //out.println( "cscState Thread: " + Thread.currentThread().getId() );
+        
         // State Pattern: context.request() [e.g. entitySCH.enterControl()]
         ( new CmdTask( entity, cmdString ) ).call();
         
         checkSummaryState( entity, cmdString );
     }
     
+    // Specific "Command Request" EventHandler for any CSC Command pull-down menu items
+    @FXML private void cscCmd( ActionEvent event ) {
+    
+        MenuItem mi = ( MenuItem ) event.getSource();
+        String cmdString = mi.getText();
+        
+        // 1. SalComponent (Receiver) previously defined: Executive.cscELE
+        
+        // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+        // 2b. Also, assign topic & topic arguments
+        SalCmd salCmd =  /* e.g. cscELE */
+            new SalCmd( Executive.getCscMap().get( mi.getId().substring( 0, 3 )));
+        
+        salCmd.setTopic( cmdString );
+
+        // 3a. Define Invoker w/ # of threads
+        // 3b. Set SalService request (a cmd in this case)
+        SalConnect salConnect = new SalConnect( 1 );
+        salConnect.setSalService( salCmd );
+        
+        // 4. Invoker indirectly calls cmd->execute()
+        salConnect.connect();
+    }
+    
+    // Specific "Command Request" EventHandler for MTCS Command pull-down menu items
     @FXML private void mtcsCmd( ActionEvent event ) {
         
         MenuItem mi = ( MenuItem ) event.getSource();
@@ -246,7 +317,7 @@ public class PrimaryController implements Initializable {
         
         // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         // 2b. Also, assign topic & topic arguments
-        SalCmd salCmdMTCS = new SalCmd( execFX.getCscList().get( 0 /* cscMTCS */ ) );
+        SalCmd salCmdMTCS = new SalCmd( Executive.getCscList().get( 0 /* cscMTCS */ ));
         salCmdMTCS.setTopic( cmdString );
 
         // 3a. Define Invoker w/ # of threads
@@ -258,6 +329,7 @@ public class PrimaryController implements Initializable {
         salConnectMTCS.connect();
     }
 
+    // Specific "Command Request" EventHandler for CCS Command pull-down menu items
     @FXML private void ccsCmd( ActionEvent event ) {
     
         MenuItem mi = ( MenuItem ) event.getSource();
@@ -267,7 +339,7 @@ public class PrimaryController implements Initializable {
 
         // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         // 2b. Also, assign topic & topic arguments
-        SalCmd salCmdCCS = new SalCmd( execFX.getCscList().get( 1 /* cscCCS */ ) );
+        SalCmd salCmdCCS = new SalCmd( Executive.getCscList().get( 1 /* cscCCS */ ));
         salCmdCCS.setTopic( cmdString );
 
         // 3a. Define Invoker w/ # of threads
@@ -278,7 +350,7 @@ public class PrimaryController implements Initializable {
         // 4. Invoker indirectly calls cmd->execute()
         salConnectCCS.connect();
        
-        if ( cmdString.equalsIgnoreCase( "initImage" )  )  {
+        if ( cmdString.equalsIgnoreCase( "initImage" )) {
             
             try {
                 Thread.sleep( 4000 );
@@ -286,7 +358,7 @@ public class PrimaryController implements Initializable {
                 e.printStackTrace();
             }
             
-            SalCmd salCmdCCS2 = new SalCmd( execFX.getCscList().get( 1 /* cscCCS */ ) );
+            SalCmd salCmdCCS2 = new SalCmd( Executive.getCscList().get( 1 /* cscCCS */ ));
             salCmdCCS2.setTopic( "takeImage" );
             salConnectCCS.setSalService( salCmdCCS2 );
 
@@ -294,6 +366,7 @@ public class PrimaryController implements Initializable {
         }
     }
     
+    // Specific "Command Request" EventHandler for ATCS Command pull-down menu items
     @FXML private void atcsCmd( ActionEvent event ) {
         
         MenuItem mi = ( MenuItem ) event.getSource();
@@ -303,7 +376,7 @@ public class PrimaryController implements Initializable {
         
         // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         // 2b. Also, assign topic & topic arguments
-        SalCmd salCmdATCS = new SalCmd( execFX.getCscList().get( 6 /* cscATCS */ ) );
+        SalCmd salCmdATCS = new SalCmd( Executive.getCscList().get( 6 /* cscATCS */ ));
         salCmdATCS.setTopic( cmdString );
 
         // 3a. Define Invoker w/ # of threads
@@ -315,6 +388,7 @@ public class PrimaryController implements Initializable {
         salConnectATCS.connect();
     }
 
+    // Specific "Command Request" EventHandler for ACCS Command pull-down menu items
     @FXML private void accsCmd( ActionEvent event ) {
     
         MenuItem mi = ( MenuItem ) event.getSource();
@@ -324,7 +398,7 @@ public class PrimaryController implements Initializable {
 
         // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         // 2b. Also, assign topic & topic arguments
-        SalCmd salCmdACCS = new SalCmd( execFX.getCscList().get( 7 /* cscACCS */ ) );
+        SalCmd salCmdACCS = new SalCmd( Executive.getCscList().get( 7 /* cscACCS */ ));
         salCmdACCS.setTopic( cmdString );
 
         // 3a. Define Invoker w/ # of threads
@@ -335,7 +409,7 @@ public class PrimaryController implements Initializable {
         // 4. Invoker indirectly calls cmd->execute()
         salConnectACCS.connect();
        
-        if ( cmdString.equalsIgnoreCase( "initImage" )  )  {
+        if ( cmdString.equalsIgnoreCase( "initImage" )  ) {
             
             try {
                 Thread.sleep( 4000 );
@@ -343,7 +417,7 @@ public class PrimaryController implements Initializable {
                 e.printStackTrace();
             }
             
-            SalCmd salCmdACCS2 = new SalCmd( execFX.getCscList().get( 7 /* cscACCS */ ) );
+            SalCmd salCmdACCS2 = new SalCmd( Executive.getCscList().get( 7 /* cscACCS */ ));
             salCmdACCS2.setTopic( "takeImage" );
             salConnectACCS.setSalService( salCmdACCS2 );
 
@@ -353,23 +427,23 @@ public class PrimaryController implements Initializable {
     
     @FXML private void createCSC( ActionEvent event ) throws Exception {
 
-        out.print( Thread.currentThread()
+        out.println( Thread.currentThread()
                          .getStackTrace()[1]
                          .getMethodName() + "::" 
                                           + "Threadid: "
-                                          + Thread.currentThread().getId() + "\n" );
+                                          + Thread.currentThread().getId() );
         
         // Grab the index & string of the selected CSC menu item
         int cscIndex = menuCSC.getItems().indexOf( event.getSource() );
         String cmdString = "enterControl";
 
         
-        Entity entity = execFX.getEntityList().get( cscIndex /* e.g. entityMTCS */ );
+        Entity entity = Executive.getEntityList().get( cscIndex /* e.g. entityMTCS */ );
         
         // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         //    Also, assign topic & topic arguments
-        SalCmd salCmdCsc = new SalCmd( execFX.getCscList().get( cscIndex ) );
+        SalCmd salCmdCsc = new SalCmd( Executive.getCscList().get( cscIndex ));
         salCmdCsc.setTopic( cmdString );
 
         // 3. Define Invoker w/ # of threads & set SalService request
@@ -384,11 +458,11 @@ public class PrimaryController implements Initializable {
     
     @FXML private void enterAllCSC( ActionEvent event ) throws Exception {
 
-        out.print( Thread.currentThread()
+        out.println( Thread.currentThread()
                          .getStackTrace()[1]
                          .getMethodName() + "::" 
                                           + "Threadid: "
-                                          + Thread.currentThread().getId() + "\n" );
+                                          + Thread.currentThread().getId() );
         
         // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
@@ -396,10 +470,12 @@ public class PrimaryController implements Initializable {
         
         String cmdString = "enterControl";
 
-        //SalConnect salConnectCsc = new SalConnect( execFX.getCscList().size() );
-        //execFX.getCscList().forEach( csc -> {
-        SalConnect salConnectCsc = new SalConnect( execFX.getCscList().subList( 8, 11).size() );
-        execFX.getCscList().subList( 8, 11).forEach( csc -> {
+        //SalConnect salConnectCsc = new SalConnect( _exec.getCscList().size() );
+        //_exec.getCscList().forEach( csc -> {
+        SalConnect salConnectCsc =
+            new SalConnect( Executive.getCscList().subList( 8, 11 ).size() );
+        
+        Executive.getCscList().subList( 8, 11 ).forEach( csc -> {
             
             SalCmd salCmdCsc = new SalCmd( csc );
             salCmdCsc.setTopic( cmdString );
@@ -407,13 +483,14 @@ public class PrimaryController implements Initializable {
         });
         salConnectCsc.connect();
 
-        //execFX.getEntityList().forEach( entity -> {
-        execFX.getEntityList().subList( 8, 11).forEach( entity -> {
+        //_exec.getEntityList().forEach( entity -> {
+        Executive.getEntityList().subList( 8, 11 ).forEach( entity -> {
             
             try {
                 checkSummaryState( entity, cmdString );
             } catch ( Exception ex ) {
-                ex.printStackTrace( out.printf( "InterruptedException from  PrimaryController.createAllCSC()" ) );
+                ex.printStackTrace( out.printf(
+                    "InterruptedException from  PrimaryController.createAllCSC()" ));
                 //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
             }
         });
@@ -421,11 +498,11 @@ public class PrimaryController implements Initializable {
     
     @FXML private void startAllCSC( ActionEvent event ) throws Exception {
 
-        out.print( Thread.currentThread()
+        out.println( Thread.currentThread()
                          .getStackTrace()[1]
                          .getMethodName() + "::" 
                                           + "Threadid: "
-                                          + Thread.currentThread().getId() + "\n" );
+                                          + Thread.currentThread().getId() );
         
         // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
@@ -433,10 +510,12 @@ public class PrimaryController implements Initializable {
         
         String cmdString = "start";
 
-        //SalConnect salConnectCsc = new SalConnect( execFX.getCscList().size() );
-        //execFX.getCscList().forEach( csc -> {
-        SalConnect salConnectCsc = new SalConnect( execFX.getCscList().subList( 8, 11).size() );
-        execFX.getCscList().subList( 8, 11).forEach( csc -> {
+        //SalConnect salConnectCsc = new SalConnect( _exec.getCscList().size() );
+        //_exec.getCscList().forEach( csc -> {
+        SalConnect salConnectCsc =
+            new SalConnect( Executive.getCscList().subList( 8, 11 ).size() );
+        
+        Executive.getCscList().subList( 8, 11 ).forEach( csc -> {
             
             SalCmd salCmdCsc = new SalCmd( csc );
             salCmdCsc.setTopic( cmdString );
@@ -444,13 +523,14 @@ public class PrimaryController implements Initializable {
         });
         salConnectCsc.connect();
 
-        //execFX.getEntityList().forEach( entity -> {
-        execFX.getEntityList().subList( 8, 11).forEach( entity -> {
+        //_exec.getEntityList().forEach( entity -> {
+        Executive.getEntityList().subList( 8, 11 ).forEach( entity -> {
             
             try {
                 checkSummaryState( entity, cmdString );
             } catch ( Exception ex ) {
-                ex.printStackTrace( out.printf( "InterruptedException from  PrimaryController.createAllCSC()" ) );
+                ex.printStackTrace(
+                    out.printf( "InterruptedException from  PrimaryController.createAllCSC()" ));
                 //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
             }
         });
@@ -458,11 +538,11 @@ public class PrimaryController implements Initializable {
 
     @FXML private void enableAllCSC( ActionEvent event ) throws Exception {
 
-        out.print( Thread.currentThread()
+        out.println( Thread.currentThread()
                          .getStackTrace()[1]
                          .getMethodName() + "::" 
                                           + "Threadid: "
-                                          + Thread.currentThread().getId() + "\n" );
+                                          + Thread.currentThread().getId() );
         
         // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
@@ -470,10 +550,12 @@ public class PrimaryController implements Initializable {
         
         String cmdString = "enable";
 
-        //SalConnect salConnectCsc = new SalConnect( execFX.getCscList().size() );
-        //execFX.getCscList().forEach( csc -> {
-        SalConnect salConnectCsc = new SalConnect( execFX.getCscList().subList( 8, 11).size() );
-        execFX.getCscList().subList( 8, 11).forEach( csc -> {
+        //SalConnect salConnectCsc = new SalConnect( _exec.getCscList().size() );
+        //_exec.getCscList().forEach( csc -> {
+        SalConnect salConnectCsc =
+            new SalConnect( Executive.getCscList().subList( 8, 11 ).size() );
+        
+        Executive.getCscList().subList( 8, 11 ).forEach( csc -> {
             
             SalCmd salCmdCsc = new SalCmd( csc );
             salCmdCsc.setTopic( cmdString );
@@ -481,13 +563,14 @@ public class PrimaryController implements Initializable {
         });
         salConnectCsc.connect();
 
-        //execFX.getEntityList().forEach( entity -> {
-        execFX.getEntityList().subList( 8, 11).forEach( entity -> {
+        //_exec.getEntityList().forEach( entity -> {
+        Executive.getEntityList().subList( 8, 11 ).forEach( entity -> {
             
             try {
                 checkSummaryState( entity, cmdString );
             } catch ( Exception ex ) {
-                ex.printStackTrace( out.printf( "InterruptedException from  PrimaryController.createAllCSC()" ) );
+                ex.printStackTrace( out.printf(
+                    "InterruptedException from  PrimaryController.createAllCSC()" ));
                 //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
             }
         });
@@ -495,11 +578,11 @@ public class PrimaryController implements Initializable {
     
     @FXML private void disableAllCSC( ActionEvent event ) throws Exception {
 
-        out.print( Thread.currentThread()
+        out.println( Thread.currentThread()
                          .getStackTrace()[1]
                          .getMethodName() + "::" 
                                           + "Threadid: "
-                                          + Thread.currentThread().getId() + "\n" );
+                                          + Thread.currentThread().getId() );
         
         // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
@@ -507,10 +590,12 @@ public class PrimaryController implements Initializable {
         
         String cmdString = "disable";
 
-        //SalConnect salConnectCsc = new SalConnect( execFX.getCscList().size() );
-        //execFX.getCscList().forEach( csc -> {
-        SalConnect salConnectCsc = new SalConnect( execFX.getCscList().subList( 8, 11).size() );
-        execFX.getCscList().subList( 8, 11).forEach( csc -> {
+        //SalConnect salConnectCsc = new SalConnect( _exec.getCscList().size() );
+        //_exec.getCscList().forEach( csc -> {
+        SalConnect salConnectCsc =
+            new SalConnect( Executive.getCscList().subList( 8, 11 ).size() );
+        
+        Executive.getCscList().subList( 8, 11 ).forEach( csc -> {
             
             SalCmd salCmdCsc = new SalCmd( csc );
             salCmdCsc.setTopic( cmdString );
@@ -518,13 +603,14 @@ public class PrimaryController implements Initializable {
         });
         salConnectCsc.connect();
 
-        //execFX.getEntityList().forEach( entity -> {
-        execFX.getEntityList().subList( 8, 11).forEach( entity -> {
+        //_exec.getEntityList().forEach( entity -> {
+        Executive.getEntityList().subList( 8, 11 ).forEach( entity -> {
             
             try {
                 checkSummaryState( entity, cmdString );
             } catch ( Exception ex ) {
-                ex.printStackTrace( out.printf( "InterruptedException from  PrimaryController.createAllCSC()" ) );
+                ex.printStackTrace( out.printf(
+                    "InterruptedException from  PrimaryController.createAllCSC()" ));
                 //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
             }
         });
@@ -532,11 +618,11 @@ public class PrimaryController implements Initializable {
     
     @FXML private void standbyAllCSC( ActionEvent event ) throws Exception {
 
-        out.print( Thread.currentThread()
+        out.println( Thread.currentThread()
                          .getStackTrace()[1]
                          .getMethodName() + "::" 
                                           + "Threadid: "
-                                          + Thread.currentThread().getId() + "\n" );
+                                          + Thread.currentThread().getId() );
         
         // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
@@ -544,10 +630,12 @@ public class PrimaryController implements Initializable {
         
         String cmdString = "standby";
 
-        //SalConnect salConnectCsc = new SalConnect( execFX.getCscList().size() );
-        //execFX.getCscList().forEach( csc -> {
-        SalConnect salConnectCsc = new SalConnect( execFX.getCscList().subList( 8, 11).size() );
-        execFX.getCscList().subList( 8, 11).forEach( csc -> {
+        //SalConnect salConnectCsc = new SalConnect( _exec.getCscList().size() );
+        //_exec.getCscList().forEach( csc -> {
+        SalConnect salConnectCsc =
+            new SalConnect( Executive.getCscList().subList( 8, 11 ).size() );
+        
+        Executive.getCscList().subList( 8, 11 ).forEach( csc -> {
             
             SalCmd salCmdCsc = new SalCmd( csc );
             salCmdCsc.setTopic( cmdString );
@@ -555,13 +643,14 @@ public class PrimaryController implements Initializable {
         });
         salConnectCsc.connect();
 
-        //execFX.getEntityList().forEach( entity -> {
-        execFX.getEntityList().subList( 8, 11).forEach( entity -> {
+        //_exec.getEntityList().forEach( entity -> {
+        Executive.getEntityList().subList( 8, 11 ).forEach( entity -> {
             
             try {
                 checkSummaryState( entity, cmdString );
             } catch ( Exception ex ) {
-                ex.printStackTrace( out.printf( "InterruptedException from  PrimaryController.createAllCSC()" ) );
+                ex.printStackTrace( out.printf(
+                    "InterruptedException from  PrimaryController.createAllCSC()" ));
                 //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
             }
         });
@@ -569,11 +658,11 @@ public class PrimaryController implements Initializable {
     
     @FXML private void exitAllCSC( ActionEvent event ) throws Exception {
 
-        out.print( Thread.currentThread()
+        out.println( Thread.currentThread()
                          .getStackTrace()[1]
                          .getMethodName() + "::" 
                                           + "Threadid: "
-                                          + Thread.currentThread().getId() + "\n" );
+                                          + Thread.currentThread().getId() );
         
         // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
@@ -581,10 +670,12 @@ public class PrimaryController implements Initializable {
         
         String cmdString = "exitControl";
 
-        //SalConnect salConnectCsc = new SalConnect( execFX.getCscList().size() );
-        //execFX.getCscList().forEach( csc -> {
-        SalConnect salConnectCsc = new SalConnect( execFX.getCscList().subList( 8, 11).size() );
-        execFX.getCscList().subList( 8, 11).forEach( csc -> {
+        //SalConnect salConnectCsc = new SalConnect( _exec.getCscList().size() );
+        //_exec.getCscList().forEach( csc -> {
+        SalConnect salConnectCsc =
+            new SalConnect( Executive.getCscList().subList( 8, 11 ).size() );
+        
+        Executive.getCscList().subList( 8, 11 ).forEach( csc -> {
             
             SalCmd salCmdCsc = new SalCmd( csc );
             salCmdCsc.setTopic( cmdString );
@@ -592,16 +683,16 @@ public class PrimaryController implements Initializable {
         });
         salConnectCsc.connect();
 
-        //execFX.getEntityList().forEach( entity -> {
-        execFX.getEntityList().subList( 8, 11).forEach( entity -> {
+        //_exec.getEntityList().forEach( entity -> {
+        Executive.getEntityList().subList( 8, 11 ).forEach( entity -> {
             
             try {
                 checkSummaryState( entity, cmdString );
             } catch ( Exception ex ) {
-                ex.printStackTrace( out.printf( "InterruptedException from  PrimaryController.createAllCSC()" ) );
+                ex.printStackTrace( out.printf(
+                    "InterruptedException from  PrimaryController.createAllCSC()" ));
                 //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
             }
         });
     }
-    
 }

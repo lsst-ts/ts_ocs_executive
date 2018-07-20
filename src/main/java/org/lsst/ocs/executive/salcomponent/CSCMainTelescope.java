@@ -14,14 +14,16 @@
 
 package org.lsst.ocs.executive.salcomponent;
 
-import org.lsst.sal.SAL_tcs;
 import static java.lang.System.out;
+import org.lsst.ocs.executive.Executive;
+import org.lsst.sal.SAL_tcs;
+
+import org.lsst.sal.SAL_scheduler;
 
 /**
  * <h2>Main Telescope Control System (MTCS) CSC</h2>
- * <p>
+ *
  * {@code CSCMainTelescope} is a (Concrete) Receiver class in the command pattern
- * <p>
  */
 public class CSCMainTelescope implements CommandableSalComponent {
 
@@ -41,7 +43,11 @@ public class CSCMainTelescope implements CommandableSalComponent {
         publisher.setDebugLevel( 1 );
         
         tcs.command_enterControl command = new tcs.command_enterControl();
-        command.state = true;
+        command.private_revCode = "LSST Main Telescope enterControl COMMAND";
+        command.device = "atcs";
+        command.property = "state";
+        command.action = "enterControl";
+        command.enterControl = true;
 
         int cmdId = publisher.issueCommand_enterControl( command );
 
@@ -51,7 +57,7 @@ public class CSCMainTelescope implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enterControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -71,7 +77,6 @@ public class CSCMainTelescope implements CommandableSalComponent {
         command.device = "mtcs";
         command.property = "start";
         command.action = "set";
-        command.configuration = "Default";
 
         int cmdId = publisher.issueCommand_start( command );
 
@@ -81,7 +86,7 @@ public class CSCMainTelescope implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_start( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -102,7 +107,6 @@ public class CSCMainTelescope implements CommandableSalComponent {
         command.device = "mtcs";
         command.property = "enable";
         command.action = "set";
-        command.state = true;
 
         int cmdId = publisher.issueCommand_enable( command );
 
@@ -112,7 +116,7 @@ public class CSCMainTelescope implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -132,7 +136,6 @@ public class CSCMainTelescope implements CommandableSalComponent {
         command.device = "mtcs";
         command.property = "disable";
         command.action = "set";
-        command.state = true;
 
         int cmdId = publisher.issueCommand_disable( command );
 
@@ -142,7 +145,7 @@ public class CSCMainTelescope implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_disable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -162,7 +165,6 @@ public class CSCMainTelescope implements CommandableSalComponent {
         command.device = "mtcs";
         command.property = "standby";
         command.action = "set";
-        command.state = true;
 
         int cmdId = publisher.issueCommand_standby( command );
 
@@ -172,7 +174,7 @@ public class CSCMainTelescope implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_standby( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -192,7 +194,6 @@ public class CSCMainTelescope implements CommandableSalComponent {
         command.device = "mtcs";
         command.property = "exitControl";
         command.action = "set";
-        command.state = true;
 
         int cmdId = publisher.issueCommand_exitControl( command );
 
@@ -202,7 +203,7 @@ public class CSCMainTelescope implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_exitControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -229,7 +230,7 @@ public class CSCMainTelescope implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_filterChangeRequest( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -289,16 +290,20 @@ public class CSCMainTelescope implements CommandableSalComponent {
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while ( Boolean.TRUE ) {
-
+            
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_tcs.SAL__OK ) {
-
-                out.println( "=== Event Logged : " + event );
-
-                /* Remove the DataWriters etc */
-                subscriber.salShutdown();
+            if ( status == SAL_scheduler.SAL__OK ) {
                 
-                return status;
+                out.println( "=== Event Logged : " + event );
+                out.println( "=== Event Status : " + status );
+                out.println( "=== Event SummaryState : " + event.summaryState );
+                
+                try {
+                    Executive.getEntityMap().get( "mtc" )._stateTransitionQ.put( event.summaryState );
+                    Executive.getEntityMap().get( "mtc" )._guiStateTransitionQ.put( event.summaryState );
+                } catch ( InterruptedException ie ) {
+                    ie.printStackTrace( out.printf( "GOOD SummaryState" ));
+                }
             }
 
             try {

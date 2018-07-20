@@ -14,33 +14,38 @@
 
 package org.lsst.ocs.executive.salcomponent;
 
-import org.lsst.sal.SAL_archiver;
+import org.lsst.sal.SAL_scheduler;
+
+import org.lsst.ocs.executive.Executive;
+
 import static java.lang.System.out;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * <h2>Data Management Archiver Service CSC</h2>
- * <p>
- * {@code CSCArchiver} is a (Concrete) Receiver class in the command pattern
- * 
+ * <h2>OCS Main Scheduler CSC</h2>
+ *
+ * {@code CSCScheduler} is a (Concrete) Receiver class in the command pattern
  */
-
 public class CSCScheduler implements CommandableSalComponent {
 
+    
+    
     @Override public String getName() { return "CSCScheduler"; }
 
     @Override public void enterControl() {
 
-        SAL_archiver publisher = new SAL_archiver();
+        SAL_scheduler publisher = new SAL_scheduler();
         publisher.salCommand( "scheduler_command_enterControl" );
 
         publisher.setDebugLevel( 1 );
         
-        archiver.command_enterControl command = new archiver.command_enterControl();
+        scheduler.command_enterControl command = new scheduler.command_enterControl();
         command.private_revCode = "LSST Archiver enterControl COMMAND";
-        command.device = "archiver";
+        command.device = "scheduler";
         command.property = "enterControl";
         command.action = "set";
-        command.state = true;
+        command.tempValue = true;
 
         int cmdId = publisher.issueCommand_enterControl( command );
 
@@ -50,7 +55,7 @@ public class CSCScheduler implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enterControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -59,17 +64,16 @@ public class CSCScheduler implements CommandableSalComponent {
 
     @Override public void start() {
 
-        SAL_archiver publisher = new SAL_archiver();
+        SAL_scheduler publisher = new SAL_scheduler();
         publisher.salCommand( "scheduler_command_start" );
 
         publisher.setDebugLevel( 1 );
         
-        archiver.command_start command = new archiver.command_start();
+        scheduler.command_start command = new scheduler.command_start();
         command.private_revCode = "LSST Archiver start COMMAND";
         command.device = "configuration";
         command.property = "start";
         command.action = "set";
-        command.configuration = "Normal";
 
         int cmdId = publisher.issueCommand_start( command );
 
@@ -79,7 +83,7 @@ public class CSCScheduler implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_start( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -89,17 +93,17 @@ public class CSCScheduler implements CommandableSalComponent {
 
     @Override public void enable() {
 
-        SAL_archiver publisher = new SAL_archiver();
+        SAL_scheduler publisher = new SAL_scheduler();
         publisher.salCommand( "scheduler_command_enable" );
 
         publisher.setDebugLevel( 1 );
         
-        archiver.command_enable command = new archiver.command_enable();
+        scheduler.command_enable command = new scheduler.command_enable();
         command.private_revCode = "LSST Archiver enable COMMAND";
-        command.device = "archiver";
+        command.device = "scheduler";
         command.property = "enable";
         command.action = "set";
-        command.state = true;
+        command.tempValue = true;
 
         int cmdId = publisher.issueCommand_enable( command );
 
@@ -109,7 +113,7 @@ public class CSCScheduler implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -118,17 +122,17 @@ public class CSCScheduler implements CommandableSalComponent {
 
     @Override public void disable() {
 
-        SAL_archiver publisher = new SAL_archiver();
+        SAL_scheduler publisher = new SAL_scheduler();
         publisher.salCommand( "scheduler_command_disable" );
 
         publisher.setDebugLevel( 1 );
         
-        archiver.command_disable command = new archiver.command_disable();
+        scheduler.command_disable command = new scheduler.command_disable();
         command.private_revCode = "LSST Archiver disable COMMAND";
-        command.device = "archiver";
+        command.device = "scheduler";
         command.property = "disable";
         command.action = "set";
-        command.state = true;
+        command.tempValue = true;
 
         int cmdId = publisher.issueCommand_disable( command );
 
@@ -138,7 +142,7 @@ public class CSCScheduler implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_disable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -147,17 +151,17 @@ public class CSCScheduler implements CommandableSalComponent {
 
     @Override public void standby() {
 
-        SAL_archiver publisher = new SAL_archiver();
+        SAL_scheduler publisher = new SAL_scheduler();
         publisher.salCommand( "scheduler_command_standby" );
 
         publisher.setDebugLevel( 1 );
         
-        archiver.command_standby command = new archiver.command_standby();
+        scheduler.command_standby command = new scheduler.command_standby();
         command.private_revCode = "LSST Archiver standby COMMAND";
-        command.device = "archiver";
+        command.device = "scheduler";
         command.property = "standby";
         command.action = "set";
-        command.state = true;
+        command.tempValue = true;
 
         int cmdId = publisher.issueCommand_standby( command );
 
@@ -167,7 +171,7 @@ public class CSCScheduler implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_standby( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -176,17 +180,17 @@ public class CSCScheduler implements CommandableSalComponent {
 
     @Override public void exitControl() {
 
-        SAL_archiver publisher = new SAL_archiver();
+        SAL_scheduler publisher = new SAL_scheduler();
         publisher.salCommand( "scheduler_command_exitControl" );
 
         publisher.setDebugLevel( 1 );
         
-        archiver.command_exitControl command = new archiver.command_exitControl();
+        scheduler.command_exitControl command = new scheduler.command_exitControl();
         command.private_revCode = "LSST Archiver exitControl COMMAND";
-        command.device = "archiver";
+        command.device = "scheduler";
         command.property = "exitControl";
         command.action = "set";
-        command.state = true;
+        command.tempValue = true;
 
         int cmdId = publisher.issueCommand_exitControl( command );
 
@@ -196,7 +200,7 @@ public class CSCScheduler implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_exitControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -206,25 +210,29 @@ public class CSCScheduler implements CommandableSalComponent {
     @Override public Integer summaryState() {
     
         // Initialize
-        SAL_archiver subscriber = new SAL_archiver();
-        subscriber.salEvent( "scheduler_logevent_SummaryState" );
+        SAL_scheduler subscriber = new SAL_scheduler();
+        subscriber.salEvent( "scheduler_logevent_summaryState" );
 
         subscriber.setDebugLevel( 1 );
         
-        archiver.logevent_SummaryState event = new archiver.logevent_SummaryState();
-
-        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
+        scheduler.logevent_summaryState event = new scheduler.logevent_summaryState();
+        
+        Integer status = CSC_STATUS.SAL__NO_UPDATES.getValue();
         while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_archiver.SAL__OK ) {
+            status = subscriber.getEvent_summaryState( event );
+            if ( status == SAL_scheduler.SAL__OK ) {
                 
-                out.println("=== Event Logged : " + event);
-
-                /* Remove the DataWriters etc */
-                subscriber.salShutdown();
+                out.println( "=== Event Logged : " + event );
+                out.println( "=== Event Status : " + status );
+                out.println( "=== Event SummaryState : " + event.summaryState );
                 
-                return status;
+                try {
+                    Executive.getEntityMap().get( "sch" )._stateTransitionQ.put( event.summaryState );
+                    Executive.getEntityMap().get( "sch" )._guiStateTransitionQ.put( event.summaryState );
+                } catch ( InterruptedException ie ) {
+                    ie.printStackTrace( out.printf( "GOOD SummaryState" ));
+                }
             }
 
             try {
@@ -233,28 +241,41 @@ public class CSCScheduler implements CommandableSalComponent {
                 e.printStackTrace();
             }
         }
+        
+//        if ( count >= 50 ) {
+//            
+//            out.println( "=== Event SummaryState Was NOT received");
+//            out.println( "=== Event Status : " + status );
+//            
+//            try {
+//                //Executive.getEntityMap().get( "sch")._stateTransitionQ.put( status );
+//                Executive._entitySCH._stateTransitionQ.put( status );
+//            } catch ( InterruptedException ie ) {
+//                ie.printStackTrace( out.printf( "BAD SummaryState" ));
+//            }
+//        }
 
         /* Remove the DataWriters etc */
-        subscriber.salShutdown();
-
+        //subscriber.salShutdown();
+        
         return status;
     }
 
     @Override public void settingsVersion() {
 
         // Initialize
-        SAL_archiver subscriber = new SAL_archiver();
-        subscriber.salEvent( "scheduler_logevent_SettingVersions" );
+        SAL_scheduler subscriber = new SAL_scheduler();
+        subscriber.salEvent( "scheduler_logevent_settingVersions" );
 
         subscriber.setDebugLevel( 1 );
         
-        archiver.logevent_SettingVersions event = new archiver.logevent_SettingVersions();
+        scheduler.logevent_settingVersions event = new scheduler.logevent_settingVersions();
 
         int status;
         while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_SettingVersions( event );
-            if ( status == SAL_archiver.SAL__OK ) {
+            status = subscriber.logEvent_settingVersions( event, 1 );
+            if ( status == SAL_scheduler.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }
 
@@ -272,18 +293,18 @@ public class CSCScheduler implements CommandableSalComponent {
     @Override public void appliedSettingsMatchStart() {
 
         // Initialize
-        SAL_archiver subscriber = new SAL_archiver();
-        subscriber.salEvent( "scheduler_logevent_AppliedSettingsMatchStart" );
+        SAL_scheduler subscriber = new SAL_scheduler();
+        subscriber.salEvent( "scheduler_logevent_appliedSettingsMatchStart" );
 
         subscriber.setDebugLevel( 1 );
         
-        archiver.logevent_AppliedSettingsMatchStart event = new archiver.logevent_AppliedSettingsMatchStart();
+        scheduler.logevent_appliedSettingsMatchStart event = new scheduler.logevent_appliedSettingsMatchStart();
 
         int status;
         while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_AppliedSettingsMatchStart( event );
-            if ( status == SAL_archiver.SAL__OK ) {
+            status = subscriber.getEvent_appliedSettingsMatchStart( event );
+            if ( status == SAL_scheduler.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }
 

@@ -14,20 +14,19 @@
 
 package org.lsst.ocs.executive;
 
-import static java.lang.System.out;
-import org.lsst.ocs.executive.salconnect.SalConnect;
 import org.lsst.ocs.executive.salservice.SalCmd;
+import org.lsst.ocs.executive.salconnect.SalConnect;
 import org.lsst.ocs.executive.salservice.SalEvent;
+
+import static java.lang.System.out;
 
 /**
  * <h2>Standby Entity State</h2>
- * <p>
+ *
  * {@code StandbyState} is a Concrete State class implementation.
  * <p>
  * Transitions to: {@code OfflineState}, {@code DisabledState} or {@code FaultState}
- *
  */
-
 public class StandbyState implements EntityState {
 
     // Entity is in StandbyState & ready for start trigger
@@ -35,8 +34,14 @@ public class StandbyState implements EntityState {
     
     @Override public void start( Entity entity ) {
         
-        String salactor = entity.getClass().getSimpleName() + "." + entity.getCSC().getClass().getSimpleName();
-        out.println( salactor + "." + this.getName() + ".start" );
+        String salactor = entity.getClass()
+                                .getSimpleName() + "." 
+                                                 + entity.getCSC().getClass().getSimpleName()
+                                                 + "."
+                                                 + this.getName()
+                                                 + ".start";
+        
+        out.println( salactor + ": " + Thread.currentThread().getId() );
 
         // Cmd Sequencer, TCS, CCS or DMCS via SAL
         // 1. SalComponent (Rcvr) reference is entity data member
@@ -69,13 +74,19 @@ public class StandbyState implements EntityState {
         }
         
         // Cmd local entity state from StandbyState to DisabledState
-        entity.setState( new DisabledState() );
+        waitForSummaryState( salactor, entity, new DisabledState() );
     }
 
     @Override public void exitControl( Entity entity ) {
         
-        String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
-        out.println( salactor + "." + this.getName() + ".exitControl" );
+        String salactor = entity.getClass()
+                                .getSimpleName() + "." 
+                                                 + entity.getCSC().getClass().getSimpleName()
+                                                 + "."
+                                                 + this.getName()
+                                                 + ".exitControl";
+        
+        out.println( salactor + ": " + Thread.currentThread().getId() );
 
         // Cmd Sequencer, TCS, CCS or DMCS via SAL
         // 1. SalComponent (Rcvr) reference is entity data member
@@ -106,13 +117,19 @@ public class StandbyState implements EntityState {
         }
         
         // Cmd local entity state from StandbyState to OfflineState
-        entity.setState( new OfflineState() );
+        waitForSummaryState( salactor, entity, new OfflineState() );
     }
 
     @Override public void fault( Entity entity ) {
         
-        String salactor = entity.getClass().getSimpleName() + entity.getCSC().getClass().getSimpleName();
-        out.println( salactor + "." + this.getName() + ".fault" );
+        String salactor = entity.getClass()
+                                .getSimpleName() + "." 
+                                                 + entity.getCSC().getClass().getSimpleName()
+                                                 + "."
+                                                 + this.getName()
+                                                 + ".fault";
+        
+        out.println( salactor + ": " + Thread.currentThread().getId() );
 
         // Can't set other entities to FaultState, only myself
         if ( EntityType.OCS.toString().equalsIgnoreCase( salactor)  ) {

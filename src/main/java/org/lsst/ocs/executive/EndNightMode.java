@@ -13,14 +13,14 @@
  */
 
 package org.lsst.ocs.executive;
+
 import static java.lang.System.out;
 
 /**
+ * <h2>End Night Mode</h2>
  *
- * EndNightMode is a Concrete State class implementation
- *
+ * {@code EndNightMode} is a Concrete State class implementation
  */
-
 public class EndNightMode implements ModeState {
     
     @Override public String getName() { return "EndNightMode"; }

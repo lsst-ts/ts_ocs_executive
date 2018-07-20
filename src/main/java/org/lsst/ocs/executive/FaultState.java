@@ -13,23 +13,28 @@
  */
 
 package org.lsst.ocs.executive;
+
 import static java.lang.System.out;
 
 /**
  * <h2>Fault Entity State</h2>
- * <p>
- * {@code FaultState} is a Concrete State class implementation.
  *
+ * {@code FaultState} is a Concrete State class implementation.
  */
-
 public class FaultState implements EntityState {
 
     @Override public String getName() { return "FaultState"; }
     
     @Override public void exitControl( Entity entity ) {
         
-        String salactor = entity.getClass().getSimpleName() + "." + entity.getCSC().getClass().getSimpleName();
-        out.println( salactor + "." + this.getName() + ".fault" );
+        String salactor = entity.getClass()
+                                .getSimpleName() + "." 
+                                                 + entity.getCSC().getClass().getSimpleName()
+                                                 + "."
+                                                 + this.getName()
+                                                 + ".exitControl";
+        
+        out.println( salactor + ": " + Thread.currentThread().getId() );
 
         if ( EntityType.OCS.toString().equalsIgnoreCase( salactor ) ) {
             

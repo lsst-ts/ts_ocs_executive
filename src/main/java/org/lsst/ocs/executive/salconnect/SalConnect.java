@@ -14,23 +14,23 @@
 
 package org.lsst.ocs.executive.salconnect;
 
+import org.lsst.ocs.executive.DomainObject;
+import org.lsst.ocs.executive.salservice.SalService;
+
 import static java.lang.System.out;
-import java.util.concurrent.Executors;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 
-import org.lsst.ocs.executive.DomainObject;
-import org.lsst.ocs.executive.salservice.SalService;
-
 /**
  * <h2>SAL Connect</h2>
- * <p>
+ *
  * {@code SalConnect} is the Invoker class in the command pattern
- * <p>
  */
 public class SalConnect implements DomainObject {
 
@@ -49,7 +49,8 @@ public class SalConnect implements DomainObject {
         try {
             _salServiceQ.put( salService );
         } catch ( Exception e ) {
-            e.printStackTrace( out.printf( this.getName() + "interrupted from SalCmd.execute()" ) );
+            e.printStackTrace( 
+                out.printf( this.getName() + "interrupted from SalCmd.execute()" ));
         }
     }
 
@@ -65,17 +66,18 @@ public class SalConnect implements DomainObject {
     public void connect () {
 
         ExecutorService es = Executors.newFixedThreadPool( _numTasks );
-
-        Object monitor = new Object();
+        //ExecutorService es = Executors.newCachedThreadPool();
 
         int ndx;
         for ( ndx = 0; ndx < _numTasks; ndx++ ) {
+            
             //_salServiceTasks[i] = new Task<Void>()  {
             _salServiceTasksList.add( new Task<Void>() {
 
                 @Override
                 protected Void call () {
-                    while ( !( _salServiceQ.isEmpty() ) ) {
+                    while ( !( _salServiceQ.isEmpty() )) {
+                        
                         _salService = _salServiceQ.poll();
 
                         /* Command Pattern: commandIF.execute() */
@@ -84,10 +86,10 @@ public class SalConnect implements DomainObject {
 
                     return null;
                 }
-            } );
+            });
 
             //es.submit( _salServiceTasks[ndx] );
-            es.submit( _salServiceTasksList.get( ndx ) );
+            es.submit( _salServiceTasksList.get( ndx ));
         }
 
         // TODO: need to loop through all tasks to check if runnung
@@ -95,15 +97,17 @@ public class SalConnect implements DomainObject {
         _salServiceTasksList.forEach( ( Task<Void> task ) -> {
             
             synchronized ( new Object() ) {
+                
                 while ( task.isRunning() ) {
+                    
                     try {
-                        Thread.sleep( 10 );
+                        Thread.sleep( 3 );
                     } catch ( InterruptedException e ) {
                         e.printStackTrace();
                     }
                 }
             }
-        } );
+        });
 
         es.shutdown();
     }

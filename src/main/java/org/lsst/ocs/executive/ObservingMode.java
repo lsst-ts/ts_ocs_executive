@@ -15,12 +15,11 @@
 package org.lsst.ocs.executive;
 
 /**
+ * <h2>Observing Mode</h2>
  *
- * ObservingMode is a type-safe constant type
- *
+ * {@code ObservingMode} is a is a type-safe constant type class
  */
-
-public final class ObservingMode { // final class
+public final class ObservingMode {
     
     private final String _obsMode;
     

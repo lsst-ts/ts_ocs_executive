@@ -13,39 +13,97 @@
  */
 
 package org.lsst.ocs.executive;
+
 import static java.lang.System.out;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+import java.util.Objects;
+
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 
 /**
  * <h2>Entity State</h2>
- * <p>
- * {@code EntityState} is an abstract state base class in the state pattern
  *
+ * {@code EntityState} is an abstract state base class in the state pattern
  */
 public interface EntityState extends DomainObject {
 
     // cmd entity from [OfflineState,OfflineState[AvailableState]] to StandbyState
     // external entity usage
-    default public void enterControl( Entity entity ) { out.println("state transition error"); } 
+    default public void enterControl( Entity entity ) { out.println( "state transition  error" ); } 
     
     // cmd entity from StandbyState to [OfflineState,OfflineState[PublishOnlyState]]
     // external entity usage
-    default public void exitControl( Entity entity ) { out.println("state transition error"); }
+    default public void exitControl( Entity entity ) { out.println( "state transition  error" ); }
     
     // Entity is in StandbyState & ready for start trigger & transitions to DisabledState
     // external entity usage
-    default public void start( Entity entity ) { out.println("state transition error"); };
+    default public void start( Entity entity ) { out.println( "state transition  error" ); };
     
     // cmd entity from DisabledState to StandbyState
-    default public void standby( Entity entity ) { out.println("state transition error"); }
+    default public void standby( Entity entity ) { out.println( "state transition  error" ); }
     
     // cmd entity from DisabledState to EnabledState
     // external entity usage??
-    default public void enable( Entity entity ) { out.println("state transition error"); }
+    default public void enable( Entity entity ) { out.println( "state transition   error"  ); }
     
     // cmd entity from EnabledState to DisabledState
     // external entity usage??
-    default public void disable( Entity entity ) { out.println("state transition error"); }
+    default public void disable( Entity entity ) { out.println( "state transition  error" ); }
     
     // cmd OCS entity from [StandbyState,EnabledState,DisabledState] to FaultState
-    default public void fault( Entity entity ) { out.println("state transition error"); }
+    default public void fault( Entity entity ) { out.println( "state transition  error" ); }
+    
+    default void waitForSummaryState( String salactor, Entity entity, EntityState newState ) {
+        
+        Service service = new Service() {
+
+            @Override protected Task createTask () {
+
+                //Thread.currentThread().setName( "StateCheck SumState Service" );
+                
+                return new Task<Void>() {
+                    
+                    @Override protected Void call() throws Exception {
+
+                        try {
+                            Thread.currentThread().setName( "StateCheck SumState Service" );
+                            //out.println( "StateCheck SumState Service part 1: " + Thread.currentThread().getId() );
+                            
+                            // Retrieves and removes the head of this queue, 
+                            // waiting if necessary, for another thread to insert it.
+                            Integer state =  entity._stateTransitionQ.take();
+                            
+                            //if ( state == CommandableSalComponent.CSC_STATUS.SAL__OK.getValue() )
+                            if ( state >= 1 && !Objects.equals( entity.getStateInteger(), state ) ) {
+                                // Cmd local entity state from OfflineState[AvailableState] to StandbyState
+                                // State Pattern: Context.request()
+                                entity.setState( newState );
+                                entity.setStateInteger( state );
+                                out.println( "<!--- GOT State Transition --!>" );
+                            }
+                            else
+                                out.println( "<!--- NO State Transition --!>" +
+                                             "Due to NO SummaryState Confirmation in: " + salactor );
+                                
+                        } catch ( InterruptedException ie ) {
+                            ie.printStackTrace(
+                                out.printf( "Interrupted Exception in: " + salactor ));
+                        }
+                        
+                        //out.println( "StateCheck SumState Service part 2: " + Thread.currentThread().getId() );
+                        
+                        return null;
+                    }
+                };
+            }
+        };
+        
+        ExecutorService es = Executors.newSingleThreadExecutor();
+        service.setExecutor( es );
+        service.start();
+        es.shutdown();
+    }
+    
 }

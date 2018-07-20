@@ -15,15 +15,16 @@
 package org.lsst.ocs.executive.salcomponent;
 
 import static java.lang.System.out;
+import org.lsst.ocs.executive.Executive;
 import org.lsst.sal.SAL_atHeaderService;
+
+import org.lsst.sal.SAL_scheduler;
 
 /**
  * <h2>Data Management Header Service CSC</h2>
- * <p>
- * {@code CSCHeaderService} is a (Concrete) Receiver class in the command pattern
  *
+ * {@code CSCHeaderService} is a (Concrete) Receiver class in the command pattern
  */
-
 public class CSCAuxHeaderService implements CommandableSalComponent {
     
     @Override public String getName() { return "CSCAuxHeaderService"; }
@@ -49,7 +50,7 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enterControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -77,7 +78,7 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_start( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -106,7 +107,7 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -134,7 +135,7 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_disable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -162,7 +163,7 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_standby( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -190,7 +191,7 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_exitControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -211,14 +212,18 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_atHeaderService.SAL__OK ) {
+            if ( status == SAL_scheduler.SAL__OK ) {
                 
-                out.println("=== Event Logged : " + event);
-
-                /* Remove the DataWriters etc */
-                subscriber.salShutdown();
+                out.println( "=== Event Logged : " + event );
+                out.println( "=== Event Status : " + status );
+                out.println( "=== Event SummaryState : " + event.summaryState );
                 
-                return status;
+                try {
+                    Executive.getEntityMap().get( "ahd" )._stateTransitionQ.put( event.summaryState );
+                    Executive.getEntityMap().get( "ahd" )._guiStateTransitionQ.put( event.summaryState );
+                } catch ( InterruptedException ie ) {
+                    ie.printStackTrace( out.printf( "GOOD SummaryState" ));
+                }
             }
 
             try {

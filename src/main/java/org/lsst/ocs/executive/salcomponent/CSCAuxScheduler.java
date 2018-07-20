@@ -14,16 +14,16 @@
 
 package org.lsst.ocs.executive.salcomponent;
 
-import org.lsst.sal.SAL_atScheduler;
 import static java.lang.System.out;
+import org.lsst.ocs.executive.Executive;
+import org.lsst.sal.SAL_atScheduler;
+import org.lsst.sal.SAL_scheduler;
 
 /**
- * <h2>Data Management Archiver Service CSC</h2>
- * <p>
- * {@code CSCArchiver} is a (Concrete) Receiver class in the command pattern
- * 
+ * <h2>OCS Auxiliary Scheduler CSC</h2>
+ *
+ * {@code CSCAuxScheduler} is a (Concrete) Receiver class in the command pattern
  */
-
 public class CSCAuxScheduler implements CommandableSalComponent {
 
     @Override public String getName() { return "CSCAuxScheduler"; }
@@ -31,16 +31,16 @@ public class CSCAuxScheduler implements CommandableSalComponent {
     @Override public void enterControl() {
 
         SAL_atScheduler publisher = new SAL_atScheduler();
-        publisher.salCommand( "ascheduler_command_enterControl" );
+        publisher.salCommand( "atScheduler_command_enterControl" );
 
         publisher.setDebugLevel( 1 );
         
         atScheduler.command_enterControl command = new atScheduler.command_enterControl();
-        command.private_revCode = "LSST Archiver enterControl COMMAND";
-        command.device = "archiver";
-        command.property = "enterControl";
-        command.action = "set";
-        command.state = true;
+        command.private_revCode = "LSST Aux Scheduler enterControl COMMAND";
+        command.device = "atScheduler";
+        command.property = "state";
+        command.action = "enterControl";
+        command.tempValue = true;
 
         int cmdId = publisher.issueCommand_enterControl( command );
 
@@ -50,7 +50,7 @@ public class CSCAuxScheduler implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enterControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -60,16 +60,14 @@ public class CSCAuxScheduler implements CommandableSalComponent {
     @Override public void start() {
 
         SAL_atScheduler publisher = new SAL_atScheduler();
-        publisher.salCommand( "ascheduler_command_start" );
+        publisher.salCommand( "atScheduler_command_start" );
 
         publisher.setDebugLevel( 1 );
         
         atScheduler.command_start command = new atScheduler.command_start();
-        command.private_revCode = "LSST Archiver start COMMAND";
-        command.device = "configuration";
-        command.property = "start";
-        command.action = "set";
-        command.configuration = "Normal";
+        command.private_revCode = "LSST Aux Scheduler start COMMAND";
+        command.device = "atScheduler";
+        command.property = "state";
 
         int cmdId = publisher.issueCommand_start( command );
 
@@ -79,7 +77,7 @@ public class CSCAuxScheduler implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_start( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -90,16 +88,16 @@ public class CSCAuxScheduler implements CommandableSalComponent {
     @Override public void enable() {
 
         SAL_atScheduler publisher = new SAL_atScheduler();
-        publisher.salCommand( "ascheduler_command_enable" );
+        publisher.salCommand( "atScheduler_command_enable" );
 
         publisher.setDebugLevel( 1 );
         
         atScheduler.command_enable command = new atScheduler.command_enable();
-        command.private_revCode = "LSST Archiver enable COMMAND";
-        command.device = "archiver";
-        command.property = "enable";
-        command.action = "set";
-        command.state = true;
+        command.private_revCode = "LSST Aux Scheduler enable COMMAND";
+        command.device = "atScheduler";
+        command.property = "state";
+        command.action = "enable";
+        command.tempValue = true;
 
         int cmdId = publisher.issueCommand_enable( command );
 
@@ -109,7 +107,7 @@ public class CSCAuxScheduler implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_enable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -119,16 +117,16 @@ public class CSCAuxScheduler implements CommandableSalComponent {
     @Override public void disable() {
 
         SAL_atScheduler publisher = new SAL_atScheduler();
-        publisher.salCommand( "ascheduler_command_disable" );
+        publisher.salCommand( "atScheduler_command_disable" );
 
         publisher.setDebugLevel( 1 );
         
         atScheduler.command_disable command = new atScheduler.command_disable();
-        command.private_revCode = "LSST Archiver disable COMMAND";
-        command.device = "archiver";
-        command.property = "disable";
-        command.action = "set";
-        command.state = true;
+        command.private_revCode = "LSST Aux Scheduler disable COMMAND";
+        command.device = "atScheduler";
+        command.property = "state";
+        command.action = "disable";
+        command.tempValue = true;
 
         int cmdId = publisher.issueCommand_disable( command );
 
@@ -138,7 +136,7 @@ public class CSCAuxScheduler implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_disable( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -148,16 +146,16 @@ public class CSCAuxScheduler implements CommandableSalComponent {
     @Override public void standby() {
 
         SAL_atScheduler publisher = new SAL_atScheduler();
-        publisher.salCommand( "ascheduler_command_standby" );
+        publisher.salCommand( "atScheduler_command_standby" );
 
         publisher.setDebugLevel( 1 );
         
         atScheduler.command_standby command = new atScheduler.command_standby();
-        command.private_revCode = "LSST Archiver standby COMMAND";
-        command.device = "archiver";
-        command.property = "standby";
-        command.action = "set";
-        command.state = true;
+        command.private_revCode = "LSST Aux Scheduler standby COMMAND";
+        command.device = "atScheduler";
+        command.property = "state";
+        command.action = "standby";
+        command.tempValue = true;
 
         int cmdId = publisher.issueCommand_standby( command );
 
@@ -167,7 +165,7 @@ public class CSCAuxScheduler implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_standby( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -177,16 +175,16 @@ public class CSCAuxScheduler implements CommandableSalComponent {
     @Override public void exitControl() {
 
         SAL_atScheduler publisher = new SAL_atScheduler();
-        publisher.salCommand( "ascheduler_command_exitControl" );
+        publisher.salCommand( "atScheduler_command_exitControl" );
 
         publisher.setDebugLevel( 1 );
         
         atScheduler.command_exitControl command = new atScheduler.command_exitControl();
-        command.private_revCode = "LSST Archiver exitControl COMMAND";
-        command.device = "archiver";
-        command.property = "exitControl";
-        command.action = "set";
-        command.state = true;
+        command.private_revCode = "LSST Aux Scheduler exitControl COMMAND";
+        command.device = "atScheduler";
+        command.property = "state";
+        command.action = "exitControl";
+        command.tempValue = true;
 
         int cmdId = publisher.issueCommand_exitControl( command );
 
@@ -196,7 +194,7 @@ public class CSCAuxScheduler implements CommandableSalComponent {
             e.printStackTrace();
         }
 
-        int timeout = 3;
+        int timeout = 4;
         publisher.waitForCompletion_exitControl( cmdId, timeout );
 
         /* Remove the DataWriters etc */
@@ -207,24 +205,28 @@ public class CSCAuxScheduler implements CommandableSalComponent {
     
         // Initialize
         SAL_atScheduler subscriber = new SAL_atScheduler();
-        subscriber.salEvent( "ascheduler_logevent_SummaryState" );
+        subscriber.salEvent( "atScheduler_logevent_SummaryState" );
 
         subscriber.setDebugLevel( 1 );
         
-        atScheduler.logevent_SummaryState event = new atScheduler.logevent_SummaryState();
+        atScheduler.logevent_summaryState event = new atScheduler.logevent_summaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_atScheduler.SAL__OK ) {
+            status = subscriber.getEvent_summaryState( event );
+            if ( status == SAL_scheduler.SAL__OK ) {
                 
-                out.println("=== Event Logged : " + event);
-
-                /* Remove the DataWriters etc */
-                subscriber.salShutdown();
+                out.println( "=== Event Logged : " + event );
+                out.println( "=== Event Status : " + status );
+                out.println( "=== Event SummaryState : " + event.summaryState );
                 
-                return status;
+                try {
+                    Executive.getEntityMap().get( "asc" )._stateTransitionQ.put( event.summaryState );
+                    Executive.getEntityMap().get( "asc" )._guiStateTransitionQ.put( event.summaryState );
+                } catch ( InterruptedException ie ) {
+                    ie.printStackTrace( out.printf( "GOOD SummaryState" ));
+                }
             }
 
             try {
@@ -244,16 +246,16 @@ public class CSCAuxScheduler implements CommandableSalComponent {
 
         // Initialize
         SAL_atScheduler subscriber = new SAL_atScheduler();
-        subscriber.salEvent( "ascheduler_logevent_SettingVersions" );
+        subscriber.salEvent( "atScheduler_logevent_SettingVersions" );
 
         subscriber.setDebugLevel( 1 );
         
-        atScheduler.logevent_SettingVersions event = new atScheduler.logevent_SettingVersions();
+        atScheduler.logevent_settingVersions event = new atScheduler.logevent_settingVersions();
 
         int status;
         while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_SettingVersions( event );
+            status = subscriber.getEvent_settingVersions( event );
             if ( status == SAL_atScheduler.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }
@@ -273,16 +275,16 @@ public class CSCAuxScheduler implements CommandableSalComponent {
 
         // Initialize
         SAL_atScheduler subscriber = new SAL_atScheduler();
-        subscriber.salEvent( "ascheduler_logevent_AppliedSettingsMatchStart" );
+        subscriber.salEvent( "atScheduler_logevent_AppliedSettingsMatchStart" );
 
         subscriber.setDebugLevel( 1 );
         
-        atScheduler.logevent_AppliedSettingsMatchStart event = new atScheduler.logevent_AppliedSettingsMatchStart();
+        atScheduler.logevent_appliedSettingsMatchStart event = new atScheduler.logevent_appliedSettingsMatchStart();
 
         int status;
         while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_AppliedSettingsMatchStart( event );
+            status = subscriber.getEvent_appliedSettingsMatchStart( event );
             if ( status == SAL_atScheduler.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }

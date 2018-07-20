@@ -14,13 +14,15 @@
 
 package org.lsst.ocs.executive;
 
-import javafx.concurrent.Task;
-import org.lsst.ocs.executive.salcomponent.*;
+import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
+
 import static java.lang.System.out;
+
+import javafx.concurrent.Task;
 
 /**
  * <h2>Command Task</h2>
- * <p>
+ *
  * The {@code CmdTask} class implements the {@link Task} interface and overrides
  * the {@code call()} method defined in it. The {@code CmdTask} class wraps a
  * SAL command topic and is intended to be run in a separate {@link Thread}.
@@ -36,14 +38,12 @@ public class CmdTask extends Task<Void> {
 
     private final CommandableSalComponent _csc;
     private final String _cmd;
-    private String _name;
 
     public CmdTask( CommandableSalComponent csc, String cmd ) {
 
         this._csc = csc;
         this._cmd = cmd;
         this._entity = null;
-        this._name = "CmdTask" + "::" + this._csc.getName();
     }
 
     public CmdTask( Entity entity, String cmd ) {
@@ -51,32 +51,33 @@ public class CmdTask extends Task<Void> {
         this._entity = entity;
         this._cmd = cmd;
         this._csc = entity.getCSC();
-        this._name = "CmdTask" + "::" + this._csc.getName();
     }
 
-    public String getName() { return _name; }
+    public String getName() {
+        
+        return "CmdTask" + "::" + this._csc.getName() + "::" + this._cmd;
+    }
 
     @Override
     public Void call () {
 
         Thread.currentThread().setName( getName() );
-        out.print( this.getName() + "::"
-                                  + Thread.currentThread().getStackTrace()[1].getMethodName()
-                                  + "::"
-                                  + this._cmd
-                                  + "::"
-                                  + "Threadid: "
-                                  + Thread.currentThread().getId() + "\n" );
+        out.println( this.getName() + "::"
+                                    + Thread.currentThread().getStackTrace()[1].getMethodName()
+                                    + "::"
+                                    + "Threadid: "
+                                    + Thread.currentThread().getId() );
 
         try {
             /* State Pattern: Context.request() [e.g. entityMTCS.enterControl()] */
             _entity.getClass()
                    /* specify method & that it takes no (i.e. null) args */
-                   .getMethod( this._cmd, new Class[]{} )
+                   .getMethod( this._cmd, new Class<?>[]{} )
                    /* invoke w/ null args */
                    .invoke( this._entity, new Object[]{} );
         } catch ( Exception e ) {
-            e.printStackTrace( out.printf( this.getName() + "interrupted from CmdTask.call()" ) );
+            e.printStackTrace(
+                out.printf( this.getName() + "interrupted from CmdTask.call()" ));
         }
 
         return null;

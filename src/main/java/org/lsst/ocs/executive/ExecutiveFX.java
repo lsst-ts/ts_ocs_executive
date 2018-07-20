@@ -14,142 +14,35 @@
 
 package org.lsst.ocs.executive;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.lsst.ocs.executive.gui.primary.PrimaryController;
+
+import java.util.Optional;
+
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import org.lsst.ocs.executive.gui.primary.PrimaryController;
-import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
+import javafx.stage.WindowEvent;
 
 /**
  * <h2>Executive FX</h2>
- * <p>
+ *
  * The {@code ExecutiveFX} class is the entry point of this JavaFX application.
  */
 public class ExecutiveFX extends Application {
 
-    /**
-         * The data as observable lists.
-         */
-    private final ObservableList<CommandableSalComponent> cscList = FXCollections.observableArrayList();
-
-    private final ObservableList<Entity> entityList = FXCollections.observableArrayList();
-
-    private final ObservableList<String> mtcsCmdList = FXCollections.observableArrayList();
-
-    private final ObservableList<String> ccsCmdList = FXCollections.observableArrayList();
-
-    public static final Map<String, String> STATE_TEXT_MAP = new HashMap<String, String>() {
-        {
-            // cmdString, State
-            put( "enterControl", "STANDBY"  );
-            put( "start"       , "DISABLED" );
-            put( "enable"      , "ENABLED"  );
-            put( "disable"     , "DISABLED" );
-            put( "standby"     , "STANDBY"  );
-            put( "exitControl" , "OFFLINE"  );
-        }
-    };
-
-    public static final Map<String, Entity> STATE_ENTITY_MAP = new HashMap<String, Entity>() {
-        {
-            // StateMenu ID, Entity
-            put( "sch", Executive.entitySCH  );
-            put( "mtc", Executive.entityMTCS );
-            put( "ccs", Executive.entityCCS  );
-            put( "arc", Executive.entityARC  );
-            put( "cat", Executive.entityCAT  );
-            put( "pro", Executive.entityPRO  );
-            put( "hdr", Executive.entityHDR  );
-            put( "asc", Executive.entityASCH );
-            put( "atc", Executive.entityATCS );
-            put( "acc", Executive.entityACCS );
-            put( "aar", Executive.entityAARC );
-            put( "ahd", Executive.entityAHDR );
-        }
-    };
-
-    public static final Map<String, Entity> CMD_CSC_MAP = new HashMap<String, Entity>() {
-        {
-            // CmdMenu ID, Csc
-            put( "mtc", Executive.entityMTCS );
-            put( "ccs", Executive.entityCCS  );
-            put( "atc", Executive.entityATCS );
-            put( "acc", Executive.entityACCS );
-        }
-    };
-
-    /**
-         * Constructor
-         *
-         * @throws InterruptedException A few of the methods throw exceptions
-         */
-    public ExecutiveFX() throws Exception {
-
-        cscList.add( Executive.cscSCH );
-        cscList.add( Executive.cscMTCS );
-        cscList.add( Executive.cscCCS  );
-        cscList.add( Executive.cscARC  );
-        cscList.add( Executive.cscCAT  );
-        cscList.add( Executive.cscPRO  );
-        cscList.add( Executive.cscHDR  );
-        cscList.add( Executive.cscASCH );
-        cscList.add( Executive.cscATCS );
-        cscList.add( Executive.cscACCS );
-        cscList.add( Executive.cscAARC );
-        cscList.add( Executive.cscAHDR );
-
-        entityList.add( Executive.entitySCH );
-        entityList.add( Executive.entityMTCS );
-        entityList.add( Executive.entityCCS  );
-        entityList.add( Executive.entityARC  );
-        entityList.add( Executive.entityCAT  );
-        entityList.add( Executive.entityPRO  );
-        entityList.add( Executive.entityHDR  );
-        entityList.add( Executive.entityASCH );
-        entityList.add( Executive.entityATCS );
-        entityList.add( Executive.entityACCS );
-        entityList.add( Executive.entityAARC );
-        entityList.add( Executive.entityAHDR );
-
-        mtcsCmdList.add( "filterChange" );
-        mtcsCmdList.add( "target"       );
-
-        ccsCmdList.add( "setFilter" );
-        ccsCmdList.add( "takeImage" );
-    }
-
-    /**
-         * Returns the observable list of non-active CSCs.
-         *
-         * @return List of pre-instantiated CSCs
-         */
-    public ObservableList<CommandableSalComponent> getCscList() { return cscList; }
-
-    public ObservableList<Entity> getEntityList() { return entityList; }
-
-    public ObservableList<String> getMTcsCmdList() { return mtcsCmdList; }
-
-    public ObservableList<String> getCcsCmdList() { return ccsCmdList; }
-
-    /**
-         * Returns the observable list of active CSCs.
-         *
-         * @return
-         */
     private PrimaryController controller;
+    private Alert confirmQuitAlert;
 
     /**
-         * The {@code start()} method is the main entry point for all JavaFX
-         * applications
-         */
+          * The {@code start()} method is the main entry point for all JavaFX  applications
+          */
     @Override
     public void start( Stage primaryStage ) throws Exception { // Stage class is the top-level JavaFX container
 
@@ -163,11 +56,11 @@ public class ExecutiveFX extends Application {
         //BorderPane rootBorderPane = FXMLLoader.load( getClass().getResource( "/fxml/primaryFXML.fxml" ) );
         String fxmlFile = "/fxml/primaryFXML.fxml";
         FXMLLoader loader = new FXMLLoader();
-        Parent rootBorderPane = (Parent) loader.load( getClass().getResourceAsStream( fxmlFile ) );
+        Parent rootBorderPane = (Parent) loader.load( getClass().getResourceAsStream( fxmlFile ));
 
         // Give the controller access to the main app.
-        controller = loader.getController();
-        controller.setExecFXApp( this );
+        //controller = loader.getController();
+        //controller.setExecFXApp( this );
 
         // OR
         // 2.
@@ -180,16 +73,44 @@ public class ExecutiveFX extends Application {
 
         /* Set the Scene to the Stage, set the Stage Title, disable window resizing  & display the Stage */
         primaryStage.setScene( scene );
-        primaryStage.setTitle( "OCS Executive GUI" );
+        primaryStage.setTitle( "OCS Executive EUI" );
         primaryStage.setResizable( false );
         primaryStage.show();
+        
+        /* exit all secondary windows when primary window close for the 'X' close button*/
+        primaryStage.setOnCloseRequest( ( WindowEvent we ) -> {
+            
+            confirmQuitAlert = new Alert( Alert.AlertType.CONFIRMATION );
+            confirmQuitAlert.setTitle( "Quit Application" );
+            confirmQuitAlert.setHeaderText( "Quit?" );
+            confirmQuitAlert.setContentText( "Do you really want to quit?" );
+
+            ButtonType quitButton   = new ButtonType( "Quit" );
+            ButtonType cancelButton = new ButtonType( "Cancel", 
+                                                      ButtonBar.ButtonData.CANCEL_CLOSE );
+
+            confirmQuitAlert.initModality( Modality.APPLICATION_MODAL );
+            confirmQuitAlert.getButtonTypes().setAll( quitButton, cancelButton );
+
+            Optional<ButtonType> result = confirmQuitAlert.showAndWait();
+
+            if ( result.get() == quitButton ) {
+                
+                Platform.exit();
+                
+                System.exit( 0 );
+            } else {
+                // cancel the close request by consuming the event
+                we.consume();
+            }            
+        });
     }
 
     /**
-         * Overriding {@code stop()} method to add {@code System.exit()} so ALL
-         * threads (JavaFX and non Java-FX threads) will be terminated when clicking
-         * 'x' on the {@code primaryStage} window.
-         */
+          * Overriding {@code stop()} method to add {@code System.exit()} so ALL
+          * threads (JavaFX and non Java-FX threads) will be terminated when clicking
+          * 'x' on the {@code primaryStage} window.
+          */
     @Override
     public void stop() throws Exception {
         
@@ -201,22 +122,63 @@ public class ExecutiveFX extends Application {
 
         // Terminates the JavaFX Application & Launcher threads
         Platform.exit();
+        
         // Terminates the current JVM (basically killing non-JavaFX threads)
         System.exit( 0 );
     }
 
     /**
-         * This is the {@code main()} method which launches the application using
-         * the {@code launch()} method.
-         * <p>
-         * The {@code launch()} method internally calls the {@code start()} method
-         * of the {@link Application} class.
-         *
-         * @param args n/a
-         */
+          * This is the {@code main()} method which launches the application using the {@code launch()} method.
+          * <p>
+          * The {@code launch()} method internally calls the {@code start()} method of the {@link Application} class.
+          *
+          * @param args n/a
+          */
     public static void main( String[] args ) {
 
         launch( args );
     }
-
 }
+
+    
+//import static javafx.geometry.Pos.CENTER;
+//import javafx.scene.control.Button;
+//import javafx.scene.layout.VBox;
+//import javafx.scene.Scene;
+//import javafx.stage.Stage;
+//import javafx.scene.text.Text;
+//
+//    public void invokeWindow( Stage primaryStage ) {
+//
+//        Button btn = new Button();
+//        Text msg = new Text();
+//
+//        btn.setText( "Say 'Hello World'" );
+//
+//        btn.setOnAction( event -> {
+//
+//            msg.setText( "Hello World! JavaFX style :)" );
+//        });
+//
+//        btn.setVisible( true );
+//
+//        // root node of the scene is a vertical box
+//        // btn control added to 1st row in column; text msg control added to 2nd row in same column
+//        VBox root = new VBox( 10, btn, msg );
+//        root.setAlignment( CENTER );
+//
+//        // Scene class is the container for all content
+//        Scene scene = new Scene( root, 300, 250 );
+//
+//        primaryStage.setTitle( "Hello JavaFX 8 World!" );
+//        primaryStage.setScene( scene );
+//        primaryStage.show();
+//
+//        out.print( this.getClass()
+//                       .getSimpleName() + "::"
+//                                        + Thread.currentThread().getStackTrace()[1].getMethodName()
+//                                        + "::" );
+//
+//        out.print( Thread.currentThread().getName() );
+//        out.println( " " + "id: " + Thread.currentThread().getId() );
+//    }

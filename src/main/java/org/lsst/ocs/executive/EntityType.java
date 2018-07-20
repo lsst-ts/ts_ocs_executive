@@ -16,9 +16,8 @@ package org.lsst.ocs.executive;
 
 /**
  * <h2>Entity Type</h2>
- * <p>
- * {@code EntityType} is an {@code enum} type to specifically identify subsystems
  *
+ * {@code EntityType} is an {@code enum} type to specifically identify subsystems
  */
 public enum EntityType {
     
