@@ -17,29 +17,31 @@ package org.lsst.ocs.executive.salcomponent;
 import static java.lang.System.out;
 import org.lsst.ocs.executive.EntityType;
 import org.lsst.ocs.executive.Executive;
-import org.lsst.sal.SAL_atHeaderService;
+import org.lsst.sal.SAL_atScheduler;
+import org.lsst.sal.SAL_scheduler;
 
 /**
- * <h2>Data Management Header Service CSC</h2>
+ * <h2>OCS Auxiliary Scheduler CSC</h2>
  *
- * {@code CSCHeaderService} is a (Concrete) Receiver class in the command pattern
+ * {@code CSCAuxScheduler} is a (Concrete) Receiver class in the command pattern
  */
-public class CSCAuxHeaderService implements CommandableSalComponent {
-    
-    @Override public String getName() { return "CSCAuxHeaderService"; }
+public class CSCAuxScheduler implements CommandableSalComponent {
 
-    @Override public void enterControl( Object [] args ) { 
-    
-        SAL_atHeaderService publisher = new SAL_atHeaderService();
-        publisher.salCommand( "atHeaderService_command_enterControl" );
+    @Override public String getName() { return "CSCAuxScheduler"; }
+
+    @Override public void enterControl() {
+
+        SAL_atScheduler publisher = new SAL_atScheduler();
+        publisher.salCommand( "atScheduler_command_enterControl" );
 
         publisher.setDebugLevel( 1 );
         
-        atHeaderService.command_enterControl command = new atHeaderService.command_enterControl();
-        command.private_revCode = "LSST DM HeaderService enterControl COMMAND";
-        command.device = "auxHeaderService";
-        command.property = "enterControl";
-        command.action = "set";
+        atScheduler.command_enterControl command = new atScheduler.command_enterControl();
+        command.private_revCode = "LSST Aux Scheduler enterControl COMMAND";
+        command.device = "atScheduler";
+        command.property = "state";
+        command.action = "enterControl";
+        command.tempValue = true;
 
         int cmdId = publisher.issueCommand_enterControl( command );
 
@@ -56,18 +58,17 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override public void start( Object [] args ) { 
-        
-        SAL_atHeaderService publisher = new SAL_atHeaderService();
-        publisher.salCommand( "atHeaderService_command_start" );
+    @Override public void start() {
+
+        SAL_atScheduler publisher = new SAL_atScheduler();
+        publisher.salCommand( "atScheduler_command_start" );
 
         publisher.setDebugLevel( 1 );
         
-        atHeaderService.command_start command = new atHeaderService.command_start();
-        command.private_revCode = "LSST DM HeaderService start COMMAND";
-        command.device = "auxHeaderService";
-        command.property = "start";
-        command.action = "set";
+        atScheduler.command_start command = new atScheduler.command_start();
+        command.private_revCode = "LSST Aux Scheduler start COMMAND";
+        command.device = "atScheduler";
+        command.property = "state";
 
         int cmdId = publisher.issueCommand_start( command );
 
@@ -82,21 +83,22 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
 
         /* Remove the DataWriters etc */
         publisher.salShutdown();
-    
+
     }
 
-    @Override public void enable( Object [] args ) {
+    @Override public void enable() {
 
-        SAL_atHeaderService publisher = new SAL_atHeaderService();
-        publisher.salCommand( "atHeaderService_command_enable" );
+        SAL_atScheduler publisher = new SAL_atScheduler();
+        publisher.salCommand( "atScheduler_command_enable" );
 
         publisher.setDebugLevel( 1 );
         
-        atHeaderService.command_enable command = new atHeaderService.command_enable();
-        command.private_revCode = "LSST DM HeaderService enable COMMAND";
-        command.device = "auxHeaderService";
-        command.property = "enable";
-        command.action = "set";
+        atScheduler.command_enable command = new atScheduler.command_enable();
+        command.private_revCode = "LSST Aux Scheduler enable COMMAND";
+        command.device = "atScheduler";
+        command.property = "state";
+        command.action = "enable";
+        command.tempValue = true;
 
         int cmdId = publisher.issueCommand_enable( command );
 
@@ -113,18 +115,19 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override public void disable( Object [] args ) {
+    @Override public void disable() {
 
-        SAL_atHeaderService publisher = new SAL_atHeaderService();
-        publisher.salCommand( "atHeaderService_command_disable" );
+        SAL_atScheduler publisher = new SAL_atScheduler();
+        publisher.salCommand( "atScheduler_command_disable" );
 
         publisher.setDebugLevel( 1 );
         
-        atHeaderService.command_disable command = new atHeaderService.command_disable();
-        command.private_revCode = "LSST DM HeaderService disable COMMAND";
-        command.device = "auxHeaderService";
-        command.property = "disable";
-        command.action = "set";
+        atScheduler.command_disable command = new atScheduler.command_disable();
+        command.private_revCode = "LSST Aux Scheduler disable COMMAND";
+        command.device = "atScheduler";
+        command.property = "state";
+        command.action = "disable";
+        command.tempValue = true;
 
         int cmdId = publisher.issueCommand_disable( command );
 
@@ -141,18 +144,19 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override public void standby( Object [] args ) {
+    @Override public void standby() {
 
-        SAL_atHeaderService publisher = new SAL_atHeaderService();
-        publisher.salCommand( "atHeaderService_command_standby" );
+        SAL_atScheduler publisher = new SAL_atScheduler();
+        publisher.salCommand( "atScheduler_command_standby" );
 
         publisher.setDebugLevel( 1 );
         
-        atHeaderService.command_standby command = new atHeaderService.command_standby();
-        command.private_revCode = "LSST DM HeaderService standby COMMAND";
-        command.device = "auxHeaderService";
-        command.property = "standby";
-        command.action = "set";
+        atScheduler.command_standby command = new atScheduler.command_standby();
+        command.private_revCode = "LSST Aux Scheduler standby COMMAND";
+        command.device = "atScheduler";
+        command.property = "state";
+        command.action = "standby";
+        command.tempValue = true;
 
         int cmdId = publisher.issueCommand_standby( command );
 
@@ -169,18 +173,19 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override public void exitControl( Object [] args ) {
+    @Override public void exitControl() {
 
-        SAL_atHeaderService publisher = new SAL_atHeaderService();
-        publisher.salCommand( "atHeaderService_command_exitControl" );
+        SAL_atScheduler publisher = new SAL_atScheduler();
+        publisher.salCommand( "atScheduler_command_exitControl" );
 
         publisher.setDebugLevel( 1 );
         
-        atHeaderService.command_exitControl command = new atHeaderService.command_exitControl();
-        command.private_revCode = "LSST DM HeaderService exitControl COMMAND";
-        command.device = "auxHeaderService";
-        command.property = "exitControl";
-        command.action = "set";
+        atScheduler.command_exitControl command = new atScheduler.command_exitControl();
+        command.private_revCode = "LSST Aux Scheduler exitControl COMMAND";
+        command.device = "atScheduler";
+        command.property = "state";
+        command.action = "exitControl";
+        command.tempValue = true;
 
         int cmdId = publisher.issueCommand_exitControl( command );
 
@@ -200,18 +205,18 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
     @Override public Integer summaryState() {
     
         // Initialize
-        SAL_atHeaderService subscriber = new SAL_atHeaderService();
-        subscriber.salEvent( "atHeaderService_logevent_summaryState" );
+        SAL_atScheduler subscriber = new SAL_atScheduler();
+        subscriber.salEvent( "atScheduler_logevent_SummaryState" );
 
         subscriber.setDebugLevel( 1 );
         
-        atHeaderService.logevent_summaryState event = new atHeaderService.logevent_summaryState();
+        atScheduler.logevent_summaryState event = new atScheduler.logevent_summaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_summaryState( event );
-            if ( status == SAL_atHeaderService.SAL__OK ) {
+            if ( status == SAL_scheduler.SAL__OK ) {
                 
                 out.println( "=== Event Logged : " + event );
                 out.println( "=== Event Status : " + status );
@@ -219,11 +224,11 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
                 
                 try {
                     Executive.getEntityMap()
-                             .get( EntityType.AHEADERSERVICE.toString() )
+                             .get( EntityType.ASCHEDULER.toString() )
                              ._modelStateTransitionQ.put( event.summaryState );
                     
                     Executive.getEntityMap()
-                             .get( EntityType.AHEADERSERVICE.toString() )
+                             .get( EntityType.ASCHEDULER.toString() )
                              ._viewStateTransitionQ.put( event.summaryState );
                 } catch ( InterruptedException ie ) {
                     ie.printStackTrace( out.printf( "GOOD SummaryState" ));
@@ -244,24 +249,23 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
     }
 
     @Override public void settingsVersion() {
-    
+
         // Initialize
-        SAL_atHeaderService subscriber = new SAL_atHeaderService();
-        subscriber.salEvent( "atHeaderService_logevent_SettingVersions" );
-        
+        SAL_atScheduler subscriber = new SAL_atScheduler();
+        subscriber.salEvent( "atScheduler_logevent_SettingVersions" );
+
         subscriber.setDebugLevel( 1 );
         
-        atHeaderService.logevent_settingVersions event = 
-            new atHeaderService.logevent_settingVersions();
+        atScheduler.logevent_settingVersions event = new atScheduler.logevent_settingVersions();
 
         int status;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_settingVersions( event );
-            if ( status == SAL_atHeaderService.SAL__OK ) {
-                out.println("=== Event Logged : " + event);
+            if ( status == SAL_atScheduler.SAL__OK ) {
+                out.println( "=== Event Logged : " + event );
             }
-            
+
             try {
                 Thread.sleep( 100 );
             } catch ( InterruptedException e ) {
@@ -272,26 +276,25 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
         /* Remove the DataWriters etc */
         subscriber.salShutdown();
     }
-    
+
     @Override public void appliedSettingsMatchStart() {
-    
+
         // Initialize
-        SAL_atHeaderService subscriber = new SAL_atHeaderService();
-        subscriber.salEvent( "atHeaderService_logevent_AppliedSettingsMatchStart" );
-        
+        SAL_atScheduler subscriber = new SAL_atScheduler();
+        subscriber.salEvent( "atScheduler_logevent_AppliedSettingsMatchStart" );
+
         subscriber.setDebugLevel( 1 );
         
-        atHeaderService.logevent_appliedSettingsMatchStart event = 
-            new atHeaderService.logevent_appliedSettingsMatchStart();
+        atScheduler.logevent_appliedSettingsMatchStart event = new atScheduler.logevent_appliedSettingsMatchStart();
 
         int status;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_appliedSettingsMatchStart( event );
-            if ( status == SAL_atHeaderService.SAL__OK ) {
-                out.println("=== Event Logged : " + event);
+            if ( status == SAL_atScheduler.SAL__OK ) {
+                out.println( "=== Event Logged : " + event );
             }
-            
+
             try {
                 Thread.sleep( 100 );
             } catch ( InterruptedException e ) {
@@ -300,8 +303,7 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
         }
 
         /* Remove the DataWriters etc */
-	  subscriber.salShutdown();
+        subscriber.salShutdown();
     }
+
 }
-
-

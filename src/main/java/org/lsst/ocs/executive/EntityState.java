@@ -17,7 +17,6 @@ package org.lsst.ocs.executive;
 import static java.lang.System.out;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
-import java.util.Objects;
 
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -61,8 +60,6 @@ public interface EntityState extends DomainObject {
 
             @Override protected Task createTask () {
 
-                //Thread.currentThread().setName( "StateCheck SumState Service" );
-                
                 return new Task<Void>() {
                     
                     @Override protected Void call() throws Exception {
@@ -73,14 +70,13 @@ public interface EntityState extends DomainObject {
                             
                             // Retrieves and removes the head of this queue, 
                             // waiting if necessary, for another thread to insert it.
-                            Integer state =  entity._stateTransitionQ.take();
+                            int modelState =  entity._modelStateTransitionQ.take();
                             
-                            //if ( state == CommandableSalComponent.CSC_STATUS.SAL__OK.getValue() )
-                            if ( state >= 1 && !Objects.equals( entity.getStateInteger(), state ) ) {
+                            if ( modelState == entity.getNextStateValue() ) {
                                 // Cmd local entity state from OfflineState[AvailableState] to StandbyState
                                 // State Pattern: Context.request()
                                 entity.setState( newState );
-                                entity.setStateInteger( state );
+                                entity.setStateValue( modelState );
                                 out.println( "<!--- GOT State Transition --!>" );
                             }
                             else
@@ -105,5 +101,4 @@ public interface EntityState extends DomainObject {
         service.start();
         es.shutdown();
     }
-    
 }

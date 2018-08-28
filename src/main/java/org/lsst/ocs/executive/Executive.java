@@ -34,28 +34,28 @@ import java.util.Map;
  */
 public class Executive {
 
-    public static final CommandableSalComponent _cscSCH  = new CSCScheduler();
-    public static final CommandableSalComponent _cscMTCS = new CSCMainTelescope();
-    public static final CommandableSalComponent _cscCCS  = new CSCCamera();
-    public static final CommandableSalComponent _cscARC  = new CSCArchiver();
-    public static final CommandableSalComponent _cscCAT  = new CSCCatchupArchiver();
-    public static final CommandableSalComponent _cscPRO  = new CSCPromptProcessing();
-    public static final CommandableSalComponent _cscHDR  = new CSCHeaderService();
-    public static final CommandableSalComponent _cscASCH = new CSCAuxScheduler();
-    public static final CommandableSalComponent _cscATCS = new CSCAuxTelescope();
+//    public static final CommandableSalComponent _cscSCH  = new CSCScheduler();
+//    public static final CommandableSalComponent _cscMTCS = new CSCMainTelescope();
+//    public static final CommandableSalComponent _cscCCS  = new CSCCamera();
+//    public static final CommandableSalComponent _cscARC  = new CSCArchiver();
+//    public static final CommandableSalComponent _cscCAT  = new CSCCatchupArchiver();
+//    public static final CommandableSalComponent _cscPRO  = new CSCPromptProcessing();
+//    public static final CommandableSalComponent _cscHDR  = new CSCHeaderService();
+//    public static final CommandableSalComponent _cscASCH = new CSCAuxScheduler();
+//    public static final CommandableSalComponent _cscATCS = new CSCAuxTelescope();
     public static final CommandableSalComponent _cscACCS = new CSCAuxCamera();
     public static final CommandableSalComponent _cscAARC = new CSCAuxArchiver();
     public static final CommandableSalComponent _cscAHDR = new CSCAuxHeaderService();
 
-    public static final Entity _entitySCH  = new Entity( _cscSCH  );
-    public static final Entity _entityMTCS = new Entity( _cscMTCS );
-    public static final Entity _entityCCS  = new Entity( _cscCCS  );
-    public static final Entity _entityARC  = new Entity( _cscARC  );
-    public static final Entity _entityCAT  = new Entity( _cscCAT  );
-    public static final Entity _entityPRO  = new Entity( _cscPRO  );
-    public static final Entity _entityHDR  = new Entity( _cscHDR  );
-    public static final Entity _entityASCH = new Entity( _cscASCH );
-    public static final Entity _entityATCS = new Entity( _cscATCS );
+//    public static final Entity _entitySCH  = new Entity( _cscSCH  );
+//    public static final Entity _entityMTCS = new Entity( _cscMTCS );
+//    public static final Entity _entityCCS  = new Entity( _cscCCS  );
+//    public static final Entity _entityARC  = new Entity( _cscARC  );
+//    public static final Entity _entityCAT  = new Entity( _cscCAT  );
+//    public static final Entity _entityPRO  = new Entity( _cscPRO  );
+//    public static final Entity _entityHDR  = new Entity( _cscHDR  );
+//    public static final Entity _entityASCH = new Entity( _cscASCH );
+//    public static final Entity _entityATCS = new Entity( _cscATCS );
     public static final Entity _entityACCS = new Entity( _cscACCS );
     public static final Entity _entityAARC = new Entity( _cscAARC );
     public static final Entity _entityAHDR = new Entity( _cscAHDR );
@@ -72,18 +72,18 @@ public class Executive {
             Collections.unmodifiableMap( new HashMap<String, CommandableSalComponent>() {
             {
                 // (CSC key, CSC value)
-                put( "sch", Executive._cscSCH  );
-                put( "mtc", Executive._cscMTCS );
-                put( "ccs", Executive._cscCCS  );
-                put( "arc", Executive._cscARC  );
-                put( "cat", Executive._cscCAT  );
-                put( "pro", Executive._cscPRO  );
-                put( "hdr", Executive._cscHDR  );
-                put( "asc", Executive._cscASCH );
-                put( "atc", Executive._cscATCS );
-                put( "acc", Executive._cscACCS );
-                put( "aar", Executive._cscAARC );
-                put( "ahd", Executive._cscAHDR );
+//                put( EntityType.SCHEDULER.toString()       , _cscSCH  );
+//                put( EntityType.MTCS.toString()            , _cscMTCS );
+//                put( EntityType.CCS.toString()             , _cscCCS  );
+//                put( EntityType.ARCHIVER.toString()        , _cscARC  );
+//                put( EntityType.CATCHUPARCHIVER.toString() , _cscCAT  );
+//                put( EntityType.PROMPTPROCESSING.toString(), _cscPRO  );
+//                put( EntityType.HEADERSERVICE.toString()   , _cscHDR  );
+//                put( EntityType.ASCHEDULER.toString()      , _cscASCH );
+//                put( EntityType.ATCS.toString()            , _cscATCS );
+                put( EntityType.ACCS.toString()            , _cscACCS );
+                put( EntityType.AARCHIVER.toString()       , _cscAARC );
+                put( EntityType.AHEADERSERVICE.toString()  , _cscAHDR );
             }
         });
     }  
@@ -97,20 +97,20 @@ public class Executive {
         
         return
             Collections.unmodifiableList( Arrays.asList(
-                Executive._cscSCH,
-                Executive._cscMTCS,
-                Executive._cscCCS,
-                Executive._cscARC,
-                Executive._cscCAT,
-                Executive._cscPRO,
-                Executive._cscHDR,
-                Executive._cscHDR,
-                Executive._cscHDR,
-                Executive._cscASCH,
-                Executive._cscATCS,
-                Executive._cscACCS,
-                Executive._cscAARC,
-                Executive._cscAHDR
+//                _cscSCH,
+//                _cscMTCS,
+//                _cscCCS,
+//                _cscARC,
+//                _cscCAT,
+//                _cscPRO,
+//                _cscHDR,
+//                _cscHDR,
+//                _cscHDR,
+//                _cscASCH,
+//                _cscATCS,
+                _cscACCS,
+                _cscAARC,
+                _cscAHDR
             )
         );
     }
@@ -127,18 +127,18 @@ public class Executive {
             Collections.unmodifiableMap( new HashMap<String, Entity>() {
             {
                 // (Entity key, Entity value)
-                put( "sch", Executive._entitySCH  );
-                put( "mtc", Executive._entityMTCS );
-                put( "ccs", Executive._entityCCS  );
-                put( "arc", Executive._entityARC  );
-                put( "cat", Executive._entityCAT  );
-                put( "pro", Executive._entityPRO  );
-                put( "hdr", Executive._entityHDR  );
-                put( "asc", Executive._entityASCH );
-                put( "atc", Executive._entityATCS );
-                put( "acc", Executive._entityACCS );
-                put( "aar", Executive._entityAARC );
-                put( "ahd", Executive._entityAHDR );
+//                put( EntityType.SCHEDULER.toString()       , _entitySCH  );
+//                put( EntityType.MTCS.toString()            , _entityMTCS );
+//                put( EntityType.CCS.toString()             , _entityCCS  );
+//                put( EntityType.ARCHIVER.toString()        , _entityARC  );
+//                put( EntityType.CATCHUPARCHIVER.toString() , _entityCAT  );
+//                put( EntityType.PROMPTPROCESSING.toString(), _entityPRO  );
+//                put( EntityType.HEADERSERVICE.toString()   , _entityHDR  );
+//                put( EntityType.ASCHEDULER.toString()      , _entityASCH );
+//                put( EntityType.ATCS.toString()            , _entityATCS );
+                put( EntityType.ACCS.toString()            , _entityACCS );
+                put( EntityType.AARCHIVER.toString()       , _entityAARC );
+                put( EntityType.AHEADERSERVICE.toString()  , _entityAHDR );
             }
         });
     }  
@@ -152,151 +152,151 @@ public class Executive {
         
         return
             Collections.unmodifiableList( Arrays.asList(
-                Executive._entitySCH,
-                Executive._entityMTCS,
-                Executive._entityCCS,
-                Executive._entityARC,
-                Executive._entityCAT,
-                Executive._entityPRO,
-                Executive._entityHDR,
-                Executive._entityASCH,
-                Executive._entityATCS,
-                Executive._entityACCS,
-                Executive._entityAARC,
-                Executive._entityAHDR
+//                _entitySCH,
+//                _entityMTCS,
+//                _entityCCS,
+//                _entityARC,
+//                _entityCAT,
+//                _entityPRO,
+//                _entityHDR,
+//                _entityASCH,
+//                _entityATCS,
+                _entityACCS,
+                _entityAARC,
+                _entityAHDR
             )
         );
     }
 
     
-    public static final List<CmdTask> rCmdTasks_MTCS = Collections.unmodifiableList( Arrays.asList (
-        new CmdTask( _cscMTCS, "filterChange" ),
-        new CmdTask( _cscMTCS, "target"       )
-    ));
-
-    public static final List<CmdTask> rCmdTasks_CCS = Collections.unmodifiableList( Arrays.asList (
-        new CmdTask( _cscCCS, "setFilter" ),
-        new CmdTask( _cscCCS, "takeImage" )
-    ));
-
-    public static final List<CmdTask> rCmdTasks_ATCS = Collections.unmodifiableList( Arrays.asList (
-        new CmdTask( _cscMTCS, "filterChange" ),
-        new CmdTask( _cscMTCS, "target"       )
-    ));
+//    public static final List<CmdTask> rCmdTasks_MTCS = Collections.unmodifiableList( Arrays.asList (
+//        new CmdTask( _cscMTCS, "filterChange" ),
+//        new CmdTask( _cscMTCS, "target"       )
+//    ));
+//
+//    public static final List<CmdTask> rCmdTasks_CCS = Collections.unmodifiableList( Arrays.asList (
+//        new CmdTask( _cscCCS, "setFilter" ),
+//        new CmdTask( _cscCCS, "takeImage" )
+//    ));
+//
+//    public static final List<CmdTask> rCmdTasks_ATCS = Collections.unmodifiableList( Arrays.asList (
+//        new CmdTask( _cscATCS, "filterChange" ),
+//        new CmdTask( _cscATCS, "target"       )
+//    ));
 
     public static final List<CmdTask> rCmdTasks_ACCS = Collections.unmodifiableList( Arrays.asList (
-        new CmdTask( _cscCCS, "setFilter" ),
-        new CmdTask( _cscCCS, "takeImage" )
+        new CmdTask( _cscACCS, "setFilter" ),
+        new CmdTask( _cscACCS, "takeImage" )
     ));
 
     public static final List<CmdTask> rCmdTasks_ENTERCTRL = Collections.unmodifiableList( Arrays.asList (
-        new CmdTask( _cscSCH,  "enterControl" ),
-        new CmdTask( _cscMTCS, "enterControl" ),
-        new CmdTask( _cscCCS,  "enterControl" ),
-        new CmdTask( _cscARC,  "enterControl" ),
-        new CmdTask( _cscCAT,  "enterControl" ),
-        new CmdTask( _cscPRO,  "enterControl" ),
-        new CmdTask( _cscHDR,  "enterControl" ),
-        new CmdTask( _cscASCH, "enterControl" ),
-        new CmdTask( _cscATCS, "enterControl" ),
+//        new CmdTask( _cscSCH,  "enterControl" ),
+//        new CmdTask( _cscMTCS, "enterControl" ),
+//        new CmdTask( _cscCCS,  "enterControl" ),
+//        new CmdTask( _cscARC,  "enterControl" ),
+//        new CmdTask( _cscCAT,  "enterControl" ),
+//        new CmdTask( _cscPRO,  "enterControl" ),
+//        new CmdTask( _cscHDR,  "enterControl" ),
+//        new CmdTask( _cscASCH, "enterControl" ),
+//        new CmdTask( _cscATCS, "enterControl" ),
         new CmdTask( _cscACCS, "enterControl" ),
         new CmdTask( _cscAARC, "enterControl" ),
         new CmdTask( _cscAHDR, "enterControl" )
     ));
 
     public static final List<CmdTask> rCmdTasks_START = Collections.unmodifiableList( Arrays.asList (
-        new CmdTask( _cscSCH,  "start" ),
-        new CmdTask( _cscMTCS, "start" ),
-        new CmdTask( _cscCCS,  "start" ),
-        new CmdTask( _cscARC,  "start" ),
-        new CmdTask( _cscCAT,  "start" ),
-        new CmdTask( _cscPRO,  "start" ),
-        new CmdTask( _cscHDR,  "start" ),
-        new CmdTask( _cscASCH, "start" ),
-        new CmdTask( _cscATCS, "start" ),
+//        new CmdTask( _cscSCH,  "start" ),
+//        new CmdTask( _cscMTCS, "start" ),
+//        new CmdTask( _cscCCS,  "start" ),
+//        new CmdTask( _cscARC,  "start" ),
+//        new CmdTask( _cscCAT,  "start" ),
+//        new CmdTask( _cscPRO,  "start" ),
+//        new CmdTask( _cscHDR,  "start" ),
+//        new CmdTask( _cscASCH, "start" ),
+//        new CmdTask( _cscATCS, "start" ),
         new CmdTask( _cscACCS, "start" ),
         new CmdTask( _cscAARC, "start" ),
         new CmdTask( _cscAHDR, "start" )
     ));
 
     public static final List<CmdTask> rCmdTasks_ENABLE = Collections.unmodifiableList( Arrays.asList (
-        new CmdTask( _cscSCH, "enable" ),
-        new CmdTask( _cscMTCS, "enable" ),
-        new CmdTask( _cscCCS,  "enable" ),
-        new CmdTask( _cscARC,  "enable" ),
-        new CmdTask( _cscCAT,  "enable" ),
-        new CmdTask( _cscPRO,  "enable" ),
-        new CmdTask( _cscHDR,  "enable" ),
-        new CmdTask( _cscASCH, "enable" ),
-        new CmdTask( _cscATCS, "enable" ),
+//        new CmdTask( _cscSCH, "enable" ),
+//        new CmdTask( _cscMTCS, "enable" ),
+//        new CmdTask( _cscCCS,  "enable" ),
+//        new CmdTask( _cscARC,  "enable" ),
+//        new CmdTask( _cscCAT,  "enable" ),
+//        new CmdTask( _cscPRO,  "enable" ),
+//        new CmdTask( _cscHDR,  "enable" ),
+//        new CmdTask( _cscASCH, "enable" ),
+//        new CmdTask( _cscATCS, "enable" ),
         new CmdTask( _cscACCS, "enable" ),
         new CmdTask( _cscAARC, "enable" ),
         new CmdTask( _cscAHDR, "enable" )
     ));
 
-    public static final List<EventCallable> cEventTask_MTCS = Collections.unmodifiableList( Arrays.asList (
-        new EventCallable( _cscMTCS, "filterChangeInPosition" ),
-        new EventCallable( _cscMTCS, "targetInPosition"       )
-    ));
-    
-    public static final List<EventCallable> cEventTask_CCS = Collections.unmodifiableList( Arrays.asList (
-        new EventCallable( _cscCCS, "tbd" ),
-        new EventCallable( _cscCCS, "tbd" )
-    ));
-
-    public static final List<EventCallable> cEventTask_ATCS = Collections.unmodifiableList( Arrays.asList (
-        new EventCallable( _cscMTCS, "filterChangeInPosition" ),
-        new EventCallable( _cscMTCS, "targetInPosition"       )
-    ));
+//    public static final List<EventCallable> cEventTask_MTCS = Collections.unmodifiableList( Arrays.asList (
+//        new EventCallable( _cscMTCS, "filterChangeInPosition" ),
+//        new EventCallable( _cscMTCS, "targetInPosition"       )
+//    ));
+//    
+//    public static final List<EventCallable> cEventTask_CCS = Collections.unmodifiableList( Arrays.asList (
+//        new EventCallable( _cscCCS, "tbd" ),
+//        new EventCallable( _cscCCS, "tbd" )
+//    ));
+//
+//    public static final List<EventCallable> cEventTask_ATCS = Collections.unmodifiableList( Arrays.asList (
+//        new EventCallable( _cscATCS, "filterChangeInPosition" ),
+//        new EventCallable( _cscATCS, "targetInPosition"       )
+//    ));
     
 
     public static final List<EventCallable> cEventTask_ACCS = Collections.unmodifiableList( Arrays.asList (
-        new EventCallable( _cscCCS, "tbd" ),
-        new EventCallable( _cscCCS, "tbd" )
+        new EventCallable( _cscACCS, "tbd" ),
+        new EventCallable( _cscACCS, "tbd" )
     ));
 
     //public static final List<EventCallable> cEventTask_SUMSTATE = Collections.unmodifiableList( Arrays.asList (
     //    new EventCallable( _cscSCH,  "summaryState" )
     public static final List<EventTask> cEventTask_SUMSTATE = Collections.unmodifiableList( Arrays.asList (
-        new EventTask( _cscSCH,  "summaryState" ),
-        new EventTask( _cscMTCS, "summaryState" ),
-        new EventTask( _cscCCS,  "summaryState" ),
-        new EventTask( _cscARC,  "summaryState" ),
-        new EventTask( _cscCAT,  "summaryState" ),
-        new EventTask( _cscPRO,  "summaryState" ),
-        new EventTask( _cscHDR,  "summaryState" ),
-        new EventTask( _cscASCH, "summaryState" ),
-        new EventTask( _cscATCS, "summaryState" ),
+//        new EventTask( _cscSCH,  "summaryState" ),
+//        new EventTask( _cscMTCS, "summaryState" ),
+//        new EventTask( _cscCCS,  "summaryState" ),
+//        new EventTask( _cscARC,  "summaryState" ),
+//        new EventTask( _cscCAT,  "summaryState" ),
+//        new EventTask( _cscPRO,  "summaryState" ),
+//        new EventTask( _cscHDR,  "summaryState" ),
+//        new EventTask( _cscASCH, "summaryState" ),
+//        new EventTask( _cscATCS, "summaryState" ),
         new EventTask( _cscACCS, "summaryState" ),
         new EventTask( _cscAARC, "summaryState" ),
         new EventTask( _cscAHDR, "summaryState" )
     ));
 
     public static final List<EventTask> cEventTask_SETTINGS = Collections.unmodifiableList( Arrays.asList (
-        new EventTask( _cscSCH,  "settingsVersion" ),
-        new EventTask( _cscMTCS, "settingsVersion" ),
-        new EventTask( _cscCCS,  "settingsVersion" ),
-        new EventTask( _cscARC,  "settingsVersion" ),
-        new EventTask( _cscCAT,  "settingsVersion" ),
-        new EventTask( _cscPRO,  "settingsVersion" ),
-        new EventTask( _cscHDR,  "settingsVersion" ),
-        new EventTask( _cscASCH, "settingsVersion" ),
-        new EventTask( _cscATCS, "settingsVersion" ),
+//        new EventTask( _cscSCH,  "settingsVersion" ),
+//        new EventTask( _cscMTCS, "settingsVersion" ),
+//        new EventTask( _cscCCS,  "settingsVersion" ),
+//        new EventTask( _cscARC,  "settingsVersion" ),
+//        new EventTask( _cscCAT,  "settingsVersion" ),
+//        new EventTask( _cscPRO,  "settingsVersion" ),
+//        new EventTask( _cscHDR,  "settingsVersion" ),
+//        new EventTask( _cscASCH, "settingsVersion" ),
+//        new EventTask( _cscATCS, "settingsVersion" ),
         new EventTask( _cscACCS, "settingsVersion" ),
         new EventTask( _cscAARC, "settingsVersion" ),
         new EventTask( _cscAHDR, "settingsVersion" )
     ));
 
     public static final List<EventTask> cEventTask_APPLIEDSETTINGS = Collections.unmodifiableList( Arrays.asList (
-        new EventTask( _cscSCH,  "appliedSettingsMatchStartTest" ),
-        new EventTask( _cscMTCS, "appliedSettingsMatchStartTest" ),
-        new EventTask( _cscCCS,  "appliedSettingsMatchStartTest" ),
-        new EventTask( _cscARC,  "appliedSettingsMatchStartTest" ),
-        new EventTask( _cscCAT,  "appliedSettingsMatchStartTest" ),
-        new EventTask( _cscPRO,  "appliedSettingsMatchStartTest" ),
-        new EventTask( _cscHDR,  "appliedSettingsMatchStartTest" ),
-        new EventTask( _cscASCH, "appliedSettingsMatchStartTest" ),
-        new EventTask( _cscATCS, "appliedSettingsMatchStartTest" ),
+//        new EventTask( _cscSCH,  "appliedSettingsMatchStartTest" ),
+//        new EventTask( _cscMTCS, "appliedSettingsMatchStartTest" ),
+//        new EventTask( _cscCCS,  "appliedSettingsMatchStartTest" ),
+//        new EventTask( _cscARC,  "appliedSettingsMatchStartTest" ),
+//        new EventTask( _cscCAT,  "appliedSettingsMatchStartTest" ),
+//        new EventTask( _cscPRO,  "appliedSettingsMatchStartTest" ),
+//        new EventTask( _cscHDR,  "appliedSettingsMatchStartTest" ),
+//        new EventTask( _cscASCH, "appliedSettingsMatchStartTest" ),
+//        new EventTask( _cscATCS, "appliedSettingsMatchStartTest" ),
         new EventTask( _cscACCS, "appliedSettingsMatchStartTest" ),
         new EventTask( _cscAARC, "appliedSettingsMatchStartTest" ),
         new EventTask( _cscAHDR, "appliedSettingsMatchStartTest" )
@@ -623,13 +623,13 @@ public class Executive {
             // br.readLine();
             //Executive._cscCAT.enable();
 
-            out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd enterControl..." );
+            out.print( "\n" + EntityType.PROMPTPROCESSING.toString() + " sequence cmd enterControl..." );
             //br.readLine();
             //Executive._cscPRO.enterControl();
-            out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd start..." );
+            out.print( "\n" + EntityType.PROMPTPROCESSING.toString() + " sequence cmd start..." );
             //br.readLine();
             //Executive._cscPRO.start();
-            out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd enable..." );
+            out.print( "\n" + EntityType.PROMPTPROCESSING.toString() + " sequence cmd enable..." );
             //br.readLine();
             //Executive._cscPRO.enable();
 
@@ -642,13 +642,13 @@ public class Executive {
             /**
              * ***********************
              */
-            out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd disable..." );
+            out.print( "\n" + EntityType.PROMPTPROCESSING.toString() + " sequence cmd disable..." );
             // br.readLine();
             //Executive._cscPRO.disable();
-            out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd standby..." );
+            out.print( "\n" + EntityType.PROMPTPROCESSING.toString() + " sequence cmd standby..." );
             //br.readLine();
             //Executive._cscPRO.standby();
-            out.print( "\n" + EntityType.PROCESSINGCLUSTER.toString() + " sequence cmd exitControl..." );
+            out.print( "\n" + EntityType.PROMPTPROCESSING.toString() + " sequence cmd exitControl..." );
             // br.readLine();
             //Executive._cscPRO.exitControl();
 

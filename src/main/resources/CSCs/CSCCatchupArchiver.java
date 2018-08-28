@@ -17,29 +17,32 @@ package org.lsst.ocs.executive.salcomponent;
 import static java.lang.System.out;
 import org.lsst.ocs.executive.EntityType;
 import org.lsst.ocs.executive.Executive;
-import org.lsst.sal.SAL_atHeaderService;
+import org.lsst.sal.SAL_catchuparchiver;
+
+import org.lsst.sal.SAL_scheduler;
 
 /**
- * <h2>Data Management Header Service CSC</h2>
+ * <h2>Data Management Catchup Archiver Service CSC</h2>
  *
- * {@code CSCHeaderService} is a (Concrete) Receiver class in the command pattern
+ * {@code CSCCatchupArchiver} is a (Concrete) Receiver class in the command pattern
  */
-public class CSCAuxHeaderService implements CommandableSalComponent {
+public class CSCCatchupArchiver implements CommandableSalComponent {
     
-    @Override public String getName() { return "CSCAuxHeaderService"; }
-
-    @Override public void enterControl( Object [] args ) { 
+    @Override public String getName() { return "CSCCatchupArchiver"; }
     
-        SAL_atHeaderService publisher = new SAL_atHeaderService();
-        publisher.salCommand( "atHeaderService_command_enterControl" );
+    @Override public void enterControl() { 
+    
+        SAL_catchuparchiver publisher = new SAL_catchuparchiver();
+        publisher.salCommand( "catchuparchiver_command_enterControl" );
 
         publisher.setDebugLevel( 1 );
         
-        atHeaderService.command_enterControl command = new atHeaderService.command_enterControl();
-        command.private_revCode = "LSST DM HeaderService enterControl COMMAND";
-        command.device = "auxHeaderService";
+        catchuparchiver.command_enterControl command = new catchuparchiver.command_enterControl();
+        command.private_revCode = "LSST CatchupArchiver enterControl COMMAND";
+        command.device = "catchuparchiver";
         command.property = "enterControl";
         command.action = "set";
+        command.state = true;
 
         int cmdId = publisher.issueCommand_enterControl( command );
 
@@ -56,18 +59,19 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override public void start( Object [] args ) { 
+    @Override public void start() { 
         
-        SAL_atHeaderService publisher = new SAL_atHeaderService();
-        publisher.salCommand( "atHeaderService_command_start" );
+        SAL_catchuparchiver publisher = new SAL_catchuparchiver();
+        publisher.salCommand( "catchuparchiver_command_start" );
 
         publisher.setDebugLevel( 1 );
         
-        atHeaderService.command_start command = new atHeaderService.command_start();
-        command.private_revCode = "LSST DM HeaderService start COMMAND";
-        command.device = "auxHeaderService";
+        catchuparchiver.command_start command = new catchuparchiver.command_start();
+        command.private_revCode = "LSST CatchupArchiver start COMMAND";
+        command.device = "catchuparchiver";
         command.property = "start";
         command.action = "set";
+        command.configuration = "normal";
 
         int cmdId = publisher.issueCommand_start( command );
 
@@ -85,18 +89,19 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
     
     }
 
-    @Override public void enable( Object [] args ) {
+    @Override public void enable() {
 
-        SAL_atHeaderService publisher = new SAL_atHeaderService();
-        publisher.salCommand( "atHeaderService_command_enable" );
+        SAL_catchuparchiver publisher = new SAL_catchuparchiver();
+        publisher.salCommand( "catchuparchiver_command_enable" );
 
         publisher.setDebugLevel( 1 );
         
-        atHeaderService.command_enable command = new atHeaderService.command_enable();
-        command.private_revCode = "LSST DM HeaderService enable COMMAND";
-        command.device = "auxHeaderService";
+        catchuparchiver.command_enable command = new catchuparchiver.command_enable();
+        command.private_revCode = "LSST CatchupArchiver enable COMMAND";
+        command.device = "catchuparchiver";
         command.property = "enable";
         command.action = "set";
+        command.state = true;
 
         int cmdId = publisher.issueCommand_enable( command );
 
@@ -113,18 +118,19 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override public void disable( Object [] args ) {
+    @Override public void disable() {
 
-        SAL_atHeaderService publisher = new SAL_atHeaderService();
-        publisher.salCommand( "atHeaderService_command_disable" );
+        SAL_catchuparchiver publisher = new SAL_catchuparchiver();
+        publisher.salCommand( "catchuparchiver_command_disable" );
 
         publisher.setDebugLevel( 1 );
         
-        atHeaderService.command_disable command = new atHeaderService.command_disable();
-        command.private_revCode = "LSST DM HeaderService disable COMMAND";
-        command.device = "auxHeaderService";
+        catchuparchiver.command_disable command = new catchuparchiver.command_disable();
+        command.private_revCode = "LSST CatchupArchiver disable COMMAND";
+        command.device = "catchuparchiver";
         command.property = "disable";
         command.action = "set";
+        command.state = true;
 
         int cmdId = publisher.issueCommand_disable( command );
 
@@ -141,18 +147,19 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override public void standby( Object [] args ) {
+    @Override public void standby() {
 
-        SAL_atHeaderService publisher = new SAL_atHeaderService();
-        publisher.salCommand( "atHeaderService_command_standby" );
+        SAL_catchuparchiver publisher = new SAL_catchuparchiver();
+        publisher.salCommand( "catchuparchiver_command_standby" );
 
         publisher.setDebugLevel( 1 );
         
-        atHeaderService.command_standby command = new atHeaderService.command_standby();
-        command.private_revCode = "LSST DM HeaderService standby COMMAND";
-        command.device = "auxHeaderService";
+        catchuparchiver.command_standby command = new catchuparchiver.command_standby();
+        command.private_revCode = "LSST CatchupArchiver standby COMMAND";
+        command.device = "catchuparchiver";
         command.property = "standby";
         command.action = "set";
+        command.state = true;
 
         int cmdId = publisher.issueCommand_standby( command );
 
@@ -169,18 +176,19 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override public void exitControl( Object [] args ) {
+    @Override public void exitControl() {
 
-        SAL_atHeaderService publisher = new SAL_atHeaderService();
-        publisher.salCommand( "atHeaderService_command_exitControl" );
+        SAL_catchuparchiver publisher = new SAL_catchuparchiver();
+        publisher.salCommand( "catchuparchiver_command_exitControl" );
 
         publisher.setDebugLevel( 1 );
         
-        atHeaderService.command_exitControl command = new atHeaderService.command_exitControl();
-        command.private_revCode = "LSST DM HeaderService exitControl COMMAND";
-        command.device = "auxHeaderService";
+        catchuparchiver.command_exitControl command = new catchuparchiver.command_exitControl();
+        command.private_revCode = "LSST CatchupArchiver exitControl COMMAND";
+        command.device = "catchuparchiver";
         command.property = "exitControl";
         command.action = "set";
+        command.state = true;
 
         int cmdId = publisher.issueCommand_exitControl( command );
 
@@ -200,30 +208,30 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
     @Override public Integer summaryState() {
     
         // Initialize
-        SAL_atHeaderService subscriber = new SAL_atHeaderService();
-        subscriber.salEvent( "atHeaderService_logevent_summaryState" );
+        SAL_catchuparchiver subscriber = new SAL_catchuparchiver();
+        subscriber.salEvent( "catchuparchiver_logevent_SummaryState" );
 
         subscriber.setDebugLevel( 1 );
         
-        atHeaderService.logevent_summaryState event = new atHeaderService.logevent_summaryState();
+        catchuparchiver.logevent_SummaryState event = new catchuparchiver.logevent_SummaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_summaryState( event );
-            if ( status == SAL_atHeaderService.SAL__OK ) {
+            status = subscriber.getEvent_SummaryState( event );
+            if ( status == SAL_scheduler.SAL__OK ) {
                 
                 out.println( "=== Event Logged : " + event );
                 out.println( "=== Event Status : " + status );
-                out.println( "=== Event SummaryState : " + event.summaryState );
+                out.println( "=== Event SummaryState : " + event.SummaryStateValue );
                 
                 try {
                     Executive.getEntityMap()
-                             .get( EntityType.AHEADERSERVICE.toString() )
+                             .get( EntityType.CATCHUPARCHIVER.toString() )
                              ._modelStateTransitionQ.put( event.summaryState );
                     
                     Executive.getEntityMap()
-                             .get( EntityType.AHEADERSERVICE.toString() )
+                             .get( EntityType.CATCHUPARCHIVER.toString() )
                              ._viewStateTransitionQ.put( event.summaryState );
                 } catch ( InterruptedException ie ) {
                     ie.printStackTrace( out.printf( "GOOD SummaryState" ));
@@ -246,19 +254,18 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
     @Override public void settingsVersion() {
     
         // Initialize
-        SAL_atHeaderService subscriber = new SAL_atHeaderService();
-        subscriber.salEvent( "atHeaderService_logevent_SettingVersions" );
+        SAL_catchuparchiver subscriber = new SAL_catchuparchiver();
+        subscriber.salEvent( "catchuparchiver_logevent_SettingVersions" );
         
         subscriber.setDebugLevel( 1 );
         
-        atHeaderService.logevent_settingVersions event = 
-            new atHeaderService.logevent_settingVersions();
+        catchuparchiver.logevent_SettingVersions event = new catchuparchiver.logevent_SettingVersions();
 
         int status;
         while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_settingVersions( event );
-            if ( status == SAL_atHeaderService.SAL__OK ) {
+            status = subscriber.getEvent_SettingVersions( event );
+            if ( status == SAL_catchuparchiver.SAL__OK ) {
                 out.println("=== Event Logged : " + event);
             }
             
@@ -276,19 +283,18 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
     @Override public void appliedSettingsMatchStart() {
     
         // Initialize
-        SAL_atHeaderService subscriber = new SAL_atHeaderService();
-        subscriber.salEvent( "atHeaderService_logevent_AppliedSettingsMatchStart" );
+        SAL_catchuparchiver subscriber = new SAL_catchuparchiver();
+        subscriber.salEvent( "catchuparchiver_logevent_AppliedSettingsMatchStart" );
         
         subscriber.setDebugLevel( 1 );
         
-        atHeaderService.logevent_appliedSettingsMatchStart event = 
-            new atHeaderService.logevent_appliedSettingsMatchStart();
+        catchuparchiver.logevent_AppliedSettingsMatchStart event = new catchuparchiver.logevent_AppliedSettingsMatchStart();
 
         int status;
         while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_appliedSettingsMatchStart( event );
-            if ( status == SAL_atHeaderService.SAL__OK ) {
+            status = subscriber.getEvent_AppliedSettingsMatchStart( event );
+            if ( status == SAL_catchuparchiver.SAL__OK ) {
                 out.println("=== Event Logged : " + event);
             }
             

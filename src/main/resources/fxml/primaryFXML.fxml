@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="guiPrimaryScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="1052.0" style="-fx-border-style: solid; -fx-border-width: 1 1 1 1;" stylesheets="@/styles/caspian.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lsst.ocs.executive.gui.primary.PrimaryController">
+<BorderPane id="guiPrimaryScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="1052.0" style="-fx-border-style: solid; -fx-border-width: 1 1 1 1;" stylesheets="@/styles/caspian.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lsst.ocs.executive.gui.controllers.PrimaryController">
    <top>
       <MenuBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="1050.0" BorderPane.alignment="CENTER">
         <menus>
@@ -40,12 +40,12 @@
                         <MenuItem id="menuitemHeaderService" fx:id="menuitemHeaderService" mnemonicParsing="false" onAction="#createCSC" text="HEADER SERVICE" />
                     </items>
                   </Menu>
-                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll" mnemonicParsing="false" onAction="#enterAllCSC" text="Enter All CSCs" />
-                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll1" mnemonicParsing="false" onAction="#startAllCSC" text="Start All CSCs" />
-                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll2" mnemonicParsing="false" onAction="#enableAllCSC" text="Enable All CSCs" />
-                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll21" mnemonicParsing="false" onAction="#disableAllCSC" text="Disable All CSCs" />
-                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll211" mnemonicParsing="false" onAction="#standbyAllCSC" text="Standby All CSCs" />
-                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll2111" mnemonicParsing="false" onAction="#exitAllCSC" text="Exit All CSCs" />
+                  <MenuItem id="cscAllEnter" fx:id="cscAllEnter" mnemonicParsing="false" onAction="#cscStateAll" text="enterControl All CSCs" />
+                  <MenuItem id="cscAllStart" fx:id="cscAllStart" mnemonicParsing="false" onAction="#cscStateAll" text="start All CSCs" />
+                  <MenuItem id="cscAllEnable" fx:id="cscAllEnable" mnemonicParsing="false" onAction="#cscStateAll" text="enable All CSCs" />
+                  <MenuItem id="cscAllDisable" fx:id="cscAllDisable" mnemonicParsing="false" onAction="#cscStateAll" text="disable All CSCs" />
+                  <MenuItem id="cscAllStandby" fx:id="cscAllStandby" mnemonicParsing="false" onAction="#cscStateAll" text="standby All CSCs" />
+                  <MenuItem id="cscAllExit" fx:id="cscAllExit" mnemonicParsing="false" onAction="#cscStateAll" text="exitControl All CSCs" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -166,10 +166,10 @@
                                                 <Insets top="19.0" />
                                              </VBox.margin>
                                           </Separator>
-                                          <MenuButton id="ahdrStateMenu" fx:id="mtcsCmdMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="Commands">
+                                          <MenuButton id="mtcsCmdMenu" fx:id="mtcsCmdMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="Commands">
                                              <items>
-                                                <MenuItem mnemonicParsing="false" onAction="#mtcsCmd" style="-fx-font-size: 11;" text="filterChange" />
-                                                <MenuItem mnemonicParsing="false" onAction="#mtcsCmd" style="-fx-font-size: 11;" text="target" />
+                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="filterChange" />
+                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="target" />
                                              </items>
                                              <VBox.margin>
                                                 <Insets />
@@ -250,9 +250,9 @@
                                           </Separator>
                                           <MenuButton id="ccsCmdMenu" fx:id="ccsCmdMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="Commands">
                                              <items>
-                                                <MenuItem mnemonicParsing="false" onAction="#ccsCmd" style="-fx-font-size: 11;" text="setFilter" />
-                                                <MenuItem mnemonicParsing="false" onAction="#ccsCmd" style="-fx-font-size: 11;" text="takeImage" />
-                                                <MenuItem mnemonicParsing="false" onAction="#ccsCmd" style="-fx-font-size: 11;" text="initImage" />
+                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="setFilter" />
+                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="takeImage" />
+                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="initImage" />
                                              </items>
                                              <font>
                                                 <Font size="11.0" />
@@ -562,8 +562,8 @@
                                           </Separator>
                                           <MenuButton id="atcsCmdMenu" fx:id="atcsCmdMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="Commands">
                                              <items>
-                                                <MenuItem mnemonicParsing="false" onAction="#atcsCmd" style="-fx-font-size: 11;" text="filterChange" />
-                                                <MenuItem mnemonicParsing="false" onAction="#atcsCmd" style="-fx-font-size: 11;" text="target" />
+                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="filterChange" />
+                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="target" />
                                              </items>
                                              <font>
                                                 <Font size="11.0" />
@@ -644,9 +644,13 @@
                                           </Separator>
                                           <MenuButton id="accsCmdMenu" fx:id="accsCmdMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="Commands">
                                              <items>
-                                                <MenuItem mnemonicParsing="false" onAction="#accsCmd" style="-fx-font-size: 11;" text="setFilter" />
-                                                <MenuItem mnemonicParsing="false" onAction="#accsCmd" style="-fx-font-size: 11;" text="takeImage" />
-                                                <MenuItem mnemonicParsing="false" onAction="#accsCmd" style="-fx-font-size: 11;" text="initImage" />
+                                                <Menu fx:id="accsTakeImage" mnemonicParsing="false" text="takeImage">
+                                                  <items>
+                                                      <MenuItem fx:id="setTakeImageMenui" mnemonicParsing="false" onAction="#handleTakeImage" style="-fx-font-size: 11;" text="set parameters" />
+                                                  </items>
+                                                </Menu>
+                                                <MenuItem fx:id="accsSetFilter" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="setFilter" />
+                                                <MenuItem fx:id="accsInitImage" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="initImage" />
                                              </items>
                                              <font>
                                                 <Font size="11.0" />

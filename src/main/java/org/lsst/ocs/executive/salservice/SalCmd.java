@@ -18,6 +18,7 @@ import org.lsst.ocs.executive.DomainObject;
 import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
 
 import static java.lang.System.out;
+import java.util.Optional;
 
 /**
  * <h2>SAL Command</h2>
@@ -32,13 +33,12 @@ public class SalCmd extends SalService implements DomainObject {
         return "SalCmd" + "::" + super._topic + "::" + this._salComponent;
     }
     
-    /* Command Pattern: Receiver IF (e.g. concrete receiver =>  CSCCcs) */
+    /* Command Pattern: Receiver IF (e.g. concrete receiver =>  _cscCCS) */
     CommandableSalComponent _salComponent;
     
     public SalCmd( CommandableSalComponent salComponent ) {
     
         this._salComponent = salComponent;
-        //super._topicArgs = new Object[]{};
     }
     
     @Override public void execute() {
@@ -50,12 +50,12 @@ public class SalCmd extends SalService implements DomainObject {
                                   + Thread.currentThread().getId() );
         
         try {
-            /* Command Pattern: receiverIF.action() [e.g. concrete rcvr => cscMTcs.enterControl()] */
+            /* Command Pattern: receiverIF.action() [e.g. concrete rcvr => _cscMTCS.enterControl()] */
             _salComponent.getClass()
                          /* specify method & that it takes no (i.e. null) args */
-                         .getMethod( super._topic, new Class<?>[]{} )
+                         .getMethod( super._topic, Optional.ofNullable( Object[].class ).get() )
                          /* invoke w/ null args */
-                         .invoke( _salComponent, new Object[]{} );
+                         .invoke( _salComponent, (Object) super._topicArgs );
         }
         catch ( Exception e ) {
             e.printStackTrace(

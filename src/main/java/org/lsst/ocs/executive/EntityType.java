@@ -21,18 +21,21 @@ package org.lsst.ocs.executive;
  */
 public enum EntityType {
     
-    OCS               ( "OCS"               ),
-    SEQUENCER         ( "SEQUENCER"         ),
-    MTCS              ( "MTCS"              ),
-    CCS               ( "CCS"               ),
     ARCHIVER          ( "ARCHIVER"          ),
     CATCHUPARCHIVER   ( "CATCHUPARCHIVER"   ),
-    PROCESSINGCLUSTER ( "PROCESSINGCLUSTER" ),
+    CCS               ( "CCS"               ),
     HEADERSERVICE     ( "HEADERSERVICE"     ),
+    MTCS              ( "MTCS"              ),
+    PROMPTPROCESSING  ( "PROMPTPROCESSING"  ),
+    OCS               ( "OCS"               ),
+    SCHEDULER         ( "SCHEDULER"         ),
+    SEQUENCER         ( "SEQUENCER"         ),
 
-    ATCS              ( "ATCS"              ),
+    AARCHIVER         ( "AARCHIVER"         ),
     ACCS              ( "ACCS"              ),
-    AHEADERSERVICE    ( "AHEADERSERVICE"    );
+    AHEADERSERVICE    ( "AHEADERSERVICE"    ),
+    ASCHEDULER        ( "ASCHEDULER"        ),
+    ATCS              ( "ATCS"              );
     
     private final String _etype;
     

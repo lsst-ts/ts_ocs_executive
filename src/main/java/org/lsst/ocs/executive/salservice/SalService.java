@@ -24,11 +24,11 @@ import java.util.List;
 public abstract class SalService {
 
     protected String _topic;
-    protected Object _topicArgs;
+    protected Object[] _topicArgs;
 
     public void setTopic( String topic ) { _topic = topic; }
 
-    public void setTopicArgs( List<String> topicArgs ) { _topicArgs = topicArgs; }
+    public void setTopicArgs( Object[] topicArgs ) { _topicArgs = topicArgs; }
 
     public abstract void execute();
 }

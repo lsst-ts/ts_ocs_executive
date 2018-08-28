@@ -29,15 +29,15 @@ public class SalEvent extends SalService implements DomainObject {
 
     @Override public String getName() {
         
-        return "SalEvent" + "::" + super._topic + "::" + this._salComponent;
+        return "SalEvent" + "::" + super._topic + "::" + this._csc;
     }
     
-    /* Command Pattern: Receiver IF (e.g. concrete receiver =>  CSCCcs) */
-    CommandableSalComponent _salComponent;
+    /* Command Pattern: Receiver IF (e.g. concrete receiver =>  _cscCCS) */
+    CommandableSalComponent _csc;
     
     public SalEvent( CommandableSalComponent salComponent ) {
         
-        this._salComponent = salComponent;
+        this._csc = salComponent;
     }
 
     @Override public void execute() {
@@ -49,13 +49,13 @@ public class SalEvent extends SalService implements DomainObject {
                                   + Thread.currentThread().getId() );
         
         try {
-            /* Command Pattern: receiverIF.action() [e.g. concrete rcvr => cscMTcs.summaryState()] */
-            _salComponent.getClass()
+            /* Command Pattern: receiverIF.action() [e.g. concrete rcvr => _cscMTCS.summaryState()] */
+            _csc.getClass()
                          /* specify method & that it takes no (i.e. null) args */
                          .getMethod( super._topic, new Class<?>[]{} )
                          /* invoke w/ specific arg */
-                         //.invoke( _salComponent, super._topicArgs );
-                         .invoke(_salComponent, new Object[]{});
+                         //.invoke( _csc, super._topicArgs );
+                         .invoke(_csc, new Object[]{} );
         }
         catch ( Exception e ) {
             e.printStackTrace( 

@@ -15,10 +15,9 @@
 package org.lsst.ocs.executive.salcomponent;
 
 import static java.lang.System.out;
+import org.lsst.ocs.executive.EntityType;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.sal.SAL_atArchiver;
-
-import org.lsst.sal.SAL_scheduler;
 
 /**
  * <h2>Data Management Auxiliary Archiver Service CSC</h2>
@@ -29,7 +28,7 @@ public class CSCAuxArchiver implements CommandableSalComponent {
 
     @Override public String getName() { return "CSCAuxArchiver"; }
 
-    @Override public void enterControl() {
+    @Override public void enterControl( Object [] args ) {
 
         SAL_atArchiver publisher = new SAL_atArchiver();
         publisher.salCommand( "atArchiver_command_enterControl" );
@@ -58,7 +57,7 @@ public class CSCAuxArchiver implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override public void start() {
+    @Override public void start( Object [] args ) {
 
         SAL_atArchiver publisher = new SAL_atArchiver();
         publisher.salCommand( "atArchiver_command_start" );
@@ -88,7 +87,7 @@ public class CSCAuxArchiver implements CommandableSalComponent {
 
     }
 
-    @Override public void enable() {
+    @Override public void enable( Object [] args ) {
 
         SAL_atArchiver publisher = new SAL_atArchiver();
         publisher.salCommand( "atArchiver_command_enable" );
@@ -117,7 +116,7 @@ public class CSCAuxArchiver implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override public void disable() {
+    @Override public void disable( Object [] args ) {
 
         SAL_atArchiver publisher = new SAL_atArchiver();
         publisher.salCommand( "atArchiver_command_disable" );
@@ -146,7 +145,7 @@ public class CSCAuxArchiver implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override public void standby() {
+    @Override public void standby( Object [] args ) {
 
         SAL_atArchiver publisher = new SAL_atArchiver();
         publisher.salCommand( "atArchiver_command_standby" );
@@ -175,7 +174,7 @@ public class CSCAuxArchiver implements CommandableSalComponent {
         publisher.salShutdown();
     }
 
-    @Override public void exitControl() {
+    @Override public void exitControl( Object [] args ) {
 
         SAL_atArchiver publisher = new SAL_atArchiver();
         publisher.salCommand( "atArchiver_command_exitControl" );
@@ -208,25 +207,30 @@ public class CSCAuxArchiver implements CommandableSalComponent {
     
         // Initialize
         SAL_atArchiver subscriber = new SAL_atArchiver();
-        subscriber.salEvent( "atArchiver_logevent_SummaryState" );
+        subscriber.salEvent( "atArchiver_logevent_summaryState" );
 
         subscriber.setDebugLevel( 1 );
         
-        atArchiver.logevent_SummaryState event = new atArchiver.logevent_SummaryState();
+        atArchiver.logevent_summaryState event = new atArchiver.logevent_summaryState();
 
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
         while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_scheduler.SAL__OK ) {
+            status = subscriber.getEvent_summaryState( event );
+            if ( status == SAL_atArchiver.SAL__OK ) {
                 
                 out.println( "=== Event Logged : " + event );
                 out.println( "=== Event Status : " + status );
-                out.println( "=== Event SummaryState : " + event.SummaryStateValue );
+                out.println( "=== Event SummaryState : " + event.summaryStateValue );
                 
                 try {
-                    Executive.getEntityMap().get( "aar" )._stateTransitionQ.put( event.SummaryStateValue );
-                    Executive.getEntityMap().get( "aar" )._guiStateTransitionQ.put( event.SummaryStateValue );
+                    Executive.getEntityMap()
+                             .get( EntityType.AARCHIVER.toString() )
+                             ._modelStateTransitionQ.put( event.summaryStateValue );
+                    
+                    Executive.getEntityMap()
+                             .get( EntityType.AARCHIVER.toString() )
+                             ._viewStateTransitionQ.put( event.summaryStateValue );
                 } catch ( InterruptedException ie ) {
                     ie.printStackTrace( out.printf( "GOOD SummaryState" ));
                 }
@@ -253,12 +257,12 @@ public class CSCAuxArchiver implements CommandableSalComponent {
 
         subscriber.setDebugLevel( 1 );
         
-        atArchiver.logevent_SettingVersions event = new atArchiver.logevent_SettingVersions();
+        atArchiver.logevent_settingVersions event = new atArchiver.logevent_settingVersions();
 
         int status;
         while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_SettingVersions( event );
+            status = subscriber.getEvent_settingVersions( event );
             if ( status == SAL_atArchiver.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }
@@ -282,12 +286,12 @@ public class CSCAuxArchiver implements CommandableSalComponent {
 
         subscriber.setDebugLevel( 1 );
         
-        atArchiver.logevent_AppliedSettingsMatchStart event = new atArchiver.logevent_AppliedSettingsMatchStart();
+        atArchiver.logevent_appliedSettingsMatchStart event = new atArchiver.logevent_appliedSettingsMatchStart();
 
         int status;
         while ( Boolean.TRUE ) {
             
-            status = subscriber.getEvent_AppliedSettingsMatchStart( event );
+            status = subscriber.getEvent_appliedSettingsMatchStart( event );
             if ( status == SAL_atArchiver.SAL__OK ) {
                 out.println( "=== Event Logged : " + event );
             }

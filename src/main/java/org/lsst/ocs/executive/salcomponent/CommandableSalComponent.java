@@ -29,12 +29,12 @@ public interface CommandableSalComponent extends DomainObject {
     //////////////////////////////////////////////////////
     // SAL middle-ware default Commands
     //////////////////////////////////////////////////////
-    default public void enterControl() { out.println( "CSC cmd error: enterControl" ); }
-    default public void start()        { out.println( "CSC cmd error: start"        ); }
-    default public void enable()       { out.println( "CSC cmd error: enable"       ); }
-    default public void disable()      { out.println( "CSC cmd error: disable"      ); }
-    default public void standby()      { out.println( "CSC cmd error: standby"      ); }
-    default public void exitControl()  { out.println( "CSC cmd error: exitControl"  ); }
+    default public void enterControl( Object [] args ) { out.println( "CSC cmd error: enterControl" ); }
+    default public void start       ( Object [] args ) { out.println( "CSC cmd error: start"        ); }
+    default public void enable      ( Object [] args ) { out.println( "CSC cmd error: enable"       ); }
+    default public void disable     ( Object [] args ) { out.println( "CSC cmd error: disable"      ); }
+    default public void standby     ( Object [] args ) { out.println( "CSC cmd error: standby"      ); }
+    default public void exitControl ( Object [] args ) { out.println( "CSC cmd error: exitControl"  ); }
 
     //////////////////////////////////////////////////////
     // SAL middle-ware default Events
@@ -49,9 +49,52 @@ public interface CommandableSalComponent extends DomainObject {
     
     public enum CSC_STATE {
 
-        OFFLINE, STANDBY, DISABLED, ENABLED, FAULT;
-        //@Override public String toString() { return this._cscState; }
+        DISABLED ( "DISABLED", 1 ), 
+        ENABLED  ( "ENABLED" , 2 ), 
+        FAULT    ( "FAULT"   , 3 ),
+        OFFLINE  ( "OFFLINE" , 4 ), 
+        STANDBY  ( "STANDBY" , 5 ); 
+
+        private final String _cscStateString;
+        private final int    _cscStateValue;
+    
+        /* private constructor */
+        private CSC_STATE( String cscStateString, int cscStateValue ) {
+            
+            this._cscStateString = cscStateString;
+            this._cscStateValue  = cscStateValue;
+        }
+        
+        @Override public String toString() { return this._cscStateString; }
+        
+        public int toValue() { return this._cscStateValue; }        
     }
+    
+    public enum CSC_STATE_CMD {
+
+        enterControl ( "enterControl", CSC_STATE.STANDBY  ), // 5 
+        start        ( "start"       , CSC_STATE.DISABLED ), // 1
+        enable       ( "enable"      , CSC_STATE.ENABLED  ), // 2
+        disable      ( "disable"     , CSC_STATE.DISABLED ), // 1
+        standby      ( "standby"     , CSC_STATE.STANDBY  ), // 5
+        exitControl  ( "exitControl" , CSC_STATE.OFFLINE  ); // 4
+
+        private final String    _cscStateCmd;
+        private final CSC_STATE _cscState;
+    
+        /* private constructor */
+        private CSC_STATE_CMD( String cscStateCmd, CSC_STATE cscState ) {
+            
+            this._cscStateCmd = cscStateCmd;
+            this._cscState    = cscState;
+        }
+    
+        @Override public String toString() { return this._cscStateCmd; }
+        
+        public int toValue() { return this._cscState.toValue(); }
+        public String toValueString() { return this._cscState.toString(); }
+    }
+    
 
     public enum CSC_STATUS {
 
@@ -101,9 +144,7 @@ public interface CommandableSalComponent extends DomainObject {
         ////////////////////////////////////////////////
         // VALUE -> ENUM CONVERSION
         ////////////////////////////////////////////////
-        private static final Map<Integer, CSC_STATUS> statusValues =
-            new HashMap<>();
-//            Collections.unmodifiableMap( new HashMap<>() );
+        private static final Map<Integer, CSC_STATUS> statusValues = new HashMap<>();
 
         static {
 

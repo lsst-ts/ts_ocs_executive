@@ -63,7 +63,7 @@ public class EventTask extends Task<Integer> {
         Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
 
         try {
-            /* Command Pattern: receiver.action() [e.g. cscTcs.enterControl()] */
+            /* Command Pattern: receiver.action() [e.g. _cscMTCS.enterControl()] */
             status = (Integer) _csc.getClass()
                                    // specify method & that it takes 1 Integer type arg
                                    //.getMethod( this._event, Integer.class ) 

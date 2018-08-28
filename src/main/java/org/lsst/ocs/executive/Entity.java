@@ -36,17 +36,17 @@ public class Entity implements DomainObject {
     protected EntityType _etype;
 
     private EntityState _state; // association via composition
-
-    private Integer _stateInteger;
+    private Integer _stateValue;
+    private Integer _nextStateValue;
+    
+    public SynchronousQueue<Integer> _modelStateTransitionQ = new SynchronousQueue<>();
+    public SynchronousQueue<Integer> _viewStateTransitionQ = new SynchronousQueue<>();
     
     protected ObservingMode _observingMode;
     private Mode _mode;
     
     /* Command Receiver */
     protected CommandableSalComponent _salComponent;
-    
-    public SynchronousQueue<Integer> _stateTransitionQ = new SynchronousQueue<>();
-    public SynchronousQueue<Integer> _guiStateTransitionQ = new SynchronousQueue<>();
     
     public Entity( CommandableSalComponent csc ) {
         
@@ -117,8 +117,11 @@ public class Entity implements DomainObject {
     public void setState( EntityState state ) { this._state = state; }
     public EntityState getState()             { return this._state;  }
 
-    public void setStateInteger( Integer state ) { this._stateInteger = state; }
-    public Integer getStateInteger()             { return this._stateInteger;  }
+    public void setStateValue( Integer stateValue ) { _stateValue = stateValue; }
+    public Integer getStateValue()             { return _stateValue;  }
+
+    public void setNextStateValue( Integer nextStateValue ) { _nextStateValue = nextStateValue; }
+    public Integer getNextStateValue()             { return _nextStateValue;  }
 
     /* Delegate to the entity state object & pass the this ptr */
     public void enterControl() { this._state.enterControl( this ); }
