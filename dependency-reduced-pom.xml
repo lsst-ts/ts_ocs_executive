@@ -91,7 +91,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>org.lsst.ocs.executive.ExecutiveFX</mainClass>
+              <mainClass>org.lsst.ocs.executive.gui.fx.ExecutiveFX</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -108,7 +108,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>org.lsst.ocs.executive.ExecutiveFX</mainClass>
+                  <mainClass>org.lsst.ocs.executive.gui.fx.ExecutiveFX</mainClass>
                 </transformer>
               </transformers>
             </configuration>

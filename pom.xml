@@ -138,7 +138,7 @@
         <!-- Add the LSST CSCs dependencies -->
         <dependency>
             <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_archiver</artifactId>
+            <artifactId>sal_atcamera</artifactId>
             <version>3.7.1</version>
         </dependency>
         <dependency>
@@ -149,51 +149,6 @@
         <dependency>
             <groupId>org.lsst.lsst-tsvm</groupId>
             <artifactId>sal_atHeaderService</artifactId>
-            <version>3.7.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_atScheduler</artifactId>
-            <version>3.7.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_atcamera</artifactId>
-            <version>3.7.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_atcs</artifactId>
-            <version>3.7.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_camera</artifactId>
-            <version>3.7.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_catchuparchiver</artifactId>
-            <version>3.7.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_headerService</artifactId>
-            <version>3.7.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_promptProcessing</artifactId>
-            <version>3.7.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_scheduler</artifactId>
-            <version>3.7.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_tcs</artifactId>
             <version>3.7.1</version>
         </dependency>
     </dependencies>
@@ -300,7 +255,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>org.lsst.ocs.executive.ExecutiveFX</mainClass>
+                            <mainClass>org.lsst.ocs.executive.gui.fx.ExecutiveFX</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -328,7 +283,7 @@
 --> 
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.lsst.ocs.executive.ExecutiveFX</mainClass>
+                                    <mainClass>org.lsst.ocs.executive.gui.fx.ExecutiveFX</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
