@@ -151,6 +151,11 @@
             <artifactId>sal_atHeaderService</artifactId>
             <version>3.7.1</version>
         </dependency>
+        <dependency>
+            <groupId>black.ninia</groupId>
+            <artifactId>jep</artifactId>
+            <version>3.8.2</version>
+        </dependency>
     </dependencies>
 
     <build>

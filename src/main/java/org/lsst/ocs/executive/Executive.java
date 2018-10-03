@@ -72,18 +72,18 @@ public class Executive {
             Collections.unmodifiableMap( new HashMap<String, CommandableSalComponent>() {
             {
                 // (CSC key, CSC value)
-//                put( EntityType.SCHEDULER.toString()       , _cscSCH  );
-//                put( EntityType.MTCS.toString()            , _cscMTCS );
-//                put( EntityType.CCS.toString()             , _cscCCS  );
-//                put( EntityType.ARCHIVER.toString()        , _cscARC  );
-//                put( EntityType.CATCHUPARCHIVER.toString() , _cscCAT  );
-//                put( EntityType.PROMPTPROCESSING.toString(), _cscPRO  );
-//                put( EntityType.HEADERSERVICE.toString()   , _cscHDR  );
-//                put( EntityType.ASCHEDULER.toString()      , _cscASCH );
-//                put( EntityType.ATCS.toString()            , _cscATCS );
-                put( EntityType.ACCS.toString()            , _cscACCS );
-                put( EntityType.AARCHIVER.toString()       , _cscAARC );
-                put( EntityType.AHEADERSERVICE.toString()  , _cscAHDR );
+//                put( EntityType.SCHEDULER.toStringShort()       , _cscSCH  );
+//                put( EntityType.MTCS.toStringShort()            , _cscMTCS );
+//                put( EntityType.CCS.toStringShort()             , _cscCCS  );
+//                put( EntityType.ARCHIVER.toStringShort()        , _cscARC  );
+//                put( EntityType.CATCHUPARCHIVER.toStringShort() , _cscCAT  );
+//                put( EntityType.PROMPTPROCESSING.toStringShort(), _cscPRO  );
+//                put( EntityType.HEADERSERVICE.toStringShort()   , _cscHDR  );
+//                put( EntityType.ASCHEDULER.toStringShort()      , _cscASCH );
+//                put( EntityType.ATCS.toStringShort()            , _cscATCS );
+                put( EntityType.ACCS.toStringShort()            , _cscACCS );
+                put( EntityType.AARCHIVER.toStringShort()       , _cscAARC );
+                put( EntityType.AHEADERSERVICE.toStringShort()  , _cscAHDR );
             }
         });
     }  
@@ -127,18 +127,18 @@ public class Executive {
             Collections.unmodifiableMap( new HashMap<String, Entity>() {
             {
                 // (Entity key, Entity value)
-//                put( EntityType.SCHEDULER.toString()       , _entitySCH  );
-//                put( EntityType.MTCS.toString()            , _entityMTCS );
-//                put( EntityType.CCS.toString()             , _entityCCS  );
-//                put( EntityType.ARCHIVER.toString()        , _entityARC  );
-//                put( EntityType.CATCHUPARCHIVER.toString() , _entityCAT  );
-//                put( EntityType.PROMPTPROCESSING.toString(), _entityPRO  );
-//                put( EntityType.HEADERSERVICE.toString()   , _entityHDR  );
-//                put( EntityType.ASCHEDULER.toString()      , _entityASCH );
-//                put( EntityType.ATCS.toString()            , _entityATCS );
-                put( EntityType.ACCS.toString()            , _entityACCS );
-                put( EntityType.AARCHIVER.toString()       , _entityAARC );
-                put( EntityType.AHEADERSERVICE.toString()  , _entityAHDR );
+//                put( EntityType.SCHEDULER.toStringShort()       , _entitySCH  );
+//                put( EntityType.MTCS.toStringShort()            , _entityMTCS );
+//                put( EntityType.CCS.toStringShort()             , _entityCCS  );
+//                put( EntityType.ARCHIVER.toStringShort()        , _entityARC  );
+//                put( EntityType.CATCHUPARCHIVER.toStringShort() , _entityCAT  );
+//                put( EntityType.PROMPTPROCESSING.toStringShort(), _entityPRO  );
+//                put( EntityType.HEADERSERVICE.toStringShort()   , _entityHDR  );
+//                put( EntityType.ASCHEDULER.toStringShort()      , _entityASCH );
+//                put( EntityType.ATCS.toStringShort()            , _entityATCS );
+                put( EntityType.ACCS.toStringShort(), _entityACCS );
+                put( EntityType.AARCHIVER.toStringShort()       , _entityAARC );
+                put( EntityType.AHEADERSERVICE.toStringShort()  , _entityAHDR );
             }
         });
     }  
