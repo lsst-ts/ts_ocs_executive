@@ -14,6 +14,7 @@
 
 package org.lsst.ocs.executive.gui.controllers;
 
+import org.lsst.ocs.executive.EntityType;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.ocs.executive.gui.fx.TakeImageFX;
 import org.lsst.ocs.executive.salconnect.SalConnect;
@@ -33,7 +34,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
-import org.lsst.ocs.executive.EntityType;
 
 /**
  * <h2>FXML TakeImage Controller</h2>

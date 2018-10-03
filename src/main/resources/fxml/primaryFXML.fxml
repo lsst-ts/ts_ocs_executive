@@ -24,7 +24,11 @@
         <menus>
           <Menu mnemonicParsing="false" text="Home">
             <items>
+<<<<<<< HEAD
                   <Menu id="scriptMenu" fx:id="scriptMenu" mnemonicParsing="false" text="Run Script">
+=======
+                  <Menu fx:id="scriptMenu" mnemonicParsing="false" text="Run Script">
+>>>>>>> refs/remotes/origin/master
                     <items>
                         <MenuItem fx:id="scriptSelect" mnemonicParsing="false" onAction="#handleRunScript" text="Select Script dialog..." />
                     </items>

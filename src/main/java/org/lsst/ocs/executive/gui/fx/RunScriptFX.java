@@ -81,5 +81,4 @@ public final class RunScriptFX {
     public static void startStage() { _stage.show(); }
     
     public static void closeStage() { _stage.close(); }
-    
 }

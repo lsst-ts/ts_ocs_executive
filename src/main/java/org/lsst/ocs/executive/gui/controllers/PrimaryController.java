@@ -167,8 +167,8 @@ public class PrimaryController implements Initializable {
         
         _exec = new Executive();
         
-        ExecutorService es = Executors.newCachedThreadPool();
-        _exec.cEventTask_SUMSTATE.forEach( es::submit );
+//        ExecutorService es = Executors.newCachedThreadPool();
+//        _exec.cEventTask_SUMSTATE.forEach( es::submit );
         
         primaryExit.setOnAction( e -> {
             
@@ -186,18 +186,18 @@ public class PrimaryController implements Initializable {
     //public void setExecFXApp( ExecutiveFX refExecFX ) { this._exec = refExecFX; }
 
     /**
-          * The {@code checkSummaryState()} method subscribes to the SummaryState topic
-          * of a specific CSC on a background JavaFX thread.
-          * <p>
-          * A {@code Service} class creates & manages a Task that performs the work 
-          * on a background (daemon) thread. {@code Service} implements {@code Worker}.
-          * 
-          * <p>Similar to doing: Thread th = new Thread(new Runnable task)
-          * <p>Similar to doing: Executors.newWorkStealingPool().execute(new Runnable task);
+           * The {@code checkSummaryState()} method subscribes to the SummaryState topic
+           * of a specific CSC on a background JavaFX thread.
+           * <p>
+           * A {@code Service} class creates & manages a Task that performs the work 
+           * on a background (daemon) thread. {@code Service} implements {@code Worker}.
+           * 
+           * <p>Similar to doing: Thread th = new Thread(new Runnable task)
+           * <p>Similar to doing: Executors.newWorkStealingPool().execute(new Runnable task);
           *
-          * @see <li>https://docs.oracle.com/javase/8/javafx/api/toc.htm
-          * @see <li>https://docs.oracle.com/javase/8/javafx/concurrent/Service.html
-          */
+           * @see <li>https://docs.oracle.com/javase/8/javafx/api/toc.htm
+           * @see <li>https://docs.oracle.com/javase/8/javafx/concurrent/Service.html
+           */
     void checkSummaryState( Entity entity, String cmdString ) throws Exception {
         
         Service service = new Service() {
