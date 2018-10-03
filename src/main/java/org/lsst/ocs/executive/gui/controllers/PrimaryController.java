@@ -131,19 +131,7 @@ public class PrimaryController implements Initializable {
     // Reference to ExecutiveFX, the main Application class
     private Executive _exec;
     
-    /**
-          * Initializes the controller class. 
-          * <p>
-          * This method is automatically called  after the fxml file has been loaded.
-          */
-    @Override
-    public void initialize( URL locationUrl, ResourceBundle resourceBundle ) {
-        
-        _exec = new Executive();
-        
-        ExecutorService es = Executors.newCachedThreadPool();
-        _exec.cEventTask_SUMSTATE.forEach( es::submit );
-        
+    {
 //        STATE_LABEL_LIST.add( schLabel  ); STATE_LABEL_LIST.add( mtcsLabel );
 //        STATE_LABEL_LIST.add( ccsLabel  ); STATE_LABEL_LIST.add( arcLabel  );
 //        STATE_LABEL_LIST.add( catLabel  ); STATE_LABEL_LIST.add( proLabel  );
@@ -167,6 +155,20 @@ public class PrimaryController implements Initializable {
 //        STATE_TEXT_LIST.add( atcsStateText );
         STATE_TEXT_LIST.add( accsStateText );
         STATE_TEXT_LIST.add( aarcStateText ); STATE_TEXT_LIST.add( ahdrStateText );
+    }
+
+    /**
+     * Initializes the controller class. 
+     * <p>
+     * This method is automatically called  after the fxml file has been loaded.
+     */
+    @Override
+    public void initialize( URL locationUrl, ResourceBundle resourceBundle ) {
+        
+        _exec = new Executive();
+        
+//        ExecutorService es = Executors.newCachedThreadPool();
+//        _exec.cEventTask_SUMSTATE.forEach( es::submit );
         
         primaryExit.setOnAction( e -> {
             
@@ -177,25 +179,25 @@ public class PrimaryController implements Initializable {
     }
     
     /**
-          * Method is called by the main FX application to give a reference back to itself.
-          * 
-          * @param refExecFX class which holds {@code main()}
-          */
+     * Method is called by the main FX application to give a reference back to itself.
+     * 
+     * @param refExecFX class which holds {@code main()}
+     */
     //public void setExecFXApp( ExecutiveFX refExecFX ) { this._exec = refExecFX; }
 
     /**
-          * The {@code checkSummaryState()} method subscribes to the SummaryState topic
-          * of a specific CSC on a background JavaFX thread.
-          * <p>
-          * A {@code Service} class creates & manages a Task that performs the work 
-          * on a background (daemon) thread. {@code Service} implements {@code Worker}.
-          * 
-          * <p>Similar to doing: Thread th = new Thread(new Runnable task)
-          * <p>Similar to doing: Executors.newWorkStealingPool().execute(new Runnable task);
-          *
-          * @see <li>https://docs.oracle.com/javase/8/javafx/api/toc.htm
-          * @see <li>https://docs.oracle.com/javase/8/javafx/concurrent/Service.html
-          */
+     * The {@code checkSummaryState()} method subscribes to the SummaryState topic
+     * of a specific CSC on a background JavaFX thread.
+     * <p>
+     * A {@code Service} class creates & manages a Task that performs the work 
+     * on a background (daemon) thread. {@code Service} implements {@code Worker}.
+     * 
+     * <p>Similar to doing: Thread th = new Thread(new Runnable task)
+     * <p>Similar to doing: Executors.newWorkStealingPool().execute(new Runnable task);
+     *
+     * @see <li>https://docs.oracle.com/javase/8/javafx/api/toc.htm
+     * @see <li>https://docs.oracle.com/javase/8/javafx/concurrent/Service.html
+     */
     void checkSummaryState( Entity entity, String cmdString ) throws Exception {
         
         Service service = new Service() {
@@ -275,8 +277,9 @@ public class PrimaryController implements Initializable {
         String cmdString = mi.getText();
 
         // Grab the first 3 characters of the command string
-        Entity entity = _exec.getEntityMap()
-                             .get( mi.getId().substring( 0, 3 )); /* e.g. entitySCH */
+        Entity entity = _exec.getEntityMap()     /* e.g. entitySCH */
+                             .get( mi.getId().split( "-" )[0] ); // split by dash & grab 1st word
+                             //.get( mi.getId().substring( 0, 3 ));
 
         entity.setNextStateValue( CSC_STATE_CMD.valueOf( cmdString ).toValue() );
         
@@ -296,8 +299,9 @@ public class PrimaryController implements Initializable {
         
         // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         // 2b. Also, assign topic & topic arguments
-        SalCmd salCmd = new SalCmd( _exec.getCscMap()
-                                         .get( mi.getId().substring( 0, 3 ))); /* e.g. cscELE */
+        SalCmd salCmd = new SalCmd( _exec.getCscMap()   /* e.g. cscELE */
+                                         .get( mi.getId().split( "-" )[0] )); // split by dash & grab 1st word
+                                         //.get( mi.getId().substring( 0, 3 )));
         
         salCmd.setTopic( cmdString );
 
@@ -387,5 +391,10 @@ public class PrimaryController implements Initializable {
     @FXML private void handleTakeImage( ActionEvent event ) throws Exception {
         
         TakeImageFX.getInstance().startStage();
+    }
+
+    @FXML private void handleRunScript( ActionEvent event ) throws Exception {
+        
+        RunScriptFX.getInstance().startStage();
     }
 }

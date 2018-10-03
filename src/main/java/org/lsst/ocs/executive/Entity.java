@@ -20,6 +20,7 @@
 package org.lsst.ocs.executive;
 
 import org.lsst.ocs.executive.salcomponent.CommandableSalComponent;
+import org.lsst.ocs.executive.salcomponent.CommandableSalComponent.CSC_STATE;
 
 import java.util.concurrent.SynchronousQueue;
 
@@ -28,7 +29,7 @@ import java.util.concurrent.SynchronousQueue;
  *
  * {@code Entity} is a Context class implementation in the state pattern
  */
-public class Entity implements DomainObject {
+public final class Entity implements DomainObject {
     
     @Override public String getName() { return "Entity->" + this._etype.toString(); }
     
@@ -64,6 +65,8 @@ public class Entity implements DomainObject {
         this._etype = etype;
         
         this._state = new OfflineState();
+        
+        this.setNextStateValue( CSC_STATE.OFFLINE.toValue() );
         
 //        switch( this._etype.toString() ) {
 //            case "CAMERA":

@@ -21,26 +21,36 @@ package org.lsst.ocs.executive;
  */
 public enum EntityType {
     
-    ARCHIVER          ( "ARCHIVER"          ),
-    CATCHUPARCHIVER   ( "CATCHUPARCHIVER"   ),
-    CCS               ( "CCS"               ),
-    HEADERSERVICE     ( "HEADERSERVICE"     ),
-    MTCS              ( "MTCS"              ),
-    PROMPTPROCESSING  ( "PROMPTPROCESSING"  ),
-    OCS               ( "OCS"               ),
-    SCHEDULER         ( "SCHEDULER"         ),
-    SEQUENCER         ( "SEQUENCER"         ),
+    ARCHIVER         ( "ARCHIVER"        , "arc"  ),
+    CATCHUPARCHIVER  ( "CATCHUPARCHIVER" , "cat"  ),
+    CCS              ( "CCS"             , "ccs"  ),
+    HEADERSERVICE    ( "HEADERSERVICE"   , "hdr"  ),
+    MTCS             ( "MTCS"            , "mtcs" ),
+    PROMPTPROCESSING ( "PROMPTPROCESSING", "pro"  ),
+    OCS              ( "OCS"             , "ocs"  ),
+    SCHEDULER        ( "SCHEDULER"       , "sch"  ),
+    SEQUENCER        ( "SEQUENCER"       , "seq"  ),
 
-    AARCHIVER         ( "AARCHIVER"         ),
-    ACCS              ( "ACCS"              ),
-    AHEADERSERVICE    ( "AHEADERSERVICE"    ),
-    ASCHEDULER        ( "ASCHEDULER"        ),
-    ATCS              ( "ATCS"              );
+    AARCHIVER        ( "AARCHIVER"       , "aarc" ),
+    ACCS             ( "ACCS"            , "accs" ),
+    AHEADERSERVICE   ( "AHEADERSERVICE"  , "ahdr" ),
+    ASCHEDULER       ( "ASCHEDULER"      , "asch" ),
+    ATCS             ( "ATCS"            , "atcs" ),
+    
+    ELECTROMETER     ( "ELECTROMETER"    , "ele"  ),
+    MONOCHROMATOR    ( "MONOCHROMATOR"   , "mon"  ),
+    SEDSPECTROGRAPH  ( "SEDSPECTROGRAPH" , "sed"  );
     
     private final String _etype;
+    private final String _etypeShort;
     
     /* private constructor */
-    private EntityType( String etype ) { this._etype = etype; }
+    private EntityType( String etype, String etypeShort ) { 
+    
+        this._etype = etype; 
+        this._etypeShort = etype; 
+    }
     
     @Override public String toString() { return this._etype; }
+    public String toStringShort() { return this._etypeShort; }
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox id="takeImageScene" fx:id="takeImageScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="113.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lsst.ocs.executive.gui.controllers.RunScriptController">
+   <children>
+      <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="410.0">
+         <children>
+            <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="101.0" style="-fx-font-size: 12;" text="Script Selected:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="scriptText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="283.0">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="410.0">
+         <children>
+            <TextArea fx:id="alertText" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="410.0" />
+         </children></HBox>
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="410.0">
+         <children>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="410.0">
+               <children>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="410.0" />
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="410.0">
+                     <children>
+                        <Button fx:id="chooseButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleChoose" prefHeight="22.0" prefWidth="100.0" style="-fx-font-size: 11;" text="Choose a file...">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="runButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleRun" prefHeight="22.0" prefWidth="65.0" style="-fx-font-size: 11;" text="Run">
+                           <HBox.margin>
+                              <Insets left="150.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="exitButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleExit" prefHeight="22.0" prefWidth="65.0" style="-fx-font-size: 11;" text="Exit">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="2.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>
