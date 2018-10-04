@@ -19,8 +19,6 @@ import org.lsst.ocs.executive.EntityType;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.sal.SAL_headerService;
 
-import org.lsst.sal.SAL_scheduler;
-
 /**
  * <h2>Data Management Header Service CSC</h2>
  *
@@ -209,11 +207,11 @@ public class CSCHeaderService implements CommandableSalComponent {
         
         headerService.logevent_SummaryState event = new headerService.logevent_SummaryState();
 
-        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
+        Integer status = SAL_headerService.SAL__NO_UPDATES;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_scheduler.SAL__OK ) {
+            if ( status == SAL_headerService.SAL__OK ) {
                 
                 out.println( "=== Event Logged : " + event );
                 out.println( "=== Event Status : " + status );

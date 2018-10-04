@@ -14,11 +14,12 @@
 
 package org.lsst.ocs.executive.salcomponent;
 
-import static java.lang.System.out;
 import org.lsst.ocs.executive.EntityType;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.ocs.utilities.SequenceIdGenerator;
 import org.lsst.sal.SAL_atcamera;
+
+import static java.lang.System.out;
 
 /**
  * <h2>Auxiliary Camera Control System (ACCS) CSC</h2>
@@ -286,7 +287,7 @@ public class CSCAuxCamera implements CommandableSalComponent {
 
         atcamera.logevent_summaryState event = new atcamera.logevent_summaryState();
 
-        Integer status = CSC_STATUS.SAL__NO_UPDATES.getValue();
+        Integer status = SAL_atcamera.SAL__NO_UPDATES;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_summaryState( event );

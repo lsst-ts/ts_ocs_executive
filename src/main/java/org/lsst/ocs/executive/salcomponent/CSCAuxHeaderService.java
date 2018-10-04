@@ -14,10 +14,11 @@
 
 package org.lsst.ocs.executive.salcomponent;
 
-import static java.lang.System.out;
 import org.lsst.ocs.executive.EntityType;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.sal.SAL_atHeaderService;
+
+import static java.lang.System.out;
 
 /**
  * <h2>Data Management Header Service CSC</h2>
@@ -207,7 +208,7 @@ public class CSCAuxHeaderService implements CommandableSalComponent {
         
         atHeaderService.logevent_summaryState event = new atHeaderService.logevent_summaryState();
 
-        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
+        Integer status = SAL_atHeaderService.SAL__NO_UPDATES;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_summaryState( event );

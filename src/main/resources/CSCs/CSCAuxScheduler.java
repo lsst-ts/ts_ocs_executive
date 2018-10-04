@@ -18,7 +18,6 @@ import static java.lang.System.out;
 import org.lsst.ocs.executive.EntityType;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.sal.SAL_atScheduler;
-import org.lsst.sal.SAL_scheduler;
 
 /**
  * <h2>OCS Auxiliary Scheduler CSC</h2>
@@ -212,7 +211,7 @@ public class CSCAuxScheduler implements CommandableSalComponent {
         
         atScheduler.logevent_summaryState event = new atScheduler.logevent_summaryState();
 
-        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
+        Integer status = SAL_atScheduler.SAL__NO_UPDATES;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_summaryState( event );

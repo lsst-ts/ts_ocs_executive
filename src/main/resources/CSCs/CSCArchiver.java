@@ -19,8 +19,6 @@ import org.lsst.ocs.executive.EntityType;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.sal.SAL_archiver;
 
-import org.lsst.sal.SAL_scheduler;
-
 /**
  * <h2>Data Management Archiver Service CSC</h2>
  *
@@ -216,11 +214,11 @@ public class CSCArchiver implements CommandableSalComponent {
         
         archiver.logevent_SummaryState event = new archiver.logevent_SummaryState();
 
-        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
+        Integer status = SAL_archiver.SAL__NO_UPDATES;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_scheduler.SAL__OK ) {
+            if ( status == SAL_archiver.SAL__OK ) {
                 
                 out.println( "=== Event Logged : " + event );
                 out.println( "=== Event Status : " + status );

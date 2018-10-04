@@ -14,10 +14,11 @@
 
 package org.lsst.ocs.executive.salcomponent;
 
-import static java.lang.System.out;
 import org.lsst.ocs.executive.EntityType;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.sal.SAL_atArchiver;
+
+import static java.lang.System.out;
 
 /**
  * <h2>Data Management Auxiliary Archiver Service CSC</h2>
@@ -213,7 +214,7 @@ public class CSCAuxArchiver implements CommandableSalComponent {
         
         atArchiver.logevent_summaryState event = new atArchiver.logevent_summaryState();
 
-        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
+        Integer status = SAL_atArchiver.SAL__NO_UPDATES;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_summaryState( event );

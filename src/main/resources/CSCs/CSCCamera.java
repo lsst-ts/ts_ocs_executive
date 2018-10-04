@@ -19,8 +19,6 @@ import org.lsst.ocs.executive.EntityType;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.sal.SAL_camera;
 
-import org.lsst.sal.SAL_scheduler;
-
 /**
  * <h2>Main Camera Control System (CCS) CSC</h2>
  *
@@ -312,11 +310,11 @@ public class CSCCamera implements CommandableSalComponent {
         
         camera.logevent_SummaryState event = new camera.logevent_SummaryState();
 
-        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
+        Integer status = SAL_camera.SAL__NO_UPDATES;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_scheduler.SAL__OK ) {
+            if ( status == SAL_camera.SAL__OK ) {
                 
                 out.println( "=== Event Logged : " + event );
                 out.println( "=== Event Status : " + status );

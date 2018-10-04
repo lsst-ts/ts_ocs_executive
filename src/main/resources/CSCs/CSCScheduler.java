@@ -14,14 +14,13 @@
 
 package org.lsst.ocs.executive.salcomponent;
 
-import org.lsst.sal.SAL_scheduler;
-
-import org.lsst.ocs.executive.Executive;
-
 import static java.lang.System.out;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.lsst.ocs.executive.EntityType;
+import org.lsst.ocs.executive.Executive;
+import org.lsst.sal.SAL_scheduler;
 
 /**
  * <h2>OCS Main Scheduler CSC</h2>
@@ -218,7 +217,7 @@ public class CSCScheduler implements CommandableSalComponent {
         
         scheduler.logevent_summaryState event = new scheduler.logevent_summaryState();
         
-        Integer status = CSC_STATUS.SAL__NO_UPDATES.getValue();
+        Integer status = SAL_scheduler.SAL__NO_UPDATES;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_summaryState( event );

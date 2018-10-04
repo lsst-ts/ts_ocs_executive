@@ -300,11 +300,11 @@ public class CSCAuxTelescope implements CommandableSalComponent {
         
         atcs.logevent_SummaryState event = new atcs.logevent_SummaryState();
 
-        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
+        Integer status = SAL_atcs.SAL__NO_UPDATES;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_scheduler.SAL__OK ) {
+            if ( status == SAL_atcs.SAL__OK ) {
                 
                 out.println( "=== Event Logged : " + event );
                 out.println( "=== Event Status : " + status );

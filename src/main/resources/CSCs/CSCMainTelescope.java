@@ -19,8 +19,6 @@ import org.lsst.ocs.executive.EntityType;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.sal.SAL_tcs;
 
-import org.lsst.sal.SAL_scheduler;
-
 /**
  * <h2>Main Telescope Control System (MTCS) CSC</h2>
  *
@@ -289,11 +287,11 @@ public class CSCMainTelescope implements CommandableSalComponent {
         
         tcs.logevent_SummaryState event = new tcs.logevent_SummaryState();
 
-        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
+        Integer status = SAL_tcs.SAL__NO_UPDATES;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_scheduler.SAL__OK ) {
+            if ( status == SAL_tcs.SAL__OK ) {
                 
                 out.println( "=== Event Logged : " + event );
                 out.println( "=== Event Status : " + status );

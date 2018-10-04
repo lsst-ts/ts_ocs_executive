@@ -278,8 +278,7 @@ public class PrimaryController implements Initializable {
 
         // Grab the first 3 characters of the command string
         Entity entity = _exec.getEntityMap()     /* e.g. entitySCH */
-                             .get( mi.getId().split( "_" )[0] ); // split by dash & grab 1st word
-                             //.get( mi.getId().substring( 0, 3 )); 
+                             .get( mi.getId().split( "_" )[0] ); // split by underscore & grab 1st word
 
         entity.setNextStateValue( CSC_STATE_CMD.valueOf( cmdString ).toValue() );
         
@@ -300,8 +299,7 @@ public class PrimaryController implements Initializable {
         // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         // 2b. Also, assign topic & topic arguments
         SalCmd salCmd = new SalCmd( _exec.getCscMap()   /* e.g. cscELE */
-                                         .get( mi.getId().split( "_" )[0] )); // split by dash & grab 1st word
-                                         //.get( mi.getId().substring( 0, 3 )));
+                                         .get( mi.getId().split( "_" )[0] )); // split by underscore & grab 1st word
         
         salCmd.setTopic( cmdString );
 

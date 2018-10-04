@@ -15,11 +15,10 @@
 package org.lsst.ocs.executive.salcomponent;
 
 import static java.lang.System.out;
+
 import org.lsst.ocs.executive.EntityType;
 import org.lsst.ocs.executive.Executive;
 import org.lsst.sal.SAL_promptProcessing;
-
-import org.lsst.sal.SAL_scheduler;
 
 /**
  * <h2>Data Management Prompt Processing Service CSC</h2>
@@ -215,11 +214,11 @@ public class CSCPromptProcessing implements CommandableSalComponent {
         
         promptProcessing.logevent_SummaryState event = new promptProcessing.logevent_SummaryState();
 
-        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
+        Integer status = SAL_promptProcessing.SAL__NO_UPDATES;
         while ( Boolean.TRUE ) {
             
             status = subscriber.getEvent_SummaryState( event );
-            if ( status == SAL_scheduler.SAL__OK ) {
+            if ( status == SAL_promptProcessing.SAL__OK ) {
                 
                 out.println( "=== Event Logged : " + event );
                 out.println( "=== Event Status : " + status );
