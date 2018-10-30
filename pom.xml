@@ -137,24 +137,29 @@
 
         <!-- Add the LSST CSCs dependencies -->
         <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_atcamera</artifactId>
-            <version>3.7.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_atArchiver</artifactId>
-            <version>3.7.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lsst.lsst-tsvm</groupId>
-            <artifactId>sal_atHeaderService</artifactId>
-            <version>3.7.1</version>
-        </dependency>
-        <dependency>
             <groupId>black.ninia</groupId>
             <artifactId>jep</artifactId>
             <version>3.8.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_atcs</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_ATArchiver</artifactId>
+            <version>3.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_ATHeaderService</artifactId>
+            <version>3.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_ATCamera</artifactId>
+            <version>3.8</version>
         </dependency>
     </dependencies>
 
@@ -240,18 +245,18 @@
                         </manifest>
                     </archive>
 
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
--->            
+                            </configuration>
+                            <executions>
+                                <execution>
+                                    <id>make-assembly</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>single</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+            -->            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -266,7 +271,7 @@
                 </configuration>
             </plugin>
 
-             <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.1.0</version>
@@ -277,15 +282,15 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-<!--                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <shadedClassifierName>super-jar</shadedClassifierName>
--->                            
-<!--                            <filters>
-                                <filter>
-                                    <artifact>*:*</artifact>
-                                </filter>
-                            </filters>
---> 
+                            <!--                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                                                        <shadedClassifierName>super-jar</shadedClassifierName>
+                            -->                            
+                            <!--                            <filters>
+                                                            <filter>
+                                                                <artifact>*:*</artifact>
+                                                            </filter>
+                                                        </filters>
+                            --> 
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>org.lsst.ocs.executive.gui.fx.ExecutiveFX</mainClass>
@@ -315,17 +320,17 @@
                 </executions>
             </plugin>
                     
-<!--                    
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
-                <configuration>
-                    <shutdown>kill</shutdown>
-                    <skipTests>false</skipTests>
-                </configuration>
-            </plugin>
--->
+            <!--                    
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-plugin</artifactId>
+                            <version>2.19.1</version>
+                            <configuration>
+                                <shutdown>kill</shutdown>
+                                <skipTests>false</skipTests>
+                            </configuration>
+                        </plugin>
+            -->
             <!-- Declare the maven-surefire-plugin & configure the  dependencies of this plugin -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -347,11 +352,11 @@
                     <!-- The Maven Surefire Plugin can filter tests by tags or tag expressions using the following configuration properties -->
                     <properties>
                         <!-- 
-                                                <includeTags>fast</includeTags>
-                                                <excludeTags>slow</excludeTags> 
-                                                <includeTags>acceptance | !feature-a</includeTags>
-                                                <excludeTags>integration, regression</excludeTags> 
-                                                -->
+                        <includeTags>fast</includeTags>
+                        <excludeTags>slow</excludeTags> 
+                        <includeTags>acceptance | !feature-a</includeTags>
+                        <excludeTags>integration, regression</excludeTags> 
+                        -->
                     </properties>
                 </configuration>
                 <!-- The following are maven-surefire-plugin dependencies that will be added to the runtime classpath -->

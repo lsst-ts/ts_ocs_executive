@@ -22,63 +22,67 @@ import javafx.stage.Stage;
 
 /**
  * <h2>Run Script FX</h2>
- *
+ * <p>
  * The {@code RunScriptFX} class is the entry point for the Run Script window.
  */
 public final class RunScriptFX {
-    
-    private static volatile RunScriptFX _instance = null;
 
-    public static RunScriptFX getInstance() throws Exception {
-        
-        // make local copy
-        RunScriptFX instance = RunScriptFX._instance;
-        
-    	// Double-check locking pattern
-    	if ( instance == null ) {   // 1st Check
+  private static volatile RunScriptFX _instance = null;
 
-            // Thread safe
-            synchronized( RunScriptFX.class ) {
-                
-                instance = RunScriptFX._instance;
-                
-                if ( instance == null ) {   // 2nd Check
+  public static RunScriptFX getInstance() throws Exception {
 
-                    RunScriptFX._instance = instance = new RunScriptFX();
-                }
-            }
-    	}
-        
-        return RunScriptFX._instance;
+    // make local copy
+    RunScriptFX instance = RunScriptFX._instance;
+
+    // Double-check locking pattern
+    if ( instance == null ) {   // 1st Check
+
+      // Thread safe
+      synchronized ( RunScriptFX.class ) {
+
+        instance = RunScriptFX._instance;
+
+        if ( instance == null ) {   // 2nd Check
+
+          RunScriptFX._instance = instance = new RunScriptFX();
+        }
+      }
     }
 
-    private static FXMLLoader _loader;
-    private static Parent     _root;
-    private static Stage      _stage;
-    private static String     _fxmlFile;
+    return RunScriptFX._instance;
+  }
 
-    // private Cstr so no direct instances can be made    
-    private RunScriptFX() throws Exception {
+  private static FXMLLoader _loader;
+  private static Parent _root;
+  private static Stage _stage;
+  private static String _fxmlFile;
 
-    	// Prevent forming new instance via reflection API
-    	if ( _instance != null ) {
-            
-            throw new RuntimeException(
-                "Use getInstance () method to get the singleton instance of this class" );
-    	}
-    
-        _fxmlFile = "/fxml/runScriptFXML.fxml";
-        _loader = new FXMLLoader();
-        _root = (Parent) _loader.load( getClass().getResourceAsStream( _fxmlFile ));
+  // private Cstr so no direct instances can be made    
+  private RunScriptFX() throws Exception {
 
-        _stage = new Stage();
-        _stage.initModality( Modality.WINDOW_MODAL );
-        _stage.setScene( new Scene( _root ));
-        _stage.setTitle( "Select Script dialog" );
-        _stage.setResizable( false );
+    // Prevent forming new instance via reflection API
+    if ( _instance != null ) {
+
+      throw new RuntimeException(
+          "Use getInstance () method to get the singleton instance of this class" );
     }
-    
-    public static void startStage() { _stage.show(); }
-    
-    public static void closeStage() { _stage.close(); }
+
+    _fxmlFile = "/fxml/runScriptFXML.fxml";
+    _loader = new FXMLLoader();
+    _root = (Parent) _loader.load( getClass().getResourceAsStream( _fxmlFile ) );
+
+    _stage = new Stage();
+    _stage.initModality( Modality.WINDOW_MODAL );
+    _stage.setScene( new Scene( _root ) );
+    _stage.setTitle( "Select Script dialog" );
+    _stage.setResizable( false );
+  }
+
+  public static void startStage() {
+    _stage.show();
+  }
+
+  public static void closeStage() {
+    _stage.close();
+  }
 }

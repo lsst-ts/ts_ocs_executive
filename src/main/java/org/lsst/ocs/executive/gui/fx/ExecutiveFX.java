@@ -32,108 +32,113 @@ import javafx.stage.WindowEvent;
 
 /**
  * <h2>Executive FX</h2>
- *
+ * <p>
  * The {@code ExecutiveFX} class is the entry point of this JavaFX application.
  */
 public class ExecutiveFX extends Application {
 
-    private PrimaryController controller;
-    private Alert confirmQuitAlert;
+  private PrimaryController controller;
+  private Alert confirmQuitAlert;
 
-    /**
-          * The {@code start()} method is the main entry point for all JavaFX  applications
-          */
-    @Override
-    public void start( Stage primaryStage ) throws Exception { // Stage class is the top-level JavaFX container
+  /**
+   * The {@code start()} method is the main entry point for all JavaFX applications
+   */
+  @Override
+  public void start( Stage primaryStage ) throws Exception { // Stage class is the top-level JavaFX container
 
-        ///////////////////////////////////////////////       
-        /// Load fxml configuration file
-        ///////////////////////////////////////////////       
-        // 1.
-        //BorderPane rootBorderPane = FXMLLoader.load( getClass().getResource( "/fxml/primaryFXML.fxml" ) );
-        String fxmlFile = "/fxml/primaryFXML.fxml";
-        FXMLLoader loader = new FXMLLoader();
-        Parent rootBorderPane = (Parent) loader.load(
-            getClass().getResourceAsStream( fxmlFile ));
+    ///////////////////////////////////////////////       
+    /// Load fxml configuration file
+    ///////////////////////////////////////////////       
+    // 1.
+    //BorderPane rootBorderPane = FXMLLoader.load( getClass().getResource( "/fxml/primaryFXML.fxml" ) );
+    String fxmlFile = "/fxml/primaryFXML.fxml";
+    FXMLLoader loader = new FXMLLoader();
+    Parent rootBorderPane = (Parent) loader.load(
+        getClass().getResourceAsStream( fxmlFile ) );
 
-        // Give the controller access to the main app.
-        //controller = loader.getController();
-        //controller.setExecFXApp( this );
+    // Give the controller access to the main app.
+    //controller = loader.getController();
+    //controller.setExecFXApp( this );
+    // OR
+    // 2.
+    //String fxmlFile = "/fxml/primaryFXML.fxml";
+    //FXMLLoader loader = new FXMLLoader();
+    //Parent rootBorderPane = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
+    ///////////////////////////////////////////////       
+    // Create the Scene using the loaded Pane
+    Scene scene = new Scene( rootBorderPane );
 
-        // OR
-        // 2.
-        //String fxmlFile = "/fxml/primaryFXML.fxml";
-        //FXMLLoader loader = new FXMLLoader();
-        //Parent rootBorderPane = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
-        ///////////////////////////////////////////////       
-        // Create the Scene using the loaded Pane
-        Scene scene = new Scene( rootBorderPane );
+    /*
+     * Set the Scene to the Stage, set the Stage Title, disable window resizing & display the Stage
+     */
+    primaryStage.setScene( scene );
+    primaryStage.setTitle( "OCS Executive EUI" );
+    primaryStage.setResizable( false );
+    primaryStage.show();
 
-        /* Set the Scene to the Stage, set the Stage Title, disable window resizing  & display the Stage */
-        primaryStage.setScene( scene );
-        primaryStage.setTitle( "OCS Executive EUI" );
-        primaryStage.setResizable( false );
-        primaryStage.show();
-        
-        /* exit all secondary windows when primary window close for the 'X' close button*/
-        primaryStage.setOnCloseRequest( ( WindowEvent we ) -> {
-            
-            confirmQuitAlert = new Alert( Alert.AlertType.CONFIRMATION );
-            confirmQuitAlert.setTitle( "Quit Application" );
-            confirmQuitAlert.setHeaderText( "Quit?" );
-            confirmQuitAlert.setContentText( "Do you really want to quit?" );
+    /*
+     * exit all secondary windows when primary window close for the 'X' close button
+     */
+    primaryStage.setOnCloseRequest( ( WindowEvent we ) -> {
 
-            ButtonType quitButton   = new ButtonType( "Quit" );
-            ButtonType cancelButton = new ButtonType( "Cancel", 
-                                                      ButtonBar.ButtonData.CANCEL_CLOSE );
+      confirmQuitAlert = new Alert( Alert.AlertType.CONFIRMATION );
+      confirmQuitAlert.setTitle( "Quit Application" );
+      confirmQuitAlert.setHeaderText( "Quit?" );
+      confirmQuitAlert.setContentText( "Do you really want to quit?" );
 
-            confirmQuitAlert.initModality( Modality.APPLICATION_MODAL );
-            confirmQuitAlert.getButtonTypes().setAll( quitButton, cancelButton );
+      ButtonType quitButton = new ButtonType( "Quit" );
+      ButtonType cancelButton = new ButtonType( "Cancel",
+                                                ButtonBar.ButtonData.CANCEL_CLOSE );
 
-            Optional<ButtonType> result = confirmQuitAlert.showAndWait();
+      confirmQuitAlert.initModality( Modality.APPLICATION_MODAL );
+      confirmQuitAlert.getButtonTypes().setAll( quitButton, cancelButton );
 
-            if ( result.get() == quitButton ) {
-                
-                Platform.exit();
-                
-                System.exit( 0 );
-            } else {
-                // cancel the close request by consuming the event
-                we.consume();
-            }            
-        });
-    }
+      Optional<ButtonType> result = confirmQuitAlert.showAndWait();
 
-    /**
-          * Overriding {@code stop()} method to add {@code System.exit()} so ALL
-          * threads (JavaFX and non Java-FX threads) will be terminated when clicking
-          * 'x' on the {@code primaryStage} window.
-          */
-    @Override
-    public void stop() throws Exception {
-        
-        super.stop();
+      if ( result.get() == quitButton ) {
 
-        if ( controller != null ) {
-            //controller.startHousekeeping(); 
-        }
-
-        // Terminates the JavaFX Application & Launcher threads
         Platform.exit();
-        
-        // Terminates the current JVM (basically killing non-JavaFX threads)
+
         System.exit( 0 );
+      } else {
+        // cancel the close request by consuming the event
+        we.consume();
+      }
+    } );
+  }
+
+  /**
+   * Overriding {@code stop()} method to add {@code System.exit()} so ALL
+   * threads (JavaFX and non Java-FX threads) will be terminated when clicking
+   * 'x' on the {@code primaryStage} window.
+   */
+  @Override
+  public void stop() throws Exception {
+
+    super.stop();
+
+    if ( controller != null ) {
+      //controller.startHousekeeping(); 
     }
 
-    /**
-          * This is the {@code main()} method which launches the application using the {@code launch()} method.
-          * <p>
-          * The {@code launch()} method internally calls the {@code start()} method of the {@link Application} class.
-          *
-          * @param args n/a
-          */
-    public static void main( String[] args ) {
+    // Terminates the JavaFX Application & Launcher threads
+    Platform.exit();
 
-        launch( args );
-    }
+    // Terminates the current JVM (basically killing non-JavaFX threads)
+    System.exit( 0 );
+  }
+
+  /**
+   * This is the {@code main()} method which launches the application using the {@code launch()}
+   * method.
+   * <p>
+   * The {@code launch()} method internally calls the {@code start()} method of the
+   * {@link Application} class.
+   *
+   * @param args n/a
+   */
+  public static void main( String[] args ) {
+
+    launch( args );
+  }
 }

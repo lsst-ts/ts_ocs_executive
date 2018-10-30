@@ -22,7 +22,7 @@ import javafx.concurrent.Task;
 
 /**
  * <h2>Event Task</h2>
- *
+ * <p>
  * The {@code EventTask} class implements the {@link Task} interface and
  * overrides the {@code call()} method defined in it. The {@code EventTask}
  * class wraps a SAL event topic and is intended to be run in a separate
@@ -33,52 +33,56 @@ import javafx.concurrent.Task;
  * the {@link Thread}.
  */
 public class EventTask extends Task<Integer> {
-        
-    /* Command Pattern: Receiver (e.g. SalCamera) */
-    private final CommandableSalComponent _csc;
-    
-    private final String _event;
 
-    public EventTask( CommandableSalComponent csc, String event ) {
+  /*
+      * Command Pattern: Receiver (e.g. SalCamera)
+      */
+  private final CommandableSalComponent _csc;
 
-        this._csc = csc;
-        this._event = event;
+  private final String _event;
+
+  public EventTask( CommandableSalComponent csc, String event ) {
+
+    this._csc = csc;
+    this._event = event;
+  }
+
+  public String getName() {
+
+    return "EventTask" + "::" + this._csc.getName() + "::" + this._event;
+  }
+
+  @Override
+  public Integer call() throws Exception {
+
+    Thread.currentThread().setName( getName() );
+    out.println( this.getName() + "::"
+                 + Thread.currentThread().getStackTrace()[1].getMethodName()
+                 + "::"
+                 + "Threadid: "
+                 + Thread.currentThread().getId() );
+
+    Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
+
+    try {
+      /*
+               * Command Pattern: receiver.action() [e.g. _cscMTCS.enterControl()]
+               */
+      status = (Integer) _csc.getClass()
+          // specify method & that it takes 1 Integer type arg
+          //.getMethod( this._event, Integer.class ) 
+          // invoke w/ specific Integer arg
+          //.invoke(  _csc, i ); 
+
+          /* specify method & that it takes no (i.e. null) args */
+          .getMethod( this._event, new Class<?>[]{} )
+          /* invoke w/ null args */
+          .invoke( _csc, new Object[]{} );
+    } catch ( Exception e ) {
+      e.printStackTrace(
+          out.printf( this.getName() + "interrupted from EventTask.call()" ) );
     }
 
-    public String getName() {
-        
-        return "EventTask" + "::" + this._csc.getName() + "::" + this._event;
-    }
-
-    @Override
-    public Integer call() throws Exception {
-
-        Thread.currentThread().setName( getName() );
-        out.println( this.getName() + "::"
-                                    + Thread.currentThread().getStackTrace()[1].getMethodName()
-                                    + "::"
-                                    + "Threadid: "
-                                    + Thread.currentThread().getId() );
-
-        Integer status = CommandableSalComponent.CSC_STATUS.SAL__NO_UPDATES.getValue();
-
-        try {
-            /* Command Pattern: receiver.action() [e.g. _cscMTCS.enterControl()] */
-            status = (Integer) _csc.getClass()
-                                   // specify method & that it takes 1 Integer type arg
-                                   //.getMethod( this._event, Integer.class ) 
-                                   // invoke w/ specific Integer arg
-                                   //.invoke(  _csc, i ); 
-
-                                   /* specify method & that it takes no (i.e. null) args */
-                                   .getMethod( this._event, new Class<?>[]{} )
-                                   /* invoke w/ null args */
-                                   .invoke( _csc, new Object[]{} );
-        } catch ( Exception e ) {
-            e.printStackTrace( 
-                out.printf( this.getName() + "interrupted from EventTask.call()" ));
-        }
-
-        return status;
-    }
+    return status;
+  }
 }

@@ -5,7 +5,6 @@
 // 
 // Run as follows:
 //     $ java SeqIdGenClient
-
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -15,94 +14,87 @@ import java.util.concurrent.ThreadLocalRandom;
  * The non-instantiable {@code SequenceIdGenerator} utility/helper class
  * that implements a {@link Thread} safe version of a monotonic counter.
  * <p>
- * Example: 
+ * Example:
  * <pre>
- *  {@code string seqId = SequenceIdGenerator.getInstance().getNext(); } 
+ *  {@code string seqId = SequenceIdGenerator.getInstance().getNext(); }
  * </pre>
  */
-
 public final class SeqIdGen {
-    
-    private static volatile SeqIdGen INSTANCE;
 
-    private static AtomicInteger atomicSranInt;
+  private static volatile SeqIdGen INSTANCE;
 
-    // private Cstr so no direct instances can be made    
-    private SeqIdGen() {
+  private static AtomicInteger atomicSranInt;
 
-    	// Prevent forming new instance via reflection API
-    	if ( INSTANCE != null ) {
-            
-            throw new RuntimeException( "Use getInstance () method to get the singleton instance of this class" );
-    	}
+  // private Cstr so no direct instances can be made    
+  private SeqIdGen() {
+
+    // Prevent forming new instance via reflection API
+    if ( INSTANCE != null ) {
+
+      throw new RuntimeException( "Use getInstance () method to get the singleton instance of this class" );
     }
+  }
 
-    private static void createInstance() {
-        
-        SeqIdGen INSTANCE = SeqIdGen.INSTANCE;
+  private static void createInstance() {
 
-    	// Double-check locking pattern
-    	if ( INSTANCE == null ) {
+    SeqIdGen INSTANCE = SeqIdGen.INSTANCE;
 
-            // Thread safe
-            synchronized( SeqIdGen.class ) {
-                
-                INSTANCE = SeqIdGen.INSTANCE;
+    // Double-check locking pattern
+    if ( INSTANCE == null ) {
 
-                if ( INSTANCE == null ) { 
+      // Thread safe
+      synchronized ( SeqIdGen.class ) {
 
-                    SeqIdGen.INSTANCE = INSTANCE = new SeqIdGen();
+        INSTANCE = SeqIdGen.INSTANCE;
 
-                    atomicSranInt = new AtomicInteger( ThreadLocalRandom.current().nextInt(1) ); 
+        if ( INSTANCE == null ) {
 
-                    System.out.println( "initial value: " + atomicSranInt.intValue() );
-                }
-            }
-    	}
-    }
+          SeqIdGen.INSTANCE = INSTANCE = new SeqIdGen();
 
-    public static SeqIdGen getInstance() {
-        
-        createInstance();
-        
-        return SeqIdGen.INSTANCE;
-    }
-        
-    public static String getNext() {
-     
-        atomicSranInt.incrementAndGet();
-        
-        return Integer.toUnsignedString( atomicSranInt.get() );
-    }
+          atomicSranInt = new AtomicInteger( ThreadLocalRandom.current().nextInt( 1 ) );
 
-
-    public static String getNext( int offset ) {
-        
-        atomicSranInt.getAndAdd( offset );
-        
-        return Integer.toUnsignedString( atomicSranInt.get() );
-    }
-
-    public static String getNextBlock( ) {
-        
-        if ( (atomicSranInt.intValue() % 10) > 0 ) {
-                
-            atomicSranInt.getAndUpdate( x -> x + ( 10 - ( atomicSranInt.intValue() % 10 ) ) );
-
-            //atomicSranInt.updateAndGet( x -> x + ( 10 - ( atomicSranInt.intValue() % 10 ) ) );
-                
-        	//return Integer.toUnsignedString( atomicSranInt.get() );
-            
+          System.out.println( "initial value: " + atomicSranInt.intValue() );
         }
-
-        return Integer.toUnsignedString( atomicSranInt.get() );
-        
-        //else {
-
-        	//return SeqIdGen.getNext();
-        //}
+      }
     }
+  }
+
+  public static SeqIdGen getInstance() {
+
+    createInstance();
+
+    return SeqIdGen.INSTANCE;
+  }
+
+  public static String getNext() {
+
+    atomicSranInt.incrementAndGet();
+
+    return Integer.toUnsignedString( atomicSranInt.get() );
+  }
+
+  public static String getNext( int offset ) {
+
+    atomicSranInt.getAndAdd( offset );
+
+    return Integer.toUnsignedString( atomicSranInt.get() );
+  }
+
+  public static String getNextBlock() {
+
+    if ( ( atomicSranInt.intValue() % 10 ) > 0 ) {
+
+      atomicSranInt.getAndUpdate( x -> x + ( 10 - ( atomicSranInt.intValue() % 10 ) ) );
+
+      //atomicSranInt.updateAndGet( x -> x + ( 10 - ( atomicSranInt.intValue() % 10 ) ) );
+      //return Integer.toUnsignedString( atomicSranInt.get() );
+    }
+
+    return Integer.toUnsignedString( atomicSranInt.get() );
+
+    //else {
+    //return SeqIdGen.getNext();
+    //}
+  }
 
 }
-
-

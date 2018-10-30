@@ -19,774 +19,890 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane id="guiPrimaryScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="1052.0" style="-fx-border-style: solid; -fx-border-width: 1 1 1 1;" stylesheets="@/styles/caspian.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lsst.ocs.executive.gui.controllers.PrimaryController">
-   <top>
-      <MenuBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="1050.0" BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="Home">
-            <items>
-<<<<<<< HEAD
-                  <Menu id="scriptMenu" fx:id="scriptMenu" mnemonicParsing="false" text="Run Script">
-=======
-                  <Menu fx:id="scriptMenu" mnemonicParsing="false" text="Run Script">
->>>>>>> refs/remotes/origin/master
+    <top>
+        <MenuBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="1050.0" BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="Home">
                     <items>
-                        <MenuItem fx:id="scriptSelect" mnemonicParsing="false" onAction="#handleRunScript" text="Select Script dialog..." />
+                        <Menu id="scriptMenu" fx:id="scriptMenu" mnemonicParsing="false" text="Run Script">
+                            <items>
+                                <MenuItem fx:id="scriptSelect" mnemonicParsing="false" onAction="#handleRunScript" text="Select Script dialog..." />
+                            </items>
+                        </Menu>
+                        <MenuItem mnemonicParsing="false" text="Open Log" />
+                        <MenuItem fx:id="primaryExit" mnemonicParsing="false" text="Exit" />
                     </items>
-                  </Menu>
-                  <MenuItem mnemonicParsing="false" text="Open Log" />
-              <MenuItem fx:id="primaryExit" mnemonicParsing="false" text="Exit" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="CSC">
-            <items>
-                  <Menu id="menuCSC" fx:id="menuCSC" mnemonicParsing="false" text="Create CSC...">
+                </Menu>
+                <Menu mnemonicParsing="false" text="CSC">
                     <items>
-                        <MenuItem id="menuitemCreateTCS" fx:id="menuitemCreateTCS" mnemonicParsing="false" onAction="#createCSC" text="TCS" />
-                        <MenuItem id="menuitemCreateCamera" fx:id="menuitemCreateCamera" mnemonicParsing="false" onAction="#createCSC" text="CAMERA" />
-                        <MenuItem id="menuitemCreateCamera" fx:id="menuitemCreateArchiver" mnemonicParsing="false" onAction="#createCSC" text="ARCHIVER" />
-                        <MenuItem id="menuitemCreateCatchupArchiver" fx:id="menuitemCreateCatchupArchiver" mnemonicParsing="false" onAction="#createCSC" text="CATCHUP ARCHIVER" />
-                        <MenuItem id="menuitemCreateProcessingCluster" fx:id="menuitemCreateProcessingCluster" mnemonicParsing="false" onAction="#createCSC" text="PROCESSING CLUSTER" />
-                        <MenuItem id="menuitemHeaderService" fx:id="menuitemHeaderService" mnemonicParsing="false" onAction="#createCSC" text="HEADER SERVICE" />
+                        <Menu id="menuCSC" fx:id="menuCSC" mnemonicParsing="false" style="-fx-font-size: 12;" text="Create CSC...">
+                            <items>
+                                <MenuItem id="menuitemCreateTCS" fx:id="menuitemCreateTCS" mnemonicParsing="false" onAction="#createCSC" style="-fx-font-size: 12;" text="TCS" />
+                                <MenuItem id="menuitemCreateCamera" fx:id="menuitemCreateCamera" mnemonicParsing="false" onAction="#createCSC" style="-fx-font-size: 12;" text="CAMERA" />
+                                <MenuItem id="menuitemCreateCamera" fx:id="menuitemCreateArchiver" mnemonicParsing="false" onAction="#createCSC" style="-fx-font-size: 12;" text="ARCHIVER" />
+                                <MenuItem id="menuitemCreateCatchupArchiver" fx:id="menuitemCreateCatchupArchiver" mnemonicParsing="false" onAction="#createCSC" style="-fx-font-size: 12;" text="CATCHUP ARCHIVER" />
+                                <MenuItem id="menuitemCreateProcessingCluster" fx:id="menuitemCreateProcessingCluster" mnemonicParsing="false" onAction="#createCSC" style="-fx-font-size: 12;" text="PROCESSING CLUSTER" />
+                                <MenuItem id="menuitemHeaderService" fx:id="menuitemHeaderService" mnemonicParsing="false" onAction="#createCSC" style="-fx-font-size: 12;" text="HEADER SERVICE" />
+                            </items>
+                        </Menu>
+                        <MenuItem id="cscAllEnter" fx:id="cscAllEnter" mnemonicParsing="false" onAction="#cscStateAll" style="-fx-font-size: 12;" text="enterControl All CSCs" />
+                        <MenuItem id="cscAllStart" fx:id="cscAllStart" mnemonicParsing="false" onAction="#cscStateAll" style="-fx-font-size: 12;" text="start All CSCs" />
+                        <MenuItem id="cscAllEnable" fx:id="cscAllEnable" mnemonicParsing="false" onAction="#cscStateAll" style="-fx-font-size: 12;" text="enable All CSCs" />
+                        <MenuItem id="cscAllDisable" fx:id="cscAllDisable" mnemonicParsing="false" onAction="#cscStateAll" style="-fx-font-size: 12;" text="disable All CSCs" />
+                        <MenuItem id="cscAllStandby" fx:id="cscAllStandby" mnemonicParsing="false" onAction="#cscStateAll" style="-fx-font-size: 12;" text="standby All CSCs" />
+                        <MenuItem id="cscAllExit" fx:id="cscAllExit" mnemonicParsing="false" onAction="#cscStateAll" style="-fx-font-size: 12;" text="exitControl All CSCs" />
                     </items>
-                  </Menu>
-                  <MenuItem id="cscAllEnter" fx:id="cscAllEnter" mnemonicParsing="false" onAction="#cscStateAll" text="enterControl All CSCs" />
-                  <MenuItem id="cscAllStart" fx:id="cscAllStart" mnemonicParsing="false" onAction="#cscStateAll" text="start All CSCs" />
-                  <MenuItem id="cscAllEnable" fx:id="cscAllEnable" mnemonicParsing="false" onAction="#cscStateAll" text="enable All CSCs" />
-                  <MenuItem id="cscAllDisable" fx:id="cscAllDisable" mnemonicParsing="false" onAction="#cscStateAll" text="disable All CSCs" />
-                  <MenuItem id="cscAllStandby" fx:id="cscAllStandby" mnemonicParsing="false" onAction="#cscStateAll" text="standby All CSCs" />
-                  <MenuItem id="cscAllExit" fx:id="cscAllExit" mnemonicParsing="false" onAction="#cscStateAll" text="exitControl All CSCs" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </MenuBar>
-   </top>
-   <center>
-      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="1050.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-        <tabs>
-          <Tab text="SCIENCE">
-               <content>
-                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
                     <items>
-                      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="1050.0">
-                           <children>
-                              <HBox id="mainHBox" fx:id="mainHBox" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="1050.0">
-                                 <children>
-                                    <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
-                                       <children>
-                                          <Label id="schLabel" fx:id="schLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Scheduler" textAlignment="CENTER">
-                                             <tooltip>
-                                                <Tooltip fx:id="schTooltip" text="Scheduler Offline" />
-                                             </tooltip>
-                                             <font>
-                                                <Font size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <MenuButton id="schStateMenu" fx:id="schStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
-                                             <items>
-                                                <MenuItem fx:id="sch_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
-                                                <MenuItem fx:id="sch_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
-                                                <MenuItem fx:id="sch_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
-                                                <MenuItem fx:id="sch_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
-                                                <MenuItem fx:id="sch_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
-                                                <MenuItem fx:id="sch_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
-                                             </items>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="10.0" />
-                                             </VBox.margin>
-                                          </MenuButton>
-                                          <HBox prefHeight="24.0" prefWidth="170.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="schStateText" fx:id="schStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                    <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-width: 0 1 0 0; -fx-border-style: solid;">
-                                       <children>
-                                          <Label id="mtcsLabel" fx:id="mtcsLabel" alignment="CENTER" cache="true" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Main Telescope" textAlignment="CENTER">
-                                             <tooltip>
-                                                <Tooltip id="mtcsTooltip" fx:id="mtcsTooltip" text="Main Telescope Offline" />
-                                             </tooltip>
-                                             <opaqueInsets>
-                                                <Insets />
-                                             </opaqueInsets>
-                                             <font>
-                                                <Font size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <MenuButton id="mtcsStateMenu" fx:id="mtcsStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
-                                             <items>
-                                                <MenuItem id="mtcsEnter" fx:id="mtcsEnter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
-                                                <MenuItem fx:id="mtcs_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
-                                                <MenuItem fx:id="mtcs_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
-                                                <MenuItem fx:id="mtcs_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
-                                                <MenuItem fx:id="mtcs_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
-                                                <MenuItem fx:id="mtcs_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
-                                             </items>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="10.0" />
-                                             </VBox.margin>
-                                          </MenuButton>
-                                          <HBox prefHeight="24.0" prefWidth="174.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="mtcsStateText" fx:id="mtcsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                          <Separator prefHeight="24.0" prefWidth="174.0">
-                                             <VBox.margin>
-                                                <Insets top="19.0" />
-                                             </VBox.margin>
-                                          </Separator>
-                                          <MenuButton id="mtcsCmdMenu" fx:id="mtcsCmdMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="Commands">
-                                             <items>
-                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="filterChange" />
-                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="target" />
-                                             </items>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                          </MenuButton>
-                                          <HBox prefHeight="71.0" prefWidth="174.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="21.0" prefWidth="70.0" text="command">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="mtcsCmdText" fx:id="mtcsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </VBox>
-                                    <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
-                                       <children>
-                                          <Label id="ccsLabel" fx:id="ccsLabel" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Main Camera" textAlignment="CENTER">
-                                             <tooltip>
-                                                <Tooltip id="ccsTooltip" fx:id="ccsTooltip" text="Main Camera Offline" />
-                                             </tooltip>
-                                             <font>
-                                                <Font size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <MenuButton id="ccsStateMenu" fx:id="ccsStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
-                                             <items>
-                                                <MenuItem fx:id="ccs_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
-                                                <MenuItem fx:id="ccs_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
-                                                <MenuItem fx:id="ccs_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
-                                                <MenuItem fx:id="ccs_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
-                                                <MenuItem fx:id="ccs_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
-                                                <MenuItem fx:id="ccs_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
-                                             </items>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="10.0" />
-                                             </VBox.margin>
-                                          </MenuButton>
-                                          <HBox prefHeight="24.0" prefWidth="170.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="ccsStateText" fx:id="ccsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                          <Separator prefHeight="24.0" prefWidth="174.0">
-                                             <VBox.margin>
-                                                <Insets top="19.0" />
-                                             </VBox.margin>
-                                          </Separator>
-                                          <MenuButton id="ccsCmdMenu" fx:id="ccsCmdMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="Commands">
-                                             <items>
-                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="setFilter" />
-                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="takeImage" />
-                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="initImage" />
-                                             </items>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                          </MenuButton>
-                                          <HBox prefHeight="71.0" prefWidth="174.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="21.0" prefWidth="70.0" text="command">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="ccsCmdText" fx:id="ccsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                    <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
-                                       <children>
-                                          <Label id="arcLabel" fx:id="arcLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Archiver" textAlignment="CENTER">
-                                             <tooltip>
-                                                <Tooltip id="arcTooltip" fx:id="arcTooltip" text="ARCHIVER Offline" />
-                                             </tooltip>
-                                             <font>
-                                                <Font size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <MenuButton id="arcStateMenu" fx:id="arcStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
-                                             <items>
-                                                <MenuItem fx:id="arc_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
-                                                <MenuItem fx:id="arc_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
-                                                <MenuItem fx:id="arc_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
-                                                <MenuItem fx:id="arc_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
-                                                <MenuItem fx:id="arc_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
-                                                <MenuItem fx:id="arc_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
-                                             </items>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="10.0" />
-                                             </VBox.margin>
-                                          </MenuButton>
-                                          <HBox prefHeight="24.0" prefWidth="170.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="arcStateText" fx:id="arcStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                          <Label id="hdrLabel" fx:id="hdrLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="174.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Header Service" textAlignment="CENTER">
-                                             <tooltip>
-                                                <Tooltip id="hdrTooltip" fx:id="hdrTooltip" text="HEADER SERVICE Offline" />
-                                             </tooltip>
-                                             <font>
-                                                <Font size="12.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="30.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                          <MenuButton id="hdrStateMenu" fx:id="hdrStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="175.0" text="StateTransition">
-                                             <items>
-                                                <MenuItem fx:id="hdr_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
-                                                <MenuItem fx:id="hdr_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
-                                                <MenuItem fx:id="hdr_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
-                                                <MenuItem fx:id="hdr_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
-                                                <MenuItem fx:id="hdr_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
-                                                <MenuItem fx:id="hdr_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
-                                             </items>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="10.0" />
-                                             </VBox.margin>
-                                          </MenuButton>
-                                          <HBox prefHeight="24.0" prefWidth="170.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="hdrStateText" fx:id="hdrStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                    <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
-                                       <children>
-                                          <Label id="catLabel" fx:id="catLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Catchup Archiver" textAlignment="CENTER">
-                                             <tooltip>
-                                                <Tooltip fx:id="catTooltip" text="CATCHUP ARCHIVER Offline" />
-                                             </tooltip>
-                                             <font>
-                                                <Font size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <MenuButton id="catStateMenu" fx:id="catStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
-                                             <items>
-                                                <MenuItem fx:id="cat_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
-                                                <MenuItem fx:id="cat_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
-                                                <MenuItem fx:id="cat_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
-                                                <MenuItem fx:id="cat_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
-                                                <MenuItem fx:id="cat_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
-                                                <MenuItem fx:id="cat_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
-                                             </items>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="10.0" />
-                                             </VBox.margin>
-                                          </MenuButton>
-                                          <HBox prefHeight="24.0" prefWidth="170.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="catStateText" fx:id="catStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                          <Label id="proLabel" fx:id="proLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Prompt Processing" textAlignment="CENTER">
-                                             <tooltip>
-                                                <Tooltip fx:id="proTooltip" text="PROCESSING CLUSTER Offline" />
-                                             </tooltip>
-                                             <font>
-                                                <Font size="12.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="30.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                          <MenuButton id="proStateMenu" fx:id="proStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
-                                             <items>
-                                                <MenuItem fx:id="pro_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
-                                                <MenuItem fx:id="pro_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
-                                                <MenuItem fx:id="pro_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
-                                                <MenuItem fx:id="pro_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
-                                                <MenuItem fx:id="pro_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
-                                                <MenuItem fx:id="pro_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
-                                             </items>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="10.0" />
-                                             </VBox.margin>
-                                          </MenuButton>
-                                          <HBox prefHeight="24.0" prefWidth="170.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="proStateText" fx:id="proStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                    <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 0 0;" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </AnchorPane>
-                      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="1050.0">
-                           <children>
-                              <HBox id="auxHBox" fx:id="auxHBox" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="1050.0">
-                                 <children>
-                                    <VBox layoutX="535.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
-                                       <children>
-                                          <Label id="aschLabel" fx:id="aschLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary Scheduler" textAlignment="CENTER">
-                                             <tooltip>
-                                                <Tooltip fx:id="aschTooltip" text="Auxiliary Scheduler Offline" />
-                                             </tooltip>
-                                             <font>
-                                                <Font size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <MenuButton id="aschStateMenu" fx:id="aschStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
-                                             <items>
-                                                <MenuItem fx:id="asch_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
-                                                <MenuItem fx:id="asch_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
-                                                <MenuItem fx:id="asch_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
-                                                <MenuItem fx:id="asch_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
-                                                <MenuItem fx:id="asch_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
-                                                <MenuItem fx:id="asch_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
-                                             </items>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="10.0" />
-                                             </VBox.margin>
-                                          </MenuButton>
-                                          <HBox prefHeight="24.0" prefWidth="170.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="aschStateText" fx:id="aschStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                    <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-width: 0 1 0 0; -fx-border-style: solid;">
-                                       <children>
-                                          <Label id="atcsLabel" fx:id="atcsLabel" alignment="CENTER" cache="true" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary Telescope" textAlignment="CENTER">
-                                             <tooltip>
-                                                <Tooltip id="atcsTooltip" fx:id="atcsTooltip" text="Auxiliary Telescope Offline" />
-                                             </tooltip>
-                                             <opaqueInsets>
-                                                <Insets />
-                                             </opaqueInsets>
-                                             <font>
-                                                <Font size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <MenuButton id="atcsStateMenu" fx:id="atcsStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
-                                             <items>
-                                                <MenuItem fx:id="atcs_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
-                                                <MenuItem fx:id="atcs_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
-                                                <MenuItem fx:id="atcs_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
-                                                <MenuItem fx:id="atcs_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
-                                                <MenuItem fx:id="atcs_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
-                                                <MenuItem fx:id="atcs_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
-                                             </items>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="10.0" />
-                                             </VBox.margin>
-                                          </MenuButton>
-                                          <HBox prefHeight="24.0" prefWidth="174.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="atcsStateText" fx:id="atcsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                          <Separator prefHeight="24.0" prefWidth="174.0">
-                                             <VBox.margin>
-                                                <Insets top="25.0" />
-                                             </VBox.margin>
-                                          </Separator>
-                                          <MenuButton id="atcsCmdMenu" fx:id="atcsCmdMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="Commands">
-                                             <items>
-                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="filterChange" />
-                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="target" />
-                                             </items>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </MenuButton>
-                                          <HBox prefHeight="62.0" prefWidth="174.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="21.0" prefWidth="70.0" text="command">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="atcsCmdText" fx:id="atcsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </VBox>
-                                    <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
-                                       <children>
-                                          <Label id="accsLabel" fx:id="accsLabel" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary Camera" textAlignment="CENTER">
-                                             <tooltip>
-                                                <Tooltip id="accsTooltip" fx:id="accsTooltip" text="Auxiliary Camera Offline" />
-                                             </tooltip>
-                                             <font>
-                                                <Font size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <MenuButton id="accsStateMenu" fx:id="accsStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
-                                             <items>
-                                                <MenuItem fx:id="accs_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
-                                                <MenuItem fx:id="accs_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
-                                                <MenuItem fx:id="accs_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
-                                                <MenuItem fx:id="accs_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
-                                                <MenuItem fx:id="accs_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
-                                                <MenuItem fx:id="accs_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
-                                             </items>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="10.0" />
-                                             </VBox.margin>
-                                          </MenuButton>
-                                          <HBox prefHeight="24.0" prefWidth="170.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="accsStateText" fx:id="accsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                          <Separator prefHeight="24.0" prefWidth="171.0">
-                                             <VBox.margin>
-                                                <Insets top="25.0" />
-                                             </VBox.margin>
-                                          </Separator>
-                                          <MenuButton id="accsCmdMenu" fx:id="accsCmdMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="Commands">
-                                             <items>
-                                                <Menu fx:id="accsTakeImage" mnemonicParsing="false" text="takeImage">
-                                                  <items>
-                                                      <MenuItem fx:id="setTakeImageMenui" mnemonicParsing="false" onAction="#handleTakeImage" style="-fx-font-size: 11;" text="set parameters" />
-                                                  </items>
-                                                </Menu>
-                                                <MenuItem fx:id="accsSetFilter" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="setFilter" />
-                                                <MenuItem fx:id="accsInitImage" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="initImage" />
-                                             </items>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                          </MenuButton>
-                                          <HBox prefHeight="62.0" prefWidth="174.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="21.0" prefWidth="70.0" text="command">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="accsCmdText" fx:id="accsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                    <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
-                                       <children>
-                                          <Label id="aarcLabel" fx:id="aarcLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary Archiver" textAlignment="CENTER">
-                                             <tooltip>
-                                                <Tooltip id="aarcTooltip" fx:id="aarcTooltip" text="Auxiliary Archiver Offline" />
-                                             </tooltip>
-                                             <font>
-                                                <Font size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <MenuButton id="aarcStateMenu" fx:id="aarcStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
-                                             <items>
-                                                <MenuItem fx:id="aarc_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
-                                                <MenuItem fx:id="aarc_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
-                                                <MenuItem fx:id="aarc_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
-                                                <MenuItem fx:id="aarc_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
-                                                <MenuItem fx:id="aarc_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
-                                                <MenuItem fx:id="aarc_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
-                                             </items>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="10.0" />
-                                             </VBox.margin>
-                                          </MenuButton>
-                                          <HBox prefHeight="24.0" prefWidth="170.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="aarcStateText" fx:id="aarcStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                    <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
-                                       <children>
-                                          <Label id="ahdrLabel" fx:id="ahdrLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary Header Service" textAlignment="CENTER">
-                                             <tooltip>
-                                                <Tooltip fx:id="ahdrTooltip" text="Auxiliary Header Service Offline" />
-                                             </tooltip>
-                                             <font>
-                                                <Font size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <MenuButton id="ahdrStateMenu" fx:id="ahdrStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
-                                             <items>
-                                                <MenuItem fx:id="ahdr_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
-                                                <MenuItem fx:id="ahdr_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
-                                                <MenuItem fx:id="ahdr_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
-                                                <MenuItem fx:id="ahdr_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
-                                                <MenuItem fx:id="ahdr_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
-                                                <MenuItem fx:id="ahdr_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
-                                             </items>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="10.0" />
-                                             </VBox.margin>
-                                          </MenuButton>
-                                          <HBox prefHeight="24.0" prefWidth="170.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
-                                                   <font>
-                                                      <Font name="System Italic" size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField id="ahdrStateText" fx:id="ahdrStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
-                                                   <HBox.margin>
-                                                      <Insets top="1.0" />
-                                                   </HBox.margin>
-                                                   <font>
-                                                      <Font size="11.0" />
-                                                   </font>
-                                                </TextField>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </AnchorPane>
+                        <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="About" />
                     </items>
-                  </SplitPane>
-               </content>
-          </Tab>
-          <Tab text="CALIBRATION" />
-        </tabs>
-      </TabPane>
-   </center>
-   <bottom>
-      <TextField alignment="TOP_LEFT" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="1051.0" style="-fx-border-style: solid; -fx-border-width: 1 1 1 1;" BorderPane.alignment="TOP_LEFT" />
-   </bottom>
+                </Menu>
+            </menus>
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+        </MenuBar>
+    </top>
+    <center>
+        <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="1050.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <tabs>
+                <Tab text="SCIENCE">
+                    <content>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                            <items>
+                                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="1050.0">
+                                    <children>
+                                        <HBox id="mainHBox" fx:id="mainHBox" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="1050.0">
+                                            <children>
+                                                <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
+                                                    <children>
+                                                        <Label id="schLabel" fx:id="schLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Scheduler" textAlignment="CENTER">
+                                                            <tooltip>
+                                                                <Tooltip fx:id="schTooltip" text="Scheduler Offline" />
+                                                            </tooltip>
+                                                            <font>
+                                                                <Font size="12.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <MenuButton id="schStateMenu" fx:id="schStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
+                                                            <items>
+                                                                <MenuItem fx:id="msch_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
+                                                                <MenuItem fx:id="msch_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
+                                                                <MenuItem fx:id="msch_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
+                                                                <MenuItem fx:id="msch_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
+                                                                <MenuItem fx:id="msch_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
+                                                                <MenuItem fx:id="msch_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
+                                                                <Menu mnemonicParsing="false" style="-fx-font-size: 11; -fx-text-fill: red;" text="Bypass State Logic">
+                                                                    <items>
+                                                                        <MenuItem fx:id="msch_EnterBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enterControl" />
+                                                                        <MenuItem fx:id="msch_StartBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="start" />
+                                                                        <MenuItem fx:id="msch_EnableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enable" />
+                                                                        <MenuItem fx:id="msch_DisableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="disable" />
+                                                                        <MenuItem fx:id="msch_StandbyBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="standby" />
+                                                                        <MenuItem fx:id="msch_ExitBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="exitControl" />
+                                                                    </items>
+                                                                </Menu>
+                                                            </items>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets top="10.0" />
+                                                            </VBox.margin>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="24.0" prefWidth="170.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="schStateText" fx:id="schStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                                <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-width: 0 1 0 0; -fx-border-style: solid;">
+                                                    <children>
+                                                        <Label id="mtcsLabel" fx:id="mtcsLabel" alignment="CENTER" cache="true" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Main Telescope" textAlignment="CENTER">
+                                                            <tooltip>
+                                                                <Tooltip id="mtcsTooltip" fx:id="mtcsTooltip" text="Main Telescope Offline" />
+                                                            </tooltip>
+                                                            <opaqueInsets>
+                                                                <Insets />
+                                                            </opaqueInsets>
+                                                            <font>
+                                                                <Font size="12.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <MenuButton id="mtcsStateMenu" fx:id="mtcsStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
+                                                            <items>
+                                                                <MenuItem id="mtcsEnter" fx:id="mtcsEnter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
+                                                                <MenuItem fx:id="mtcs_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
+                                                                <MenuItem fx:id="mtcs_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
+                                                                <MenuItem fx:id="mtcs_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
+                                                                <MenuItem fx:id="mtcs_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
+                                                                <MenuItem fx:id="mtcs_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
+                                                                <Menu mnemonicParsing="false" style="-fx-font-size: 11; -fx-text-fill: red;" text="Bypass State Logic">
+                                                                    <items>
+                                                                        <MenuItem fx:id="mtcs_EnterBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enterControl" />
+                                                                        <MenuItem fx:id="mtcs_StartBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="start" />
+                                                                        <MenuItem fx:id="mtcs_EnableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enable" />
+                                                                        <MenuItem fx:id="mtcs_DisableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="disable" />
+                                                                        <MenuItem fx:id="mtcs_StandbyBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="standby" />
+                                                                        <MenuItem fx:id="mtcs_ExitBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="exitControl" />
+                                                                    </items>
+                                                                </Menu>
+                                                            </items>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets top="10.0" />
+                                                            </VBox.margin>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="24.0" prefWidth="174.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="mtcsStateText" fx:id="mtcsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                        <Separator prefHeight="24.0" prefWidth="174.0">
+                                                            <VBox.margin>
+                                                                <Insets top="19.0" />
+                                                            </VBox.margin>
+                                                        </Separator>
+                                                        <MenuButton id="mtcsCmdMenu" fx:id="mtcsCmdMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="Commands">
+                                                            <items>
+                                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="filterChange" />
+                                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="target" />
+                                                            </items>
+                                                            <VBox.margin>
+                                                                <Insets />
+                                                            </VBox.margin>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="71.0" prefWidth="174.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="21.0" prefWidth="70.0" text="command">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="mtcsCmdText" fx:id="mtcsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                    <HBox.margin>
+                                                        <Insets />
+                                                    </HBox.margin>
+                                                </VBox>
+                                                <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
+                                                    <children>
+                                                        <Label id="ccsLabel" fx:id="ccsLabel" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Main Camera" textAlignment="CENTER">
+                                                            <tooltip>
+                                                                <Tooltip id="ccsTooltip" fx:id="ccsTooltip" text="Main Camera Offline" />
+                                                            </tooltip>
+                                                            <font>
+                                                                <Font size="12.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <MenuButton id="ccsStateMenu" fx:id="ccsStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
+                                                            <items>
+                                                                <MenuItem fx:id="mcam_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
+                                                                <MenuItem fx:id="mcam_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
+                                                                <MenuItem fx:id="mcam_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
+                                                                <MenuItem fx:id="mcam_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
+                                                                <MenuItem fx:id="mcam_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
+                                                                <MenuItem fx:id="mcam_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
+                                                                <Menu mnemonicParsing="false" style="-fx-font-size: 11; -fx-text-fill: red;" text="Bypass State Logic">
+                                                                    <items>
+                                                                        <MenuItem fx:id="mcam_EnterBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enterControl" />
+                                                                        <MenuItem fx:id="mcam_StartBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="start" />
+                                                                        <MenuItem fx:id="mcam_EnableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enable" />
+                                                                        <MenuItem fx:id="mcam_DisableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="disable" />
+                                                                        <MenuItem fx:id="mcam_StandbyBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="standby" />
+                                                                        <MenuItem fx:id="mcam_ExitBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="exitControl" />
+                                                                    </items>
+                                                                </Menu>
+                                                            </items>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets top="10.0" />
+                                                            </VBox.margin>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="24.0" prefWidth="170.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="ccsStateText" fx:id="ccsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                        <Separator prefHeight="24.0" prefWidth="174.0">
+                                                            <VBox.margin>
+                                                                <Insets top="19.0" />
+                                                            </VBox.margin>
+                                                        </Separator>
+                                                        <MenuButton id="ccsCmdMenu" fx:id="ccsCmdMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="Commands">
+                                                            <items>
+                                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="setFilter" />
+                                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="takeImage" />
+                                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="initImage" />
+                                                            </items>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="71.0" prefWidth="174.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="21.0" prefWidth="70.0" text="command">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="ccsCmdText" fx:id="ccsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                                <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
+                                                    <children>
+                                                        <Label id="arcLabel" fx:id="arcLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Archiver" textAlignment="CENTER">
+                                                            <tooltip>
+                                                                <Tooltip id="arcTooltip" fx:id="arcTooltip" text="ARCHIVER Offline" />
+                                                            </tooltip>
+                                                            <font>
+                                                                <Font size="12.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <MenuButton id="arcStateMenu" fx:id="arcStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
+                                                            <items>
+                                                                <MenuItem fx:id="marc_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
+                                                                <MenuItem fx:id="marc_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
+                                                                <MenuItem fx:id="marc_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
+                                                                <MenuItem fx:id="marc_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
+                                                                <MenuItem fx:id="marc_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
+                                                                <MenuItem fx:id="marc_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
+                                                                <Menu mnemonicParsing="false" style="-fx-font-size: 11; -fx-text-fill: red;" text="Bypass State Logic">
+                                                                    <items>
+                                                                        <MenuItem fx:id="marc_EnterBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enterControl" />
+                                                                        <MenuItem fx:id="marc_StartBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="start" />
+                                                                        <MenuItem fx:id="marc_EnableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enable" />
+                                                                        <MenuItem fx:id="marc_DisableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="disable" />
+                                                                        <MenuItem fx:id="marc_StandbyBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="standby" />
+                                                                        <MenuItem fx:id="marc_ExitBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="exitControl" />
+                                                                    </items>
+                                                                </Menu>
+                                                            </items>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets top="10.0" />
+                                                            </VBox.margin>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="24.0" prefWidth="170.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="arcStateText" fx:id="arcStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                        <Label id="hdrLabel" fx:id="hdrLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="174.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Header Service" textAlignment="CENTER">
+                                                            <tooltip>
+                                                                <Tooltip id="hdrTooltip" fx:id="hdrTooltip" text="HEADER SERVICE Offline" />
+                                                            </tooltip>
+                                                            <font>
+                                                                <Font size="12.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets top="30.0" />
+                                                            </VBox.margin>
+                                                        </Label>
+                                                        <MenuButton id="hdrStateMenu" fx:id="hdrStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="175.0" text="StateTransition">
+                                                            <items>
+                                                                <MenuItem fx:id="mhdr_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
+                                                                <MenuItem fx:id="mhdr_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
+                                                                <MenuItem fx:id="mhdr_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
+                                                                <MenuItem fx:id="mhdr_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
+                                                                <MenuItem fx:id="mhdr_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
+                                                                <MenuItem fx:id="mhdr_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
+                                                                <Menu mnemonicParsing="false" style="-fx-font-size: 11; -fx-text-fill: red;" text="Bypass State Logic">
+                                                                    <items>
+                                                                        <MenuItem fx:id="mhdr_EnterBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enterControl" />
+                                                                        <MenuItem fx:id="mhdr_StartBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="start" />
+                                                                        <MenuItem fx:id="mhdr_EnableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enable" />
+                                                                        <MenuItem fx:id="mhdr_DisableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="disable" />
+                                                                        <MenuItem fx:id="mhdr_StandbyBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="standby" />
+                                                                        <MenuItem fx:id="mhdr_ExitBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="exitControl" />
+                                                                    </items>
+                                                                </Menu>
+                                                            </items>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets top="10.0" />
+                                                            </VBox.margin>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="24.0" prefWidth="170.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="hdrStateText" fx:id="hdrStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                                <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
+                                                    <children>
+                                                        <Label id="catLabel" fx:id="catLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Catchup Archiver" textAlignment="CENTER">
+                                                            <tooltip>
+                                                                <Tooltip fx:id="catTooltip" text="CATCHUP ARCHIVER Offline" />
+                                                            </tooltip>
+                                                            <font>
+                                                                <Font size="12.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <MenuButton id="catStateMenu" fx:id="catStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
+                                                            <items>
+                                                                <MenuItem fx:id="cata_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
+                                                                <MenuItem fx:id="cata_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
+                                                                <MenuItem fx:id="cata_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
+                                                                <MenuItem fx:id="cata_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
+                                                                <MenuItem fx:id="cata_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
+                                                                <MenuItem fx:id="cata_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
+                                                                <Menu mnemonicParsing="false" style="-fx-font-size: 11; -fx-text-fill: red;" text="Bypass State Logic">
+                                                                    <items>
+                                                                        <MenuItem fx:id="cata_EnterBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enterControl" />
+                                                                        <MenuItem fx:id="cata_StartBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="start" />
+                                                                        <MenuItem fx:id="cata_EnableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enable" />
+                                                                        <MenuItem fx:id="cata_DisableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="disable" />
+                                                                        <MenuItem fx:id="cata_StandbyBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="standby" />
+                                                                        <MenuItem fx:id="cata_ExitBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="exitControl" />
+                                                                    </items>
+                                                                </Menu>
+                                                            </items>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets top="10.0" />
+                                                            </VBox.margin>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="24.0" prefWidth="170.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="catStateText" fx:id="catStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                        <Label id="proLabel" fx:id="proLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 1 0 1 0; -fx-text-fill: gainsboro;" text="Prompt Processing" textAlignment="CENTER">
+                                                            <tooltip>
+                                                                <Tooltip fx:id="proTooltip" text="PROCESSING CLUSTER Offline" />
+                                                            </tooltip>
+                                                            <font>
+                                                                <Font size="12.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets top="30.0" />
+                                                            </VBox.margin>
+                                                        </Label>
+                                                        <MenuButton id="proStateMenu" fx:id="proStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
+                                                            <items>
+                                                                <MenuItem fx:id="prop_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
+                                                                <MenuItem fx:id="prop_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
+                                                                <MenuItem fx:id="prop_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
+                                                                <MenuItem fx:id="prop_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
+                                                                <MenuItem fx:id="prop_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
+                                                                <MenuItem fx:id="prop_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
+                                                                <Menu mnemonicParsing="false" style="-fx-font-size: 11; -fx-text-fill: red;" text="Bypass State Logic">
+                                                                    <items>
+                                                                        <MenuItem fx:id="prop_EnterBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enterControl" />
+                                                                        <MenuItem fx:id="prop_StartBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="start" />
+                                                                        <MenuItem fx:id="prop_EnableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enable" />
+                                                                        <MenuItem fx:id="prop_DisableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="disable" />
+                                                                        <MenuItem fx:id="prop_StandbyBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="standby" />
+                                                                        <MenuItem fx:id="prop_ExitBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="exitControl" />
+                                                                    </items>
+                                                                </Menu>
+                                                            </items>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets top="10.0" />
+                                                            </VBox.margin>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="24.0" prefWidth="170.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="proStateText" fx:id="proStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                                <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 0 0;" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="1050.0">
+                                    <children>
+                                        <HBox id="auxHBox" fx:id="auxHBox" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="1050.0">
+                                            <children>
+                                                <VBox layoutX="535.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
+                                                    <children>
+                                                        <Label id="aschLabel" fx:id="aschLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary Scheduler" textAlignment="CENTER">
+                                                            <tooltip>
+                                                                <Tooltip fx:id="aschTooltip" text="Auxiliary Scheduler Offline" />
+                                                            </tooltip>
+                                                            <font>
+                                                                <Font size="12.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <MenuButton id="aschStateMenu" fx:id="aschStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
+                                                            <items>
+                                                                <MenuItem fx:id="asch_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
+                                                                <MenuItem fx:id="asch_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
+                                                                <MenuItem fx:id="asch_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
+                                                                <MenuItem fx:id="asch_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
+                                                                <MenuItem fx:id="asch_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
+                                                                <MenuItem fx:id="asch_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
+                                                                <Menu mnemonicParsing="false" style="-fx-font-size: 11; -fx-text-fill: red;" text="Bypass State Logic">
+                                                                    <items>
+                                                                        <MenuItem fx:id="asch_EnterBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enterControl" />
+                                                                        <MenuItem fx:id="asch_StartBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="start" />
+                                                                        <MenuItem fx:id="asch_EnableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enable" />
+                                                                        <MenuItem fx:id="asch_DisableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="disable" />
+                                                                        <MenuItem fx:id="asch_StandbyBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="standby" />
+                                                                        <MenuItem fx:id="asch_ExitBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="exitControl" />
+                                                                    </items>
+                                                                </Menu>
+                                                            </items>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets top="10.0" />
+                                                            </VBox.margin>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="24.0" prefWidth="170.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="aschStateText" fx:id="aschStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                                <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-width: 0 1 0 0; -fx-border-style: solid;">
+                                                    <children>
+                                                        <Label id="atcsLabel" fx:id="atcsLabel" alignment="CENTER" cache="true" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary Telescope" textAlignment="CENTER">
+                                                            <tooltip>
+                                                                <Tooltip id="atcsTooltip" fx:id="atcsTooltip" text="Auxiliary Telescope Offline" />
+                                                            </tooltip>
+                                                            <opaqueInsets>
+                                                                <Insets />
+                                                            </opaqueInsets>
+                                                            <font>
+                                                                <Font size="12.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <MenuButton id="atcsStateMenu" fx:id="atcsStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
+                                                            <items>
+                                                                <MenuItem fx:id="atcs_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
+                                                                <MenuItem fx:id="atcs_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
+                                                                <MenuItem fx:id="atcs_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
+                                                                <MenuItem fx:id="atcs_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
+                                                                <MenuItem fx:id="atcs_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
+                                                                <MenuItem fx:id="atcs_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
+                                                                <Menu mnemonicParsing="false" style="-fx-font-size: 11; -fx-text-fill: red;" text="Bypass State Logic">
+                                                                    <items>
+                                                                        <MenuItem fx:id="atcs_EnterBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enterControl" />
+                                                                        <MenuItem fx:id="atcs_StartBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="start" />
+                                                                        <MenuItem fx:id="atcs_EnableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enable" />
+                                                                        <MenuItem fx:id="atcs_DisableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="disable" />
+                                                                        <MenuItem fx:id="atcs_StandbyBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="standby" />
+                                                                        <MenuItem fx:id="atcs_ExitBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="exitControl" />
+                                                                    </items>
+                                                                </Menu>
+                                                            </items>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets top="10.0" />
+                                                            </VBox.margin>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="24.0" prefWidth="174.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="atcsStateText" fx:id="atcsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                        <Separator prefHeight="24.0" prefWidth="174.0">
+                                                            <VBox.margin>
+                                                                <Insets top="25.0" />
+                                                            </VBox.margin>
+                                                        </Separator>
+                                                        <MenuButton id="atcsCmdMenu" fx:id="atcsCmdMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="Commands">
+                                                            <items>
+                                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="filterChange" />
+                                                                <MenuItem mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="target" />
+                                                            </items>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets />
+                                                            </VBox.margin>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="62.0" prefWidth="174.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="21.0" prefWidth="70.0" text="command">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="atcsCmdText" fx:id="atcsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                    <HBox.margin>
+                                                        <Insets />
+                                                    </HBox.margin>
+                                                </VBox>
+                                                <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
+                                                    <children>
+                                                        <Label id="accsLabel" fx:id="accsLabel" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary Camera" textAlignment="CENTER">
+                                                            <tooltip>
+                                                                <Tooltip id="accsTooltip" fx:id="accsTooltip" text="Auxiliary Camera Offline" />
+                                                            </tooltip>
+                                                            <font>
+                                                                <Font size="12.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <MenuButton id="accsStateMenu" fx:id="accsStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
+                                                            <items>
+                                                                <MenuItem fx:id="acam_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
+                                                                <MenuItem fx:id="acam_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
+                                                                <MenuItem fx:id="acam_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
+                                                                <MenuItem fx:id="acam_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
+                                                                <MenuItem fx:id="acam_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
+                                                                <MenuItem fx:id="acam_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
+                                                                <Menu mnemonicParsing="false" style="-fx-font-size: 11; -fx-text-fill: red;" text="Bypass State Logic">
+                                                                    <items>
+                                                                        <MenuItem fx:id="acam_EnterBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enterControl" />
+                                                                        <MenuItem fx:id="acam_StartBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="start" />
+                                                                        <MenuItem fx:id="acam_EnableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enable" />
+                                                                        <MenuItem fx:id="acam_DisableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="disable" />
+                                                                        <MenuItem fx:id="acam_StandbyBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="standby" />
+                                                                        <MenuItem fx:id="acam_ExitBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="exitControl" />
+                                                                    </items>
+                                                                </Menu>
+                                                            </items>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets top="10.0" />
+                                                            </VBox.margin>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="24.0" prefWidth="170.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="accsStateText" fx:id="accsStateText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                        <Separator prefHeight="24.0" prefWidth="171.0">
+                                                            <VBox.margin>
+                                                                <Insets top="25.0" />
+                                                            </VBox.margin>
+                                                        </Separator>
+                                                        <MenuButton id="accsCmdMenu" fx:id="accsCmdMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="Commands">
+                                                            <items>
+                                                                <Menu fx:id="accsTakeImage" mnemonicParsing="false" style="-fx-font-size: 11;" text="takeImage">
+                                                                    <items>
+                                                                        <MenuItem fx:id="setTakeImageMenui" mnemonicParsing="false" onAction="#handleTakeImage" style="-fx-font-size: 11;" text="set parameters" />
+                                                                    </items>
+                                                                </Menu>
+                                                                <MenuItem fx:id="accsSetFilter" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="setFilter" />
+                                                                <MenuItem fx:id="accsInitImage" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11;" text="initImage" />
+                                                            </items>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="62.0" prefWidth="174.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="21.0" prefWidth="70.0" text="command">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="accsCmdText" fx:id="accsCmdText" editable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="104.0">
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                                <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
+                                                    <children>
+                                                        <Label id="aarcLabel" fx:id="aarcLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary Archiver" textAlignment="CENTER">
+                                                            <tooltip>
+                                                                <Tooltip id="aarcTooltip" fx:id="aarcTooltip" text="Auxiliary Archiver Offline" />
+                                                            </tooltip>
+                                                            <font>
+                                                                <Font size="12.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <MenuButton id="aarcStateMenu" fx:id="aarcStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
+                                                            <items>
+                                                                <MenuItem fx:id="aarc_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
+                                                                <MenuItem fx:id="aarc_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
+                                                                <MenuItem fx:id="aarc_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
+                                                                <MenuItem fx:id="aarc_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
+                                                                <MenuItem fx:id="aarc_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
+                                                                <MenuItem fx:id="aarc_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
+                                                                <Menu mnemonicParsing="false" style="-fx-font-size: 11; -fx-text-fill: red;" text="Bypass State Logic">
+                                                                    <items>
+                                                                        <MenuItem fx:id="aarc_EnterBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enterControl" />
+                                                                        <MenuItem fx:id="aarc_StartBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="start" />
+                                                                        <MenuItem fx:id="aarc_EnableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enable" />
+                                                                        <MenuItem fx:id="aarc_DisableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="disable" />
+                                                                        <MenuItem fx:id="aarc_StandbyBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="standby" />
+                                                                        <MenuItem fx:id="aarc_ExitBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="exitControl" />
+                                                                    </items>
+                                                                </Menu>
+                                                            </items>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets top="10.0" />
+                                                            </VBox.margin>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="24.0" prefWidth="170.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="aarcStateText" fx:id="aarcStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                                <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 1 0 0;">
+                                                    <children>
+                                                        <Label id="ahdrLabel" fx:id="ahdrLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="175.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-text-fill: gainsboro;" text="Auxiliary Header Service" textAlignment="CENTER">
+                                                            <tooltip>
+                                                                <Tooltip fx:id="ahdrTooltip" text="Auxiliary Header Service Offline" />
+                                                            </tooltip>
+                                                            <font>
+                                                                <Font size="12.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <MenuButton id="ahdrStateMenu" fx:id="ahdrStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
+                                                            <items>
+                                                                <MenuItem fx:id="ahdr_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
+                                                                <MenuItem fx:id="ahdr_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
+                                                                <MenuItem fx:id="ahdr_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
+                                                                <MenuItem fx:id="ahdr_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
+                                                                <MenuItem fx:id="ahdr_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
+                                                                <MenuItem fx:id="ahdr_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
+                                                                <Menu mnemonicParsing="false" style="-fx-font-size: 11; -fx-text-fill: red;" text="Bypass State Logic">
+                                                                    <items>
+                                                                        <MenuItem fx:id="ahdr_EnterBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enterControl" />
+                                                                        <MenuItem fx:id="ahdr_StartBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="start" />
+                                                                        <MenuItem fx:id="ahdr_EnableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="enable" />
+                                                                        <MenuItem fx:id="ahdr_DisableBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="disable" />
+                                                                        <MenuItem fx:id="ahdr_StandbyBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="standby" />
+                                                                        <MenuItem fx:id="ahdr_ExitBypass" mnemonicParsing="false" onAction="#cscCmd" style="-fx-font-size: 11; -fx-text-fill: red;" text="exitControl" />
+                                                                    </items>
+                                                                </Menu>
+                                                            </items>
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets top="10.0" />
+                                                            </VBox.margin>
+                                                        </MenuButton>
+                                                        <HBox prefHeight="24.0" prefWidth="170.0">
+                                                            <children>
+                                                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="56.0" text="state">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="10.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField id="ahdrStateText" fx:id="ahdrStateText" editable="false" layoutX="54.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="125.0">
+                                                                    <HBox.margin>
+                                                                        <Insets top="1.0" />
+                                                                    </HBox.margin>
+                                                                    <font>
+                                                                        <Font size="11.0" />
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </AnchorPane>
+                            </items>
+                        </SplitPane>
+                    </content>
+                </Tab>
+                <Tab text="CALIBRATION" />
+            </tabs>
+        </TabPane>
+    </center>
+    <bottom>
+        <TextField alignment="TOP_LEFT" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="1051.0" style="-fx-border-style: solid; -fx-border-width: 1 1 1 1;" BorderPane.alignment="TOP_LEFT" />
+    </bottom>
 </BorderPane>

@@ -22,7 +22,7 @@ import javafx.concurrent.Task;
 
 /**
  * <h2>Command Task</h2>
- *
+ * <p>
  * The {@code CmdTask} class implements the {@link Task} interface and overrides
  * the {@code call()} method defined in it. The {@code CmdTask} class wraps a
  * SAL command topic and is intended to be run in a separate {@link Thread}.
@@ -33,53 +33,61 @@ import javafx.concurrent.Task;
  */
 public class CmdTask extends Task<Void> {
 
-    /* State Pattern: Context (e.g. Entity entityMTCS) */
-    private final Entity _entity;
+  /*
+   * State Pattern: Context (e.g. Entity entityMTCS)
+   */
+  private final Entity _entity;
 
-    private final CommandableSalComponent _csc;
-    private final String _cmd;
+  private final CommandableSalComponent _csc;
+  private final String _cmd;
 
-    public CmdTask( CommandableSalComponent csc, String cmd ) {
+  public CmdTask( CommandableSalComponent csc, String cmd ) {
 
-        this._csc = csc;
-        this._cmd = cmd;
-        this._entity = null;
+    this._csc = csc;
+    this._cmd = cmd;
+    this._entity = null;
+  }
+
+  public CmdTask( Entity entity, String cmd ) {
+
+    this._entity = entity;
+    this._cmd = cmd;
+    this._csc = entity.getCSC();
+  }
+
+  public String getName() {
+
+    return "CmdTask" + "::" + this._csc.getName() + "::" + this._cmd;
+  }
+
+  @Override
+  public Void call() {
+
+    Thread.currentThread().setName( getName() );
+    out.println( this.getName() + "::"
+                 + Thread.currentThread().getStackTrace()[1].getMethodName()
+                 + "::"
+                 + "Threadid: "
+                 + Thread.currentThread().getId() );
+
+    try {
+      /*
+       * State Pattern: Context.request() [e.g. entityMTCS.enterControl()]
+       */
+      _entity.getClass()
+          /*
+           * specify method & that it takes no (i.e. null) args
+           */
+          .getMethod( this._cmd, new Class<?>[]{} )
+          /*
+           * invoke w/ null args
+           */
+          .invoke( this._entity, new Object[]{} );
+    } catch ( Exception e ) {
+      e.printStackTrace(
+          out.printf( this.getName() + "interrupted from CmdTask.call()" ) );
     }
 
-    public CmdTask( Entity entity, String cmd ) {
-
-        this._entity = entity;
-        this._cmd = cmd;
-        this._csc = entity.getCSC();
-    }
-
-    public String getName() {
-        
-        return "CmdTask" + "::" + this._csc.getName() + "::" + this._cmd;
-    }
-
-    @Override
-    public Void call () {
-
-        Thread.currentThread().setName( getName() );
-        out.println( this.getName() + "::"
-                                    + Thread.currentThread().getStackTrace()[1].getMethodName()
-                                    + "::"
-                                    + "Threadid: "
-                                    + Thread.currentThread().getId() );
-
-        try {
-            /* State Pattern: Context.request() [e.g. entityMTCS.enterControl()] */
-            _entity.getClass()
-                   /* specify method & that it takes no (i.e. null) args */
-                   .getMethod( this._cmd, new Class<?>[]{} )
-                   /* invoke w/ null args */
-                   .invoke( this._entity, new Object[]{} );
-        } catch ( Exception e ) {
-            e.printStackTrace(
-                out.printf( this.getName() + "interrupted from CmdTask.call()" ));
-        }
-
-        return null;
-    }
+    return null;
+  }
 }

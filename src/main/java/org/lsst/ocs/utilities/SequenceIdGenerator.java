@@ -19,85 +19,83 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * <h2>Sequence Id Generator</h2>
- *
+ * <p>
  * The non-instantiable {@code SequenceIdGenerator} utility/helper class
  * that implements a {@link Thread} safe version of a monotonic counter.
- *
- * Example: 
+ * <p>
+ * Example:
  * <pre>
- *  {@code string seqId = SequenceIdGenerator.getInstance().getNextId(); } 
+ *  {@code string seqId = SequenceIdGenerator.getInstance().getNextId(); }
  * </pre>
  */
 public final class SequenceIdGenerator {
-    
-    private static volatile SequenceIdGenerator _instance = null;
 
-    private static AtomicInteger _atomicSranInt;
+  private static volatile SequenceIdGenerator _instance = null;
 
-    // private Cstr so no direct instances can be made    
-    private SequenceIdGenerator() {
+  private static AtomicInteger _atomicSranInt;
 
-    	// Prevent forming new instance via reflection API
-    	if ( _instance != null ) {
-            
-            throw new RuntimeException( "Use getInstance () method to get the singleton instance of this class" );
-    	}
+  // private Cstr so no direct instances can be made    
+  private SequenceIdGenerator() {
+
+    // Prevent forming new instance via reflection API
+    if ( _instance != null ) {
+
+      throw new RuntimeException( "Use getInstance () method to get the singleton instance of this class" );
+    }
+  }
+
+  private static void createInstance() {
+
+    // make local copy
+    SequenceIdGenerator instance = SequenceIdGenerator._instance;
+
+    // Double-check locking pattern
+    if ( instance == null ) {   // 1st Check
+
+      // Thread safe
+      synchronized ( SequenceIdGenerator.class ) {
+
+        instance = SequenceIdGenerator._instance;
+
+        if ( instance == null ) {   // 2nd Check
+
+          SequenceIdGenerator._instance = instance = new SequenceIdGenerator();
+
+          _atomicSranInt = new AtomicInteger( ThreadLocalRandom.current().nextInt( 1 ) );
+        }
+      }
+    }
+  }
+
+  public static SequenceIdGenerator getInstance() {
+
+    createInstance();
+
+    return SequenceIdGenerator._instance;
+  }
+
+  public static String getNextId() {
+
+    _atomicSranInt.incrementAndGet();
+
+    return Integer.toUnsignedString( _atomicSranInt.get() );
+  }
+
+  public static String getNextId( int offset ) {
+
+    _atomicSranInt.getAndAdd( offset );
+
+    return Integer.toUnsignedString( _atomicSranInt.get() );
+  }
+
+  public static String getNextBlockId() {
+
+    if ( ( _atomicSranInt.intValue() % 10 ) > 0 ) {
+
+      _atomicSranInt.getAndUpdate( x -> x + ( 10 - ( _atomicSranInt.intValue() % 10 ) ) );
+
     }
 
-    private static void createInstance() {
-        
-        // make local copy
-        SequenceIdGenerator instance = SequenceIdGenerator._instance;
-        
-    	// Double-check locking pattern
-    	if ( instance == null ) {   // 1st Check
-
-            // Thread safe
-            synchronized( SequenceIdGenerator.class ) {
-                
-                instance = SequenceIdGenerator._instance;
-                
-                if ( instance == null ) {   // 2nd Check
-
-                    SequenceIdGenerator._instance = instance = new SequenceIdGenerator();
-
-                    _atomicSranInt = new AtomicInteger( ThreadLocalRandom.current().nextInt( 1 ) ); 
-                }
-            }
-    	}
-    }
-
-    public static SequenceIdGenerator getInstance() {
-        
-        createInstance();
-        
-        return SequenceIdGenerator._instance;
-    }
-        
-    public static String getNextId() {
-     
-        _atomicSranInt.incrementAndGet();
-        
-        return Integer.toUnsignedString( _atomicSranInt.get() );
-    }
-
-    public static String getNextId( int offset ) {
-        
-        _atomicSranInt.getAndAdd( offset );
-        
-        return Integer.toUnsignedString( _atomicSranInt.get() );
-    }
-
-    public static String getNextBlockId( ) {
-        
-        if ( (_atomicSranInt.intValue() % 10) > 0 ) {
-                
-            _atomicSranInt.getAndUpdate( x -> x + ( 10 - ( _atomicSranInt.intValue() % 10 ) ) );
-                
-            }
-
-        return Integer.toUnsignedString( _atomicSranInt.get() );
-    }
+    return Integer.toUnsignedString( _atomicSranInt.get() );
+  }
 }
-
-

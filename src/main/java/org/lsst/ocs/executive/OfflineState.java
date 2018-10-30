@@ -22,66 +22,78 @@ import static java.lang.System.out;
 
 /**
  * <h2>Offline Entity State</h2>
- *
+ * <p>
  * {@code OfflineState} is a Concrete State class implementation.
  * <p>
  * Transitions to: {@code StandbyState}
  */
 public class OfflineState implements EntityState {
 
-    @Override
-    public String getName() { return "OfflineState"; }
+  @Override
+  public String getName() {
+    return "OfflineState";
+  }
 
-    @Override
-    public void enterControl( Entity entity ) {
+  @Override
+  public void enterControl( Entity entity ) {
 
-        String salactor = entity.getClass()
-                                .getSimpleName() + "." 
-                                                 + entity.getCSC().getClass().getSimpleName()
-                                                 + "."
-                                                 + this.getName()
-                                                 + ".enterControl";
-        
-        out.println( salactor + ": " + Thread.currentThread().getId() );
+    String salactor = entity.getClass()
+        .getSimpleName() + "."
+                      + entity.getCSC().getClass().getSimpleName()
+                      + "."
+                      + this.getName()
+                      + ".enterControl";
 
-        /* Cmd Sequencer, TCS, CCS or DMCS via SAL */
-        
-        /*  
-                    * 1. Command Pattern: SalComponent (Rcvr) reference is entity data member
-                    * 2. Command Pattern: Define Concrete SalService (Concrete Cmd) for specific SalComponent (Rcvr)
-                    */
-        SalCmd salCmd = new SalCmd( entity._salComponent );
+    out.println( salactor + ": " + Thread.currentThread().getId() );
 
-        /* 3. Also, assign topic & topic arguments */
-        salCmd.setTopic( "enterControl" );
+    /*
+     * Cmd Sequencer, TCS, MTCAMERA or DMCS via SAL
+     */
+ /*
+     * 1. Command Pattern: SalComponent (Rcvr) reference is entity data member
+     * 2. Command Pattern: Define Concrete SalService (Concrete Cmd) for specific SalComponent
+     * (Rcvr)
+     */
+    SalCmd salCmd = new SalCmd( entity._salComponent );
 
-        /* 4. Command Pattern: Define Invoker & set up command request */
-        SalConnect salConnect = new SalConnect( 1 );
-        salConnect.setSalService( salCmd );
+    /*
+     * 3. Also, assign topic & topic arguments
+     */
+    salCmd.setTopic( "enterControl" );
 
-        /* 5. Command Pattern: Invoker.executeCommand() */
-        salConnect.connect(); //  indirectly calls: commandIF.execute() [salService.execute()]
+    /*
+     * 4. Command Pattern: Define Invoker & set up command request
+     */
+    SalConnect salConnect = new SalConnect( 1 );
+    salConnect.setSalService( salCmd );
 
-        if ( EntityType.OCS.toString().equalsIgnoreCase( salactor )) {
+    /*
+     * 5. Command Pattern: Invoker.executeCommand()
+     */
+    salConnect.connect(); //  indirectly calls: commandIF.execute() [salService.execute()]
 
-            /* 1. Publish SummaryState if not previously pub'd */
-            SalEvent salEvent = new SalEvent( entity._salComponent );
-            salEvent.setTopic( "summaryState" );
+    if ( EntityType.OCS.toString().equalsIgnoreCase( salactor ) ) {
 
-            salConnect.setSalService( salEvent );
-            salConnect.connect();
+      /*
+       * 1. Publish SummaryState if not previously pub'd
+       */
+      SalEvent salEvent = new SalEvent( entity._salComponent );
+      salEvent.setTopic( "summaryState" );
 
-            /* 
-                             * 2. Check settings match (or differ) from start values
-                             *    a. Publish Topic->AppliedSettingsMatchStart (or they differ??)
-                             * /
-                              
-                             /*
-                             * 3. Full control features are allowed
-                             *    a. Entity reads/loads & applies control settings
-                             */
-        }
-        
-        waitForSummaryState( salactor, entity, new StandbyState() );
+      salConnect.setSalService( salEvent );
+      salConnect.connect();
+
+      /*
+       * 2. Check settings match (or differ) from start values
+       * a. Publish Topic->AppliedSettingsMatchStart (or they differ??)
+       * /
+       *
+       * /*
+       * 3. Full control features are allowed
+       * a. Entity reads/loads & applies control settings
+       */
     }
+
+    waitForSummaryState( salactor, entity, new StandbyState() );
+  }
 }
